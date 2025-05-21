@@ -41,6 +41,10 @@ frappe.ui.form.on("Issue", {
 				frm.save();
 			});
 		}
+
+		// frm.add_custom_button(__("Btn Hailes"), function () { 
+		// 	alert("Hello from logicpulse");
+		// });
 	},
 
 	reset_service_level_agreement: function (frm) {
@@ -162,4 +166,6 @@ frappe.ui.form.on("Issue", {
 		// 	frm.timeline.wrapper.data("help-article-event-attached", true);
 		// }
 	},
+
+	
 });

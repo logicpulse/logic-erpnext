@@ -1,5 +1,6 @@
 app_name = "erpnext"
-app_title = "ERPNext"
+# app_title = "ERPNext"
+app_title = "LogicERP"
 app_publisher = "Frappe Technologies Pvt. Ltd."
 app_description = """ERP made simple"""
 app_icon = "fa fa-th"
@@ -41,7 +42,7 @@ doctype_list_js = {
 	],
 	"Common Code": [
 		"edi/doctype/code_list/code_list_import.js",
-	],
+	]
 }
 
 override_doctype_class = {"Address": "erpnext.accounts.custom.address.ERPNextAddress"}
