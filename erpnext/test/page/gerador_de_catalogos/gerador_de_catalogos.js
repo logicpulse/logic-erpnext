@@ -5,7 +5,7 @@ frappe.pages['gerador-de-catalogos'].on_page_load = function (wrapper) {
 		single_column: true
 	});
 	//let $btn = page.set_primary_action('New', () => show(), 'octicon octicon-plus')
-	page.add_action_item('access', async () => await access());
+	page.add_action_item('access', async () => await access('1Nm6YatjJrugBxM38yaXlIJgLHfVAMCnnMLw83lga5YQ'));
 	page.add_action_item('time', () => delete_items());
 	page.add_action_item('q.track', () => delete_items());
 	page.add_action_item('fleet', () => delete_items());
@@ -31,7 +31,7 @@ async function access(spreadsheetId) {
 	frappe.call({
 		method: 'erpnext.test.page.gerador_de_catalogos.gerador_de_catalogos.catalog_access',
 		args: {
-			spreadsheet_id: '1Nm6YatjJrugBxM38yaXlIJgLHfVAMCnnMLw83lga5YQ',
+			spreadsheet_id: spreadsheetId,
 			sheet_name: 'Gestão de Acessos',
 			cell_range: 'E:P' // ou 'E1:P100' por exemplo
 		},
@@ -43,8 +43,6 @@ async function access(spreadsheetId) {
 		}
 	});
 }
- 
-
 
 function show() {
 	alert('clicked');
