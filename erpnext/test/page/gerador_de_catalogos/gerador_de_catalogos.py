@@ -2,6 +2,8 @@ import frappe
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import os 
+import webbrowser
+import requests
 from fpdf import FPDF, Align
 from dataclasses import dataclass
 from typing import Optional
@@ -22,11 +24,66 @@ class ProdutModel:
     PVP_MZ: str
 
 @frappe.whitelist()
-def catalog_access(spreadsheet_id: str, sheet_name: str, cell_range: str):
-    # Caminho absoluto para o arquivo de credenciais
+def catalog_access(ref: str, spreadsheet_id: str, sheet_name: str, cell_range: str, country: str, price_type: str):
+    try:
+        # Caminho absoluto para o arquivo de credenciais
+        values = get_values(spreadsheet_id, sheet_name, cell_range)
+        
+        show_pvr = 'pvr' in price_type.lower()
+        file_name = generate_pdf(ref, values, show_pvr, country)
+
+        # Abrir o PDF no navegador
+        print(f"PDF gerado caminho: {file_name}")
+        print(f"URL do PDF: {frappe.utils.get_url() + '/files/' + os.path.basename(file_name)}") 
+        # Para abrir o PDF no navegador, você pode usar o seguinte comando:
+        # print(frappe.utils.get_url() + '/files/' + os.path.basename(path))
+        # Para abrir um ficheiro local, é necessário passar o caminho absoluto com o prefixo 'file://'
+        webbrowser.open_new_tab(frappe.utils.get_url() + '/files/' + file_name) 
+        return file_name
+
+        # Upload do arquivo PDF para o ERPNext
+        """ base_url = 'http://127.0.0.1:8000'
+        token = "420f90a22fbdd49:c6120426186a946"  
+        caminho_arquivo = file_name
+
+        # Endpoint de upload
+        url = f"{base_url}/api/method/upload_file" 
+        # Cabeçalhos
+        headers = {
+            "Accept": "application/json",
+            "Authorization": f"token {token}"
+        } 
+        # Arquivo para upload
+        files = {
+            "file": open(caminho_arquivo, "rb")
+        } 
+        # Requisição POST
+        response = requests.post(url, headers=headers, files=files)
+
+        # Resultado
+        print("Conteúdo da resposta:", response.text)
+        print(response.status_code)
+        print(response.json())
+        if response.status_code == 200 or response.status_code == 201:
+            print("Upload realizado com sucesso!")
+            # Abrir o PDF no navegador
+            print("Abrindo o PDF no navegador...")
+            # Obter a URL do arquivo enviado
+            response_data = response.json()
+            file_url = response_data.get('message', {}).get('file_url', '') 
+            if file_url:
+                webbrowser.open_new_tab(file_url)
+        else:
+            frappe.throw(f"Erro ao fazer upload do arquivo: {response.text}") """
+        # return file_name
+    except Exception as err:
+        frappe.log_error(frappe.get_traceback(), "Catalog Access Error")
+        frappe.throw(f"Erro ao acessar o catálogo: {str(err)}")
+
+def get_values(spreadsheet_id, sheet_name, cell_range):
     creds_path = os.path.join(
-        frappe.get_app_path('erpnext', 'test', 'page', 'gerador_de_catalogos', 'app_client_secret.json')
-    )
+            frappe.get_app_path('erpnext', 'test', 'page', 'gerador_de_catalogos', 'app_client_secret.json')
+        )
 
     scope = [ 'https://www.googleapis.com/auth/spreadsheets', 'https://spreadsheets.google.com/feeds']
     creds = ServiceAccountCredentials.from_json_keyfile_name(creds_path, scope)
@@ -34,46 +91,7 @@ def catalog_access(spreadsheet_id: str, sheet_name: str, cell_range: str):
 
     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
     values = sheet.get(cell_range)
-    
-    generate_pdf(values, False)
-
     return values
-
-def generate_pdf(values: list[list[str]], show_pvr: bool):
-    # Caminhos 
-    root_dir = os.path.join(frappe.get_app_path('erpnext', 'test', 'page', 'gerador_de_catalogos'))
-    font_path = os.path.join(root_dir, 'DejaVuSans.ttf') 
-    image_background_path = os.path.join(root_dir, 'access', 'access.track_background.png')
-    header_image_path = os.path.join(root_dir, 'access', 'access.track_desc.png')
-    # Criação do PDF
-    pdf = FPDF()
-    pdf.set_page_background(image_background_path)
-    pdf.set_auto_page_break(auto=True, margin=15)
-    pdf.set_margins(top=35, left=10, right=10)
-    pdf.add_page() 
-    page_width = pdf.w
-    page_height = pdf.h
-    # pdf.image(image_background_path, x=0, y=0, w=page_width, h=page_height) 
-    pdf.image(header_image_path, x=10, y=30, w=page_width - 20)  
-  
-    pdf.add_font('DejaVu', '', font_path, uni=True)
-
-    # pdf.set_y(-15) 
-    # pdf.set_font("DejaVu", size=8) 
-    # pdf.cell(0, 10, f"Page {pdf.page_no()}/{{nb}}", align="C")
-
-    pdf.set_font("DejaVu", size=12)
-    
-    produts = convert_list_to_model(values)
-
-    # for p in produts:
-    #     print(p)
-
-    pdf.ln(40)
-    draw_table(pdf, produts, show_pvr) 
-
-    pdf_output_path = os.path.join(frappe.get_app_path('erpnext', 'test', 'page', 'gerador_de_catalogos', 'gerador_de_catalogos.pdf')) 
-    pdf.output(pdf_output_path) 
 
 def convert_list_to_model(values: list[list[str]]) -> list[ProdutModel]:
     if not values or len(values) < 3:
@@ -106,7 +124,49 @@ def convert_list_to_model(values: list[list[str]]) -> list[ProdutModel]:
 
     return models
 
-def draw_table(pdf: FPDF, produts: list[ProdutModel], show_pvr: bool):
+def generate_pdf(ref: str, values: list[list[str]], show_pvr: bool, country: str) -> str:
+    # Caminhos 
+    root_dir = os.path.join(frappe.get_app_path('erpnext', 'test', 'page', 'gerador_de_catalogos'))
+    font_path = os.path.join(root_dir, 'DejaVuSans.ttf') 
+    image_background_path = os.path.join(root_dir, ref, f'{ref}.track_background.png')
+    header_image_path = os.path.join(root_dir, ref, f'{ref}.track_desc.png')
+    # Criação do PDF
+    pdf = FPDF()
+    pdf.set_page_background(image_background_path)
+    pdf.set_auto_page_break(auto=True, margin=15)
+    pdf.set_margins(top=35, left=10, right=10)
+    pdf.add_page() 
+    page_width = pdf.w 
+    pdf.image(header_image_path, x=10, y=30, w=page_width - 20)  
+  
+    pdf.add_font('DejaVu', '', font_path, uni=True)
+
+    # pdf.set_y(-15) 
+    # pdf.set_font("DejaVu", size=8) 
+    # pdf.cell(0, 10, f"Page {pdf.page_no()}/{{nb}}", align="C")
+
+    pdf.set_font("DejaVu", size=12)
+    
+    produts = convert_list_to_model(values) 
+
+    pdf.ln(40) 
+    draw_table(pdf, produts, show_pvr, country)
+
+    file_name = f"catalogos_{ref}_{country.lower()}_{'pvr' if show_pvr else 'pvp'}.pdf" 
+    pdf_output_path = os.path.join(
+        frappe.get_app_path(
+            'erpnext', 'test', 'page', 'gerador_de_catalogos',
+            file_name
+        )
+    )
+    
+    # pdf_output_path = os.path.join(frappe.get_site_path('private', 'files', file_name))
+    
+    # /workspace/development/frappe-bench/sites/development.localhost/private/files/catalogo_ao.pdf
+    pdf.output(pdf_output_path)  
+    return pdf_output_path 
+
+def draw_table(pdf: FPDF, produts: list[ProdutModel], show_pvr: bool, country: str):
     # Definições de larguras das colunas
     col_widths = [20, 80 if show_pvr else 100, 25]
     col_widths += [25] if show_pvr else []
@@ -186,7 +246,8 @@ def draw_table(pdf: FPDF, produts: list[ProdutModel], show_pvr: bool):
             continue
 
         # Linha normal
-        pdf.set_fill_color(128, 128, 128) 
+        # pdf.set_fill_color(128, 128, 128) 
+        pdf.set_draw_color(128, 128, 128) 
         pdf.set_text_color(0, 0, 0)
         pdf.set_font("DejaVu", size=10) 
         
@@ -198,6 +259,42 @@ def draw_table(pdf: FPDF, produts: list[ProdutModel], show_pvr: bool):
         # Coluna 2: referência
         pdf.cell(col_widths[2], row_height, produto.Ref, border='B', align=Align.L, fill=False)
         idx = 3
+
+        if show_pvr:
+            pdf.cell(col_widths[idx], row_height, produto.Pct_PVR, border='B', align=Align.L, fill=False)
+            idx += 1
+
+        if country == 'AO':
+            pdf.cell(col_widths[idx], row_height, produto.PVP_AO, border='B', align=Align.L, fill=False)
+        elif country == 'MZ':
+            pdf.cell(col_widths[idx], row_height, produto.PVP_MZ, border='B', align=Align.L, fill=False)
+        else:
+            pdf.cell(col_widths[idx], row_height, produto.PVP_PT, border='B', align=Align.L, fill=False)
+
+        idx += 1
+        pdf.cell(col_widths[idx], row_height, 'i', border='B', align=Align.C, fill=False, link=produto.URL)
+        pdf.ln()
+
+        """ 
+        # Linha normal
+        # pdf.set_fill_color(128, 128, 128) 
+        pdf.set_draw_color(128, 128, 128)  # Cor da borda
+        pdf.set_text_color(0, 0, 0)
+        pdf.set_font("DejaVu", size=10) 
+        
+        # Coluna 0: imagem (aqui só mostra o texto, para inserir imagem use pdf.image)
+        pdf.cell(col_widths[0], row_height, produto.Imagem, border=False, align=Align.L, fill=False)
+        # Coluna 1: nome
+        x_before = pdf.get_x()
+        y_before = pdf.get_y()
+        pdf.multi_cell(col_widths[1], row_height, produto.Produto, border='B', align=Align.L, fill=False, print_sh=True)
+        y_after = pdf.get_y()
+        cell_height = y_after - y_before
+        pdf.set_xy(x_before + col_widths[1], y_before)
+        row_height = max(row_height, cell_height)
+        # Coluna 2: referência
+        pdf.cell(col_widths[2], row_height, produto.Ref, border='B', align=Align.L, fill=False)
+        idx = 3
         if show_pvr:
             pdf.cell(col_widths[idx], row_height, produto.PVR_PT, border='B', align=Align.L, fill=False)
             idx += 1
@@ -206,3 +303,6 @@ def draw_table(pdf: FPDF, produts: list[ProdutModel], show_pvr: bool):
         pdf.cell(col_widths[idx], row_height, 'i', border='B', align=Align.C, fill=False, link=produto.URL)
         # pdf.set_alpha(0.5)
         pdf.ln()
+        """
+
+
