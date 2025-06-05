@@ -19,3 +19,4 @@ node_modules/
 .backportrc.json
 # Aider AI Chat
 .aider*
+apps/erpnext/erpnext/test/page/gerador_de_catalogos/utils/app_client_secret.json
