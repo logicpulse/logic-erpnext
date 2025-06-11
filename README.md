@@ -25,7 +25,7 @@
 	<a href="https://docs.frappe.io/erpnext/">Documentation</a>
 </div>
 
-## ERPNext
+## logic ERPNext
 
 100% Open-Source ERP system to help you run your business.
 
@@ -120,8 +120,8 @@ To setup the repository locally follow the steps mentioned below:
 
 3. Get the ERPNext app and install it
    ```
-   # Get the ERPNext app
-   bench get-app https://github.com/frappe/erpnext
+   # Get the logic ERPNext app
+   bench get-app https://github.com/logicpulse/logic-erpnext.git
 
    # Install the app
    bench --site erpnext.localhost install-app erpnext

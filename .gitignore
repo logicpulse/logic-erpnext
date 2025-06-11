@@ -20,3 +20,4 @@ node_modules/
 # Aider AI Chat
 .aider* 
 erpnext/test/page/gerador_de_catalogos/utils/app_client_secret.json
+erpnext/test/page/gerador_de_catalogos/**/*.pdf
