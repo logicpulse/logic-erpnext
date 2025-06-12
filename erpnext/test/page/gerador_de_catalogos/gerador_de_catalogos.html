@@ -1,73 +1,57 @@
-<div class="container">
-    <div class="mx-auto p-3 border rounded mt-4" style="max-width: 500px;">
-        <!-- Header field -->
-        <div class="border p-2 mb-2 bg-light">
-            CATÁLOGO {COUNTRY} V1 2024
-        </div>
+<!DOCTYPE html>
+<html lang="en">
 
-        <!-- Reference field -->
-        <div class="border p-2 mb-2 bg-light">
-            ref. {COUNTRY}-{PRICETYPE}012024
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Gerador de Catálogos
+    </title>
+    <link rel="stylesheet" href="/assets/erpnext/css/output.css">
+</head>
 
-        <!-- Date info -->
-        <div class="mb-3 small">
-            em vigor a partir Fevereiro de 2024
-        </div>
+<body>
+    <div class="container">
+        <div class="mx-auto p-3 border rounded mt-4" style="max-width: 500px;">
+            <div class="border p-2 mb-2 bg-light">
+                CATÁLOGO {COUNTRY} V1 2024
+            </div>
 
-        <!-- Dropdown fields -->
-        <div class="mb-3">
-            <select id="pais" class="form-select" aria-placeholder="Selecione o pais" aria-label="Selecione o pais">
-                <option selected value="AO">Angola</option>
-                <option value="PT">Portugal</option>
-                <option value="MZ">Mozambique</option>
-            </select>
-        </div>
+            <div class="border p-2 mb-2 bg-light">
+                ref. {COUNTRY}-{PRICETYPE}012024
+            </div>
 
-        <div class="mb-3">
-            <select id="tipo_preco" class="form-select" aria-placeholder="Selecione o tipo de preço"
-                aria-label="Selecione o tipo de preço">
-                <option selected value="PVP">PVP</option>
-                <option value="PVR">PVR</option>
-            </select>
-        </div>
+            <div class="mb-3 small">
+                em vigor a partir Fevereiro de 2024
+            </div>
 
-        <!-- Slider -->
-        <div class="py-3 border-top border-bottom my-3">
-            <input type="range" class="form-range" min="0" max="100" value="50" id="customRange">
-        </div>
+            <div class="mb-3">
+                <select id="pais" class="form-select" aria-placeholder="Selecione o pais" aria-label="Selecione o pais">
+                    <option selected value="AO">Angola</option>
+                    <option value="PT">Portugal</option>
+                    <option value="MZ">Mozambique</option>
+                </select>
+            </div>
 
-        <!-- Optimize button -->
-        <div class="text-center">
-            <button type="button" class="btn btn-outline-primary btn-sm px-3">Optimize</button>
-        </div>
+            <div class="mb-3">
+                <select id="tipo_preco" class="form-select" aria-placeholder="Selecione o tipo de preço"
+                    aria-label="Selecione o tipo de preço">
+                    <option selected value="PVP">PVP</option>
+                    <option value="PVR">PVR</option>
+                </select>
+            </div>
 
-        <!-- Full Catalog button -->
-        <button type="button" class="btn btn-outline-secondary w-100 mt-3">Full Catalog</button>
+            <div class="py-3 border-top border-bottom my-3">
+                <input type="range" class="form-range" min="0" max="100" value="50" id="customRange">
+            </div>
+
+            <div class="text-center">
+                <button type="button" class="btn btn-outline-primary btn-sm px-3">Optimize</button>
+            </div>
+
+            <button type="button" class="btn btn-outline-secondary w-100 mt-3">Full Catalog</button>
+        </div>
     </div>
-</div>
+</body>
 
-
-<!-- <style>
-    .form-select {
-        --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
-        display: block;
-        width: 100%;
-        padding: .375rem 2.25rem .375rem .75rem;
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 1.5;
-        color: var(--bs-body-color);
-        background-color: var(--bs-body-bg);
-        background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
-        background-repeat: no-repeat;
-        background-position: right .75rem center;
-        background-size: 16px 12px;
-        border: var(--bs-border-width) solid var(--bs-border-color);
-        border-radius: var(--bs-border-radius);
-        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none
-    }
-</style> -->
+</html>

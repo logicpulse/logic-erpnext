@@ -6,12 +6,17 @@
     "url": "git+https://github.com/frappe/erpnext.git"
   },
   "homepage": "https://frappe.io/erpnext",
+  "scripts": {
+    "build": "npx tailwindcss -i ./erpnext/templates/input.css -o ./erpnext/public/css/output.css"
+  },
   "author": "Frappe Technologies Pvt. Ltd.",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/frappe/erpnext/issues"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "tailwindcss": "3"
+  },
   "dependencies": {
     "google-spreadsheet": "^4.1.4",
     "onscan.js": "^1.5.2"
