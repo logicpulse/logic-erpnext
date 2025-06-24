@@ -6,6 +6,7 @@ import webbrowser
 from fpdf import FPDF, Align
 from dataclasses import dataclass 
 from datetime import datetime
+import pandas as pd
 
 @dataclass
 class ProdutModel:
@@ -44,11 +45,16 @@ def get_catalog(ref: str, spreadsheet_id: str, sheet_name: str, cell_range: str,
         if price_type.lower() not in valid_price_types:
             frappe.throw("Invalid price type. Use 'PVR' or 'PVP'.")
         
+        # -print(values)
         show_pvr = 'pvr' in price_type.lower()
         file_name = generate_pdf(ref, values, show_pvr, country)
 
         # Abrir o PDF no navegador
         webbrowser.open_new_tab(frappe.utils.get_url() + '/files/' + file_name) 
+        
+        # df = pd.DataFrame(values[2:], columns=values[1])
+        # df.to_excel(file_name.replace(".pdf", ".xlsx"), index=False)
+
         return file_name
     except Exception as err:
         frappe.log_error(frappe.get_traceback(), "Catalog Access Error")
@@ -113,7 +119,15 @@ def get_values(spreadsheet_id, sheet_name, cell_range):
 
     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
     values = sheet.get(cell_range)
-    return values
+    valuesForm = sheet.get(cell_range, value_render_option='FORMULA')
+ 
+    for i, row in enumerate(valuesForm):
+        for j, cell in enumerate(row): 
+            if isinstance(cell, str) and cell.startswith('=image'): 
+                # print(f"Converting formula to value at {i}, {j}: {cell}")
+                values[i][j] = valuesForm[i][j]
+
+    return values 
 
 def convert_list_to_model(values: list[list[str]]) -> list[ProdutModel]:
     if not values or len(values) < 3:
@@ -197,140 +211,115 @@ def get_header_color(ref: str) -> tuple[int, int, int]:
     }
     return cores.get(ref, (0, 0, 0))
 
+def estimate_multicell_height(pdf: FPDF, text: str, width: float, line_height: float = 5) -> float:
+    """Estima a altura que um multi_cell ocupará, baseado na largura disponível."""
+    string_width = pdf.get_string_width(text)
+    lines = max(1, round(string_width / width))
+    return lines * line_height
+
 def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, country: str):
-    # Definições de larguras das colunas
     col_widths = [20, 80 if show_pvr else 100, 25]
     col_widths += [25] if show_pvr else []
     col_widths += [25 if show_pvr else 35, 15]
 
-    # Cabeçalho
     headers = ["", "Nome", "Referência"]
     if show_pvr:
         headers += ["Uni./ PVR", "Uni./ PVP", "Ver+"]
     else:
         headers += ["Uni./ PVP", "Ver+"]
 
-    # Estilos
+    def draw_header():
+        pdf.set_fill_color(*color)
+        pdf.set_text_color(255, 255, 255)
+        pdf.set_font("DejaVu", size=12)
+        pdf.set_draw_color(255, 255, 255)
+        for i, header in enumerate(headers):
+            pdf.cell(col_widths[i], 10, header, border=1, align=Align.L, fill=True)
+        pdf.ln()
+
     color = get_header_color(ref)
-    pdf.set_fill_color(*color)
-    pdf.set_text_color(255, 255, 255)
-    pdf.set_font("DejaVu", size=12)
-    pdf.set_draw_color(255, 255, 255)
-    pdf.set_line_width(0.1)
+    draw_header()
 
-    # Desenha cabeçalho
-    for i, header in enumerate(headers):
-        pdf.cell(col_widths[i], 10, header, border=1, align=Align.L, fill=True)
-    pdf.ln()
-
-    # Reset estilos para linhas normais
-    pdf.set_font("DejaVu", size=11)
+    pdf.set_font("DejaVu", size=10)
     pdf.set_text_color(0, 0, 0)
-
-    regular_line = 10
-    midle_line = 15
-    large_line = 20
+    pdf.set_draw_color(128, 128, 128)
 
     for produto in produts:
-        # Ajuste de altura da linha conforme regras do C#
-        if produto.Imagem.startswith("http"):
-            if "transparent.png" in produto.Imagem and len(produto.Produto) > 0:
-                if len(produto.Produto) <= 70:
-                    row_height = regular_line
-                elif len(produto.Produto) <= 140:
-                    row_height = midle_line
-                else:
-                    row_height = large_line
-            else:
-                row_height = large_line
-        elif produto.Ref.startswith("*") or produto.Ref.startswith("#"):
-            row_height = 12
+        # Títulos e Subtítulos
+        if produto.Ref.startswith("*") or produto.Ref.startswith("#"):
+            fill_color = (47, 47, 47) if produto.Ref.startswith("*") else (128, 128, 128)
+            pdf.set_fill_color(*fill_color)
+            pdf.set_text_color(255, 255, 255)
+            pdf.set_font("DejaVu", size=12)
+            pdf.cell(sum(col_widths), 10, produto.Produto, border=1, fill=True)
+            pdf.ln()
+            pdf.set_font("DejaVu", size=10)
+            pdf.set_text_color(0, 0, 0)
+            continue
+
+        image_path = clean_image_formula(produto.Imagem)
+        temp_y = pdf.get_y()
+        temp_x = pdf.get_x()
+
+        # Estimar altura da célula "Nome"
+        height_nome = estimate_multicell_height(pdf, produto.Produto, col_widths[1])
+        image_height = height_nome if image_path.startswith("http") else 10
+        line_height = max(height_nome, image_height, 10)
+
+        # Verifica quebra de página
+        if pdf.get_y() + line_height > pdf.page_break_trigger:
+            pdf.add_page()
+            # draw_header()  # Descomente se quiser cabeçalho em cada página
+            temp_y = pdf.get_y()
+            temp_x = pdf.get_x()
+
+        # Coluna 0: imagem
+        if image_path.startswith("http"):
+            pdf.image(image_path, x=temp_x, y=temp_y, w=col_widths[0], h=line_height)
         else:
-            row_height = regular_line
+            pdf.set_xy(temp_x, temp_y)
+            pdf.cell(col_widths[0], line_height, '', border=0)
 
-        # Títulos
-        if produto.Ref.startswith("*"):
-            pdf.set_fill_color(47, 47, 47)
-            pdf.set_text_color(255, 255, 255)
-            pdf.set_font("DejaVu", size=12)
-            texto = produto.Produto
-            col_span = sum(col_widths)
-            pdf.cell(col_span, row_height, texto, border=1, align=Align.L, fill=True)
-            pdf.ln()
-            pdf.set_font("DejaVu", size=11)
-            pdf.set_text_color(0, 0, 0)
-            continue
-
-        # Subtítulos
-        if produto.Ref.startswith("#"):
-            pdf.set_fill_color(128, 128, 128)
-            pdf.set_text_color(255, 255, 255)
-            pdf.set_font("DejaVu", size=12)
-            texto = produto.Produto
-            col_span = sum(col_widths)
-            pdf.cell(col_span, row_height, texto, border=1, align=Align.L, fill=True)
-            pdf.ln()
-            pdf.set_font("DejaVu", size=11)
-            pdf.set_text_color(0, 0, 0)
-            continue
-
-        # Linha normal
-        pdf.set_draw_color(128, 128, 128)
-        pdf.set_text_color(0, 0, 0)
-        pdf.set_font("DejaVu", size=10)
-
-        # Salva a posição inicial da linha
-        x_start = pdf.get_x()
-        y_start = pdf.get_y()
-
-        # Coluna 0: Imagem (apenas texto)
-        pdf.multi_cell(col_widths[0], row_height, produto.Imagem, border=0, align=Align.L)
-        x_nome = x_start + col_widths[0]
-        pdf.set_xy(x_nome, y_start)
-
-        # Coluna 1: Nome (pode quebrar em várias linhas)
-        nome_lines = pdf.multi_cell(col_widths[1], 7, produto.Produto, border=0, align=Align.L, split_only=True)
-        nome_height = 7 * len(nome_lines)
-        max_height = max(nome_height, row_height)
-
-        pdf.set_xy(x_nome + col_widths[1], y_start)
+        # Coluna 1: Nome (com multi_cell e borda manual)
+        pdf.set_xy(temp_x + col_widths[0], temp_y)
+        pdf.multi_cell(col_widths[1], 5, produto.Produto, border=0)
+        pdf.rect(temp_x + col_widths[0], temp_y, col_widths[1], line_height)  # borda externa
 
         # Coluna 2: Referência
-        pdf.multi_cell(col_widths[2], max_height, produto.Ref, border=0, align=Align.L)
-        x_next = x_nome + col_widths[1] + col_widths[2]
-        pdf.set_xy(x_next, y_start)
+        x_pos = temp_x + col_widths[0] + col_widths[1]
+        pdf.set_xy(x_pos, temp_y)
+        pdf.cell(col_widths[2], line_height, produto.Ref, border='B', align=Align.L)
+        x_pos += col_widths[2]
 
-        idx = 3
-
-        # Coluna PVR (se aplicável)
+        # PVR (se aplicável)
         if show_pvr:
-            pdf.multi_cell(col_widths[idx], max_height, produto.Pct_PVR, border=0, align=Align.L)
-            x_next += col_widths[idx]
-            pdf.set_xy(x_next, y_start)
-            idx += 1
+            pdf.set_xy(x_pos, temp_y)
+            pdf.cell(col_widths[3], line_height, produto.Pct_PVR, border='B', align=Align.L)
+            x_pos += col_widths[3]
 
-        # Coluna preço por país
+        # PVP conforme país
+        pvp = produto.PVP_PT
         if country == 'AO':
-            preco = produto.PVP_AO
+            pvp = produto.PVP_AO
         elif country == 'MZ':
-            preco = produto.PVP_MZ
-        else:
-            preco = produto.PVP_PT
-        pdf.multi_cell(col_widths[idx], max_height, preco, border=0, align=Align.L)
-        x_next += col_widths[idx]
-        pdf.set_xy(x_next, y_start)
+            pvp = produto.PVP_MZ
 
-        # Coluna link
-        pdf.multi_cell(col_widths[idx+1], max_height, 'i', border=0, align=Align.C, link=produto.URL)
-        # Move para a próxima linha
-        pdf.set_xy(x_start, y_start + max_height)
+        pdf.set_xy(x_pos, temp_y)
+        pdf.cell(col_widths[-2], line_height, pvp, border='B', align=Align.C)
+        x_pos += col_widths[-2]
+
+        # Ver+
+        pdf.set_xy(x_pos, temp_y)
+        pdf.cell(col_widths[-1], line_height, 'i', border='B', align=Align.C, link=produto.URL)
+
+        # Avança linha
+        pdf.set_y(temp_y + line_height)
 
 """ def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, country: str):
     # Definições de larguras das colunas
     col_widths = [20, 80 if show_pvr else 100, 25]
     col_widths += [25] if show_pvr else []
     col_widths += [25 if show_pvr else 35, 15]
-
 
     # Cabeçalho
     headers = ["", "Nome", "Referência"]
@@ -360,9 +349,10 @@ def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, 
     midle_line = 15
     large_line = 20
 
-    for produto in produts:
-        # Ajuste de altura da linha conforme regras do C#
-        if produto.Imagem.startswith("http"):
+    for produto in produts: 
+        image_path = clean_image_formula(produto.Imagem)
+
+        if image_path.startswith("http"):
             if "transparent.png" in produto.Imagem and len(produto.Produto) > 0:
                 if len(produto.Produto) <= 70:
                     row_height = regular_line
@@ -411,8 +401,19 @@ def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, 
         pdf.set_text_color(0, 0, 0)
         pdf.set_font("DejaVu", size=10) 
         
-        # Coluna 0: imagem (aqui só mostra o texto, para inserir imagem use pdf.image)
-        pdf.cell(col_widths[0], row_height, produto.Imagem, border=False, align=Align.L, fill=False)
+        # Coluna 0: imagem 
+        if image_path.startswith("http"):
+            # print(f"Image path: {image_path}")
+            pdf.image(image_path, 
+                      x=pdf.get_x(),
+                      y=pdf.get_y(),
+                      w=col_widths[0], 
+                      h=row_height, 
+                      alt_text=produto.Produto)
+            pdf.set_xy(pdf.get_x() + col_widths[0], pdf.get_y())
+        else:
+            pdf.cell(col_widths[0], row_height, '', border=False, align=Align.L, fill=False)
+        # pdf.cell(col_widths[0], row_height, produto.Imagem, border=False, align=Align.L, fill=False)
         # Coluna 1: nome 
         pdf.cell(col_widths[1], row_height, produto.Produto, border='B', align=Align.L, fill=False)
         # Coluna 2: referência
@@ -432,4 +433,12 @@ def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, 
 
         idx += 1
         pdf.cell(col_widths[idx], row_height, 'i', border='B', align=Align.C, fill=False, link=produto.URL)
-        pdf.ln()  """
+        pdf.ln() """
+
+def clean_image_formula(formula: str) -> str: 
+    resultado = formula.replace('=image("', '')
+    resultado = resultado.replace('"; 1)', '')
+    resultado = resultado.replace('\n', '')
+    resultado = resultado.strip()
+    
+    return resultado

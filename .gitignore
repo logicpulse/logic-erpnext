@@ -21,4 +21,5 @@ node_modules/
 .aider* 
 erpnext/test/page/gerador_de_catalogos/utils/app_client_secret.json
 erpnext/test/page/gerador_de_catalogos/**/*.pdf
+erpnext/test/page/gerador_de_catalogos/**/*.xlsx
 erpnext/public/css/output.css

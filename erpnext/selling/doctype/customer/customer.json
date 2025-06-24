@@ -13,6 +13,7 @@
   "basic_info",
   "naming_series",
   "salutation",
+  "fiscal_number",
   "customer_name",
   "customer_type",
   "customer_group",
@@ -605,6 +606,18 @@
    "fieldtype": "Table",
    "label": "Supplier Numbers",
    "options": "Supplier Number At Customer"
+  },
+  {
+   "bold": 1,
+   "fieldname": "fiscal_number",
+   "fieldtype": "Data",
+   "in_global_search": 1,
+   "label": "Fiscal Number",
+   "no_copy": 1,
+   "oldfieldname": "customer_name",
+   "oldfieldtype": "Data",
+   "reqd": 1,
+   "unique": 1
   }
  ],
  "icon": "fa fa-user",
@@ -618,7 +631,7 @@
    "link_fieldname": "party"
   }
  ],
- "modified": "2025-04-27 12:01:29.549008",
+ "modified": "2025-06-19 12:17:46.552333",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Customer",

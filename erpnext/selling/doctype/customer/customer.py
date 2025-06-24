@@ -29,18 +29,13 @@ class Customer(TransactionBase):
 	from typing import TYPE_CHECKING
 
 	if TYPE_CHECKING:
-		from frappe.types import DF
-
-		from erpnext.accounts.doctype.allowed_to_transact_with.allowed_to_transact_with import (
-			AllowedToTransactWith,
-		)
+		from erpnext.accounts.doctype.allowed_to_transact_with.allowed_to_transact_with import AllowedToTransactWith
 		from erpnext.accounts.doctype.party_account.party_account import PartyAccount
 		from erpnext.selling.doctype.customer_credit_limit.customer_credit_limit import CustomerCreditLimit
 		from erpnext.selling.doctype.sales_team.sales_team import SalesTeam
-		from erpnext.selling.doctype.supplier_number_at_customer.supplier_number_at_customer import (
-			SupplierNumberAtCustomer,
-		)
+		from erpnext.selling.doctype.supplier_number_at_customer.supplier_number_at_customer import SupplierNumberAtCustomer
 		from erpnext.utilities.doctype.portal_user.portal_user import PortalUser
+		from frappe.types import DF
 
 		account_manager: DF.Link | None
 		accounts: DF.Table[PartyAccount]
@@ -62,6 +57,7 @@ class Customer(TransactionBase):
 		dn_required: DF.Check
 		email_id: DF.ReadOnly | None
 		first_name: DF.ReadOnly | None
+		fiscal_number: DF.Data
 		gender: DF.Link | None
 		image: DF.AttachImage | None
 		industry: DF.Link | None
