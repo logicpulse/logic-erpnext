@@ -61,7 +61,83 @@ def get_catalog(ref: str, spreadsheet_id: str, sheet_name: str, cell_range: str,
         frappe.throw(f"Erro ao acessar o catálogo: {str(err)}")
 
 @frappe.whitelist()
-def get_cover(country: str, price_type: str):
+def get_all_catalogs(spreadsheet_id: str, country: str, price_type: str):
+    datas = [
+        {
+            "ref": "access",
+            "sheet_name": "Gestão de Acessos",
+            "cell_range": "E:P"
+        },
+        {
+            "ref": "time",
+            "sheet_name": "Gestão de Assiduidade",
+            "cell_range": "E:T"
+        },
+        {
+            "ref": "q",
+            "sheet_name": "Gestão de Filas de Espera",
+            "cell_range": "E:T"
+        },
+        {
+            "ref": "fleet",
+            "sheet_name": "Gestão de Frotas",
+            "cell_range": "E:T"
+        },
+        {
+            "ref": "pos",
+            "sheet_name": "POS",
+            "cell_range": "E:T"
+        },
+        {
+            "ref": "library",
+            "sheet_name": "Gestão de Bibliotecas",
+            "cell_range": "E:T"
+        },
+        {
+            "ref": "factory",
+            "sheet_name": "Gestão industrial",
+            "cell_range": "E:T"
+        }
+    ]
+    try: 
+        # dts = frappe.parse_json(datas)
+        doc = FPDF()
+        doc = get_cover(country, price_type, doc)  
+        doc = get_index(doc) 
+
+        for data in datas:
+            ref = data.get("ref")
+            sheet_name = data.get("sheet_name")
+            cell_range = data.get("cell_range")
+
+            if not ref or not sheet_name or not cell_range:
+                continue  # Pula entradas incompletas
+
+            values = get_values(spreadsheet_id, sheet_name, cell_range)
+            if not values or len(values) < 3:
+                continue  # Pula se não houver dados suficientes
+
+            show_pvr = 'pvr' in price_type.lower() 
+            doc = generate_pdf(ref, values, show_pvr, country, doc)
+            
+        doc = get_back_cover(country, price_type, doc)  # Gera a back cover
+
+        # Salva o PDF final
+        file_name = f"catalogo_{country.lower()}_{'pvr' if show_pvr else 'pvp'}_all.pdf" 
+        pdf_output_path = os.path.join(frappe.get_app_path(
+            'erpnext', 'test', 'page', 'gerador_de_catalogos', 'utils', file_name 
+        ))
+
+        doc.output(pdf_output_path)  
+
+        # Abrir o PDF no navegador
+        webbrowser.open_new_tab(frappe.utils.get_url() + '/files/' + pdf_output_path) 
+    except Exception as err:
+        frappe.log_error(frappe.get_traceback(), "Catalogs Access Error")
+        frappe.throw(f"Erro ao acessar os catálogos: {str(err)}")
+
+@frappe.whitelist()
+def get_cover(country: str, price_type: str, doc: FPDF = None) -> str | FPDF:
     try:
         # Caminho para a imagem de capa
         root_dir = os.path.join(frappe.get_app_path('erpnext', 'test', 'page', 'gerador_de_catalogos'))
@@ -72,7 +148,7 @@ def get_cover(country: str, price_type: str):
 
         font_path = os.path.join(root_dir, 'utils', 'DejaVuSans.ttf')  
 
-        pdf_cover = FPDF()
+        pdf_cover = doc if doc else FPDF()
         pdf_cover.set_page_background(cover_image_path)
         pdf_cover.add_page()
         pdf_cover.add_font('DejaVu', '', font_path, uni=True)
@@ -103,12 +179,65 @@ def get_cover(country: str, price_type: str):
         pdf_output_path = os.path.join(
             frappe.get_app_path('erpnext', 'test', 'page', 'gerador_de_catalogos', 'utils', file_name)
         ) 
-        pdf_cover.output(pdf_output_path)  
-        webbrowser.open_new_tab(frappe.utils.get_url() + '/files/' + pdf_output_path) 
-        return pdf_output_path 
+        if doc is None: 
+            pdf_cover.output(pdf_output_path)  
+            webbrowser.open_new_tab(frappe.utils.get_url() + '/files/' + pdf_output_path) 
+            return pdf_output_path 
+        else:
+            return pdf_cover
     except Exception as err:
         frappe.log_error(frappe.get_traceback(), "Cover Access Error")
         frappe.throw(f"Erro ao acessar a capa: {str(err)}")
+
+@frappe.whitelist()
+def get_back_cover(country: str, price_type: str, doc: FPDF = None):
+    try:
+        # Caminho para a imagem de capa
+        root_dir = os.path.join(frappe.get_app_path('erpnext', 'test', 'page', 'gerador_de_catalogos'))
+        pdf_back_cover = doc if doc else FPDF()
+
+        imagens = [
+            os.path.join(root_dir, 'utils', 'condicoes.jpg'),
+            os.path.join(root_dir, 'utils', 'contactos.jpg'),
+            os.path.join(root_dir, 'utils', 'fim.jpg')
+        ]
+        for img_path in imagens:
+            pdf_back_cover.set_page_background(img_path)
+            pdf_back_cover.add_page()
+             
+        file_name = f"catalog_back_cover.pdf" 
+        pdf_output_path = os.path.join(
+            frappe.get_app_path('erpnext', 'test', 'page', 'gerador_de_catalogos', 'utils', file_name)
+        )
+        if doc is None:
+            pdf_back_cover.output(pdf_output_path)  
+            webbrowser.open_new_tab(frappe.utils.get_url() + '/files/' + pdf_output_path) 
+            return pdf_output_path
+        else:
+            return pdf_back_cover
+    except Exception as err:
+        frappe.log_error(frappe.get_traceback(), "Back Cover Access Error")
+        frappe.throw(f"Erro ao acessar a back cover: {str(err)}")
+
+@frappe.whitelist()
+def get_index(doc: FPDF = None):
+    root_dir = os.path.join(frappe.get_app_path('erpnext', 'test', 'page', 'gerador_de_catalogos'))
+    pdf_index = doc if doc else FPDF()
+
+    img_path = os.path.join(root_dir, 'utils', 'index.jpg')
+    pdf_index.set_page_background(img_path)
+    pdf_index.add_page()
+
+    if doc is None:
+        file_name = f"catalog_index.pdf" 
+        pdf_output_path = os.path.join(
+            frappe.get_app_path('erpnext', 'test', 'page', 'gerador_de_catalogos', 'utils', file_name)
+        )
+        pdf_index.output(pdf_output_path)  
+        webbrowser.open_new_tab(frappe.utils.get_url() + '/files/' + pdf_output_path) 
+        return pdf_output_path
+    else:
+        return pdf_index
 
 def get_values(spreadsheet_id, sheet_name, cell_range):
     creds_path = os.path.join(frappe.get_app_path('erpnext', 'test', 'page', 'gerador_de_catalogos', 'utils', 'app_client_secret.json'))
@@ -160,14 +289,15 @@ def convert_list_to_model(values: list[list[str]]) -> list[ProdutModel]:
 
     return models
 
-def generate_pdf(ref: str, values: list[list[str]], show_pvr: bool, country: str) -> str:
+def generate_pdf(ref: str, values: list[list[str]], show_pvr: bool, country: str, doc: FPDF = None) -> str | FPDF:
     # Caminhos 
     root_dir = os.path.join(frappe.get_app_path('erpnext', 'test', 'page', 'gerador_de_catalogos'))
     font_path = os.path.join(root_dir, 'utils', 'DejaVuSans.ttf') 
+    # font_path = os.path.join(root_dir, 'utils', 'HelveticaNeueLTPro-MdCn.otf') 
     image_background_path = os.path.join(root_dir, ref, f'{ref}.track_background.png')
     header_image_path = os.path.join(root_dir, ref, f'{ref}.track_desc.png')
     # Criação do PDF
-    pdf = FPDF()
+    pdf = doc if doc else FPDF()
     pdf.set_page_background(image_background_path)
     pdf.set_auto_page_break(auto=True, margin=15)
     pdf.set_margins(top=35, left=10, right=10)
@@ -189,15 +319,18 @@ def generate_pdf(ref: str, values: list[list[str]], show_pvr: bool, country: str
     draw_table(pdf, ref, produts, show_pvr, country)
 
     file_name = f"catalogo_{ref}_{country.lower()}_{'pvr' if show_pvr else 'pvp'}.pdf" 
-    pdf_output_path = os.path.join(
-        frappe.get_app_path(
+    pdf_output_path = os.path.join(frappe.get_app_path(
             'erpnext', 'test', 'page', 'gerador_de_catalogos', ref,
             file_name
         )
     )
-     
-    pdf.output(pdf_output_path)  
-    return pdf_output_path 
+
+    if doc is None:
+        # pdf.compress = True 
+        pdf.output(pdf_output_path)  
+        return pdf_output_path 
+    else: 
+        return pdf 
 
 def get_header_color(ref: str) -> tuple[int, int, int]:
     cores = {
