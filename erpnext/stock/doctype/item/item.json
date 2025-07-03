@@ -24,6 +24,9 @@
   "opening_stock",
   "valuation_rate",
   "standard_rate",
+  "pvr_percent",
+  "pvp_ao",
+  "pvp_mz",
   "is_fixed_asset",
   "auto_create_assets",
   "is_grouped_asset",
@@ -35,6 +38,7 @@
   "section_break_11",
   "description",
   "brand",
+  "url",
   "unit_of_measure_conversion",
   "uoms",
   "dashboard_tab",
@@ -264,7 +268,6 @@
   {
    "fieldname": "image",
    "fieldtype": "Attach Image",
-   "hidden": 1,
    "in_preview": 1,
    "label": "Image",
    "options": "image",
@@ -882,6 +885,27 @@
    "fieldname": "deferred_accounting_section",
    "fieldtype": "Section Break",
    "label": "Deferred Accounting"
+  },
+  {
+   "fieldname": "url",
+   "fieldtype": "Data",
+   "label": "Url"
+  },
+  {
+   "fieldname": "pvr_percent",
+   "fieldtype": "Data",
+   "label": "PVR (%)",
+   "placeholder": "40 %"
+  },
+  {
+   "fieldname": "pvp_ao",
+   "fieldtype": "Float",
+   "label": "PVP (AO)"
+  },
+  {
+   "fieldname": "pvp_mz",
+   "fieldtype": "Float",
+   "label": "PVP (MZ)"
   }
  ],
  "icon": "fa fa-tag",
@@ -889,7 +913,7 @@
  "image_field": "image",
  "links": [],
  "make_attachments_public": 1,
- "modified": "2025-02-03 23:43:57.253667",
+ "modified": "2025-07-02 15:43:36.948697",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Item",
@@ -954,6 +978,7 @@
   }
  ],
  "quick_entry": 1,
+ "row_format": "Dynamic",
  "search_fields": "item_name,description,item_group,customer_code",
  "show_name_in_global_search": 1,
  "show_preview_popup": 1,

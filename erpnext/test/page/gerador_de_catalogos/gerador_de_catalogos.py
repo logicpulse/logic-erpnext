@@ -7,6 +7,7 @@ from fpdf import FPDF, Align
 from dataclasses import dataclass 
 from datetime import datetime
 import pandas as pd
+import re
 
 @dataclass
 class ProdutModel:
@@ -21,7 +22,11 @@ class ProdutModel:
     PVP_PT: str
     Extra: str 
     PVP_AO: str
-    PVP_MZ: str
+    PVP_MZ: str 
+
+@dataclass
+class ProdutModelToExcel(ProdutModel):
+    Unit_Measure: str
 
 @frappe.whitelist()
 def get_catalog(ref: str, spreadsheet_id: str, sheet_name: str, cell_range: str, country: str, price_type: str):
@@ -52,6 +57,10 @@ def get_catalog(ref: str, spreadsheet_id: str, sheet_name: str, cell_range: str,
         # Abrir o PDF no navegador
         webbrowser.open_new_tab(frappe.utils.get_url() + '/files/' + file_name) 
         
+
+        # produts = convert_list_to_model(values)
+        
+ 
         # df = pd.DataFrame(values[2:], columns=values[1])
         # df.to_excel(file_name.replace(".pdf", ".xlsx"), index=False)
 
@@ -252,8 +261,7 @@ def get_values(spreadsheet_id, sheet_name, cell_range):
  
     for i, row in enumerate(valuesForm):
         for j, cell in enumerate(row): 
-            if isinstance(cell, str) and cell.startswith('=image'): 
-                # print(f"Converting formula to value at {i}, {j}: {cell}")
+            if isinstance(cell, str) and cell.startswith('=image'):  
                 values[i][j] = valuesForm[i][j]
 
     return values 
@@ -285,6 +293,7 @@ def convert_list_to_model(values: list[list[str]]) -> list[ProdutModel]:
             PVP_AO=data.get("PVP AO", ""),
             PVP_MZ=data.get("PVP MZ", "")
         )
+         
         models.append(model)
 
     return models
@@ -326,6 +335,44 @@ def generate_pdf(ref: str, values: list[list[str]], show_pvr: bool, country: str
     )
 
     if doc is None:
+        productsToExcel: list[ProdutModelToExcel] = []
+        for produt in produts:
+            if produt.Ref.startswith("*") or produt.Ref.startswith("#") or not produt.Produto:  
+                produts.remove(produt)
+
+            produt.Imagem = clean_image_formula(produt.Imagem)
+
+            produt.PVP_PT = re.sub(r'\s+', '', produt.PVP_PT.replace("€", "").replace(',', '.')) 
+            produt.PVR_PT = re.sub(r'\s+', '', produt.PVR_PT.replace("€", "").replace(',', '.')) 
+            produt.PVP_AO = re.sub(r'\s+', '', produt.PVP_AO.replace("Kz", "").replace(',', '.')) 
+            produt.PVP_MZ = re.sub(r'\s+', '', produt.PVP_MZ.replace("MT", "").replace(',', '.'))
+
+            unidade_por_sub_familia = {
+                "Software": "License",
+                "Hardware": "Unit",
+                "Serviços": "Service"
+            }
+            Unit_Measure = unidade_por_sub_familia.get(produt.Sub_Familia, "Unit")
+
+            productsToExcel.append(ProdutModelToExcel(
+                Sub_Familia=produt.Sub_Familia,
+                Produto=produt.Produto,
+                Ref=produt.Ref,
+                URL=produt.URL,
+                Imagem=produt.Imagem,
+                Pct_PVR=produt.Pct_PVR,
+                Qt=produt.Qt,
+                PVR_PT=produt.PVR_PT,
+                PVP_PT=produt.PVP_PT,
+                Extra=produt.Extra,
+                PVP_AO=produt.PVP_AO,
+                PVP_MZ=produt.PVP_MZ,
+                Unit_Measure=Unit_Measure))
+ 
+        df = pd.DataFrame([vars(produto) for produto in productsToExcel])
+        excel_file_name = pdf_output_path.replace(".pdf", ".xlsx") 
+        df.to_excel(excel_file_name, index=False)
+
         # pdf.compress = True 
         pdf.output(pdf_output_path)  
         return pdf_output_path 
@@ -447,126 +494,6 @@ def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, 
 
         # Avança linha
         pdf.set_y(temp_y + line_height)
-
-""" def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, country: str):
-    # Definições de larguras das colunas
-    col_widths = [20, 80 if show_pvr else 100, 25]
-    col_widths += [25] if show_pvr else []
-    col_widths += [25 if show_pvr else 35, 15]
-
-    # Cabeçalho
-    headers = ["", "Nome", "Referência"]
-    if show_pvr:
-        headers += ["Uni./ PVR", "Uni./ PVP", "Ver+"]
-    else:
-        headers += ["Uni./ PVP", "Ver+"]
-
-    # Estilos
-    color = get_header_color(ref)
-    pdf.set_fill_color(*color) 
-    pdf.set_text_color(255, 255, 255)
-    pdf.set_font("DejaVu", size=12)
-    pdf.set_draw_color(255, 255, 255)
-    pdf.set_line_width(0.1)
-
-    # Desenha cabeçalho
-    for i, header in enumerate(headers):
-        pdf.cell(col_widths[i], 10, header, border=1, align=Align.L, fill=True)
-    pdf.ln()
-
-    # Reset estilos para linhas normais
-    pdf.set_font("DejaVu", size=11)
-    pdf.set_text_color(0, 0, 0)
-
-    regular_line = 10
-    midle_line = 15
-    large_line = 20
-
-    for produto in produts: 
-        image_path = clean_image_formula(produto.Imagem)
-
-        if image_path.startswith("http"):
-            if "transparent.png" in produto.Imagem and len(produto.Produto) > 0:
-                if len(produto.Produto) <= 70:
-                    row_height = regular_line
-                elif len(produto.Produto) <= 140:
-                    row_height = midle_line
-                else:
-                    row_height = large_line
-            else:
-                row_height = large_line
-        elif produto.Ref.startswith("*") or produto.Ref.startswith("#"):
-            row_height = 12
-        else:
-            row_height = regular_line
-
-        # Títulos 
-        if produto.Ref.startswith("*"):
-            pdf.set_fill_color(47, 47, 47)  # Cor diferente para título
-            pdf.set_text_color(255, 255, 255)
-            pdf.set_font("DejaVu", size=12)
-            texto = produto.Produto
-            col_span = sum(col_widths)
-            pdf.cell(col_span, row_height, texto, border=1, align=Align.L, fill=True)
-            pdf.ln()
-            # Reset estilos
-            pdf.set_font("DejaVu", size=11)
-            pdf.set_text_color(0, 0, 0)
-            continue
-
-        # Subtítulos
-        if produto.Ref.startswith("#"):
-            pdf.set_fill_color(128, 128, 128)  # Cor diferente para subtítulo
-            pdf.set_text_color(255, 255, 255)
-            pdf.set_font("DejaVu", size=12)
-            texto = produto.Produto
-            col_span = sum(col_widths)
-            pdf.cell(col_span, row_height, texto, border=1, align=Align.L, fill=True)
-            pdf.ln()
-            # Reset estilos
-            pdf.set_font("DejaVu", size=11)
-            pdf.set_text_color(0, 0, 0)
-            continue
-
-        # Linha normal
-        # pdf.set_fill_color(128, 128, 128) 
-        pdf.set_draw_color(128, 128, 128) 
-        pdf.set_text_color(0, 0, 0)
-        pdf.set_font("DejaVu", size=10) 
-        
-        # Coluna 0: imagem 
-        if image_path.startswith("http"):
-            # print(f"Image path: {image_path}")
-            pdf.image(image_path, 
-                      x=pdf.get_x(),
-                      y=pdf.get_y(),
-                      w=col_widths[0], 
-                      h=row_height, 
-                      alt_text=produto.Produto)
-            pdf.set_xy(pdf.get_x() + col_widths[0], pdf.get_y())
-        else:
-            pdf.cell(col_widths[0], row_height, '', border=False, align=Align.L, fill=False)
-        # pdf.cell(col_widths[0], row_height, produto.Imagem, border=False, align=Align.L, fill=False)
-        # Coluna 1: nome 
-        pdf.cell(col_widths[1], row_height, produto.Produto, border='B', align=Align.L, fill=False)
-        # Coluna 2: referência
-        pdf.cell(col_widths[2], row_height, produto.Ref, border='B', align=Align.L, fill=False)
-        idx = 3
-
-        if show_pvr:
-            pdf.cell(col_widths[idx], row_height, produto.Pct_PVR, border='B', align=Align.L, fill=False)
-            idx += 1
-
-        if country == 'AO':
-            pdf.cell(col_widths[idx], row_height, produto.PVP_AO, border='B', align=Align.L, fill=False)
-        elif country == 'MZ':
-            pdf.cell(col_widths[idx], row_height, produto.PVP_MZ, border='B', align=Align.L, fill=False)
-        else:
-            pdf.cell(col_widths[idx], row_height, produto.PVP_PT, border='B', align=Align.L, fill=False)
-
-        idx += 1
-        pdf.cell(col_widths[idx], row_height, 'i', border='B', align=Align.C, fill=False, link=produto.URL)
-        pdf.ln() """
 
 def clean_image_formula(formula: str) -> str: 
     resultado = formula.replace('=image("', '')
