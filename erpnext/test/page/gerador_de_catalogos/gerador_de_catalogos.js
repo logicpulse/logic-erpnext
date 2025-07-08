@@ -102,23 +102,3 @@ async function getIndex() {
 		}
 	});
 }
-
-function show() {
-	alert('clicked');
-}
-
-function showTab(tabId) {
-	console.log('showTab', tabId);
-
-	// Remove 'active' das abas
-	document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
-	// Adiciona 'active' à aba clicada
-	document.getElementById('tab-' + tabId).classList.add('active');
-
-	// Esconde todos os conteúdos das abas
-	document.querySelectorAll('.tab-pane').forEach(el => {
-		el.classList.remove('show', 'active');
-	});
-	// Mostra o conteúdo da aba selecionada
-	document.getElementById(tabId).classList.add('show', 'active');
-}

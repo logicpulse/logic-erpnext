@@ -1,0 +1,102 @@
+{
+    "actions": [],
+    "allow_guest_to_view": 1,
+    "allow_rename": 1,
+    "creation": "2025-07-07 11:40:33.056198",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "name1",
+        "ref",
+        "sheet_name",
+        "cell_range",
+        "route",
+        "website",
+        "published",
+        "image",
+        "image_desc"
+    ],
+    "fields": [
+        {
+            "fieldname": "ref",
+            "fieldtype": "Data",
+            "label": "Ref",
+            "not_nullable": 1
+        },
+        {
+            "fieldname": "sheet_name",
+            "fieldtype": "Data",
+            "label": "Sheet Name",
+            "not_nullable": 1
+        },
+        {
+            "fieldname": "cell_range",
+            "fieldtype": "Data",
+            "label": "Cell Range",
+            "not_nullable": 1
+        },
+        {
+            "default": "0",
+            "fieldname": "published",
+            "fieldtype": "Check",
+            "label": "Published"
+        },
+        {
+            "fieldname": "route",
+            "fieldtype": "Data",
+            "label": "Route"
+        },
+        {
+            "bold": 1,
+            "fieldname": "name1",
+            "fieldtype": "Data",
+            "label": "Name"
+        },
+        {
+            "fieldname": "image",
+            "fieldtype": "Attach Image",
+            "in_preview": 1,
+            "label": "Image"
+        },
+        {
+            "fieldname": "image_desc",
+            "fieldtype": "Attach Image",
+            "label": "Image Desc"
+        },
+        {
+            "fieldname": "website",
+            "fieldtype": "Data",
+            "label": "Website"
+        }
+    ],
+    "grid_page_length": 50,
+    "has_web_view": 1,
+    "image_field": "image",
+    "index_web_pages_for_search": 1,
+    "is_published_field": "published",
+    "links": [],
+    "modified": "2025-07-07 13:01:12.588682",
+    "modified_by": "Administrator",
+    "module": "Selling",
+    "name": "Catalogo",
+    "owner": "Administrator",
+    "permissions": [
+        {
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "write": 1
+        }
+    ],
+    "route": "catalogos",
+    "row_format": "Dynamic",
+    "sort_field": "creation",
+    "sort_order": "DESC",
+    "states": []
+}

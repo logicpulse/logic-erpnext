@@ -1,0 +1,72 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+<img src="{{ image_desc }}" class="img-fluid m-4" alt="Catalogo Image">
+<div class="text-center my-4">
+	<h1>{{ name1 }}</h1>
+	<div class="mt-3">
+		<div class="mb-3 d-flex justify-content-center">
+			<div style="max-width: 300px; width: 100%;">
+				<select id="pais" class="form-select" aria-placeholder="Selecione o pais" aria-label="Selecione o pais">
+					<option selected value="AO">Angola</option>
+					<option value="PT">Portugal</option>
+					<option value="MZ">Mozambique</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="mb-3 d-flex justify-content-center">
+			<div style="max-width: 300px; width: 100%;">
+				<select id="tipo_preco" class="form-select" aria-placeholder="Selecione o tipo de preço"
+					aria-label="Selecione o tipo de preço">
+					<option selected value="PVP">PVP</option>
+					<option value="PVR">PVR</option>
+				</select>
+			</div>
+		</div>
+		<div class="mb-3 d-flex justify-content-center form-check form-switch">
+			<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+			<label class="form-check-label" for="flexSwitchCheckDefault">Comprimir?</label>
+		</div>
+		<div class="mb-3 d-flex justify-content-center">
+			<div style="max-width: 300px; width: 100%;">
+				<button class="btn btn-success w-100"
+					onclick="generate('{{ ref }}', '{{ sheet_name }}', '{{ cell_range }}')">Catálogo</button>
+			</div>
+		</div>
+		<div class="mb-3 d-flex justify-content-center">
+			<div style="max-width: 300px; width: 100%;">
+				<a href="{{ website }}" class="btn btn-primary w-100" target="_blank">Ver Site</a>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	async function generate(ref, sheet_name, cell_range) {
+		const spreadsheet_id = '1Nm6YatjJrugBxM38yaXlIJgLHfVAMCnnMLw83lga5YQ'
+		const pais = document.getElementById('pais') ? document.getElementById('pais').value : null;
+		const tipoPreco = document.getElementById('tipo_preco') ? document.getElementById('tipo_preco').value : null;
+
+		frappe.call({
+			method: 'erpnext.selling.doctype.catalogo.catalogo.get_catalog',
+			args: {
+				ref: ref,
+				spreadsheet_id: spreadsheet_id,
+				sheet_name: sheet_name,
+				cell_range: cell_range,
+				country: pais,
+				price_type: tipoPreco
+			},
+			callback: function (res) {
+				if (res.message) {
+					// console.log('res:', res);
+					// console.log('message:', res.message);
+					console.log('Ficheiro gerado com sucesso!');
+				}
+			}
+		});
+	}
+</script>
+{% endblock %}
+
+<!-- this is a sample default web page template -->
