@@ -3,15 +3,13 @@
 
 # import frappe
 from frappe.website.website_generator import WebsiteGenerator
-import frappe
-import gspread
+import frappe 
 from oauth2client.service_account import ServiceAccountCredentials
 import os 
 import webbrowser 
 from fpdf import FPDF, Align
 from dataclasses import dataclass 
 from datetime import datetime
-import pandas as pd
 import re
 
 class Catalogo(WebsiteGenerator):
@@ -276,6 +274,7 @@ def get_index(doc: FPDF = None):
         return pdf_index
 
 def get_values(spreadsheet_id, sheet_name, cell_range):
+    import gspread
     creds_path = os.path.join(frappe.get_app_path('erpnext', 'selling', 'doctype', 'catalogo', 'utils', 'app_client_secret.json'))
 
     scope = [ 'https://www.googleapis.com/auth/spreadsheets', 'https://spreadsheets.google.com/feeds']
@@ -326,6 +325,7 @@ def convert_list_to_model(values: list[list[str]]) -> list[ProdutModel]:
     return models
 
 def generate_pdf(ref: str, values: list[list[str]], show_pvr: bool, country: str, doc: FPDF = None) -> str | FPDF:
+    import pandas as pd
     # Caminhos 
     root_dir = os.path.join(frappe.get_app_path('erpnext', 'selling', 'doctype', 'catalogo'))
     font_path = os.path.join(root_dir, 'utils', 'DejaVuSans.ttf') 
