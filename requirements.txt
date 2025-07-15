@@ -1,5 +1,5 @@
 gspread
 pandas
 oauth2client
-fpdf
-requests-oauthlib~=2.0.0
+fpdf2
+requests-oauthlib==2.0.0

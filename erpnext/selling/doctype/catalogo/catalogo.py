@@ -6,7 +6,7 @@ from frappe.website.website_generator import WebsiteGenerator
 import frappe 
 import os 
 import webbrowser 
-from fpdf import FPDF, Align
+# from fpdf import FPDF, Align
 from dataclasses import dataclass 
 from datetime import datetime
 import re
@@ -32,7 +32,7 @@ class Catalogo(WebsiteGenerator):
 	# end: auto-generated types
 
 	pass
-
+""" 
 @dataclass
 class ProdutModel:
     Sub_Familia: str
@@ -274,8 +274,6 @@ def get_index(doc: FPDF = None):
 
 def get_values(spreadsheet_id, sheet_name, cell_range):
     import gspread
-    from oauth2client.service_account import ServiceAccountCredentials
-    
     creds_path = os.path.join(frappe.get_app_path('erpnext', 'selling', 'doctype', 'catalogo', 'utils', 'app_client_secret.json'))
 
     scope = [ 'https://www.googleapis.com/auth/spreadsheets', 'https://spreadsheets.google.com/feeds']
@@ -420,7 +418,6 @@ def get_header_color(ref: str) -> tuple[int, int, int]:
     return cores.get(ref, (0, 0, 0))
 
 def estimate_multicell_height(pdf: FPDF, text: str, width: float, line_height: float = 5) -> float:
-    """Estima a altura que um multi_cell ocupará, baseado na largura disponível."""
     string_width = pdf.get_string_width(text)
     lines = max(1, round(string_width / width))
     return lines * line_height
@@ -529,4 +526,4 @@ def clean_image_formula(formula: str) -> str:
     resultado = resultado.replace('\n', '')
     resultado = resultado.strip()
     
-    return resultado
+    return resultado """
