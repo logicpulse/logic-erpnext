@@ -1,4 +1,4 @@
-import frappe
+""" import frappe
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import os 
@@ -392,7 +392,6 @@ def get_header_color(ref: str) -> tuple[int, int, int]:
     return cores.get(ref, (0, 0, 0))
 
 def estimate_multicell_height(pdf: FPDF, text: str, width: float, line_height: float = 5) -> float:
-    """Estima a altura que um multi_cell ocupará, baseado na largura disponível."""
     string_width = pdf.get_string_width(text)
     lines = max(1, round(string_width / width))
     return lines * line_height
@@ -501,4 +500,4 @@ def clean_image_formula(formula: str) -> str:
     resultado = resultado.replace('\n', '')
     resultado = resultado.strip()
     
-    return resultado
+    return resultado """

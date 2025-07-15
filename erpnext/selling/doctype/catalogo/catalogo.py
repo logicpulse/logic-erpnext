@@ -4,7 +4,6 @@
 # import frappe
 from frappe.website.website_generator import WebsiteGenerator
 import frappe 
-from oauth2client.service_account import ServiceAccountCredentials
 import os 
 import webbrowser 
 from fpdf import FPDF, Align
@@ -275,6 +274,8 @@ def get_index(doc: FPDF = None):
 
 def get_values(spreadsheet_id, sheet_name, cell_range):
     import gspread
+    from oauth2client.service_account import ServiceAccountCredentials
+    
     creds_path = os.path.join(frappe.get_app_path('erpnext', 'selling', 'doctype', 'catalogo', 'utils', 'app_client_secret.json'))
 
     scope = [ 'https://www.googleapis.com/auth/spreadsheets', 'https://spreadsheets.google.com/feeds']
