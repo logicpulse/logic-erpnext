@@ -6,7 +6,7 @@ from frappe.website.website_generator import WebsiteGenerator
 import frappe 
 import os 
 import webbrowser 
-# from fpdf import FPDF, Align
+from fpdf import FPDF, Align
 from dataclasses import dataclass 
 from datetime import datetime
 import re
@@ -32,7 +32,7 @@ class Catalogo(WebsiteGenerator):
 	# end: auto-generated types
 
 	pass
-""" 
+
 @dataclass
 class ProdutModel:
     Sub_Familia: str
@@ -274,6 +274,7 @@ def get_index(doc: FPDF = None):
 
 def get_values(spreadsheet_id, sheet_name, cell_range):
     import gspread
+    from oauth2client.service_account import ServiceAccountCredentials
     creds_path = os.path.join(frappe.get_app_path('erpnext', 'selling', 'doctype', 'catalogo', 'utils', 'app_client_secret.json'))
 
     scope = [ 'https://www.googleapis.com/auth/spreadsheets', 'https://spreadsheets.google.com/feeds']
@@ -526,4 +527,4 @@ def clean_image_formula(formula: str) -> str:
     resultado = resultado.replace('\n', '')
     resultado = resultado.strip()
     
-    return resultado """
+    return resultado

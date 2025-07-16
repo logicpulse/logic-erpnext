@@ -1,5 +1,0 @@
-gspread
-pandas
-oauth2client
-fpdf2
-requests-oauthlib==2.0.0

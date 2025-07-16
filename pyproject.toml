@@ -22,6 +22,11 @@ dependencies = [
 
     # Not used directly - required by PyQRCode for PNG generation
     "pypng~=0.20220715.0",
+    "gspread~=6.2.1",
+    "oauth2client~=4.1.3",
+    "fpdf2~=2.8.3",
+    "requests-oauthlib~=1.3.1",
+    "Pandas~=2.3.1"
 ]
 
 [build-system]
