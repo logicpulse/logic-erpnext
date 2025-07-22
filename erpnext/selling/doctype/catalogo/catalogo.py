@@ -12,26 +12,26 @@ from datetime import datetime
 import re
 
 class Catalogo(WebsiteGenerator):
-	# begin: auto-generated types
-	# This code is auto-generated. Do not modify anything in this block.
+    # begin: auto-generated types
+    # This code is auto-generated. Do not modify anything in this block.
 
-	from typing import TYPE_CHECKING
+    from typing import TYPE_CHECKING
 
-	if TYPE_CHECKING:
-		from frappe.types import DF
+    if TYPE_CHECKING:
+        from frappe.types import DF
 
-		cell_range: DF.Data
-		image: DF.AttachImage | None
-		image_desc: DF.AttachImage | None
-		name1: DF.Data | None
-		published: DF.Check
-		ref: DF.Data
-		route: DF.Data | None
-		sheet_name: DF.Data
-		website: DF.Data | None
-	# end: auto-generated types
+        cell_range: DF.Data
+        image: DF.AttachImage | None
+        image_desc: DF.AttachImage | None
+        name1: DF.Data | None
+        published: DF.Check
+        ref: DF.Data
+        route: DF.Data | None
+        sheet_name: DF.Data
+        website: DF.Data | None
+    # end: auto-generated types
 
-	pass
+    pass
 
 @dataclass
 class ProdutModel:
@@ -55,6 +55,8 @@ class ProdutModelToExcel(ProdutModel):
 @frappe.whitelist()
 def get_catalog(ref: str, spreadsheet_id: str, sheet_name: str, cell_range: str, country: str, price_type: str):
     try:
+        # if (True):
+        #     return 'http://development.localhost:8000/files/catalogo_access_pt_pvp.pdf'
         # Caminho absoluto para o arquivo de credenciais
         values = get_values(spreadsheet_id, sheet_name, cell_range)
         # print(f"Valores obtidos: {values}")
@@ -74,21 +76,12 @@ def get_catalog(ref: str, spreadsheet_id: str, sheet_name: str, cell_range: str,
         if price_type.lower() not in valid_price_types:
             frappe.throw("Invalid price type. Use 'PVR' or 'PVP'.")
         
-        # -print(values)
         show_pvr = 'pvr' in price_type.lower()
-        file_name = generate_pdf(ref, values, show_pvr, country)
-
-        # Abrir o PDF no navegador
-        webbrowser.open_new_tab(frappe.utils.get_url() + '/files/' + file_name) 
-        
-
-        # produts = convert_list_to_model(values)
-        
- 
-        # df = pd.DataFrame(values[2:], columns=values[1])
-        # df.to_excel(file_name.replace(".pdf", ".xlsx"), index=False)
-
-        return file_name
+        file_name = generate_pdf(ref, values, show_pvr, country) 
+        # Retorna a URL completa do PDF para o frontend abrir
+        full_path = frappe.utils.get_url() + '/files/' + file_name
+        print(f"Catalog generated at: {full_path}")
+        return full_path
     except Exception as err:
         frappe.log_error(frappe.get_traceback(), "Catalog Access Error")
         frappe.throw(f"Erro ao acessar o catálogo: {str(err)}")
@@ -160,7 +153,7 @@ def get_all_catalogs(spreadsheet_id: str, country: str, price_type: str):
         pdf_output_path = os.path.join(frappe.get_app_path(
             'erpnext', 'selling', 'doctype', 'catalogo', 'utils', file_name 
         ))
-		
+        
         doc.output(pdf_output_path)  
 
         # Abrir o PDF no navegador
@@ -341,7 +334,7 @@ def generate_pdf(ref: str, values: list[list[str]], show_pvr: bool, country: str
     page_width = pdf.w 
     pdf.image(header_image_path, x=10, y=30, w=page_width - 20)  
   
-    pdf.add_font('DejaVu', '', font_path, uni=True)
+    pdf.add_font('DejaVu', '', font_path)
 
     # pdf.set_y(-15) 
     # pdf.set_font("DejaVu", size=8) 
@@ -354,57 +347,55 @@ def generate_pdf(ref: str, values: list[list[str]], show_pvr: bool, country: str
     pdf.ln(40) 
     draw_table(pdf, ref, produts, show_pvr, country)
 
-    file_name = f"catalogo_{ref}_{country.lower()}_{'pvr' if show_pvr else 'pvp'}.pdf" 
-    pdf_output_path = os.path.join(frappe.get_app_path(
-            'erpnext', 'selling', 'doctype', 'catalogo', ref,
-            file_name
-        )
-    )
+    file_name = f"catalogo_{ref}_{country.lower()}_{'pvr' if show_pvr else 'pvp'}.pdf"
+    # Salvar na pasta pública de arquivos do site
+    public_files_path = frappe.utils.get_site_path("public", "files", file_name)
 
     if doc is None:
-        productsToExcel: list[ProdutModelToExcel] = []
-        for produt in produts:
-            if produt.Ref.startswith("*") or produt.Ref.startswith("#") or not produt.Produto:  
-                produts.remove(produt)
+        # productsToExcel: list[ProdutModelToExcel] = []
+        # for produt in produts:
+        #     if produt.Ref.startswith("*") or produt.Ref.startswith("#") or not produt.Produto:
+        #         produts.remove(produt)
 
-            produt.Imagem = clean_image_formula(produt.Imagem)
+        #     produt.Imagem = clean_image_formula(produt.Imagem)
 
-            produt.PVP_PT = re.sub(r'\s+', '', produt.PVP_PT.replace("€", "").replace(',', '.')) 
-            produt.PVR_PT = re.sub(r'\s+', '', produt.PVR_PT.replace("€", "").replace(',', '.')) 
-            produt.PVP_AO = re.sub(r'\s+', '', produt.PVP_AO.replace("Kz", "").replace(',', '.')) 
-            produt.PVP_MZ = re.sub(r'\s+', '', produt.PVP_MZ.replace("MT", "").replace(',', '.'))
+        #     produt.PVP_PT = re.sub(r'\s+', '', produt.PVP_PT.replace("€", "").replace(',', '.'))
+        #     produt.PVR_PT = re.sub(r'\s+', '', produt.PVR_PT.replace("€", "").replace(',', '.'))
+        #     produt.PVP_AO = re.sub(r'\s+', '', produt.PVP_AO.replace("Kz", "").replace(',', '.'))
+        #     produt.PVP_MZ = re.sub(r'\s+', '', produt.PVP_MZ.replace("MT", "").replace(',', '.'))
 
-            unidade_por_sub_familia = {
-                "Software": "License",
-                "Hardware": "Unit",
-                "Serviços": "Service"
-            }
-            Unit_Measure = unidade_por_sub_familia.get(produt.Sub_Familia, "Unit")
+        #     unidade_por_sub_familia = {
+        #         "Software": "License",
+        #         "Hardware": "Unit",
+        #         "Serviços": "Service"
+        #     }
+        #     Unit_Measure = unidade_por_sub_familia.get(produt.Sub_Familia, "Unit")
 
-            productsToExcel.append(ProdutModelToExcel(
-                Sub_Familia=produt.Sub_Familia,
-                Produto=produt.Produto,
-                Ref=produt.Ref,
-                URL=produt.URL,
-                Imagem=produt.Imagem,
-                Pct_PVR=produt.Pct_PVR,
-                Qt=produt.Qt,
-                PVR_PT=produt.PVR_PT,
-                PVP_PT=produt.PVP_PT,
-                Extra=produt.Extra,
-                PVP_AO=produt.PVP_AO,
-                PVP_MZ=produt.PVP_MZ,
-                Unit_Measure=Unit_Measure))
- 
-        df = pd.DataFrame([vars(produto) for produto in productsToExcel])
-        excel_file_name = pdf_output_path.replace(".pdf", ".xlsx") 
-        df.to_excel(excel_file_name, index=False)
+        #     productsToExcel.append(ProdutModelToExcel(
+        #         Sub_Familia=produt.Sub_Familia,
+        #         Produto=produt.Produto,
+        #         Ref=produt.Ref,
+        #         URL=produt.URL,
+        #         Imagem=produt.Imagem,
+        #         Pct_PVR=produt.Pct_PVR,
+        #         Qt=produt.Qt,
+        #         PVR_PT=produt.PVR_PT,
+        #         PVP_PT=produt.PVP_PT,
+        #         Extra=produt.Extra,
+        #         PVP_AO=produt.PVP_AO,
+        #         PVP_MZ=produt.PVP_MZ,
+        #         Unit_Measure=Unit_Measure))
 
-        # pdf.compress = True 
-        pdf.output(pdf_output_path)  
-        return pdf_output_path 
-    else: 
-        return pdf 
+        # df = pd.DataFrame([vars(produto) for produto in productsToExcel])
+        # excel_file_name = public_files_path.replace(".pdf", ".xlsx")
+        # df.to_excel(excel_file_name, index=False)
+
+        print('documento gerado em: ', public_files_path)
+        pdf.output(public_files_path)
+        # Retorna apenas o nome do arquivo, pois a URL pública é /files/<file_name>
+        return file_name
+    else:
+        return pdf
 
 def get_header_color(ref: str) -> tuple[int, int, int]:
     cores = {

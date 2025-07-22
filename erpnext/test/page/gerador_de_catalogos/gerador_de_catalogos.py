@@ -1,4 +1,4 @@
-""" import frappe
+import frappe
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import os 
@@ -500,4 +500,4 @@ def clean_image_formula(formula: str) -> str:
     resultado = resultado.replace('\n', '')
     resultado = resultado.strip()
     
-    return resultado """
+    return resultado

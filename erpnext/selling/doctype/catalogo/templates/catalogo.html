@@ -30,7 +30,7 @@
 		</div>
 		<div class="mb-3 d-flex justify-content-center">
 			<div style="max-width: 300px; width: 100%;">
-				<button class="btn btn-success w-100"
+				<button id="catalog-btn" class="btn btn-success w-100" type="button"
 					onclick="generate('{{ ref }}', '{{ sheet_name }}', '{{ cell_range }}')">Catálogo</button>
 			</div>
 		</div>
@@ -43,9 +43,17 @@
 </div>
 <script>
 	async function generate(ref, sheet_name, cell_range) {
-		const spreadsheet_id = '1Nm6YatjJrugBxM38yaXlIJgLHfVAMCnnMLw83lga5YQ'
+		const spreadsheet_id = '1Nm6YatjJrugBxM38yaXlIJgLHfVAMCnnMLw83lga5YQ';
 		const pais = document.getElementById('pais') ? document.getElementById('pais').value : null;
 		const tipoPreco = document.getElementById('tipo_preco') ? document.getElementById('tipo_preco').value : null;
+
+		// Botão principal
+		const btn = document.getElementById('catalog-btn');
+		if (btn) {
+			btn.disabled = true;
+			btn.className = 'btn btn-primary w-100';
+			btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Gerando catálogo, aguarde...';
+		}
 
 		frappe.call({
 			method: 'erpnext.selling.doctype.catalogo.catalogo.get_catalog',
@@ -58,10 +66,28 @@
 				price_type: tipoPreco
 			},
 			callback: function (res) {
-				if (res.message) {
-					// console.log('res:', res);
-					// console.log('message:', res.message);
-					console.log('Ficheiro gerado com sucesso!');
+				if (btn) {
+					if (res.message) {
+						btn.disabled = false;
+						btn.className = 'btn btn-success w-100';
+						btn.innerHTML = 'Abrir PDF';
+						btn.onclick = function () {
+							window.open(res.message, '_blank');
+						};
+						console.log('Ficheiro gerado com sucesso! Clique em "Abrir PDF" para visualizar.');
+					} else {
+						btn.disabled = false;
+						btn.className = 'btn btn-danger w-100';
+						btn.innerHTML = 'Erro ao gerar catálogo';
+						setTimeout(() => {
+							btn.className = 'btn btn-success w-100';
+							btn.innerHTML = 'Catálogo';
+							btn.onclick = function () {
+								generate(ref, sheet_name, cell_range);
+							};
+						}, 5000);
+						alert('Ocorreu um erro ao abrir o ficheiro. Verifique se o navegador está bloqueando pop-ups.');
+					}
 				}
 			}
 		});
