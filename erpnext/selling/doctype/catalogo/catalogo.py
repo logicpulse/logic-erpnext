@@ -420,8 +420,10 @@ def get_header_color(ref: str) -> tuple[int, int, int]:
 
 def estimate_multicell_height(pdf: FPDF, text: str, width: float, line_height: float = 5) -> float:
     string_width = pdf.get_string_width(text)
+    print(f"String width: {string_width}, Width: {width}")
     lines = max(1, round(string_width / width))
-    return lines * line_height
+    print(f"Estimated lines: {lines}, Line height: {line_height}")
+    return (lines + 1) * line_height
 
 def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, country: str):
     col_widths = [20, 80 if show_pvr else 100, 25]
@@ -469,7 +471,7 @@ def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, 
 
         # Estimar altura da célula "Nome"
         height_nome = estimate_multicell_height(pdf, produto.Produto, col_widths[1])
-        image_height = height_nome if image_path.startswith("http") else 10
+        image_height = 20 if image_path.startswith("http") else 10
         line_height = max(height_nome, image_height, 10)
 
         # Verifica quebra de página
@@ -488,8 +490,13 @@ def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, 
 
         # Coluna 1: Nome (com multi_cell e borda manual)
         pdf.set_xy(temp_x + col_widths[0], temp_y)
-        pdf.multi_cell(col_widths[1], 5, produto.Produto, border=0)
-        pdf.rect(temp_x + col_widths[0], temp_y, col_widths[1], line_height)  # borda externa
+        # Centraliza verticalmente o conteúdo de 'produto.Produto'
+        text_height = estimate_multicell_height(pdf, produto.Produto, col_widths[1])
+        y_offset = temp_y + (line_height - text_height) / 2 if line_height > text_height else temp_y
+        pdf.set_xy(temp_x + col_widths[0], y_offset)
+        pdf.multi_cell(col_widths[1], 5, produto.Produto, border=0, align=Align.L, fill=False)
+        # Remove todas as bordas exceto a de baixo
+        pdf.line(temp_x + col_widths[0], temp_y + line_height, temp_x + col_widths[0] + col_widths[1], temp_y + line_height)  # apenas borda inferior
 
         # Coluna 2: Referência
         x_pos = temp_x + col_widths[0] + col_widths[1]
