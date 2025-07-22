@@ -147,17 +147,26 @@ def get_all_catalogs(spreadsheet_id: str, country: str, price_type: str):
             doc = generate_pdf(ref, values, show_pvr, country, doc)
             
         doc = get_back_cover(country, price_type, doc)  # Gera a back cover
+ 
+        file_name = f"catalogo_{country.lower()}_{'pvr' if show_pvr else 'pvp'}_all.pdf" 
+        # Salvar na pasta pública de arquivos do site
+        public_files_path = frappe.utils.get_site_path("public", "files", file_name)
+        doc.output(public_files_path)
+        # Retorna a URL completa do PDF para o frontend abrir
+        full_path = frappe.utils.get_url() + '/files/' + file_name
+        print(f"Catalog generated at: {full_path}")
+        return full_path
 
         # Salva o PDF final
-        file_name = f"catalogo_{country.lower()}_{'pvr' if show_pvr else 'pvp'}_all.pdf" 
-        pdf_output_path = os.path.join(frappe.get_app_path(
-            'erpnext', 'selling', 'doctype', 'catalogo', 'utils', file_name 
-        ))
+        # file_name = f"catalogo_{country.lower()}_{'pvr' if show_pvr else 'pvp'}_all.pdf" 
+        # pdf_output_path = os.path.join(frappe.get_app_path(
+        #     'erpnext', 'selling', 'doctype', 'catalogo', 'utils', file_name 
+        # ))
         
-        doc.output(pdf_output_path)  
+        # doc.output(pdf_output_path)  
 
-        # Abrir o PDF no navegador
-        webbrowser.open_new_tab(frappe.utils.get_url() + '/files/' + pdf_output_path) 
+        # # Abrir o PDF no navegador
+        # webbrowser.open_new_tab(frappe.utils.get_url() + '/files/' + pdf_output_path) 
     except Exception as err:
         frappe.log_error(frappe.get_traceback(), "Catalogs Access Error")
         frappe.throw(f"Erro ao acessar os catálogos: {str(err)}")
