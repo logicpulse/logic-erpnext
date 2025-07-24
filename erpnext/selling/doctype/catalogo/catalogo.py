@@ -79,7 +79,11 @@ def get_catalog(ref: str, spreadsheet_id: str, sheet_name: str, cell_range: str,
         show_pvr = 'pvr' in price_type.lower()
         file_name = generate_pdf(ref, values, show_pvr, country) 
         # Retorna a URL completa do PDF para o frontend abrir
-        full_path = frappe.utils.get_url() + '/files/' + file_name
+        porta = frappe.conf.webserver_port or 8080 
+        url_base = frappe.utils.get_url()
+        if f":{porta}" not in url_base:
+            url_base += f":{porta}"
+        full_path = url_base + '/files/' + file_name
         print(f"Catalog generated at: {full_path}")
         return full_path
     except Exception as err:
@@ -153,7 +157,11 @@ def get_all_catalogs(spreadsheet_id: str, country: str, price_type: str):
         public_files_path = frappe.utils.get_site_path("public", "files", file_name)
         doc.output(public_files_path)
         # Retorna a URL completa do PDF para o frontend abrir
-        full_path = frappe.utils.get_url() + '/files/' + file_name
+        porta = frappe.conf.webserver_port or 8080 
+        url_base = frappe.utils.get_url()
+        if f":{porta}" not in url_base:
+            url_base += f":{porta}"
+        full_path = url_base + '/files/' + file_name
         print(f"Catalog generated at: {full_path}")
         return full_path
 
