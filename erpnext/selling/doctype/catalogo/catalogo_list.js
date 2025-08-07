@@ -1,5 +1,7 @@
+var compress = true;
 // Adiciona o botão na listagem (List View)
 frappe.listview_settings['Catalogo'] = {
+	 // Variável para controlar a compressão
 	// filters: [
 	//     ['Name', 'Like', 1]
 	// ],
@@ -10,7 +12,7 @@ frappe.listview_settings['Catalogo'] = {
 			const btns = document.querySelectorAll('.btn-inner-group .btn');
 			let btn = null;
 			btns.forEach(b => {
-				if (b.innerText.trim() === 'Full Catalog'){
+				if (b.innerText.trim() === 'Full Catalog') {
 					console.log('Button found:', b);
 					btn = b;
 				}
@@ -35,11 +37,36 @@ frappe.listview_settings['Catalogo'] = {
 						console.log('res.message:', res.message);
 						window.open(res.message, '_blank');
 						frappe.msgprint(__('Ficheiro gerado com sucesso!'));
-					}else {
+					} else {
 						frappe.msgprint(__('No catalogs found or an error occurred.'));
 					}
 				}
 			});
+		});
+
+		// Adiciona um checkbox customizado na barra de botões
+		const checkbox = document.createElement('input');
+		checkbox.type = 'checkbox';
+		checkbox.id = 'toggle-catalogo';
+		checkbox.style.marginLeft = '10px';
+		checkbox.checked = compress; 
+
+		const label = document.createElement('label');
+		label.htmlFor = 'toggle-catalogo';
+		label.innerText = 'Compress';
+		label.style.marginLeft = '5px';
+
+		// Adiciona o checkbox e label ao grupo de botões internos
+		listview.page.inner_toolbar[0].appendChild(checkbox);
+		listview.page.inner_toolbar[0].appendChild(label);
+
+		// Evento de mudança do checkbox
+		checkbox.addEventListener('change', function () {
+			if (this.checked) {
+				compress = true;
+			} else {
+				compress = false;
+			}
 		});
 	},
 	dropdown_button: {
@@ -58,10 +85,10 @@ frappe.listview_settings['Catalogo'] = {
 					frappe.db.get_doc('Catalogo', doc.name).then(async (doc) => {
 						ref = doc.ref;
 						cell_range = doc.cell_range;
-						await generate(ref, doc.sheet_name, cell_range);
+						await generate(ref, doc.sheet_name, cell_range, compress);
 					}).catch((error) => {
 						console.error('Error fetching catalog data:', error);
-					}); 
+					});
 				}
 			},
 			{
@@ -80,7 +107,7 @@ frappe.listview_settings['Catalogo'] = {
 	}
 };
 
-async function generate(ref, sheet_name, cell_range) {
+async function generate(ref, sheet_name, cell_range, compress = true) {
 	const spreadsheet_id = '1Nm6YatjJrugBxM38yaXlIJgLHfVAMCnnMLw83lga5YQ'
 	const pais = 'PT';
 	const tipoPreco = 'PVP';
@@ -94,14 +121,15 @@ async function generate(ref, sheet_name, cell_range) {
 			sheet_name: sheet_name,
 			cell_range: cell_range,
 			country: pais,
-			price_type: tipoPreco
+			price_type: tipoPreco,
+			compress: compress 
 		},
 		callback: function (res) {
 			if (res.message) {
 				console.log('message:', res.message);
 				window.open(res.message, '_blank');
 				frappe.msgprint(__('Ficheiro gerado com sucesso!'));
-			} else { 
+			} else {
 				frappe.msgprint(__('No catalogs found or an error occurred.'));
 			}
 		}

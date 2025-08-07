@@ -8,8 +8,7 @@ import os
 import webbrowser 
 from fpdf import FPDF, Align
 from dataclasses import dataclass 
-from datetime import datetime
-import re
+from datetime import datetime 
 
 class Catalogo(WebsiteGenerator):
     # begin: auto-generated types
@@ -53,7 +52,7 @@ class ProdutModelToExcel(ProdutModel):
     Unit_Measure: str
 
 @frappe.whitelist()
-def get_catalog(ref: str, spreadsheet_id: str, sheet_name: str, cell_range: str, country: str, price_type: str):
+def get_catalog(ref: str, spreadsheet_id: str, sheet_name: str, cell_range: str, country: str, price_type: str, compress: bool):
     try:
         # if (True):
         #     return 'http://development.localhost:8000/files/catalogo_access_pt_pvp.pdf'
@@ -77,7 +76,7 @@ def get_catalog(ref: str, spreadsheet_id: str, sheet_name: str, cell_range: str,
             frappe.throw("Invalid price type. Use 'PVR' or 'PVP'.")
         
         show_pvr = 'pvr' in price_type.lower()
-        file_name = generate_pdf(ref, values, show_pvr, country) 
+        file_name = generate_pdf(ref, values, show_pvr, country, compress=compress) 
         # Retorna a URL completa do PDF para o frontend abrir
         porta = frappe.conf.webserver_port or 8080 
         url_base = frappe.utils.get_url()
@@ -91,7 +90,7 @@ def get_catalog(ref: str, spreadsheet_id: str, sheet_name: str, cell_range: str,
         frappe.throw(f"Erro ao acessar o catálogo: {str(err)}")
 
 @frappe.whitelist()
-def get_all_catalogs(spreadsheet_id: str, country: str, price_type: str):
+def get_all_catalogs(spreadsheet_id: str, country: str, price_type: str, compress: bool = True):
     datas = [
         {
             "ref": "access",
@@ -148,7 +147,7 @@ def get_all_catalogs(spreadsheet_id: str, country: str, price_type: str):
                 continue  # Pula se não houver dados suficientes
 
             show_pvr = 'pvr' in price_type.lower() 
-            doc = generate_pdf(ref, values, show_pvr, country, doc)
+            doc = generate_pdf(ref, values, show_pvr, country, doc, compress)
             
         doc = get_back_cover(country, price_type, doc)  # Gera a back cover
  
@@ -162,7 +161,9 @@ def get_all_catalogs(spreadsheet_id: str, country: str, price_type: str):
         if f":{porta}" not in url_base:
             url_base += f":{porta}"
         full_path = url_base + '/files/' + file_name
+
         print(f"Catalog generated at: {full_path}")
+
         return full_path
 
         # Salva o PDF final
@@ -334,7 +335,7 @@ def convert_list_to_model(values: list[list[str]]) -> list[ProdutModel]:
 
     return models
 
-def generate_pdf(ref: str, values: list[list[str]], show_pvr: bool, country: str, doc: FPDF = None) -> str | FPDF:
+def generate_pdf(ref: str, values: list[list[str]], show_pvr: bool, country: str, doc: FPDF = None, compress: bool = True) -> str | FPDF:
     import pandas as pd
     # Caminhos 
     root_dir = os.path.join(frappe.get_app_path('erpnext', 'selling', 'doctype', 'catalogo'))
@@ -343,7 +344,9 @@ def generate_pdf(ref: str, values: list[list[str]], show_pvr: bool, country: str
     image_background_path = os.path.join(root_dir, ref, f'{ref}.track_background.png')
     header_image_path = os.path.join(root_dir, ref, f'{ref}.track_desc.png')
     # Criação do PDF
+    print('Gerando PDF comprimido => ', compress)
     pdf = doc if doc else FPDF()
+    pdf.compress = compress
     pdf.set_page_background(image_background_path)
     pdf.set_auto_page_break(auto=True, margin=15)
     pdf.set_margins(top=35, left=10, right=10)
@@ -406,7 +409,7 @@ def generate_pdf(ref: str, values: list[list[str]], show_pvr: bool, country: str
         # df = pd.DataFrame([vars(produto) for produto in productsToExcel])
         # excel_file_name = public_files_path.replace(".pdf", ".xlsx")
         # df.to_excel(excel_file_name, index=False)
-
+  
         print('documento gerado em: ', public_files_path)
         pdf.output(public_files_path)
         # Retorna apenas o nome do arquivo, pois a URL pública é /files/<file_name>
@@ -428,9 +431,9 @@ def get_header_color(ref: str) -> tuple[int, int, int]:
 
 def estimate_multicell_height(pdf: FPDF, text: str, width: float, line_height: float = 5) -> float:
     string_width = pdf.get_string_width(text)
-    print(f"String width: {string_width}, Width: {width}")
+    # print(f"String width: {string_width}, Width: {width}")
     lines = max(1, round(string_width / width))
-    print(f"Estimated lines: {lines}, Line height: {line_height}")
+    # print(f"Estimated lines: {lines}, Line height: {line_height}")
     return (lines + 1) * line_height
 
 def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, country: str):
