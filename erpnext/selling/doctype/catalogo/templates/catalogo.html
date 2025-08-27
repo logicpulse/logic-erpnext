@@ -42,7 +42,7 @@
 	</div>
 </div>
 <script>
-	async function generate(ref, sheet_name, cell_range) {
+	async function generate(ref, sheet_name, cell_range, compress = true) {
 		const spreadsheet_id = '1Nm6YatjJrugBxM38yaXlIJgLHfVAMCnnMLw83lga5YQ';
 		const pais = document.getElementById('pais') ? document.getElementById('pais').value : null;
 		const tipoPreco = document.getElementById('tipo_preco') ? document.getElementById('tipo_preco').value : null;
@@ -63,7 +63,8 @@
 				sheet_name: sheet_name,
 				cell_range: cell_range,
 				country: pais,
-				price_type: tipoPreco
+				price_type: tipoPreco,
+				compress: compress
 			},
 			callback: function (res) {
 				if (btn) {

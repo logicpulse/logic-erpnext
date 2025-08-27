@@ -23,7 +23,6 @@ frappe.ui.form.on("Catalogo", {
 				}
 			});
 		}, __('Actions'));
-
 	},
 });
 
