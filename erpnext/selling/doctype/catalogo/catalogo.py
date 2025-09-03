@@ -450,10 +450,10 @@ def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, 
     def draw_header():
         pdf.set_fill_color(*color)
         pdf.set_text_color(255, 255, 255)
-        pdf.set_font("DejaVu", size=12)
+        pdf.set_font("DejaVu", size=11)
         pdf.set_draw_color(255, 255, 255)
         for i, header in enumerate(headers):
-            pdf.cell(col_widths[i], 10, header, border=1, align=Align.L, fill=True)
+            pdf.cell(col_widths[i], 10, header, border=9, align=Align.L, fill=True)
         pdf.ln()
 
     color = get_header_color(ref)
@@ -507,7 +507,7 @@ def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, 
         pdf.set_xy(temp_x + col_widths[0], y_offset)
         pdf.multi_cell(col_widths[1], 5, produto.Produto, border=0, align=Align.L, fill=False)
         # Remove todas as bordas exceto a de baixo
-        pdf.line(temp_x + col_widths[0], temp_y + line_height, temp_x + col_widths[0] + col_widths[1], temp_y + line_height)  # apenas borda inferior
+        pdf.line(temp_x + col_widths[0], temp_y + line_height, temp_x + col_widths[0] + col_widths[1], temp_y + line_height)
 
         # Coluna 2: Referência
         x_pos = temp_x + col_widths[0] + col_widths[1]
@@ -534,7 +534,13 @@ def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, 
 
         # Ver+
         pdf.set_xy(x_pos, temp_y)
-        pdf.cell(col_widths[-1], line_height, 'i', border='B', align=Align.C, link=produto.URL)
+        if(produto.URL and produto.URL.strip()):
+            text_Color = pdf.text_color
+            pdf.set_text_color(*color)
+            pdf.cell(col_widths[-1], line_height, 'i', border='B', align=Align.C, link=produto.URL)
+            pdf.set_text_color(text_Color)
+        else:
+            pdf.cell(col_widths[-1], line_height, ' ', border='B', align=Align.C)
 
         # Avança linha
         pdf.set_y(temp_y + line_height)

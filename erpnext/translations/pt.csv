@@ -350,7 +350,7 @@ Add Or Deduct,Adicione ou deduzir
 Add Order Discount,Adicione o desconto do pedido
 Add Participants,Adicionar participantes
 Add Quote,Adicione a cotação
-Add Raw Materials,Adicione matérias -primas
+Add Raw Materials,Adicione matérias-primas
 Add Sales Partners,Adicionar parceiros de vendas
 Add Serial / Batch Bundle,Adicione um pacote serial / lote
 Add Serial / Batch No,Adicione serial / lote não
@@ -471,7 +471,7 @@ Algorithm,Algoritmo
 All,Todos
 All Accounts,Todas as contas
 All Activities,Todas as atividades
-All Activities HTML,Todas as atividades html
+All Activities HTML,Todas as atividades HTML
 All BOMs,Todos os BOMs
 All Contact,Todo contato
 All Customer Contact,Todo o contato do cliente
@@ -497,7 +497,7 @@ All items have already been Invoiced/Returned,Todos os itens já foram faturados
 All items have already been received,Todos os itens já foram recebidos
 All items have already been transferred for this Work Order.,Todos os itens já foram transferidos para esta ordem de serviço.
 All items in this document already have a linked Quality Inspection.,Todos os itens deste documento já possuem uma inspeção de qualidade vinculada.
-All the Comments and Emails will be copied from one document to another newly created document(Lead -> Opportunity -> Quotation) throughout the CRM documents.,Todos os comentários e e -mails serão copiados de um documento para outro documento recém -criado (Lead -> Opportunity -> citação) nos documentos do CRM.
+All the Comments and Emails will be copied from one document to another newly created document(Lead -> Opportunity -> Quotation) throughout the CRM documents.,Todos os comentários e e-mails serão copiados de um documento para outro documento recém-criado (Lead -> Opportunity -> citação) nos documentos do CRM.
 All the items have been already returned.,Todos os itens já foram devolvidos.
 "All the required items (raw materials) will be fetched from BOM and populated in this table. Here you can also change the Source Warehouse for any item. And during the production, you can track transferred raw materials from this table.","Todos os itens necessários (matérias -primas) serão buscadas na BOM e preenchidas nesta tabela. Aqui você também pode alterar o armazém de origem para qualquer item. E durante a produção, você pode rastrear matérias -primas transferidas desta tabela."
 All these items have already been Invoiced/Returned,Todos esses itens já foram faturados/devolvidos
@@ -515,7 +515,7 @@ Allocated amount cannot be greater than unadjusted amount,A quantidade alocada n
 Allocated amount cannot be negative,A quantidade alocada não pode ser negativa
 Allocation,Alocação
 Allocations,Alocações
-Allotted Qty,Quiz de alocado
+Allotted Qty,Quantidade alocada
 Allow,Permitir
 Allow Account Creation Against Child Company,Permitir a criação de contas contra a empresa infantil
 Allow Alternative Item,Permitir item alternativo
@@ -4105,7 +4105,7 @@ Min Qty should be greater than Recurse Over Qty,Min Qty deve ser maior que recor
 Minimum Invoice Amount,Quantidade mínima de fatura
 Minimum Lead Age (Days),Idade mínima de chumbo (dias)
 Minimum Net Rate,Taxa líquida mínima
-Minimum Order Qty,Qtdy de encomenda mínima
+Minimum Order Qty,Qtd de encomenda mínima
 Minimum Order Quantity,Quantidade mínima do pedido
 Minimum Payment Amount,Valor mínimo de pagamento
 Minimum Qty,Qty mínimo
@@ -6614,7 +6614,7 @@ Selected document must be in submitted state,O documento selecionado deve estar 
 Self delivery,Auto -entrega
 Sell,Vender
 Sell Asset,Vender ativo
-Selling,Vendendo
+Selling,Vendas
 Selling Amount,Valor de venda
 Selling Price List,Lista de preços de venda
 Selling Rate,Taxa de venda
