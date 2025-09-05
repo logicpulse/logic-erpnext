@@ -25,7 +25,7 @@
 			</div>
 		</div>
 		<div class="mb-3 d-flex justify-content-center form-check form-switch">
-			<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+			<input class="form-check-input" type="checkbox" checked="true" id="flexSwitchCheckDefault">
 			<label class="form-check-label" for="flexSwitchCheckDefault">Comprimir?</label>
 		</div>
 		<div class="mb-3 d-flex justify-content-center">
@@ -43,6 +43,7 @@
 </div>
 <script>
 	async function generate(ref, sheet_name, cell_range, compress = true) {
+		compress = document.getElementById('flexSwitchCheckDefault').checked;
 		const spreadsheet_id = '1Nm6YatjJrugBxM38yaXlIJgLHfVAMCnnMLw83lga5YQ';
 		const pais = document.getElementById('pais') ? document.getElementById('pais').value : null;
 		const tipoPreco = document.getElementById('tipo_preco') ? document.getElementById('tipo_preco').value : null;

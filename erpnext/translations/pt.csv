@@ -99,7 +99,7 @@ Summary,Resumo
 "<h3>Currency Exchange Settings Help</h3>|||<p>There are 3 variables that could be used within the endpoint, result key and in values of the parameter.</p>|||<p>Exchange rate between {from_currency} and {to_currency} on {transaction_date} is fetched by the API.</p>|||<p>Example: If your endpoint is exchange.com/2021-08-01, then, you will have to input exchange.com/{transaction_date}</p>","<H3> Configurações da troca de moeda Ajuda </h3> ||| <p> Existem 3 variáveis que podem ser usadas no ponto final, chave de resultado e nos valores do parâmetro. Exchange.com/2021-08-01, então você terá que inserir Exchange.com/ {transaction_date} </p>"
 "<h4>Body Text and Closing Text Example</h4>||||||<div>We have noticed that you have not yet paid invoice {{sales_invoice}} for {{frappe.db.get_value(""Currency"", currency, ""symbol"")}} {{outstanding_amount}}. This is a friendly reminder that the invoice was due on {{due_date}}. Please pay the amount due immediately to avoid any further dunning cost.</div>||||||<h4>How to get fieldnames</h4>||||||<p>The fieldnames you can use in your template are the fields in the document. You can find out the fields of any documents via Setup &gt; Customize Form View and selecting the document type (e.g. Sales Invoice)</p>||||||<h4>Templating</h4>||||||<p>Templates are compiled using the Jinja Templating Language. To learn more about Jinja, <a class=""strong"" href=""http://jinja.pocoo.org/docs/dev/templates/"">read this documentation.</a></p>","<H4> Texto corporal e Exemplo de texto de fechamento </h4> |||||| <div> Percebemos que você ainda não pagou fatura {{sales_invoice}} para {{frapppe.db.get_value (""moeda"", moeda, ""símbolo)}} {{(excelente_amount { Este é um lembrete amigável de que a fatura foi devida em {{Due_date}}. Pague o valor devido imediatamente para evitar qualquer custo de dunning adicional. Você pode descobrir os campos de qualquer documento via configuração & gt; Personalize a visualização do formulário e selecionando o tipo de documento (por exemplo, fatura de vendas) </p> |||||| <h4> modelo </h4> |||||| <p> Os modelos são compilados usando a linguagem de modelos Jinja. Para saber mais sobre Jinja, <a class = ""forte"" href = ""http://jinja.pocoo.org/docs/dev/templates/""> leia esta documentação. </a> </p>"
 "<h4>Contract Template Example</h4>||||||<pre>Contract for Customer {{ party_name }}||||||-Valid From : {{ start_date }} |||-Valid To : {{ end_date }}|||</pre>||||||<h4>How to get fieldnames</h4>||||||<p>The field names you can use in your Contract Template are the fields in the Contract for which you are creating the template. You can find out the fields of any documents via Setup &gt; Customize Form View and selecting the document type (e.g. Contract)</p>||||||<h4>Templating</h4>||||||<p>Templates are compiled using the Jinja Templating Language. To learn more about Jinja, <a class=""strong"" href=""http://jinja.pocoo.org/docs/dev/templates/"">read this documentation.</a></p>","<h4> Modelo de contrato Exemplo </h4> |||||| <pre> contrato para o cliente {{Party_name}} |||||| -Valid de: {{start_date}}} ||||||||| Os nomes de campo que você pode usar no seu modelo de contrato são os campos no contrato para o qual você está criando o modelo. Você pode descobrir os campos de qualquer documento via configuração & gt; Personalize a visualização do formulário e selecionando o tipo de documento (por exemplo, contrato) </p> |||||| <h4> modelo </h4> |||||| <p> Os modelos são compilados usando a linguagem de modelos Jinja. Para saber mais sobre Jinja, <a class = ""forte"" href = ""http://jinja.pocoo.org/docs/dev/templates/""> leia esta documentação. </a> </p>"
-"<h4>Standard Terms and Conditions Example</h4>||||||<pre>Delivery Terms for Order number {{ name }}||||||-Order Date : {{ transaction_date }} |||-Expected Delivery Date : {{ delivery_date }}|||</pre>||||||<h4>How to get fieldnames</h4>||||||<p>The fieldnames you can use in your email template are the fields in the document from which you are sending the email. You can find out the fields of any documents via Setup &gt; Customize Form View and selecting the document type (e.g. Sales Invoice)</p>||||||<h4>Templating</h4>||||||<p>Templates are compiled using the Jinja Templating Language. To learn more about Jinja, <a class=""strong"" href=""http://jinja.pocoo.org/docs/dev/templates/"">read this documentation.</a></p>","<H4> Termos e condições padrão Exemplo </h4> |||||| <pre> Termos de entrega para o número do pedido {{name}} |||||| -Dord Data: {{transaction_date}} |||||| FieldNames </h4> |||||| <p> Os nomes de campo que você pode usar no seu modelo de e -mail são os campos no documento do qual você está enviando o email. Você pode descobrir os campos de qualquer documento via configuração & gt; Personalize a visualização do formulário e selecionando o tipo de documento (por exemplo, fatura de vendas) </p> |||||| <h4> modelo </h4> |||||| <p> Os modelos são compilados usando a linguagem de modelos Jinja. Para saber mais sobre Jinja, <a class = ""forte"" href = ""http://jinja.pocoo.org/docs/dev/templates/""> leia esta documentação. </a> </p>"
+"<h4>Standard Terms and Conditions Example</h4>||||||<pre>Delivery Terms for Order number {{ name }}||||||-Order Date : {{ transaction_date }} |||-Expected Delivery Date : {{ delivery_date }}|||</pre>||||||<h4>How to get fieldnames</h4>||||||<p>The fieldnames you can use in your email template are the fields in the document from which you are sending the email. You can find out the fields of any documents via Setup &gt; Customize Form View and selecting the document type (e.g. Sales Invoice)</p>||||||<h4>Templating</h4>||||||<p>Templates are compiled using the Jinja Templating Language. To learn more about Jinja, <a class=""strong"" href=""http://jinja.pocoo.org/docs/dev/templates/"">read this documentation.</a></p>","<H4> Termos e condições padrão Exemplo </h4> |||||| <pre> Termos de entrega para o número do pedido {{name}} |||||| -Dord Data: {{transaction_date}} |||||| FieldNames </h4> |||||| <p> Os nomes de campo que você pode usar no seu modelo de e-mail são os campos no documento do qual você está enviando o email. Você pode descobrir os campos de qualquer documento via configuração & gt; Personalize a visualização do formulário e selecionando o tipo de documento (por exemplo, fatura de vendas) </p> |||||| <h4> modelo </h4> |||||| <p> Os modelos são compilados usando a linguagem de modelos Jinja. Para saber mais sobre Jinja, <a class = ""forte"" href = ""http://jinja.pocoo.org/docs/dev/templates/""> leia esta documentação. </a> </p>"
 "<h5 class=""text-muted uppercase"">Or</h5>","<h5 class = ""manchada de texto moída"" ou </h5>"
 "<label class=""control-label"" style=""margin-bottom: 0px;"">Account Number Settings</label>","<LABEL class = ""Control-Label"" style = ""margem-bottom: 0px;""> Configurações do número da conta </belt>"
 "<label class=""control-label"" style=""margin-bottom: 0px;"">Amount In Words</label>","<Label Class = ""Control-Label"" style = ""margem-bottom: 0px;""> quantidade em palavras </belt>"
@@ -546,7 +546,7 @@ Allow Quotation with Zero Quantity,Permitir cotação com quantidade zero
 Allow Rename Attribute Value,Permitir o valor do atributo renomeado
 Allow Request for Quotation with Zero Quantity,Permitir solicitação de cotação com quantidade zero
 Allow Resetting Service Level Agreement,Permitir redefinir o acordo de nível de serviço
-Allow Resetting Service Level Agreement from Support Settings.,Permitir redefinir o contrato de nível de serviço das configurações de suporte.
+Allow Resetting Service Level Agreement from Support Settings.,Permitir redefinir o contrato de nível de serviço das configurações de assistência.
 Allow Sales,Permitir vendas
 Allow Sales Invoice Creation Without Delivery Note,Permitir criação de fatura de vendas sem nota de entrega
 Allow Sales Invoice Creation Without Sales Order,Permitir criação de fatura de vendas sem pedido de vendas
@@ -679,7 +679,7 @@ Appointment Duration (In Minutes),Duração da nomeação (em minutos)
 Appointment Scheduling Disabled,Agendamento de compromisso desativado
 Appointment Scheduling has been disabled for this site,A programação de compromissos foi desativada para este site
 Appointment With,Compromisso com
-Appointment was created. But no lead was found. Please check the email to confirm,"A nomeação foi criada. Mas nenhum chumbo foi encontrado. Por favor, verifique o e -mail para confirmar"
+Appointment was created. But no lead was found. Please check the email to confirm,"A nomeação foi criada. Mas nenhum chumbo foi encontrado. Por favor, verifique o e-mail para confirmar"
 Approving Role (above authorized value),Função de aprovação (valor autorizado acima)
 Approving Role cannot be same as role the rule is Applicable To,A aprovação de função não pode ser a mesma que a função que a regra é aplicável a
 Approving User  (above authorized value),Aprovação do usuário (valor autorizado acima)
@@ -1204,7 +1204,7 @@ Bundle Qty,Qtdy de pacote
 Busy,Ocupado
 Buy,Comprar
 Buyer of Goods and Services.,Comprador de bens e serviços.
-Buying,Compra
+Buying,Compras
 Buying & Selling Settings,Compra e venda de configurações
 Buying Amount,Valor de compra
 Buying Price List,Lista de preços de compra
@@ -1256,7 +1256,7 @@ Call Type,Tipo de chamada
 Callback,Ligar de volta
 Campaign,Campanha
 Campaign Efficiency,Eficiência da campanha
-Campaign Email Schedule,Cronograma de e -mail da campanha
+Campaign Email Schedule,Cronograma de e-mail da campanha
 Campaign Item,Item de campanha
 Campaign Name,Nome da campanha
 Campaign Naming By,Campanha nomeando por
@@ -1409,11 +1409,11 @@ Charges Incurred,Acusações incorridas
 Charges are updated in Purchase Receipt against each item,As cobranças são atualizadas no recibo de compra contra cada item
 "Charges will be distributed proportionately based on item qty or amount, as per your selection","As cobranças serão distribuídas proporcionalmente com base na Qtd ou quantidade de itens, conforme sua seleção"
 Chart,Gráfico
-Chart Of Accounts,Classo de contas
+Chart Of Accounts,Gráfico de contas
 Chart Of Accounts Template,Modelo do gráfico de contas
 Chart Preview,Visualização do gráfico
 Chart Tree,Árvore do gráfico
-Chart of Accounts,Classo de contas
+Chart of Accounts,Gráfico de contas
 Chart of Accounts Importer,Gráfico de contas importador
 Chart of Cost Centers,Gráfico de centros de custo
 Charts Based On,Gráficos baseados em
@@ -1463,7 +1463,7 @@ Click on 'Get Finished Goods for Manufacture' to fetch the items from the above 
 Click on Add to Holidays. This will populate the holidays table with all the dates that fall on the selected weekly off. Repeat the process for populating the dates for all your weekly holidays,Clique em Adicionar aos feriados. Isso preencherá a tabela de férias com todas as datas que caem no semanalmente selecionado. Repita o processo para preencher as datas para todas as suas férias semanais
 Click on Get Sales Orders to fetch sales orders based on the above filters.,Clique em obter pedidos de vendas para buscar pedidos de vendas com base nos filtros acima.
 Click on Import Invoices button once the zip file has been attached to the document. Any errors related to processing will be shown in the Error Log.,Clique no botão Importar faturas assim que o arquivo zip for anexado ao documento. Quaisquer erros relacionados ao processamento serão mostrados no log de erros.
-Click on the link below to verify your email and confirm the appointment,Clique no link abaixo para verificar seu e -mail e confirmar a consulta
+Click on the link below to verify your email and confirm the appointment,Clique no link abaixo para verificar seu e-mail e confirmar a consulta
 Click to add email / phone,Clique para adicionar email / telefone
 Client,Cliente
 Close,Fechar
@@ -2309,7 +2309,7 @@ Do you really want to restore this scrapped asset?,Você realmente quer restaura
 Do you still want to enable immutable ledger?,Você ainda deseja ativar o Ledger imutável?
 Do you still want to enable negative inventory?,Você ainda deseja ativar o inventário negativo?
 Do you want to change valuation method?,Você quer mudar o método de avaliação?
-Do you want to notify all the customers by email?,Deseja notificar todos os clientes por e -mail?
+Do you want to notify all the customers by email?,Deseja notificar todos os clientes por e-mail?
 Do you want to submit the material request,Você deseja enviar o pedido de material
 DocField,Docfield
 DocTest,Doutor
@@ -2427,18 +2427,18 @@ Electronic Invoice Register,Registro de fatura eletrônica
 Email,E-mail
 Email Account,Conta de email
 Email Address,Endereço de email
-Email Address (required),Endereço de e -mail (exigido)
+Email Address (required),Endereço de e-mail (exigido)
 "Email Address must be unique, it is already used in {0}","O endereço de email deve ser único, já é usado em {0}"
-Email Campaign,Campanha por e -mail
-Email Campaign For ,Campanha por e -mail para
-Email Details,Detalhes do e -mail
+Email Campaign,Campanha por e-mail
+Email Campaign For ,Campanha por e-mail para
+Email Details,Detalhes do e-mail
 Email Digest,Email Digest
 Email Digest Recipient,Destinatário do Digest
-Email Digest Settings,Configurações de digestão de e -mail
+Email Digest Settings,Configurações de digestão de e-mail
 Email Digest: {0},Email Digest: {0}
-Email Group,Grupo de e -mail
-Email Id,ID de e -mail
-Email Receipt,Recibo de e -mail
+Email Group,Grupo de e-mail
+Email Id,ID de e-mail
+Email Receipt,Recibo de e-mail
 Email Sent,Email enviado
 Email Sent to Supplier {0},Email enviado ao fornecedor {0}
 Email Settings,Configurações de email
@@ -2475,7 +2475,7 @@ Employees,Funcionários
 Empty,Vazio
 Enable Allow Partial Reservation in the Stock Settings to reserve partial stock.,Ativar permita a reserva parcial nas configurações de estoque para reservar o estoque parcial.
 Enable Appointment Scheduling,Habilite o agendamento de consultas
-Enable Auto Email,Ativar e -mail automático
+Enable Auto Email,Ativar e-mail automático
 Enable Auto Re-Order,Ativar reordenar automaticamente
 Enable Automatic Party Matching,Ativar correspondência automática de festa
 Enable Capital Work in Progress Accounting,Ativar trabalho de capital em andamento contabilidade
@@ -2527,7 +2527,7 @@ Enter a name for Routing.,Digite um nome para roteamento.
 Enter a name for this Holiday List.,Digite um nome para esta lista de férias.
 Enter amount to be redeemed.,Digite o valor a ser resgatado.
 "Enter an Item Code, the name will be auto-filled the same as Item Code on clicking inside the Item Name field.","Digite um código de item, o nome será preenchido automaticamente da mesma forma que o código do item ao clicar dentro do campo Nome do item."
-Enter customer's email,Digite o e -mail do cliente
+Enter customer's email,Digite o e-mail do cliente
 Enter customer's phone number,Digite o número de telefone do cliente
 Enter date to scrap asset,Insira a data para descartar ativos
 Enter depreciation details,Digite detalhes de depreciação
@@ -2659,7 +2659,7 @@ Failed to Authenticate the API key.,Falhou em autenticar a chave da API.
 "Failed to erase demo data, please delete the demo company manually.","Não apagou os dados da demonstração, exclua a empresa de demonstração manualmente."
 Failed to install presets,Falha ao instalar predefinições
 Failed to login,Falha ao fazer login
-Failed to post depreciation entries,Falhou em pós -depreciar entradas
+Failed to post depreciation entries,Falhou em pós-depreciar entradas
 Failed to setup company,Falhou em configurar a empresa
 Failed to setup defaults,Falha ao configurar os padrões
 Failed to setup defaults for country {0}. Please contact support.,Falha ao configurar os padrões para o país {0}. Entre em contato com o suporte.
@@ -3141,7 +3141,7 @@ If different than customer address,Se diferente do endereço do cliente
 If enabled then system won't apply the pricing rule on the delivery note which will be create from the pick list,"Se ativado, o sistema não aplicará a regra de preços na nota de entrega que será criada na lista de escolhas"
 If enabled then system won't override the picked qty / batches / serial numbers.,"Se ativado, o sistema não substituirá os números de qty / lotes / lotes escolhidos."
 "If enabled, Sales Invoice will be generated instead of POS Invoice in POS Transactions for real-time update of G/L and Stock Ledger.","Se ativado, a fatura de vendas será gerada em vez da fatura do POS nas transações de POS para atualização em tempo real do G/L e Ledger de ações."
-"If enabled, a print of this document will be attached to each email","Se ativado, uma impressão deste documento será anexada a cada e -mail"
+"If enabled, a print of this document will be attached to each email","Se ativado, uma impressão deste documento será anexada a cada e-mail"
 "If enabled, additional ledger entries will be made for discounts in a separate Discount Account","Se ativado, serão feitas entradas adicionais de contabilidade para descontos em uma conta de desconto separada"
 "If enabled, all files attached to this document will be attached to each email","Se ativado, todos os arquivos anexados a este documento serão anexados a cada email"
 "If enabled, do not update serial / batch values in the stock transactions on creation of auto Serial ||| / Batch Bundle. ","Se ativado, não atualize os valores de série / lote nas transações de estoque na criação de serial automática ||| / Pacote em lote."
@@ -3537,19 +3537,19 @@ Is Transporter,É transportador
 Is a Subscription,É uma assinatura
 Is created using POS,É criado usando POS
 Is this Tax included in Basic Rate?,Esse imposto está incluído na taxa básica?
-Issue,Emitir
-Issue Analytics,Problema Analytics
-Issue Credit Note,Nota de crédito de emissão
+Issue,Ocorrência
+Issue Analytics,Análise de ocorrências
+Issue Credit Note,Nota de crédito Emitida
 Issue Date,Data de emissão
-Issue Material,Emitir material
-Issue Priority,Emitir prioridade
-Issue Split From,Emissão dividida de
-Issue Summary,Resumo da questão
-Issue Type,Tipo de problema
+Issue Material,Saída de Material
+Issue Priority,Prioridade de ocorrência
+Issue Split From,Ocorrência dividida de
+Issue Summary,Resumo da ocorrência
+Issue Type,Tipo de ocorrência
 Issue a debit note with 0 qty against an existing Sales Invoice,Emita uma nota de débito com 0 Qty contra uma fatura de vendas existente
 Issued,Publicado
 Issued Items Against Work Order,Itens emitidos contra a ordem de serviço
-Issues,Problemas
+Issues,Ocorrências
 Issuing Date,Data de emissão
 Issuing cannot be done to a location. Please enter employee to issue the Asset {0} to,A emissão não pode ser feita em um local. Insira o funcionário para emitir o ativo {0} para
 It can take upto few hours for accurate stock values to be visible after merging items.,Pode levar até algumas horas para que os valores precisos de estoque sejam visíveis após a fusão de itens.
@@ -3771,7 +3771,7 @@ Lead Details,Detalhes do lead
 Lead Name,Nome do chumbo
 Lead Owner,Proprietário principal
 Lead Owner Efficiency,Eficiência do proprietário principal
-Lead Owner cannot be same as the Lead Email Address,O proprietário principal não pode ser o mesmo que o endereço de e -mail principal
+Lead Owner cannot be same as the Lead Email Address,O proprietário principal não pode ser o mesmo que o endereço de e-mail principal
 Lead Time,Tempo de espera
 Lead Time (Days),Líder de tempo (dias)
 Lead Time (in mins),Líder de tempo (em minutos)
@@ -3805,8 +3805,8 @@ Length,Comprimento
 Length (cm),Comprimento (cm)
 Less Than Amount,Menor que quantidade
 Letter Head,Cabeça de carta
-Letter or Email Body Text,Texto do corpo de carta ou e -mail
-Letter or Email Closing Text,Texto de fechamento de carta ou e -mail
+Letter or Email Body Text,Texto do corpo de carta ou e-mail
+Letter or Email Closing Text,Texto de fechamento de carta ou e-mail
 Level,Nível
 Level (BOM),Level (BOM)
 Lft,LFT
@@ -4262,7 +4262,7 @@ New {0} pricing rules are created,Novas regras de preços {0} são criadas
 Next,Próximo
 Next Depreciation Date,Próxima data de depreciação
 Next Due Date,Próxima data de vencimento
-Next email will be sent on:,O próximo e -mail será enviado em:
+Next email will be sent on:,O próximo e-mail será enviado em:
 No,Não
 No Account matched these filters: {},Nenhuma conta correspondeu a esses filtros: {}
 No Action,Sem ação
@@ -4300,7 +4300,7 @@ No active BOM found for item {0}. Delivery by Serial No cannot be ensured,Nenhum
 No additional fields available,Sem campos adicionais disponíveis
 No billing email found for customer: {0},Nenhum email de cobrança encontrado para o cliente: {0}
 No catalogs found or an error occurred.,Nenhum catálogo encontrado ou um erro ocorreu.
-No contacts with email IDs found.,Nenhum contato com IDs de e -mail encontrados.
+No contacts with email IDs found.,Nenhum contato com IDs de e-mail encontrados.
 No data for this period,Sem dados para este período
 No data found. Seems like you uploaded a blank file,Nenhum dado encontrado. Parece que você enviou um arquivo em branco
 No data to export,Sem dados para exportar
@@ -4391,14 +4391,14 @@ Notes: ,Notas:
 Nothing is included in gross,Nada está incluído no bruto
 Nothing more to show.,Nada mais para mostrar.
 Notice (days),Aviso (dias)
-Notify Customers via Email,Notifique os clientes por e -mail
+Notify Customers via Email,Notifique os clientes por e-mail
 Notify Employee,Notificar o funcionário
 Notify Other,Notificar outro
 Notify Reposting Error to Role,Notificar o erro de reposição para a função
 Notify Supplier,Notificar o fornecedor
-Notify Via Email,Notificar por e -mail
-Notify by Email on Creation of Automatic Material Request,Notificar por e -mail sobre a criação de solicitação automática de material
-Notify customer and agent via email on the day of the appointment.,Notifique o cliente e o agente por e -mail no dia da consulta.
+Notify Via Email,Notificar por e-mail
+Notify by Email on Creation of Automatic Material Request,Notificar por e-mail sobre a criação de solicitação automática de material
+Notify customer and agent via email on the day of the appointment.,Notifique o cliente e o agente por e-mail no dia da consulta.
 Number of Concurrent Appointments,Número de compromissos simultâneos
 Number of Days,Número de dias
 Number of Interaction,Número de interação
@@ -5016,7 +5016,7 @@ Please check Process Deferred Accounting {0} and submit manually after resolving
 Please check either with operations or FG Based Operating Cost.,Verifique com operações ou o custo operacional baseado em FG.
 Please check the error message and take necessary actions to fix the error and then restart the reposting again.,Verifique a mensagem de erro e tome as ações necessárias para corrigir o erro e reinicie o reposicionamento novamente.
 Please check your Plaid client ID and secret values,Verifique seu ID de cliente xadrez e valores secretos
-Please check your email to confirm the appointment,Verifique seu e -mail para confirmar a consulta
+Please check your email to confirm the appointment,Verifique seu e-mail para confirmar a consulta
 Please click on 'Generate Schedule',Clique em 'Gereate Schedure'
 Please click on 'Generate Schedule' to fetch Serial No added for Item {0},Clique em 'Gereate Schedule' para buscar serial sem adicionado para o item {0}
 Please click on 'Generate Schedule' to get schedule,Clique em 'Gereate Schedure' para obter o cronograma
@@ -5079,12 +5079,12 @@ Please enter the company name to confirm,"Por favor, insira o nome da empresa pa
 Please enter the phone number first,"Por favor, insira o número de telefone primeiro"
 Please enter the {schedule_date}.,"Por favor, digite o {schedule_date}."
 Please enter valid Financial Year Start and End Dates,"Por favor, insira datas de início e término do ano financeiro válido"
-Please enter valid email address,"Por favor, insira endereço de e -mail válido"
+Please enter valid email address,"Por favor, insira endereço de e-mail válido"
 Please enter {0},"Por favor, digite {0}"
 Please enter {0} first,"Por favor, digite {0} primeiro"
 Please fill the Material Requests table,Preencha a tabela de solicitações de material
 Please fill the Sales Orders table,"Por favor, preencha a tabela de pedidos de vendas"
-"Please first set Last Name, Email and Phone for the user","Por favor, defina o sobrenome, e -mail e telefone para o usuário"
+"Please first set Last Name, Email and Phone for the user","Por favor, defina o sobrenome, e-mail e telefone para o usuário"
 Please fix overlapping time slots for {0},"Por favor, corrija os slots de tempo sobrepostos para {0}"
 Please fix overlapping time slots for {0}.,Corrija os slots de tempo sobrepostos para {0}.
 Please import accounts against parent company or enable {} in company master.,Importe contas contra a empresa controladora ou habilite {} no mestre da empresa.
@@ -5464,7 +5464,7 @@ Prospect Owner,Proprietário de clientes em potencial
 Prospect {0} already exists,Prospect {0} já existe
 Prospecting,Prospecção
 Prospects Engaged But Not Converted,"Perspectivas envolvidas, mas não convertidas"
-Provide Email Address registered in company,Forneça endereço de e -mail registrado na empresa
+Provide Email Address registered in company,Forneça endereço de e-mail registrado na empresa
 Provider,Provedor
 Providing,Fornecendo
 Provisional Account,Conta provisória
@@ -5960,7 +5960,7 @@ Research,Pesquisar
 Research & Development,Pesquisa e Desenvolvimento
 "Reselect, if the chosen address is edited after save","Rese seletar, se o endereço escolhido for editado após o salvamento"
 "Reselect, if the chosen contact is edited after save","Selecione, se o contato escolhido for editado após o salvamento"
-Resend Payment Email,Reenvie o e -mail de pagamento
+Resend Payment Email,Reenvie o e-mail de pagamento
 Reservation,Reserva
 Reservation Based On,Reserva baseada em
 Reserve,Reserva
@@ -6518,10 +6518,10 @@ Search,Procurar
 Search APIs,APIs de pesquisa
 Search Sub Assemblies,Pesquise sub Assemblies
 Search Term Param Name,Nome do parâmetro de termo de pesquisa
-"Search by customer name, phone, email.","Pesquise por nome do cliente, telefone, e -mail."
+"Search by customer name, phone, email.","Pesquise por nome do cliente, telefone, e-mail."
 Search by invoice id or customer name,Pesquise por ID da fatura ou nome do cliente
 "Search by item code, serial number or barcode","Pesquise por código do item, número de série ou código de barras"
-Second Email,Segundo e -mail
+Second Email,Segundo e-mail
 Secondary Party,Festa secundária
 Secondary Role,Papel secundário
 Section,Seção
@@ -6529,7 +6529,7 @@ Section Code,Código da seção
 Secured Loans,Empréstimos garantidos
 Securities and Deposits,Valores mobiliários e depósitos
 See All Articles,Veja todos os artigos
-See all open tickets,Veja todos os ingressos abertos
+See all open tickets,Veja todos os tickets abertos
 Segregate Serial / Batch Bundle,Pacote segregado serial / lote
 Select,Selecione
 Select Accounting Dimension.,Selecione a dimensão contábil.
@@ -6633,7 +6633,7 @@ Send Now,Envie agora
 Send SMS,Enviar SMS
 Send To,Enviar para
 Send To Primary Contact,Enviar para o contato primário
-Send regular summary reports via Email.,Envie relatórios de resumo regulares por e -mail.
+Send regular summary reports via Email.,Envie relatórios de resumo regulares por e-mail.
 Send to Subcontractor,Enviar para o subcontratado
 Send with Attachment,Enviar com anexo
 Sender,Remetente
@@ -7240,12 +7240,12 @@ Suppliers,Fornecedores
 Supplies subject to the reverse charge provision,Suprimentos sujeitos à provisão de cobrança reversa
 Supply Raw Materials for Purchase,Fornecimento de matérias-primas para compra
 Support,Apoiar
-Support Hour Distribution,Distribuição de horas de suporte
-Support Portal,Portal de suporte
-Support Search Source,Suporte de fonte de pesquisa
-Support Settings,Configurações de suporte
+Support Hour Distribution,Distribuição de horas de assistência
+Support Portal,Portal de assistência
+Support Search Source,assistência de fonte de pesquisa
+Support Settings,Configurações de assistência
 Support Team,Equipe de apoio
-Support Tickets,Suporte ingressos
+Support Tickets,Tickets de assistência 
 Suspended,Suspenso
 Switch Between Payment Modes,Alterne entre os modos de pagamento
 Switch Invoice Mode Error,Modo de fatura de troca de erro
@@ -7515,7 +7515,7 @@ There was an error saving the document.,Houve um erro salvando o documento.
 There was an error syncing transactions.,Houve um erro de sincronização de transações.
 There was an error updating Bank Account {} while linking with Plaid.,Houve um erro atualizando a conta bancária {} enquanto vinculava a xadrez.
 There was an issue connecting to Plaid's authentication server. Check browser console for more information,Havia um problema se conectando ao servidor de autenticação da Plaid. Verifique o console do navegador para obter mais informações
-There were errors while sending email. Please try again.,"Houve erros ao enviar e -mail. Por favor, tente novamente."
+There were errors while sending email. Please try again.,"Houve erros ao enviar e-mail. Por favor, tente novamente."
 There were issues unlinking payment entry {0}.,Havia problemas que desbastem a entrada de pagamento {0}.
 This Account has '0' balance in either Base Currency or Account Currency,Esta conta possui saldo '0' na moeda base ou na moeda da conta
 This Item is a Template and cannot be used in transactions. Item attributes will be copied over into the variants unless 'No Copy' is set,"Este item é um modelo e não pode ser usado em transações. Os atributos do item serão copiados para as variantes, a menos que 'nenhuma cópia' esteja definida"
@@ -7931,7 +7931,7 @@ Unscheduled,Não programado
 Unsecured Loans,Empréstimos não garantidos
 Unset Matched Payment Request,Solicitação de pagamento não atendida
 Unsigned,Não assinado
-Unsubscribe from this Email Digest,Cancelar a inscrição deste resumo de e -mail
+Unsubscribe from this Email Digest,Cancelar a inscrição deste resumo de e-mail
 Unsubscribed,Cancelado
 Until,Até
 Unverified,Não verificado
@@ -8360,9 +8360,9 @@ YouTube,YouTube
 YouTube Interactions,Interações do YouTube
 Your Name (required),Seu nome (necessário)
 Your email address...,Seu endereço de email...
-Your email has been verified and your appointment has been scheduled,Seu e -mail foi verificado e sua consulta foi agendada
+Your email has been verified and your appointment has been scheduled,Seu e-mail foi verificado e sua consulta foi agendada
 Your order is out for delivery!,Seu pedido está disponível para entrega!
-Your tickets,Seus ingressos
+Your tickets,Seus tickets
 Youtube ID,ID do YouTube
 Youtube Statistics,Estatísticas do YouTube
 ZIP Code,CEP
