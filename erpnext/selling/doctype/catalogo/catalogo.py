@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 # import frappe
+import math
 from frappe.website.website_generator import WebsiteGenerator
 import frappe 
 import os 
@@ -203,7 +204,7 @@ def get_cover(country: str, price_type: str, doc: FPDF = None) -> str | FPDF:
         description = f'em vigor a partir Fevereiro de {year}'
   
         # Definindo a posição do título
-        pdf_cover.set_font("DejaVu", size=30)
+        pdf_cover.set_font("LiberationSans", size=30)
         pdf_cover.set_text_color(255, 255, 255) 
         pdf_cover.set_xy(30, 195)
         pdf_cover.cell(0, 10, title, fill=False, ln=1)
@@ -339,8 +340,9 @@ def generate_pdf(ref: str, values: list[list[str]], show_pvr: bool, country: str
     import pandas as pd
     # Caminhos 
     root_dir = os.path.join(frappe.get_app_path('erpnext', 'selling', 'doctype', 'catalogo'))
-    font_path = os.path.join(root_dir, 'utils', 'DejaVuSans.ttf') 
-    # font_path = os.path.join(root_dir, 'utils', 'HelveticaNeueLTPro-MdCn.otf') 
+    font_path_bold = os.path.join(root_dir, 'utils', 'LiberationSans-Bold.ttf') 
+    font_path_djv = os.path.join(root_dir, 'utils', 'DejaVuSans.ttf')   
+    # font_path_regular = os.path.join(root_dir, 'utils', 'LiberationSans-Regular.ttf') 
     image_background_path = os.path.join(root_dir, ref, f'{ref}.track_background.png')
     header_image_path = os.path.join(root_dir, ref, f'{ref}.track_desc.png')
     # Criação do PDF
@@ -354,13 +356,15 @@ def generate_pdf(ref: str, values: list[list[str]], show_pvr: bool, country: str
     page_width = pdf.w 
     pdf.image(header_image_path, x=10, y=30, w=page_width - 20)  
   
-    pdf.add_font('DejaVu', '', font_path)
+    pdf.add_font('LiberationSans', 'B', font_path_bold)
+    pdf.add_font('DejaVuSans', '', font_path_djv)
+    # pdf.add_font('DejaVu', '', font_path_dejavu, uni=True)
 
     # pdf.set_y(-15) 
     # pdf.set_font("DejaVu", size=8) 
     # pdf.cell(0, 10, f"Page {pdf.page_no()}/{{nb}}", align="C")
 
-    pdf.set_font("DejaVu", size=12)
+    pdf.set_font("DejaVuSans", size=12)
     
     produts = convert_list_to_model(values) 
 
@@ -430,10 +434,8 @@ def get_header_color(ref: str) -> tuple[int, int, int]:
     return cores.get(ref, (0, 0, 0))
 
 def estimate_multicell_height(pdf: FPDF, text: str, width: float, line_height: float = 5) -> float:
-    string_width = pdf.get_string_width(text)
-    # print(f"String width: {string_width}, Width: {width}")
-    lines = max(1, round(string_width / width))
-    # print(f"Estimated lines: {lines}, Line height: {line_height}")
+    string_width = pdf.get_string_width(text.strip(), True)
+    lines = max(1, math.ceil(string_width / width))
     return (lines + 1) * line_height
 
 def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, country: str):
@@ -450,16 +452,18 @@ def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, 
     def draw_header():
         pdf.set_fill_color(*color)
         pdf.set_text_color(255, 255, 255)
-        pdf.set_font("DejaVu", size=11)
+        pdf.set_font("LiberationSans", 'B', size=11)
         pdf.set_draw_color(255, 255, 255)
-        for i, header in enumerate(headers):
-            pdf.cell(col_widths[i], 10, header, border=9, align=Align.L, fill=True)
+        pdf.set_line_width(0.6) 
+        for i, header in enumerate(headers):  
+            pdf.cell(col_widths[i], 10, header, border="LB", align=Align.L, fill=True) 
+        pdf.set_line_width(0.2) 
         pdf.ln()
 
     color = get_header_color(ref)
     draw_header()
 
-    pdf.set_font("DejaVu", size=10)
+    pdf.set_font("DejaVuSans", size=10)
     pdf.set_text_color(0, 0, 0)
     pdf.set_draw_color(128, 128, 128)
 
@@ -469,10 +473,10 @@ def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, 
             fill_color = (47, 47, 47) if produto.Ref.startswith("*") else (128, 128, 128)
             pdf.set_fill_color(*fill_color)
             pdf.set_text_color(255, 255, 255)
-            pdf.set_font("DejaVu", size=12)
-            pdf.cell(sum(col_widths), 10, produto.Produto, border=1, fill=True)
+            pdf.set_font("LiberationSans", style="B", size=11)
+            pdf.cell(sum(col_widths), 10, produto.Produto, border=0, fill=True)
             pdf.ln()
-            pdf.set_font("DejaVu", size=10)
+            pdf.set_font("DejaVuSans", size=10)
             pdf.set_text_color(0, 0, 0)
             continue
 
@@ -483,7 +487,7 @@ def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, 
         # Estimar altura da célula "Nome"
         height_nome = estimate_multicell_height(pdf, produto.Produto, col_widths[1])
         image_height = 20 if image_path.startswith("http") else 10
-        line_height = max(height_nome, image_height, 10)
+        line_height = max(height_nome, image_height)
 
         # Verifica quebra de página
         if pdf.get_y() + line_height > pdf.page_break_trigger:
@@ -499,29 +503,28 @@ def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, 
             pdf.set_xy(temp_x, temp_y)
             pdf.cell(col_widths[0], line_height, '', border=0)
 
-        # Coluna 1: Nome (com multi_cell e borda manual)
+        # Coluna 1: Nome (alinhamento horizontal à esquerda, vertical ao topo)
         pdf.set_xy(temp_x + col_widths[0], temp_y)
-        # Centraliza verticalmente o conteúdo de 'produto.Produto'
-        text_height = estimate_multicell_height(pdf, produto.Produto, col_widths[1])
-        y_offset = temp_y + (line_height - text_height) / 2 if line_height > text_height else temp_y
-        pdf.set_xy(temp_x + col_widths[0], y_offset)
-        pdf.multi_cell(col_widths[1], 5, produto.Produto, border=0, align=Align.L, fill=False)
+        pdf.multi_cell(col_widths[1], 5, produto.Produto, border=0, align='L', fill=False)
         # Remove todas as bordas exceto a de baixo
         pdf.line(temp_x + col_widths[0], temp_y + line_height, temp_x + col_widths[0] + col_widths[1], temp_y + line_height)
 
-        # Coluna 2: Referência
+        # Coluna 2: Referência (alinhamento à esquerda, topo)
         x_pos = temp_x + col_widths[0] + col_widths[1]
         pdf.set_xy(x_pos, temp_y)
-        pdf.cell(col_widths[2], line_height, produto.Ref, border='B', align=Align.L)
+        pdf.multi_cell(col_widths[2], 5, produto.Ref, border=0, align='L', fill=False)
+        # linha inferior
+        pdf.line(x_pos, temp_y + line_height, x_pos + col_widths[2], temp_y + line_height)
         x_pos += col_widths[2]
 
         # PVR (se aplicável)
         if show_pvr:
             pdf.set_xy(x_pos, temp_y)
-            pdf.cell(col_widths[3], line_height, produto.Pct_PVR, border='B', align=Align.L)
+            pdf.multi_cell(col_widths[3], 5, produto.Pct_PVR, border=0, align='L', fill=False)
+            pdf.line(x_pos, temp_y + line_height, x_pos + col_widths[3], temp_y + line_height)
             x_pos += col_widths[3]
 
-        # PVP conforme país
+        # PVP conforme país (alinhamento à esquerda, topo)
         pvp = produto.PVP_PT
         if country == 'AO':
             pvp = produto.PVP_AO
@@ -529,18 +532,20 @@ def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, 
             pvp = produto.PVP_MZ
 
         pdf.set_xy(x_pos, temp_y)
-        pdf.cell(col_widths[-2], line_height, pvp, border='B', align=Align.C)
+        pdf.multi_cell(col_widths[-2], 5, pvp, border=0, align='L', fill=False)
+        pdf.line(x_pos, temp_y + line_height, x_pos + col_widths[-2], temp_y + line_height)
         x_pos += col_widths[-2]
 
-        # Ver+
+        # Ver+ (alinhamento à esquerda, topo)
         pdf.set_xy(x_pos, temp_y)
         if(produto.URL and produto.URL.strip()):
             text_Color = pdf.text_color
             pdf.set_text_color(*color)
-            pdf.cell(col_widths[-1], line_height, 'i', border='B', align=Align.C, link=produto.URL)
+            pdf.multi_cell(col_widths[-1], 5, 'i', border=0, align=Align.C, fill=False, link=produto.URL)
             pdf.set_text_color(text_Color)
         else:
-            pdf.cell(col_widths[-1], line_height, ' ', border='B', align=Align.C)
+            pdf.multi_cell(col_widths[-1], 5, ' ', border=0, align=Align.C, fill=False)
+        pdf.line(x_pos, temp_y + line_height, x_pos + col_widths[-1], temp_y + line_height)
 
         # Avança linha
         pdf.set_y(temp_y + line_height)
