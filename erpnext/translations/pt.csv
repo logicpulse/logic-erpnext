@@ -3764,23 +3764,23 @@ Last transacted,Última realização
 Latest,Mais recente
 Latest Age,Última idade
 Latitude,Latitude
-Lead,Liderar
+Lead,Lead
 Lead -> Prospect,Lead -> Prospect
-Lead Count,Contagem de chumbo
+Lead Count,Contagem de leads
 Lead Details,Detalhes do lead
-Lead Name,Nome do chumbo
-Lead Owner,Proprietário principal
-Lead Owner Efficiency,Eficiência do proprietário principal
-Lead Owner cannot be same as the Lead Email Address,O proprietário principal não pode ser o mesmo que o endereço de e-mail principal
-Lead Time,Tempo de espera
-Lead Time (Days),Líder de tempo (dias)
-Lead Time (in mins),Líder de tempo (em minutos)
-Lead Time Date,Data de tempo de entrega
-Lead Time Days,Dias de tempo de entrega
-Lead Time in days,Líder de tempo em dias
-Lead Type,Tipo de chumbo
-Lead {0} has been added to prospect {1}.,O chumbo {0} foi adicionado ao prospecto {1}.
-Leads,Pistas
+Lead Name,Nome do lead
+Lead Owner,Responsável pelo lead
+Lead Owner Efficiency,Eficiência do responsável pelo lead
+Lead Owner cannot be same as the Lead Email Address,O responsável pelo lead não pode ser o mesmo que o endereço de e-mail do lead
+Lead Time,Prazo de atendimento
+Lead Time (Days),Prazo de atendimento (dias)
+Lead Time (in mins),Prazo de atendimento (em minutos)
+Lead Time Date,Data do prazo de atendimento
+Lead Time Days,Dias de prazo de atendimento
+Lead Time in days,Prazo de atendimento em dias
+Lead Type,Tipo de lead
+Lead {0} has been added to prospect {1}.,O lead {0} foi adicionado ao prospecto {1}.
+Leads,Leads
 "Leads help you get business, add all your contacts and more as your leads","Leads ajudam você a obter negócios, adicione todos os seus contatos e muito mais como seus leads"
 "Learn about <a href=""https://docs.erpnext.com/docs/v13/user/manual/en/accounts/articles/common_party_accounting#:~:text=Common%20Party%20Accounting%20in%20ERPNext,Invoice%20against%20a%20primary%20Supplier."">Common Party</a>","Aprenda sobre <a href = ""https://docs.erpnext.com/docs/v13/user/manual/en/accounts/articles/common_party_accinging#: ~ :invoice%Common%20Party%20in%20erpnext.Invoice Festa </a>"
 Leave Encashed?,Sair encerrado?
@@ -4458,7 +4458,7 @@ Only show Customer of these Customer Groups,Mostrar apenas o cliente desses grup
 Only show Items from these Item Groups,Mostrar apenas itens desses grupos de itens
 "Only values between [0,1) are allowed. Like {0.00, 0.04, 0.09, ...}|||Ex: If allowance is set at 0.07, accounts that have balance of 0.07 in either of the currencies will be considered as zero balance account","Somente valores entre [0,1) são permitidos. Como {0,00, 0,04, 0,09, ...} ||| ex: Se a subsídio for definida em 0,07, contas que possuem saldo de 0,07 em qualquer uma das moedas serão consideradas como conta de saldo zero"
 Only {0} are supported,Somente {0} são suportados
-Open,Abrir
+Open,Aberto
 Open Activities HTML,Atividades abertas html
 Open BOM {0},Open Bom {0}
 Open Call Log,Log de chamada aberta
@@ -5481,10 +5481,10 @@ Purchase Analytics,Compra Analytics
 Purchase Date,Data de compra
 Purchase Defaults,Compra padrões
 Purchase Details,Detalhes da compra
-Purchase Invoice,Compre fatura
-Purchase Invoice Advance,Compre adiantamento da fatura
-Purchase Invoice Item,Compre o item da fatura
-Purchase Invoice Trends,Compre tendências de fatura
+Purchase Invoice,Fatura de compra
+Purchase Invoice Advance,Adiantamento da fatura de compra
+Purchase Invoice Item,Item da fatura de compra
+Purchase Invoice Trends,Tendências da fatura de compra
 Purchase Invoice cannot be made against an existing asset {0},A fatura de compra não pode ser feita contra um ativo existente {0}
 Purchase Invoice {0} is already submitted,Fatura de compra {0} já foi enviada
 Purchase Invoices,Compre faturas
@@ -6397,7 +6397,7 @@ Sales Invoice mode is activated in POS. Please create Sales Invoice instead.,"O 
 Sales Invoice {0} has already been submitted,Fatura de vendas {0} já foi enviada
 Sales Invoice {0} must be deleted before cancelling this Sales Order,Fatura de vendas {0} deve ser excluída antes de cancelar este pedido de vendas
 Sales Manager,Gerente de vendas
-Sales Master Manager,Gerente -mestre de vendas
+Sales Master Manager,Gerente de vendas principal
 Sales Monthly History,Error 500 (Server Error)!!1500.That’s an error.There was an error. Please try again later.That’s all we know.
 Sales Opportunities by Campaign,Oportunidades de vendas por campanha
 Sales Opportunities by Medium,Oportunidades de vendas por médio
