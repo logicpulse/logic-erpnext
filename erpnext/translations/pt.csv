@@ -1,6 +1,6 @@
 Address,Endereço
 Amount,Quantia
-BOM,Bom
+BOM,BOM
 Is Child Table,É uma mesa infantil
 Is Subcontracted,Está subcontratado
 Item,Item
@@ -1578,7 +1578,7 @@ Completion Date can not be before Failure Date. Please adjust the dates accordin
 Completion Status,Status de conclusão
 Comprehensive Insurance,Seguro abrangente
 Computer,Computador
-Condition,Doença
+Condition,Condição
 Conditional Rule,Regra condicional
 Conditional Rule Examples,Exemplos de regras condicionais
 Conditions will be applied on all the selected items combined. ,As condições serão aplicadas em todos os itens selecionados combinados.
@@ -4591,7 +4591,7 @@ Out of Order,Fora de ordem
 Out of Stock,Fora de estoque
 Out of Warranty,Fora da garantia
 Out of stock,Fora de estoque
-Outgoing,Extrovertido
+Outgoing,De saída
 Outgoing Rate,Taxa de saída
 Outstanding,Fora do comum
 Outstanding (Company Currency),Excelente (moeda da empresa)
@@ -4624,9 +4624,9 @@ Overproduction for Sales and Work Order,Superprodução para vendas e ordem de s
 Overview,Visão geral
 Owned,Controlado
 Owner,Proprietário
-PAN No,Pão não
+PAN No,PAN No
 PDF Name,Nome do PDF
-PIN,ALFINETE
+PIN,PIN
 PMO-,PMO-
 PO Supplied Item,Item fornecido por PO
 PO-JOB.#####,Po-job. #####
@@ -4682,8 +4682,8 @@ PUR-SQTN-.YYYY.-,Pur-sqtn-.yyy.-
 PVP (AO),PVP (AO)
 PVP (MZ),PVP (MZ)
 PVR (%),PVR (%)
-PZN,Pzn
-Package No(s) already in use. Try from Package No {0},Pacote no (s) já em uso. Experimente do pacote não {0}
+PZN,PZN
+Package No(s) already in use. Try from Package No {0},Pacote No(s) já em uso. Experimente do pacote No {0}
 Package Weight Details,Detalhes do peso do pacote
 Packaging Slip From Delivery Note,Deslize de embalagem da nota de entrega
 Packed Item,Item embalado
@@ -4723,7 +4723,7 @@ Parent Account,Conta pai
 Parent Account Missing,Conta dos pais ausente
 Parent Batch,Lote pai
 Parent Company,Empresa -mãe
-Parent Company must be a group company,Empresa -mãe deve ser uma empresa de grupo
+Parent Company must be a group company,Empresa-mãe deve ser uma empresa de grupo
 Parent Cost Center,Centro de custo dos pais
 Parent Customer Group,Grupo de clientes pai
 Parent Department,Departamento de Pais
@@ -4735,8 +4735,8 @@ Parent Item {0} must not be a Fixed Asset,Item pai {0} não deve ser um ativo fi
 Parent Item {0} must not be a Stock Item,Item pai {0} não deve ser um item de estoque
 Parent Location,Localização dos pais
 Parent Procedure,Procedimento pai
-Parent Row No,Linha dos pais no
-Parent Row No not found for {0},Linha dos pais não não encontrada para {0}
+Parent Row No,Linha dos pais No
+Parent Row No not found for {0},Linha dos pais No não encontrada para {0}
 Parent Sales Person,Vendas de pais
 Parent Supplier Group,Grupo de fornecedores de pais
 Parent Task,Tarefa dos pais
