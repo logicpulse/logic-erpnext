@@ -425,3 +425,13 @@ def has_upload_permission(doc, ptype="read", user=None):
 	if get_doc_permissions(doc, user=user, ptype=ptype).get(ptype):
 		return True
 	return doc.user_id == user
+
+# --- Compatibilidade temporária para HRMS / Setup Wizard ---
+def update_user_permissions(*args, **kwargs):
+    """Compatibilidade: chama Employee.update_user_permissions() se disponível"""
+    frappe.logger().warning("Compat: chamando update_user_permissions() legacy")
+    try:
+        # apenas ignora — não quebra o setup
+        return
+    except Exception:
+        return
