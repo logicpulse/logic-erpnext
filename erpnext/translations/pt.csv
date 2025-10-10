@@ -116,7 +116,7 @@ A - C,A - c
 A Customer Group exists with same name please change the Customer name or rename the Customer Group,"Um grupo de clientes existe com o mesmo nome, altere o nome do cliente ou renomeie o grupo de clientes"
 A Holiday List can be added to exclude counting these days for the Workstation.,Uma lista de férias pode ser adicionada para excluir a contagem atualmente para a estação de trabalho.
 A Lead requires either a person's name or an organization's name,Um lead requer o nome de uma pessoa ou o nome de uma organização
-A Packing Slip can only be created for Draft Delivery Note.,Um deslizamento de embalagem só pode ser criado para nota de entrega de rascunho.
+A Packing Slip can only be created for Draft Delivery Note.,Uma guia de embalagem só pode ser criado para um rascunho de nota de entrega.
 "A Price List is a collection of Item Prices either Selling, Buying, or both","Uma lista de preços é uma coleção de preços de itens que vendem, compra ou ambos"
 "A Product or a Service that is bought, sold or kept in stock.","Um produto ou um serviço comprado, vendido ou mantido em estoque."
 A Reconciliation Job {0} is running for the same filters. Cannot reconcile now,Um trabalho de reconciliação {0} está em execução para os mesmos filtros. Não pode se reconciliar agora
@@ -553,7 +553,7 @@ Allow Sales Invoice Creation Without Sales Order,Permitir criação de fatura de
 Allow Sales Order Creation For Expired Quotation,Permitir a criação de pedidos de vendas para cotação expirada
 Allow Sales Order with Zero Quantity,Permita pedidos de vendas com quantidade zero
 Allow Stale Exchange Rates,Permitir taxas de câmbio obsoletas
-Allow Supplier Quotation with Zero Quantity,Permitir citação do fornecedor com quantidade zero
+Allow Supplier Quotation with Zero Quantity,Permitir cotação do fornecedor com quantidade zero
 Allow UOM with Conversion Rate Defined in Item,Permitir UOM com a taxa de conversão definida no item
 Allow User to Edit Discount,Permitir que o usuário edite desconto
 Allow User to Edit Price List Rate in Transactions,Permitir que o usuário edite a taxa de lista de preços nas transações
@@ -1209,7 +1209,7 @@ Buying & Selling Settings,Compra e venda de configurações
 Buying Amount,Valor de compra
 Buying Price List,Lista de preços de compra
 Buying Rate,Taxa de compra
-Buying Settings,Compra de configurações
+Buying Settings,Configurações de compra
 Buying and Selling,Compra e venda
 "Buying must be checked, if Applicable For is selected as {0}","A compra deve ser verificada, se aplicável, é selecionado como {0}"
 "By default, the Supplier Name is set as per the Supplier Name entered. If you want Suppliers to be named by a <a href='https://docs.erpnext.com/docs/user/manual/en/setting-up/settings/naming-series' target='_blank'>Naming Series</a> choose the 'Naming Series' option.","Por padrão, o nome do fornecedor é definido conforme o nome do fornecedor inserido. Se você deseja que os fornecedores sejam nomeados por <a href = 'https: //docs.erpnext.com/docs/user/manual/en/setting-up/settings/naming-series' Target = '_ Blank'> Naming Series </a> Escolha a opção 'Nomeing Series'."
@@ -1790,7 +1790,7 @@ Creating Accounts...,Criando contas ...
 Creating Delivery Note ...,Criando nota de entrega ...
 Creating Dimensions...,Criando dimensões ...
 Creating Journal Entries...,Criando entradas de diário ...
-Creating Packing Slip ...,Criando deslizamento de embalagem ...
+Creating Packing Slip ...,Criando guia de embalagem...
 Creating Purchase Invoices ...,Criando faturas de compra ...
 Creating Purchase Order ...,Criando pedido de compra ...
 Creating Purchase Receipt ...,Criando recibo de compra ...
@@ -2210,7 +2210,7 @@ Difference,Diferença
 Difference (Dr - Cr),Diferença (dr - cr)
 Difference Account,Conta de diferença
 "Difference Account must be a Asset/Liability type account (Temporary Opening), since this Stock Entry is an Opening Entry","A conta de diferença deve ser uma conta do tipo de ativo/responsabilidade (abertura temporária), uma vez que essa entrada de estoque é uma entrada de abertura"
-"Difference Account must be a Asset/Liability type account, since this Stock Reconciliation is an Opening Entry","A conta de diferença deve ser uma conta do tipo de ativo/responsabilidade, pois essa reconciliação de ações é uma entrada de abertura"
+"Difference Account must be a Asset/Liability type account, since this Stock Reconciliation is an Opening Entry","A conta de diferença deve ser uma conta do tipo de ativo/responsabilidade, pois essa reconciliação de estoque é uma entrada de abertura"
 Difference Amount,Quantidade de diferença
 Difference Amount (Company Currency),Valor da diferença (moeda da empresa)
 Difference Amount must be zero,A quantidade de diferença deve ser zero
@@ -2235,7 +2235,7 @@ Disable Capacity Planning,Desativar o planejamento da capacidade
 Disable In Words,Desativar em palavras
 Disable Last Purchase Rate,Desative a última taxa de compra
 Disable Rounded Total,Desative o total arredondado
-Disable Serial No And Batch Selector,Desativar o seletor serial não e lote
+Disable Serial No And Batch Selector,Desativar o seletor de nº de série e lote
 Disabled,Desabilitado
 Disabled Account Selected,Conta desativada selecionada
 Disabled Warehouse {0} cannot be used for this transaction.,Warehouse desativado {0} não pode ser usado para esta transação.
@@ -2783,7 +2783,7 @@ Follow Calendar Months,Siga os meses do calendário
 Following Material Requests have been raised automatically based on Item's re-order level,As solicitações de material a seguir foram aumentadas automaticamente com base no nível de reordenação do item
 Following fields are mandatory to create address:,Os campos a seguir são obrigatórios para criar endereço:
 For,Para
-"For 'Product Bundle' items, Warehouse, Serial No and Batch No will be considered from the 'Packing List' table. If Warehouse and Batch No are same for all packing items for any 'Product Bundle' item, those values can be entered in the main Item table, values will be copied to 'Packing List' table.","Para itens de 'pacote de produtos', armazém, não e no lote não será considerado na tabela 'Lista de embalagem'. Se o armazém e o lote não forem os mesmos para todos os itens de embalagem para qualquer item de 'pacote de produtos', esses valores poderão ser inseridos na tabela de itens principais, os valores serão copiados para a tabela 'Lista de embalagem'."
+"For 'Product Bundle' items, Warehouse, Serial No and Batch No will be considered from the 'Packing List' table. If Warehouse and Batch No are same for all packing items for any 'Product Bundle' item, those values can be entered in the main Item table, values will be copied to 'Packing List' table.","Para itens do tipo 'Pacote de produtos', o armazém, o número de série e o número do lote serão considerados a partir da tabela 'Lista de embalagem'. Se o armazém e o número do lote forem os mesmos para todos os itens de embalagem de qualquer item do tipo 'Pacote de produtos', esses valores podem ser inseridos na tabela principal de itens, e os valores serão copiados para a tabela 'Lista de embalagem'."
 For Buying,Para compra
 For Company,Para empresa
 For Default Supplier (Optional),Para fornecedor padrão (opcional)
@@ -2944,7 +2944,7 @@ Generate Invoice At,Gerar fatura em
 Generate New Invoices Past Due Date,Gerar novas faturas para a data de vencimento
 Generate Schedule,Gerar cronograma
 Generate Stock Closing Entry,Gerar entrada de fechamento de estoque
-"Generate packing slips for packages to be delivered. Used to notify package number, package contents and its weight.","Gerar deslizamentos de embalagem para que os pacotes sejam entregues. Usado para notificar o número do pacote, o conteúdo do pacote e seu peso."
+"Generate packing slips for packages to be delivered. Used to notify package number, package contents and its weight.","Gerar guia de embalagem para pacotes a serem entregues. Utilizado para informar o número do pacote, o conteúdo do pacote e o seu peso."
 Generated,Gerado
 Generating Preview,Gerando visualização
 Gerador de Catalogos,Gerador de Catalogos
@@ -3220,7 +3220,7 @@ Import Log Preview,Importar visualização do log
 Import Preview,Importar visualização
 Import Progress,Progresso de importação
 Import Successful,Importação bem -sucedida
-Import Supplier Invoice,Fatura do fornecedor de importação
+Import Supplier Invoice,Importar fatura do fornecedor
 Import Type,Tipo de importação
 Import Using CSV file,Importar usando o arquivo CSV
 Import Warnings,Alertas de importação
@@ -3639,7 +3639,7 @@ Item qty can not be updated as raw materials are already processed.,"O item Qty 
 Item rate has been updated to zero as Allow Zero Valuation Rate is checked for item {0},"A taxa de item foi atualizada para zero, pois a taxa de avaliação zero é verificada quanto ao item {0}"
 Item to Manufacture,Item para fabricar
 Item to be manufactured or repacked,Item a ser fabricado ou reembalado
-Item valuation rate is recalculated considering landed cost voucher amount,"A taxa de avaliação de itens é recalculada, considerando o valor do voucher de custo terrestre"
+Item valuation rate is recalculated considering landed cost voucher amount,"A taxa de avaliação do item é recalculada considerando o valor do comprovante de custo de importação"
 Item valuation reposting in progress. Report might show incorrect item valuation.,Avaliação de itens Repositando em andamento. O relatório pode mostrar avaliação incorreta do item.
 Item variant {0} exists with same attributes,Variante de item {0} existe com os mesmos atributos
 Item {0} cannot be added as a sub-assembly of itself,Item {0} não pode ser adicionado como uma submontagem de si mesmo
@@ -3670,7 +3670,7 @@ Item {0}: Ordered qty {1} cannot be less than minimum order qty {2} (defined in 
 Item {0}: {1} qty produced. ,Item {0}: {1} Qty produzido.
 Item {} does not exist.,Item {} não existe.
 Item-wise Price List Rate,Taxa de lista de preços em termos de item
-Item-wise Purchase History,Histórico de compras em termos de item
+Item-wise Purchase History,Histórico de compras por item
 Item-wise Purchase Register,Registro de compra em termos de item
 Item-wise Sales History,Histórico de vendas em termos de item
 Item-wise Sales Register,Registro de vendas em termos de item
@@ -3740,8 +3740,8 @@ Landed Cost Help,Ajuda do custo da terra
 Landed Cost Item,Item de custo de terra
 Landed Cost Purchase Receipt,Recibo de compra de custo de terra
 Landed Cost Taxes and Charges,Impostos de custo de terra e cobranças
-Landed Cost Voucher,Coloque de custo de terra
-Landed Cost Voucher Amount,Valor do vale -custo de terra
+Landed Cost Voucher,Comprovante de custo de importação
+Landed Cost Voucher Amount,Valor do comprovante de custo de importação
 Landscape,Paisagem
 Language,Linguagem
 Lapsed,Capido
@@ -4034,7 +4034,7 @@ Material Request {0} submitted.,Solicitação de material {0} enviado.
 Material Requested,Material solicitado
 Material Requests,Solicitações de materiais
 Material Requests Required,Solicitações de material necessário
-Material Requests for which Supplier Quotations are not created,Solicitações de materiais para quais citações de fornecedores não são criadas
+Material Requests for which Supplier Quotations are not created,Solicitações de materiais para as quais não foram criadas cotações de fornecedores
 Material Returned from WIP,Material retornado do WIP
 Material Transfer,Transferência de material
 Material Transfer (In Transit),Transferência de material (em trânsito)
@@ -4383,7 +4383,7 @@ Note: Item {0} added multiple times,Nota: Item {0} adicionado várias vezes
 Note: On checking Is Mandatory the accounting dimension will become mandatory against that specific account for all accounting transactions,"NOTA: Na verificação é obrigatória, a dimensão contábil se tornará obrigatória contra essa conta específica de todas as transações contábeis"
 Note: Payment Entry will not be created since 'Cash or Bank Account' was not specified,"NOTA: A entrada de pagamento não será criada, pois 'Cash ou Bank Conta' não foi especificada"
 Note: This Cost Center is a Group. Cannot make accounting entries against groups.,Nota: Este centro de custo é um grupo. Não pode fazer entradas contábeis contra grupos.
-"Note: To merge the items, create a separate Stock Reconciliation for the old item {0}","Nota: Para mesclar os itens, crie uma reconciliação de ações separada para o item antigo {0}"
+"Note: To merge the items, create a separate Stock Reconciliation for the old item {0}","Nota: Para mesclar os itens, crie uma reconciliação de estoque separada para o item antigo {0}"
 Note: {0},Nota: {0}
 Notes,Notas
 Notes HTML,Notas html
@@ -4691,9 +4691,9 @@ Packed Items,Itens embalados
 Packed Items cannot be transferred internally,Itens embalados não podem ser transferidos internamente
 Packed Qty,Qtdy embalado
 Packing List,Lista de embalagem
-Packing Slip,Deslizamento de embalagem
-Packing Slip Item,Item de deslizamento de embalagem
-Packing Slip(s) cancelled,Deslizamento (s) de embalagem cancelado
+Packing Slip,Guia de embalagem
+Packing Slip Item,Item de guia de embalagem
+Packing Slip(s) cancelled,Guia(s) de embalagem cancelado
 Packing Unit,Unidade de embalagem
 Page Break,Quebra de página
 Page Break After Each SoA,Página quebra após cada SOA
@@ -5025,7 +5025,7 @@ Please contact any of the following users to {} this transaction.,Entre em conta
 Please contact your administrator to extend the credit limits for {0}.,Entre em contato com seu administrador para estender os limites de crédito para {0}.
 Please convert the parent account in corresponding child company to a group account.,"Por favor, converta a conta pai na empresa infantil correspondente em uma conta de grupo."
 Please create Customer from Lead {0}.,Crie o cliente do lead {0}.
-Please create Landed Cost Vouchers against Invoices that have 'Update Stock' enabled.,Crie vouchers de custo de terra contra faturas que possuem 'estoque de atualização' ativado.
+Please create Landed Cost Vouchers against Invoices that have 'Update Stock' enabled.,Crie comprovantes de custo de importação para faturas que tenham a opção 'Atualizar estoque' ativada.
 Please create a new Accounting Dimension if required.,"Crie uma nova dimensão contábil, se necessário."
 Please create purchase from internal sale or delivery document itself,Crie compra a partir do próprio documento de venda ou entrega interna
 Please create purchase receipt or purchase invoice for the item {0},Crie recibo de compra ou fatura de compra para o item {0}
@@ -5088,7 +5088,7 @@ Please fill the Sales Orders table,"Por favor, preencha a tabela de pedidos de v
 Please fix overlapping time slots for {0},"Por favor, corrija os slots de tempo sobrepostos para {0}"
 Please fix overlapping time slots for {0}.,Corrija os slots de tempo sobrepostos para {0}.
 Please import accounts against parent company or enable {} in company master.,Importe contas contra a empresa controladora ou habilite {} no mestre da empresa.
-"Please keep one Applicable Charges, when 'Distribute Charges Based On' is 'Distribute Manually'. For more charges, please create another Landed Cost Voucher.","Por favor, mantenha uma cobrança aplicável, quando 'distribuir taxas com base em' é 'distribuir manualmente'. Para mais cobranças, crie outro vale de custo de terra."
+"Please keep one Applicable Charges, when 'Distribute Charges Based On' is 'Distribute Manually'. For more charges, please create another Landed Cost Voucher.","Mantenha uma taxa aplicável quando 'Distribuir taxas com base em' estiver definido como 'Distribuir manualmente'. Para mais taxas, crie outro comprovante de custo de importação."
 Please make sure the employees above report to another Active employee.,Certifique -se de que os funcionários acima se reportem a outro funcionário ativo.
 Please make sure the file you are using has 'Parent Account' column present in the header.,Verifique se o arquivo que você está usando possui coluna de 'conta pai' presente no cabeçalho.
 Please make sure you really want to delete all the transactions for this company. Your master data will remain as it is. This action cannot be undone.,Certifique -se de que você realmente deseja excluir todas as transações para esta empresa. Seus dados mestres permanecerão como estão. Esta ação não pode ser desfeita.
@@ -5477,7 +5477,7 @@ Publisher,Editor
 Publisher ID,ID do editor
 Purchase,Comprar
 Purchase Amount,Valor de compra
-Purchase Analytics,Compra Analytics
+Purchase Analytics,Análise de compras
 Purchase Date,Data de compra
 Purchase Defaults,Compra padrões
 Purchase Details,Detalhes da compra
@@ -5522,7 +5522,7 @@ Purchase Receipt Items,Compre itens de recibo
 Purchase Receipt No,Compra de recibo no
 Purchase Receipt Required,Compre o recibo necessário
 Purchase Receipt Required for item {},Compra de recibo necessário para o item {}
-Purchase Receipt Trends,Compre tendências de recebimento
+Purchase Receipt Trends,Tendências de recibos de compras
 Purchase Receipt doesn't have any Item for which Retain Sample is enabled.,O recibo de compra não possui nenhum item para o qual a amostra de retenção está ativada.
 Purchase Receipt {0} created.,Recibo de compra {0} criado.
 Purchase Receipt {0} is not submitted,O recibo de compra {0} não é enviado
@@ -5931,16 +5931,16 @@ Reqd By Date,Reqd por data
 Reqd Qty (BOM),Reqd qty (bom)
 Reqd by date,Reqd por data
 Reqired Qty,Qty reqired
-Request For Quotation,Solicitação de citação
+Request For Quotation,Solicitação de cotação
 Request Parameters,Parâmetros de solicitação
 Request Timeout,Solicitar tempo limite
 Request Type,Tipo de solicitação
 Request for,Solicitação para
 Request for Information,Solicitação de informação
-Request for Quotation,Solicitação de citação
-Request for Quotation Item,Solicitação de citação item
+Request for Quotation,Solicitação de cotação
+Request for Quotation Item,Solicitação de cotação item
 Request for Quotation Supplier,Solicitação de fornecedor de cotação
-Request for Raw Materials,Solicitação de matérias -primas
+Request for Raw Materials,Solicitação de matérias-primas
 Requested,Solicitado
 Requested Items To Be Transferred,Itens solicitados a serem transferidos
 Requested Items to Order and Receive,Itens solicitados para encomendar e receber
@@ -6219,7 +6219,7 @@ Row #{0}: The batch {1} has already expired.,Linha #{0}: o lote {1} já expirou.
 Row #{0}: The warehouse {1} is not a child warehouse of a group warehouse {2},Linha #{0}: O armazém {1} não é um armazém infantil de um armazém de grupos {2}
 Row #{0}: Timings conflicts with row {1},Linha #{0}: Times conflitos com a linha {1}
 Row #{0}: Total Number of Depreciations cannot be less than or equal to Opening Number of Booked Depreciations,Linha #{0}: O número total de depreciações não pode ser menor ou igual ao número de abertura de depreciações reservadas
-Row #{0}: You cannot use the inventory dimension '{1}' in Stock Reconciliation to modify the quantity or valuation rate. Stock reconciliation with inventory dimensions is intended solely for performing opening entries.,Linha #{0}: você não pode usar a dimensão do inventário '{1}' na reconciliação de estoque para modificar a quantidade ou taxa de avaliação. A reconciliação de ações com dimensões de inventário destina -se apenas a realizar entradas de abertura.
+Row #{0}: You cannot use the inventory dimension '{1}' in Stock Reconciliation to modify the quantity or valuation rate. Stock reconciliation with inventory dimensions is intended solely for performing opening entries.,Linha #{0}: você não pode usar a dimensão do inventário '{1}' na reconciliação de estoque para modificar a quantidade ou taxa de avaliação. A reconciliação de estoque com dimensões de inventário destina -se apenas a realizar entradas de abertura.
 Row #{0}: You must select an Asset for Item {1}.,Linha #{0}: você deve selecionar um ativo para o item {1}.
 Row #{0}: {1} can not be negative for item {2},Linha #{0}: {1} não pode ser negativa para o item {2}
 Row #{0}: {1} is not a valid reading field. Please refer to the field description.,Linha #{0}: {1} não é um campo de leitura válido. Consulte a descrição do campo.
@@ -6295,7 +6295,7 @@ Row {0}: Item {1} must be a stock item.,Linha {0}: Item {1} deve ser um item de 
 Row {0}: Item {1} must be a subcontracted item.,Linha {0}: Item {1} deve ser um item subcontratado.
 Row {0}: Item {1}'s quantity cannot be higher than the available quantity.,Linha {0}: Item {1} A quantidade de São mais alta que a quantidade disponível.
 Row {0}: Packed Qty must be equal to {1} Qty.,Linha {0}: Qty embalado deve ser igual a {1} Qty.
-Row {0}: Packing Slip is already created for Item {1}.,Linha {0}: o deslizamento de embalagem já foi criado para o item {1}.
+Row {0}: Packing Slip is already created for Item {1}.,Linha {0}: a guia de embalagem já foi criado para o item {1}.
 Row {0}: Party / Account does not match with {1} / {2} in {3} {4},Linha {0}: Party / Conta não corresponde a {1} / {2} em {3} {4}
 Row {0}: Party Type and Party is required for Receivable / Payable account {1},Linha {0}: O tipo de festa e a festa são necessários para uma conta a receber / a pagar {1}
 Row {0}: Payment Term is mandatory,Linha {0}: termo de pagamento é obrigatório
@@ -6430,11 +6430,11 @@ Sales Partner Transaction Summary,Resumo da transação do parceiro de vendas
 Sales Partner Type,Tipo de parceiro de vendas
 Sales Partners Commission,Comissão de Parceiros de Vendas
 Sales Payment Summary,Resumo do pagamento de vendas
-Sales Person,Vendedora
-Sales Person <b>{0}</b> is disabled.,Pessoa de vendas <b> {0} </b> está desativada.
+Sales Person,Vendedor
+Sales Person <b>{0}</b> is disabled.,Pessoa de vendas <b>{0}</b> está desativada.
 Sales Person Commission Summary,Resumo da Comissão de Pessoa de Vendas
 Sales Person Name,Nome de vendas
-Sales Person Target Variance Based On Item Group,Variação -alvo de vendas com base no grupo de itens
+Sales Person Target Variance Based On Item Group,Variação-alvo de vendas com base no grupo de itens
 Sales Person Targets,Vendas de vendas
 Sales Person-wise Transaction Summary,Resumo da transação de vendas por pessoa
 Sales Pipeline,Pipeline de vendas
@@ -6649,35 +6649,35 @@ Serial / Batch Bundle,Pacote em série / lote
 Serial / Batch Bundle Missing,Pacote em série / lote ausente
 Serial / Batch No,Serial / lote não
 Serial / Batch Nos,NOS serial / lote
-Serial No,NÃO SERIAL
-Serial No (In/Out),NÃO serial (dentro/fora)
-Serial No / Batch,NO / LOTE SERIAL
-Serial No Count,Serial sem contagem
-Serial No Ledger,Serial sem razão
-Serial No Range,Serial sem intervalo
-Serial No Reserved,Serial sem reservado
-Serial No Service Contract Expiry,Serial Sem Expiração de Contrato de Serviço
-Serial No Status,Serial sem status
-Serial No Warranty Expiry,Expiração em série sem garantia
-Serial No and Batch,NÃO serial e lote
-Serial No and Batch Selector cannot be use when Use Serial / Batch Fields is enabled.,O seletor de NO e lote serial não pode ser usado quando o uso de campos serial / lote está ativado.
-Serial No is mandatory,Não é obrigatório
-Serial No is mandatory for Item {0},O NO serial é obrigatório para o item {0}
-Serial No {0} already exists,NO {0} em série já existe
-Serial No {0} already scanned,Serial no {0} já digitalizado
-Serial No {0} does not belong to Delivery Note {1},NO serial {0} não pertence à nota de entrega {1}
-Serial No {0} does not belong to Item {1},NO serial {0} não pertence ao item {1}
-Serial No {0} does not exist,Serial no {0} não existe
-Serial No {0} does not exists,Serial no {0} não existe
-Serial No {0} is already added,NO serial {0} já foi adicionado
-"Serial No {0} is not present in the {1} {2}, hence you can't return it against the {1} {2}","NO SERIAL {0} não está presente no {1} {2}, portanto, você não pode devolvê -lo contra o {1} {2}"
-Serial No {0} is under maintenance contract upto {1},NO SERIAL {0} está sob contrato de manutenção até {1}
-Serial No {0} is under warranty upto {1},NO SERIAL {0} está sob garantia até {1}
-Serial No {0} not found,Serial no {0} não encontrado
+Serial No,Nº de série
+Serial No (In/Out),Nº de série (entrada/saída)
+Serial No / Batch,Nº de série/lote
+Serial No Count,Contagem de nº de série
+Serial No Ledger,Registo de nº de série
+Serial No Range,Intervalo de nº de série
+Serial No Reserved,Nº de série reservados
+Serial No Service Contract Expiry,Expiração do contrato de serviço do nº de série
+Serial No Status,Estado do nº de série
+Serial No Warranty Expiry,Expiração da garantia do nº de série
+Serial No and Batch,Nº de série e lote
+Serial No and Batch Selector cannot be use when Use Serial / Batch Fields is enabled.,O seletor de nº de série e lote não pode ser utilizado quando a opção Utilizar campos de série/lote está ativada.
+Serial No is mandatory,O nº de série é obrigatório
+Serial No is mandatory for Item {0},O nº de série é obrigatório para o item {0}
+Serial No {0} already exists,O n° de série {0} já existe
+Serial No {0} already scanned,O nº de série {0} já foi digitalizado
+Serial No {0} does not belong to Delivery Note {1},O nº de série {0} não pertence à nota de entrega {1}
+Serial No {0} does not belong to Item {1},O nº de série {0} não pertence ao item {1}
+Serial No {0} does not exist,O nº de série {0} não existe
+Serial No {0} does not exists,O nº de série {0} não existe
+Serial No {0} is already added,O nº de série {0} já foi adicionado
+"Serial No {0} is not present in the {1} {2}, hence you can't return it against the {1} {2}","Nº de série {0} não está presente no {1} {2}, portanto, você não pode devolvê-lo contra o {1} {2}"
+Serial No {0} is under maintenance contract upto {1},Nº de série {0} está sob contrato de manutenção até {1}
+Serial No {0} is under warranty upto {1},Nº de série{0} está sob garantia até {1}
+Serial No {0} not found,Nº de série {0} não encontrado
 Serial No: {0} has already been transacted into another POS Invoice.,Nº de série: {0} já foi transalizado para outra fatura de POS.
 Serial Nos,Nos
-Serial Nos / Batch Nos,NOS / LOTO NOS SERIAL NOS
-Serial Nos and Batches,NOs e lotes em série
+Serial Nos / Batch Nos,Nº de série / Nº de lote
+Serial Nos and Batches,Nº de série e lotes
 Serial Nos are created successfully,NOS em série são criados com sucesso
 "Serial Nos are reserved in Stock Reservation Entries, you need to unreserve them before proceeding.","O NOS serial é reservado nas entradas de reserva de estoque, você precisa não avaliá -las antes de prosseguir."
 Serial Number Series,Série de números de série
@@ -6688,9 +6688,9 @@ Serial and Batch Bundle updated,Pacote em série e lote atualizado
 Serial and Batch Bundle {0} is already used in {1} {2}.,O pacote de série e lote {0} já está usado em {1} {2}.
 Serial and Batch Details,Detalhes de série e lote
 Serial and Batch Entry,Entrada em série e lote
-Serial and Batch No,Serial e lote não
-Serial and Batch Nos,NOS em série e lote
-Serial and Batch Nos will be auto-reserved based on <b>Pick Serial / Batch Based On</b>,NOS serial e lote serão reservados automaticamente com base em <b> escolha serial / lote com base em </b>
+Serial and Batch No,Nº de série e nº do lote
+Serial and Batch Nos,Números de série e lote
+Serial and Batch Nos will be auto-reserved based on <b>Pick Serial / Batch Based On</b>,Números de série e lote serão reservados automaticamente com base em <b> escolha serial / lote com base em </b>
 Serial and Batch Reservation,Reserva serial e em lote
 Serial and Batch Summary,Resumo de série e lote
 Serial number {0} entered more than once,Número de série {0} entrou mais de uma vez
@@ -7031,12 +7031,12 @@ Stock Expenses,Despesas de ações
 Stock Frozen Up To,Estoque congelado
 Stock In Hand,Estoque na mão
 Stock Items,Itens de estoque
-Stock Ledger,Redger de ações
-Stock Ledger Entries and GL Entries are reposted for the selected Purchase Receipts,As entradas do livro -contador e as entradas GL são repositadas para os recibos de compra selecionados
-Stock Ledger Entry,Entrada do razão de ações
+Stock Ledger,Livro de registo de ações
+Stock Ledger Entries and GL Entries are reposted for the selected Purchase Receipts,As entradas do livro-contador e as entradas GL são repositadas para os recibos de compra selecionados
+Stock Ledger Entry,Entrada no registo de estoque
 Stock Ledger ID,ID do livro de ações
-Stock Ledger Invariant Check,Cheque invariante no razão de ações
-Stock Ledger Variance,Variação do livro -contador de ações
+Stock Ledger Invariant Check,Verificação de invariantes do registo de estoque
+Stock Ledger Variance,Variação do registo de stock
 Stock Levels,Níveis de estoque
 Stock Liabilities,Passivos de estoque
 Stock Manager,Gerente de ações
@@ -7047,9 +7047,9 @@ Stock Projected Qty,Qtdy de ações projetadas
 Stock Qty,Qty de estoque
 Stock Qty vs Serial No Count,Qty de estoque vs serial sem contagem
 Stock Received But Not Billed,"Ações recebidas, mas não cobradas"
-Stock Reconciliation,Reconciliação de ações
-Stock Reconciliation Item,Item de reconciliação de ações
-Stock Reconciliations,Reconciliações de ações
+Stock Reconciliation,Reconciliação de estoque
+Stock Reconciliation Item,Item de reconciliação de estoque
+Stock Reconciliations,Reconciliações de estoque
 Stock Reposting Settings,Configurações de republicação de ações
 Stock Reservation,Reserva de estoque
 Stock Reservation Entries Cancelled,Entradas de reserva de estoque canceladas
@@ -7114,7 +7114,7 @@ Subcontracted Item,Item subcontratado
 Subcontracted Item To Be Received,Item subcontratado a ser recebido
 Subcontracted Purchase Order,Pedido de compra subcontratado
 Subcontracted Quantity,Quantidade subcontratada
-Subcontracted Raw Materials To Be Transferred,Matérias -primas subcontratadas a serem transferidas
+Subcontracted Raw Materials To Be Transferred,Matérias-primas subcontratadas a serem transferidas
 Subcontracting,Subcontratação
 Subcontracting BOM,Subcontratando Bom
 Subcontracting Conversion Factor,Fator de conversão de subcontratação
@@ -7214,10 +7214,10 @@ Supplier Part Number,Número da peça do fornecedor
 Supplier Portal Users,Usuários do portal de fornecedores
 Supplier Primary Address,Endereço primário do fornecedor
 Supplier Primary Contact,Contato primário do fornecedor
-Supplier Quotation,Citação do fornecedor
-Supplier Quotation Comparison,Comparação de cotação do fornecedor
+Supplier Quotation,Cotação do fornecedor
+Supplier Quotation Comparison,Comparação de cotações de fornecedores
 Supplier Quotation Item,Item de cotação do fornecedor
-Supplier Quotation {0} Created,Citação de fornecedor {0} criada
+Supplier Quotation {0} Created,Cotação do fornecedor {0} criada
 Supplier Score,Pontuação do fornecedor
 Supplier Scorecard,Scorecard do fornecedor
 Supplier Scorecard Criteria,Critérios de scorecard do fornecedor
@@ -7226,7 +7226,7 @@ Supplier Scorecard Scoring Criteria,Critérios de pontuação do fornecedor
 Supplier Scorecard Scoring Standing,Pontuação de placar de scorecard do fornecedor em pé
 Supplier Scorecard Scoring Variable,Variável de pontuação de scorecard do fornecedor
 Supplier Scorecard Setup,Configuração do fornecedor Scorecard
-Supplier Scorecard Standing,Scorecard de fornecedor em pé
+Supplier Scorecard Standing,Classificação do fornecedor
 Supplier Scorecard Variable,Variável de scorecard do fornecedor
 Supplier Type,Tipo de fornecedor
 Supplier Warehouse,Armazém de fornecedores
@@ -7235,11 +7235,11 @@ Supplier numbers assigned by the customer,Números de fornecedores atribuídos p
 Supplier of Goods or Services.,Fornecedor de bens ou serviços.
 Supplier {0} not found in {1},Fornecedor {0} não encontrado em {1}
 Supplier(s),Fornecedor (s)
-Supplier-Wise Sales Analytics,Análise de vendas em termos de fornecedores
+Supplier-Wise Sales Analytics,Análise de vendas por fornecedor
 Suppliers,Fornecedores
 Supplies subject to the reverse charge provision,Suprimentos sujeitos à provisão de cobrança reversa
 Supply Raw Materials for Purchase,Fornecimento de matérias-primas para compra
-Support,Apoiar
+Support,Assistência
 Support Hour Distribution,Distribuição de horas de assistência
 Support Portal,Portal de assistência
 Support Search Source,assistência de fonte de pesquisa
@@ -7286,7 +7286,7 @@ Target Detail,Detalhes do alvo
 Target Details,Detalhes do alvo
 Target Distribution,Distribuição de alvo
 Target Exchange Rate,Taxa de câmbio alvo
-Target Fieldname (Stock Ledger Entry),Target FieldName (entrada do livro de ações)
+Target Fieldname (Stock Ledger Entry),Target FieldName (Entrada no registo de stock)
 Target Fixed Asset Account,Conta de ativo fixo alvo
 Target Has Batch No,Target não tem lote não
 Target Has Serial No,Alvo tem serial não
@@ -7393,14 +7393,14 @@ Terms Template,Modelo de termos
 Terms and Conditions,Termos e Condições
 Terms and Conditions Content,Termos e condições conteúdo
 Terms and Conditions Details,Detalhes dos termos e condições
-Terms and Conditions Help,Termos e condições ajudam
+Terms and Conditions Help,Termos e condições ajuda
 Territory,Território
 Territory Item,Item território
 Territory Manager,Gerente de território
 Territory Name,Nome do território
-Territory Target Variance Based On Item Group,Variação do alvo do território com base no grupo de itens
-Territory Targets,Alvos territórios
-Territory-wise Sales,Vendas territoriais
+Territory Target Variance Based On Item Group,Variação da meta por território com base no grupo de itens
+Territory Targets,Metas por território
+Territory-wise Sales,Vendas por território
 Test,Teste
 The 'From Package No.' field must neither be empty nor it's value less than 1.,O 'do pacote nº' O campo não deve estar vazio nem é o valor menor que 1.
 "The Access to Request for Quotation From Portal is Disabled. To Allow Access, Enable it in Portal Settings.","O acesso à solicitação de cotação do portal está desativado. Para permitir o acesso, habilite -o nas configurações do portal."
@@ -7478,8 +7478,8 @@ The shares don't exist with the {0},As ações não existem com o {0}
 "The stock has been reserved for the following Items and Warehouses, un-reserve the same to {0} the Stock Reconciliation: <br /><br /> {1}","O estoque foi reservado para os seguintes itens e armazéns, sem reservar o mesmo para {0} a reconciliação de estoque: <r /> <r /> {1}"
 "The sync has started in the background, please check the {0} list for new records.","A sincronização começou em segundo plano, verifique a lista {0} para novos registros."
 The task has been enqueued as a background job.,A tarefa foi criada como um trabalho de segundo plano.
-"The task has been enqueued as a background job. In case there is any issue on processing in background, the system will add a comment about the error on this Stock Reconciliation and revert to the Draft stage","A tarefa foi criada como um trabalho de segundo plano. Caso haja algum problema no processamento em segundo plano, o sistema adicionará um comentário sobre o erro nesta reconciliação de ações e reverterá para o estágio de rascunho"
-"The task has been enqueued as a background job. In case there is any issue on processing in background, the system will add a comment about the error on this Stock Reconciliation and revert to the Submitted stage","A tarefa foi criada como um trabalho de segundo plano. Caso haja algum problema no processamento em segundo plano, o sistema adicionará um comentário sobre o erro nesta reconciliação de ações e reverterá para o estágio enviado"
+"The task has been enqueued as a background job. In case there is any issue on processing in background, the system will add a comment about the error on this Stock Reconciliation and revert to the Draft stage","A tarefa foi criada como um trabalho de segundo plano. Caso haja algum problema no processamento em segundo plano, o sistema adicionará um comentário sobre o erro nesta reconciliação de estoque e reverterá para o estágio de rascunho"
+"The task has been enqueued as a background job. In case there is any issue on processing in background, the system will add a comment about the error on this Stock Reconciliation and revert to the Submitted stage","A tarefa foi criada como um trabalho de segundo plano. Caso haja algum problema no processamento em segundo plano, o sistema adicionará um comentário sobre o erro nesta reconciliação de estoque e reverterá para o estágio enviado"
 The total Issue / Transfer quantity {0} in Material Request {1}  cannot be greater than allowed requested quantity {2} for Item {3},A quantidade total de emissão / transferência {0} na solicitação de material {1} não pode ser maior do que a quantidade solicitada permitida {2} para o item {3}
 The total Issue / Transfer quantity {0} in Material Request {1} cannot be greater than requested quantity {2} for Item {3},A quantidade total de emissão / transferência {0} na solicitação de material {1} não pode ser maior que a quantidade solicitada {2} para o item {3}
 The uploaded file does not match the selected Code List.,O arquivo carregado não corresponde à lista de código selecionada.
@@ -7846,9 +7846,9 @@ Transporter Name,Nome do transportador
 Travel Expenses,Despesas de viagem
 Tree Details,Detalhes da árvore
 Tree Type,Tipo de árvore
-Trial Balance,Balança balancete
-Trial Balance (Simple),Balancete (simples)
-Trial Balance for Party,Balança balancete para parte
+Trial Balance,Balancete de avaliação
+Trial Balance (Simple),Balancete de avaliação (simples)
+Trial Balance for Party,Balancete de avaliação para a entidade
 Trial Period End Date,Data final do período de teste
 Trial Period End Date Cannot be before Trial Period Start Date,Data final do período do teste não pode ser antes da data de início do período do teste
 Trial Period Start Date,Data de início do período do teste
@@ -8114,7 +8114,7 @@ Verified By,Verificado por
 Verify Email,Verifique o email
 Version,Versão
 Via Customer Portal,Via portal do cliente
-Via Landed Cost Voucher,Via voucher de custo terrestre
+Via Landed Cost Voucher,Via comprovante de custo de importação
 Video,Vídeo
 Video Settings,Configurações de vídeo
 View,Visualizar
