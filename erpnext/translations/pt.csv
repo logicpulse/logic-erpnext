@@ -974,24 +974,24 @@ Backflush Raw Materials,Matérias -primas backflush
 Backflush Raw Materials Based On,Matérias -primas backflush com base em
 Backflush Raw Materials From Work-in-Progress Warehouse,Matérias-primas backflush do armazém de trabalho em andamento
 Backflush Raw Materials of Subcontract Based On,Backflush Matérias -primas de subcontrato com base em
-Balance,Equilíbrio
-Balance (Dr - Cr),Balance (DR - CR)
-Balance ({0}),Balance ({0})
-Balance In Account Currency,Saldo na moeda da conta
-Balance In Base Currency,Balança na moeda base
-Balance Qty,Balance Qtd
-Balance Qty (Stock),Balance Qty (stock)
-Balance Serial No,Equilibre serial no
-Balance Sheet,Balanço patrimonial
-Balance Sheet Summary,Resumo do balanço
-Balance Stock Qty,Balance de equilíbrio
-Balance Stock Value,Valor do stock do equilíbrio
-Balance Value,Valor do equilíbrio
-Balance for Account {0} must always be {1},O saldo da conta {0} deve sempre ser {1}
-Balance must be,O equilíbrio deve ser
+Balance,Saldo
+Balance (Dr - Cr),Saldo (Devedor - Credor)
+Balance ({0}),Saldo ({0})
+Balance In Account Currency,Saldo na Moeda da Conta
+Balance In Base Currency,Saldo na Moeda Base
+Balance Qty,Quantidade de Saldo
+Balance Qty (Stock),Quantidade de Saldo (Stock)
+Balance Serial No,Número de Série do Saldo
+Balance Sheet,Balanço Patrimonial
+Balance Sheet Summary,Resumo do Balanço Patrimonial
+Balance Stock Qty,Quantidade de Stock em Saldo
+Balance Stock Value,Valor do Stock em Saldo
+Balance Value,Valor do Saldo
+Balance for Account {0} must always be {1},O saldo da conta {0} deve ser sempre {1}
+Balance must be,O saldo deve ser
 Bank,Banco
 Bank / Cash Account,Banco / conta em dinheiro
-Bank A/C No.,Banco A/C Não.
+Bank A/C No.,Nº da Conta Bancária
 Bank Account,Conta bancária
 Bank Account Details,Detalhes da conta bancária
 Bank Account Info,Informações da conta bancária
@@ -1703,7 +1703,7 @@ Cost of Issued Items,Custo dos itens emitidos
 Cost of Poor Quality Report,Custo de relatório de baixa qualidade
 Cost of Purchased Items,Custo dos itens adquiridos
 Cost of various activities,Custo de várias atividades
-Cost to Company (CTC),Custo para a empresa (CTC)
+Cost to Company (CTC),Custo para a Empresa (CPE)
 Costing,Custo
 Costing Amount,Valor de custo
 Costing Details,Custing Detalhes
@@ -3714,7 +3714,7 @@ Job Worker Name,Nome do trabalhador
 Job Worker Warehouse,Armazém de trabalhadores
 Job card {0} created,Cartão de trabalho {0} criado
 Job: {0} has been triggered for processing failed transactions,Job: {0} foi acionado para o processamento de transações com falha
-Joining,Juntando -se
+Joining,Ingresso
 Journal Entries,Entradas do diário
 Journal Entries {0} are un-linked,As entradas do diário {0} estão ligadas
 Journal Entry,Entrada do diário
