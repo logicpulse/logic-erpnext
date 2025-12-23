@@ -48,7 +48,7 @@ Summary,Resumo
 "'Inspection Required before Purchase' has disabled for the item {0}, no need to create the QI","'Inspeção necessária antes da compra' desativou o item {0}, não é necessário criar o qi"
 'Opening','Abertura'
 'To Date' is required,'Até o momento' é necessário
-'To Package No.' cannot be less than 'From Package No.','Para embalar No.' não pode ser menor que 'do pacote nº'
+'To Package No.' cannot be less than 'From Package No.','Para o nº do pacote' não pode ser menor que 'Do nº do pacote'
 'Update Stock' can not be checked because items are not delivered via {0},'Atualizar o stock' não pode ser verificado porque os itens não são entregues via {0}
 'Update Stock' cannot be checked for fixed asset sale,'Stock de atualização' não pode ser verificado para venda de ativos fixa
 '{0}' account is already used by {1}. Use another account.,'{0}' A conta já é usada por {1}. Use outra conta.
@@ -340,7 +340,7 @@ Add Employees,Adicione funcionários
 Add Item,Adicionar item
 Add Items,Adicione itens
 Add Items in the Purpose Table,Adicione itens na tabela de propósitos
-Add Lead to Prospect,Adicione Lead ao Prospect
+Add Lead to Prospect,Adicione Lead a Prospecção
 Add Leads,Adicione leads
 Add Local Holidays,Adicione feriados locais
 Add Manually,Adicione manualmente
@@ -367,7 +367,7 @@ Add items in the Item Locations table,Adicione itens na tabela de locais de iten
 Add or Deduct,Adicione ou deduzir
 Add the rest of your organization as your users. You can also add invite Customers to your portal by adding them from Contacts,"Adicione o restante da sua organização como seus usuários. Você também pode adicionar clientes convidados ao seu portal, adicionando -os nos contatos"
 Add to Holidays,Adicione aos feriados
-Add to Prospect,Adicione ao prospecto
+Add to Prospect,Adicione a Prospecção
 Add to Transit,Adicione ao trânsito
 Add/Edit Coupon Conditions,Adicionar/editar condições de cupom
 Added,Adicionado
@@ -376,7 +376,7 @@ Added On,Adicionado em
 Added Supplier Role to User {0}.,Função de fornecedor adicionada ao usuário {0}.
 Added {0} ({1}),Adicionado {0} ({1})
 Added {1} Role to User {0}.,Adicionada função {1} ao usuário {0}.
-Adding Lead to Prospect...,Adicionando chumbo ao prospecto ...
+Adding Lead to Prospect...,Adicionando Lead a Prospecção...
 Additional,Adicional
 Additional Asset Cost,Custo de ativo adicional
 Additional Cost,Custo adicional
@@ -527,7 +527,7 @@ Allow Internal Transfers at Arm's Length Price,Permitir transferências internas
 Allow Item To Be Added Multiple Times in a Transaction,Permitir que o item seja adicionado várias vezes em uma transação
 Allow Item to Be Added Multiple Times in a Transaction,Permitir que o item seja adicionado várias vezes em uma transação
 Allow Item to be Added Multiple Times in a Transaction,Permitir que o item seja adicionado várias vezes em uma transação
-Allow Lead Duplication based on Emails,Permitir duplicação de chumbo com base em e -mails
+Allow Lead Duplication based on Emails,Permitir duplicação de Leads com base em e-mails
 Allow Material Transfer from Delivery Note to Sales Invoice,Permitir transferência de material da nota de entrega para a fatura de vendas
 Allow Material Transfer from Purchase Receipt to Purchase Invoice,Permitir transferência de material do recibo de compra para comprar fatura
 Allow Multiple Material Consumption,Permitir consumo de material múltiplo
@@ -679,7 +679,7 @@ Appointment Duration (In Minutes),Duração da nomeação (em minutos)
 Appointment Scheduling Disabled,Agendamento de compromisso desativado
 Appointment Scheduling has been disabled for this site,A programação de compromissos foi desativada para este site
 Appointment With,Compromisso com
-Appointment was created. But no lead was found. Please check the email to confirm,"A nomeação foi criada. Mas nenhum chumbo foi encontrado. Por favor, verifique o e-mail para confirmar"
+Appointment was created. But no lead was found. Please check the email to confirm,"O agendamento foi criado. Mas nenhum Lead foi encontrado. Por favor, verifique o e-mail para confirmar"
 Approving Role (above authorized value),Função de aprovação (valor autorizado acima)
 Approving Role cannot be same as role the rule is Applicable To,A aprovação de função não pode ser a mesma que a função que a regra é aplicável a
 Approving User  (above authorized value),Aprovação do usuário (valor autorizado acima)
@@ -995,7 +995,7 @@ Bank A/C No.,Nº da Conta Bancária
 Bank Account,Conta bancária
 Bank Account Details,Detalhes da conta bancária
 Bank Account Info,Informações da conta bancária
-Bank Account No,Conta bancária não
+Bank Account No,Nº da Conta Bancária
 Bank Account Subtype,Subtipo de conta bancária
 Bank Account Type,Tipo de conta bancária
 Bank Account {} in Bank Transaction {} is not matching with Bank Account {},Conta bancária {} na transação bancária {} não está correspondendo à conta bancária {}
@@ -1075,9 +1075,9 @@ Batch No is mandatory,Lote não é obrigatório
 Batch No {0} does not exists,Lote no {0} não existe
 Batch No {0} is linked with Item {1} which has serial no. Please scan serial no instead.,"O lote não {0} está vinculado ao item {1} que possui serial no. Por favor, digitalize serial não."
 "Batch No {0} is not present in the original {1} {2}, hence you can't return it against the {1} {2}","O lote não {0} não está presente no original {1} {2}, portanto, você não pode devolvê -lo contra o {1} {2}"
-Batch No.,Lote No.
+Batch No.,Nº Lote.
 Batch Nos,Lote nos
-Batch Nos are created successfully,O lote NOS é criado com sucesso
+Batch Nos are created successfully,O nº lote foi criado com sucesso
 Batch Not Available for Return,Lote não disponível para devolução
 Batch Number Series,Série de números em lote
 Batch Qty,Qty em lote
@@ -1093,7 +1093,7 @@ Batch {0} of Item {1} is disabled.,O lote {0} do item {1} está desativado.
 Batch-Wise Balance History,Histórico de equilíbrio em lote
 Batchwise Valuation,Avaliação no sentido do sentido
 Before reconciliation,Antes da reconciliação
-Begin On (Days),Comece (dias)
+Begin On (Days),Início em (dias)
 Beginning of the current subscription period,Início do período atual de assinatura
 Below Subscription Plans are of different currency to the party default billing currency/Company currency: {0},Os planos de assinatura abaixo são de moeda diferente da moeda de cobrança/empresa de cobrança/empresa da parte: {0}
 Bill Date,Data da fatura
@@ -1742,7 +1742,7 @@ Create Job Card,Crie cartão de emprego
 Create Job Card based on Batch Size,Crie cartão de trabalho com base no tamanho do lote
 Create Journal Entries,Crie entradas de diário
 Create Journal Entry,Crie entrada no diário
-Create Lead,Criar chumbo
+Create Lead,Criar Lead
 Create Leads,Criar leads
 Create Ledger Entries for Change Amount,Crie entradas do livro para o valor da mudança
 Create Link,Criar link
@@ -1756,7 +1756,7 @@ Create POS Opening Entry,Crie entrada de abertura de POS
 Create Payment Entry,Criar entrada de pagamento
 Create Pick List,Crie lista de picareta
 Create Print Format,Crie formato de impressão
-Create Prospect,Criar um prospecto
+Create Prospect,Criar uma Prospecção
 Create Purchase Order,Crie pedido de compra
 Create Purchase Orders,Crie pedidos de compra
 Create Quotation,Criar cotação
@@ -1909,7 +1909,7 @@ Customer Groups,Grupos de clientes
 Customer Item,Item do cliente
 Customer Items,Itens do cliente
 Customer LPO,LPO do cliente
-Customer LPO No.,LPO do cliente No.
+Customer LPO No.,LPO do cliente Nº.
 Customer Ledger Summary,Resumo do Ledger do Cliente
 Customer Mobile No,Cliente móvel não
 Customer Name,Nome do cliente
@@ -2329,7 +2329,7 @@ Domain,Domínio
 Don't Create Loyalty Points,Não crie pontos de fidelidade
 Don't Enforce Free Item Qty,Não aplique itens grátis
 Don't Reserve Sales Order Qty on Sales Return,Não reserve o pedido de venda de vendas no retorno de vendas
-Don't Send Emails,Não envie e -mails
+Don't Send Emails,Não envie e-mails
 Done,Feito
 Dont Recompute tax,Não recomponha o imposto
 Doors,Portas
@@ -2355,7 +2355,7 @@ Driver licence class,Classe de carteira de motorista
 Driving License Categories,Categorias de carteira de motorista
 Driving License Category,Categoria de carteira de motorista
 Drop Ship,Drop ship
-Dropdown,Suspenso
+Dropdown,Dropdown
 Due Date,Duas datas
 Due Date Based On,Data de vencimento com base em
 Due Date cannot be after {0},A data de vencimento não pode ser depois de {0}
@@ -2778,7 +2778,7 @@ Floor,Chão
 Floor Name,Nome do piso
 Focus on Item Group filter,Concentre -se no filtro do grupo de itens
 Focus on search input,Concentre -se na entrada de pesquisa
-Folio no.,Fólio não.
+Folio no.,Fólio nº.
 Follow Calendar Months,Siga os meses do calendário
 Following Material Requests have been raised automatically based on Item's re-order level,As solicitações de material a seguir foram aumentadas automaticamente com base no nível de reordenação do item
 Following fields are mandatory to create address:,Os campos a seguir são obrigatórios para criar endereço:
@@ -2839,55 +2839,55 @@ Frequency of Depreciation (Months),Frequência de depreciação (meses)
 Frequently Read Articles,Leia frequentemente artigos
 Friday,Sexta-feira
 From,De
-From BOM,De Bom
+From BOM,Da BOM
 From Company,Da empresa
-From Corrective Job Card,Do cartão de trabalho corretivo
+From Corrective Job Card,Do Job Card Corretivo
 From Currency,Da moeda
-From Currency and To Currency cannot be same,Da moeda e à moeda não pode ser o mesmo
+From Currency and To Currency cannot be same,A moeda de origem e a moeda de destino não podem ser iguais
 From Customer,Do cliente
 From Date,Da data
-From Date and To Date are Mandatory,A partir da data e até a data são obrigatórios
-From Date and To Date are mandatory,A partir da data e até a data são obrigatórios
-From Date and To Date lie in different Fiscal Year,A partir da data e até a data estão em diferentes anos fiscais
-From Date cannot be greater than To Date,A partir da data não pode ser maior do que até o momento
-From Date is mandatory,A partir da data é obrigatória
-From Date must be before To Date,A partir da data deve ser antes até o momento
-From Date should be within the Fiscal Year. Assuming From Date = {0},A partir da data deve estar dentro do ano fiscal. Assumindo de date = {0}
-From Date: {0} cannot be greater than To date: {1},A partir da data: {0} não pode ser maior que até o momento: {1}
-From Datetime,Do DateTime
+From Date and To Date are Mandatory,As datas De e Até são obrigatórias
+From Date and To Date are mandatory,As datas De e Até são obrigatórias
+From Date and To Date lie in different Fiscal Year,A data De e a data Até estão em anos fiscais diferentes
+From Date cannot be greater than To Date,A data De não pode ser maior que a data Até
+From Date is mandatory,A data De é obrigatória
+From Date must be before To Date,A data De deve ser anterior à data Até
+From Date should be within the Fiscal Year. Assuming From Date = {0},A data De deve estar dentro do ano fiscal. Assumindo Data De = {0}
+From Date: {0} cannot be greater than To date: {1},A data De: {0} não pode ser maior que a data Até: {1}
+From Datetime,Da data/hora
 From Delivery Date,Da data de entrega
 From Delivery Note,Da nota de entrega
-From Doctype,De Doctype
-From Due Date,A partir da data de vencimento
-From Employee,De funcionário
-From External Ecomm Platform,Da plataforma de ECMOM externa
+From Doctype,Do Doctype
+From Due Date,Da data de vencimento
+From Employee,Do funcionário
+From External Ecomm Platform,Da plataforma externa de e-commerce
 From Fiscal Year,Do ano fiscal
-From Folio No,Do fólio não
+From Folio No,Do nº do fólio
 From Invoice Date,Da data da fatura
-From Lead,Do chumbo
-From No,De não
+From Lead,Do Lead
+From No,Do nº
 From Opportunity,Da oportunidade
-From Package No.,Do pacote No.
+From Package No.,Do nº do pacote
 From Payment Date,Da data de pagamento
-From Posting Date,Da data de postagem
-From Prospect,Do prospecto
-From Range,Do alcance
-From Range has to be less than To Range,Do alcance deve ser menor que o alcance
+From Posting Date,Da data de lançamento
+From Prospect,Da Prospecção
+From Range,Do intervalo
+From Range has to be less than To Range,O intervalo De deve ser menor que o intervalo Até
 From Reference Date,Da data de referência
 From Shareholder,Do acionista
 From Template,Do modelo
-From Time,Do tempo
-From Time ,Do tempo
-From Time Should Be Less Than To Time,Do tempo deve ser menor que o tempo
+From Time,Da hora
+From Time ,Da hora
+From Time Should Be Less Than To Time,A hora De deve ser menor que a hora Até
 From Value,Do valor
-From Voucher Detail No,Do detalhe do voucher não
-From Voucher No,Do voucher no
+From Voucher Detail No,Do nº do detalhe do voucher
+From Voucher No,Do nº do voucher
 From Voucher Type,Do tipo de voucher
 From Warehouse,Do armazém
-From and To Dates are required.,De e para as datas são necessárias.
-From and To dates are required,De e para as datas são necessárias
-From date cannot be greater than To date,A partir da data não pode ser maior do que até o momento
-From value must be less than to value in row {0},Do valor deve ser menor que o valor na linha {0}
+From and To Dates are required,As datas De e Até são obrigatórias
+From and To dates are required,As datas De e Até são obrigatórias
+From date cannot be greater than To date,A data De não pode ser maior que a data Até
+From value must be less than to value in row {0},O valor De deve ser menor que o valor Até na linha {0}
 Frozen,Congelado
 Fuel Type,Tipo de combustível
 Fuel UOM,Combustível uom
@@ -3571,7 +3571,7 @@ Item Cart,Carrinho de itens
 Item Code,Código do item
 Item Code (Final Product),Código do item (produto final)
 Item Code > Item Group > Brand,Código do item> Grupo de itens> marca
-Item Code cannot be changed for Serial No.,O código do item não pode ser alterado para o número de série
+Item Code cannot be changed for Serial No.,O código do item não pode ser alterado para o nº de série
 Item Code required at Row No {0},Código do item necessário na linha no {0}
 Item Code: {0} is not available under warehouse {1}.,Código do item: {0} não está disponível no armazém {1}.
 Item Customer Detail,Detalhes do cliente do item
@@ -3630,7 +3630,7 @@ Item and Warehouse,Item e armazém
 Item and Warranty Details,Detalhes dos itens e garantia
 Item for row {0} does not match Material Request,Item para linha {0} não corresponde à solicitação de material
 Item has variants.,Item tem variantes.
-Item is mandatory in Raw Materials table.,O item é obrigatório na mesa de matérias -primas.
+Item is mandatory in Raw Materials table.,O item é obrigatório na mesa de matérias-primas.
 Item is removed since no serial / batch no selected.,"O item é removido, pois nenhum serial / lote não selecionado."
 Item must be added using 'Get Items from Purchase Receipts' button,O item deve ser adicionado usando o botão 'Get itens dos recibos de compra'
 Item name,Nome do item
@@ -3650,7 +3650,7 @@ Item {0} does not exist.,Item {0} não existe.
 Item {0} entered multiple times.,Item {0} inserido várias vezes.
 Item {0} has already been returned,O item {0} já foi devolvido
 Item {0} has been disabled,Item {0} foi desativado
-Item {0} has no Serial No. Only serialized items can have delivery based on Serial No,Item {0} não tem serial No. apenas itens serializados podem ter entrega com base em não
+Item {0} has no Serial No. Only serialized items can have delivery based on Serial No,Item {0} não tem Nº de série. Apenas itens serializados podem ter entrega baseada em Nº de série
 Item {0} has reached its end of life on {1},Item {0} atingiu seu fim de vida em {1}
 Item {0} ignored since it is not a stock item,"Item {0} ignorado, pois não é um item de stock"
 Item {0} is already reserved/delivered against Sales Order {1}.,O item {0} já está reservado/entregue contra a ordem de vendas {1}.
@@ -3765,7 +3765,7 @@ Latest,Mais recente
 Latest Age,Última idade
 Latitude,Latitude
 Lead,Lead
-Lead -> Prospect,Lead -> Prospect
+Lead -> Prospect,Lead -> Prospecção
 Lead Count,Contagem de leads
 Lead Details,Detalhes do lead
 Lead Name,Nome do lead
@@ -3779,7 +3779,7 @@ Lead Time Date,Data do prazo de atendimento
 Lead Time Days,Dias de prazo de atendimento
 Lead Time in days,Prazo de atendimento em dias
 Lead Type,Tipo de lead
-Lead {0} has been added to prospect {1}.,O lead {0} foi adicionado ao prospecto {1}.
+Lead {0} has been added to prospect {1}.,O lead {0} foi adicionado a Prospecção {1}.
 Leads,Leads
 "Leads help you get business, add all your contacts and more as your leads","Leads ajudam você a obter negócios, adicione todos os seus contatos e muito mais como seus leads"
 "Learn about <a href=""https://docs.erpnext.com/docs/v13/user/manual/en/accounts/articles/common_party_accounting#:~:text=Common%20Party%20Accounting%20in%20ERPNext,Invoice%20against%20a%20primary%20Supplier."">Common Party</a>","Aprenda sobre <a href = ""https://docs.erpnext.com/docs/v13/user/manual/en/accounts/articles/common_party_accinging#: ~ :invoice%Common%20Party%20in%20erpnext.Invoice Festa </a>"
@@ -4103,7 +4103,7 @@ Min Qty (As Per Stock UOM),Min Qtdy (conforme o stock UOM)
 Min Qty can not be greater than Max Qty,Min qty não pode ser maior que o máximo de qty
 Min Qty should be greater than Recurse Over Qty,Min Qty deve ser maior que recorrente sobre Qtdy
 Minimum Invoice Amount,Quantidade mínima de fatura
-Minimum Lead Age (Days),Idade mínima de chumbo (dias)
+Minimum Lead Age (Days),Idade mínima de Lead (dias)
 Minimum Net Rate,Taxa líquida mínima
 Minimum Order Qty,Qtd de encomenda mínima
 Minimum Order Quantity,Quantidade mínima do pedido
@@ -4122,7 +4122,7 @@ Missing Asset,Falta ativo
 Missing Cost Center,Centro de custo ausente
 Missing Default in Company,Falta de inadimplência na empresa
 Missing Finance Book,Livro financeiro ausente
-Missing Finished Good,Falta bem acabada
+Missing Finished Good,Falta de Produto Acabado
 Missing Formula,Fórmula ausente
 Missing Item,Item ausente
 Missing Payments App,App de pagamentos ausentes
@@ -4344,9 +4344,9 @@ No stock transactions can be created or modified before this date.,Nenhuma trans
 No values,Sem valores
 No {0} Accounts found for this company.,Não {0} contas encontradas para esta empresa.
 No {0} found for Inter Company Transactions.,Não {0} encontrado para transações entre empresas.
-No.,Não.
-No. of Employees,No. de funcionários
-No. of parallel job cards which can be allowed on this workstation. Example: 2 would mean this workstation can process production for two Work Orders at a time.,No. de cartões de trabalho paralelos que podem ser permitidos nesta estação de trabalho. Exemplo: 2 significaria que esta estação de trabalho pode processar a produção de duas ordens de serviço por vez.
+No.,Nº.
+No. of Employees,Nº. de funcionários
+No. of parallel job cards which can be allowed on this workstation. Example: 2 would mean this workstation can process production for two Work Orders at a time.,Nº. de cartões de trabalho paralelos que podem ser permitidos nesta estação de trabalho. Exemplo: 2 significaria que esta estação de trabalho pode processar a produção de duas ordens de serviço por vez.
 Non Conformance,Não conformidade
 Non Depreciable Category,Categoria não depreciável
 Non Profit,Sem lucro
@@ -4425,7 +4425,7 @@ Office Maintenance Expenses,Despesas de manutenção do escritório
 Office Rent,Aluguel de escritório
 Offsetting Account,Conta de compensação
 Offsetting for Accounting Dimension,Compensação para dimensão contábil
-Old Parent,Velho pai
+Old Parent,Pai Anterior
 Oldest Of Invoice Or Advance,Mais antigo da fatura ou avanço
 On Hold,Em espera
 On Hold Since,Em espera desde então
@@ -5333,11 +5333,11 @@ Print Language,Idioma de impressão
 Print Preferences,Preferências de impressão
 Print Receipt,Recibo de impressão
 Print Receipt on Order Complete,Recibo de impressão no pedido completo
-Print Settings,IMPRIMEIRA CONFIGURAS
+Print Settings,Configurações de impressão
 Print UOM after Quantity,Imprima uom após quantidade
 Print Without Amount,Imprima sem quantidade
 Print and Stationery,Impressão e papelaria
-Print settings updated in respective print format,IMPRIMEIRA configurações atualizadas no respectivo formato de impressão
+Print settings updated in respective print format,Configurações de impressão atualizadas no respectivo formato de impressão
 Print taxes with zero amount,Imprimir impostos com valor zero
 Printed on {0},Impresso em {0}
 Printing Details,Detalhes da impressão
@@ -5457,13 +5457,13 @@ Prompt Qty,Qty rápido
 Proposal Writing,Escrita da proposta
 Proposal/Price Quote,Cotação de proposta/preço
 Prorate,Prato
-Prospect,Prospect
+Prospect,Prospecção
 Prospect Lead,Líder em potencial
 Prospect Opportunity,Oportunidade de prospecção
-Prospect Owner,Proprietário de clientes em potencial
-Prospect {0} already exists,Prospect {0} já existe
+Prospect Owner,Proprietário da Prospecção
+Prospect {0} already exists,Prospecção {0} já existe
 Prospecting,Prospecção
-Prospects Engaged But Not Converted,"Perspectivas envolvidas, mas não convertidas"
+Prospects Engaged But Not Converted,"Prospecção envolvidas, mas não convertidas"
 Provide Email Address registered in company,Forneça endereço de e-mail registrado na empresa
 Provider,Provedor
 Providing,Fornecendo
@@ -6344,7 +6344,7 @@ Rule Applied,Regra aplicada
 Rule Description,Descrição da regra
 Run parallel job cards in a workstation,Execute cartões de trabalho paralelos em uma estação de trabalho
 Running,Correndo
-S.O. No.,ENTÃO. Não.
+S.O. No.,Nº S.O.
 SABB-.########,Sabb-. ########
 SAL-CAM-.YYYY.-,Sal-cam-.yyyy.-
 SAL-ORD-.YYYY.-,Sal-Ord-.yyyy.-
@@ -6757,10 +6757,10 @@ Set Source Warehouse,Defina o armazém de origem
 Set Target Warehouse,Defina o Target Warehouse
 Set Valuation Rate Based on Source Warehouse,Taxa de avaliação definida com base no armazém de origem
 Set Warehouse,Defina o armazém
-Set as Closed,Definido como fechado
-Set as Completed,Definido conforme concluído
-Set as Lost,Definido como perdido
-Set as Open,Definido como aberto
+Set as Closed,Definir como fechado
+Set as Completed,Definir conforme concluído
+Set as Lost,Definir como perdido
+Set as Open,Definir como aberto
 Set by Item Tax Template,Definido por modelo de imposto de item
 Set default inventory account for perpetual inventory,Defina a conta de inventário padrão para o inventário perpétuo
 Set default {0} account for non stock items,Defina o padrão {0} conta para itens não stocks
@@ -7509,7 +7509,7 @@ There can only be 1 Account per Company in {0} {1},Só pode haver 1 conta por em
 There is already a valid Lower Deduction Certificate {0} for Supplier {1} against category {2} for this time period.,Já existe um certificado de dedução mais baixa válido {0} para o fornecedor {1} contra a categoria {2} para este período.
 There is already an active Subcontracting BOM {0} for the Finished Good {1}.,Já existe um Bom Subcontrating ativo {0} para o bem final {1}.
 There is no batch found against the {0}: {1},Não há lote encontrado contra o {0}: {1}
-There must be atleast 1 Finished Good in this Stock Entry,Deve haver pelo menos 1 terminado bem nesta entrada de stock
+There must be atleast 1 Finished Good in this Stock Entry,Deve haver pelo menos 1 Produto Acabado nesta Entrada de Stock
 There was an error creating Bank Account while linking with Plaid.,Houve um erro de criação de conta bancária enquanto vinculava a xadrez.
 There was an error saving the document.,Houve um erro salvando o documento.
 There was an error syncing transactions.,Houve um erro de sincronização de transações.
@@ -7627,8 +7627,8 @@ To Employee,Para funcionário
 To Fiscal Year,Para o ano fiscal
 To Folio No,Para fólio não
 To Invoice Date,Para faturar a data
-To No,Para não
-To Package No.,Para o pacote No.
+To No.,Para o Nº
+To Package No.,Para o Nº do pacote
 To Pay,Pagar
 To Payment Date,Para a data de pagamento
 To Posting Date,Para a data de postagem
@@ -8170,7 +8170,7 @@ Warehouse Type,Tipo de armazém
 Warehouse Wise Stock Balance,Balanço de stock sábio de armazém
 Warehouse and Reference,Armazém e referência
 Warehouse can not be deleted as stock ledger entry exists for this warehouse.,"O armazém não pode ser excluído, pois existe uma entrada de contabilidade para este armazém."
-Warehouse cannot be changed for Serial No.,O armazém não pode ser alterado para o número de série
+Warehouse cannot be changed for Serial No.,O armazém não pode ser alterado para o nº de série
 Warehouse is mandatory,Armazém é obrigatório
 Warehouse not found against the account {0},Armazém não encontrado em relação à conta {0}
 Warehouse not found in the system,Armazém não encontrado no sistema
@@ -8288,16 +8288,16 @@ Workstation Working Hour,Hora de trabalho da estação de trabalho
 Workstation is closed on the following dates as per Holiday List: {0},"A estação de trabalho está fechada nas seguintes datas, conforme a lista de férias: {0}"
 Workstations,Estações de trabalho
 Wrapping up,Embrulhando
-Write Off,Eliminar
-Write Off Account,Escreva conta
-Write Off Amount,Valor de escreva
-Write Off Amount (Company Currency),Valor de escreva (moeda da empresa)
-Write Off Based On,Escrever com base em
-Write Off Cost Center,Centro de custo de escreva
-Write Off Difference Amount,Reduzir a quantidade de diferença
-Write Off Entry,Escreva a entrada
-Write Off Limit,Limite de escreva
-Write Off Outstanding Amount,Reduzir uma quantia pendente
+Write Off,Baixa
+Write Off Account,Conta de Baixa
+Write Off Amount,Valor de Baixa
+Write Off Amount (Company Currency),Valor de Baixa (Moeda da Empresa)
+Write Off Based On,Baixa com base em
+Write Off Cost Center,Centro de Custo da Baixa
+Write Off Difference Amount,Valor da Diferença a Baixar
+Write Off Entry,Lançamento de Baixa
+Write Off Limit,Limite de Baixa
+Write Off Outstanding Amount,Valor em Aberto a Baixar
 Writeoff,Eliminar
 Written Down Value,Valor escrito
 Wrong Company,Empresa errada
@@ -8352,7 +8352,7 @@ You have been invited to collaborate on the project {0}.,Você foi convidado a c
 You have entered a duplicate Delivery Note on Row,Você inseriu uma nota de entrega duplicada na linha
 You have to enable auto re-order in Stock Settings to maintain re-order levels.,Você deve ativar a reordenação automática nas configurações de stock para manter os níveis de reordenação.
 You haven't created a {0} yet,Você não criou um {0} ainda
-You must add atleast one item to save it as draft.,Você deve adicionar pelo menos um item para salvá -lo como rascunho.
+You must add atleast one item to save it as draft.,Você deve adicionar pelo menos um item para salvá-lo como rascunho.
 You must select a customer before adding an item.,Você deve selecionar um cliente antes de adicionar um item.
 You need to cancel POS Closing Entry {} to be able to cancel this document.,Você precisa cancelar a entrada de fechamento de POS {} para poder cancelar este documento.
 You selected the account group {1} as {2} Account in row {0}. Please select a single account.,Você selecionou o grupo de conta {1} como {2} conta na linha {0}. Selecione uma única conta.
@@ -8365,7 +8365,7 @@ Your order is out for delivery!,Seu pedido está disponível para entrega!
 Your tickets,Seus tickets
 Youtube ID,ID do YouTube
 Youtube Statistics,Estatísticas do YouTube
-ZIP Code,CEP
+ZIP Code,ZIP Code
 Zero Balance,Balanço zero
 Zero Rated,Zero avaliado
 Zero quantity,Quantidade zero

@@ -88,12 +88,13 @@ erpnext.PointOfSale.ItemSelector = class {
 		let qty_to_display = actual_qty;
 
 		if (item.is_stock_item) {
-			indicator_color = actual_qty > 10 ? "green" : actual_qty <= 0 ? "red" : "orange";
+			indicator_color = actual_qty > 10 ? "green" : actual_qty <= 0 ? "orange" : "blue";
+			// indicator_color = actual_qty > 10 ? "green" : actual_qty <= 0 ? "red" : "orange";
 
 			if (Math.round(qty_to_display) > 999) {
 				qty_to_display = Math.round(qty_to_display) / 1000;
 				qty_to_display = qty_to_display.toFixed(1) + "K";
-			}
+			}  
 		} else {
 			indicator_color = "";
 			qty_to_display = "";

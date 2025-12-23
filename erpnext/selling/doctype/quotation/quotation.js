@@ -45,6 +45,110 @@ frappe.ui.form.on("Quotation", {
 		frm.trigger("set_label");
 		frm.trigger("set_dynamic_field_label");
 
+		frm.add_custom_button(__('Exp. p/ o POS'), async function (doc) {
+			console.log('Clicaste em exportar para pos');
+			console.log("doc: ", frm.doc);
+
+			// frappe.db.get_doc('Quotation', frm.doc.name).then(async (doc) => {
+			// 	console.log("doc from db:", doc);
+			// }).catch((error) => {
+			// 	console.error('Error fetching catalog data:', error);
+			// });
+
+			let items = [];
+			// for (const element of frm.doc.items) {
+			// 	const r = await frappe.call({
+			// 		method: "erpnext.selling.doctype.quotation.quotation.get_article_by_code",
+			// 		args: {
+			// 			code: element.item_code
+			// 		}
+			// 	});
+
+			// 	const res = r.message;
+
+			// 	// 👉 Artigo não existe no POS
+			// 	if (!res.found) {
+			// 		frappe.msgprint({
+			// 			title: "Artigo não encontrado no POS",
+			// 			message: `O artigo <b>${element.item_code}</b> não existe no POS.`,
+			// 			indicator: "orange"
+			// 		});
+
+			// 		continue; // pula este item
+			// 	}
+
+			// 	const article = res.data;
+
+			// 	items.push({
+			// 		articleId: article.id,
+			// 		quantity: element.qty,
+			// 		vatRateId: article.vatRateId,
+			// 		vatExemptionId: null,
+			// 		unitPrice: element.rate,
+			// 		discount: element.discount_amount,
+			// 		priceType: null
+			// 	});
+			// }
+			// console.log(items);
+
+			// let customer = {};
+
+			let customer;
+			let erp_customer;
+			let erp_customer_address;
+			// let custumer_fiscal_number = null;
+			frappe.db.get_doc('Customer', frm.doc.customer_name).then(async (c) => {
+				erp_customer = c;
+				console.log("erp_customer : ", erp_customer)
+			}).catch((error) => {
+				console.error('Error fetching custumer_fiscal_number data:', error);
+			});
+
+			frappe.db.get_doc('Address', frm.doc.customer_address).then(async (ca) => {
+				erp_customer_address = ca;
+				console.log("erp_customer_address : ", erp_customer_address)
+			}).catch((error) => {
+				console.error('Error fetching erp_customer_address data:', error);
+			});
+
+			// const r = await frappe.call({
+			// 	method: "erpnext.selling.doctype.quotation.quotation.get_customer_by_fiscal_number",
+			// 	args: {
+			// 		fiscal_number: erp_customer.fiscal_number
+			// 	}
+			// });
+
+			// const res = r.message;
+
+			// // 👉 Cliente não existe no POS
+			if (!res.found) {
+				customer = {
+					name: erp_customer.name,
+					address: `${erp_customer_address.address_line1} - ${erp_customer_address.address_line2}`,
+					locality: erp_customer_address.address_type,
+					zipCode: erp_customer_address.pincode,
+					city: erp_customer_address.city,
+					country: erp_customer_address.country,
+					countryId: erp_customer.language, // Provisorio
+					fiscalNumber: erp_customer.fiscal_number,
+					email: erp_customer_address.email_id,
+					phone: erp_customer.mobile_no,
+					fax: erp_customer_address.fax
+				}
+				return;
+			}
+
+			// const customer = res.data;
+
+			// // 👉 Use os dados retornados
+			// console.log(customer);
+
+			// // Exemplo de atribuição
+			// frm.set_value("customer_name", customer.name);
+			// frm.set_value("customer", customer.erpCustomerCode || customer.code);
+
+		});
+
 		if (frm.doc.docstatus === 0) {
 			erpnext.set_unit_price_items_note(frm);
 		}

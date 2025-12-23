@@ -3,6 +3,7 @@
 
 
 import frappe
+import requests
 from frappe import _
 from frappe.model.mapper import get_mapped_doc
 from frappe.utils import flt, getdate, nowdate
@@ -10,6 +11,7 @@ from frappe.utils import flt, getdate, nowdate
 from erpnext.controllers.selling_controller import SellingController
 
 form_grid_templates = {"items": "templates/form_grid/item_grid.html"}
+base_url_pos = "https://de8ceb100f92.ngrok-free.app"
 
 
 class Quotation(SellingController):
@@ -604,3 +606,79 @@ def handle_mandatory_error(e, customer, lead_name):
 	message += _("Please create Customer from Lead {0}.").format(get_link_to_form("Lead", lead_name))
 
 	frappe.throw(message, title=_("Mandatory Missing"))
+
+@frappe.whitelist()
+def get_article_by_code(code):
+    if not code:
+        return {
+            "found": False,
+            "reason": "Código não informado"
+        } 
+
+    try:
+        response = requests.get(
+            f"{base_url_pos}/articles/code/{code}",
+            timeout=10
+        )
+
+        # 👉 CASO DE NEGÓCIO: NÃO ENCONTRADO
+        if response.status_code == 404:
+            return {
+                "found": False,
+                "reason": "Artigo não encontrado no POS",
+                "code": code
+            }
+
+        response.raise_for_status()
+
+        return {
+            "found": True,
+            "data": response.json()
+        }
+
+    except requests.exceptions.RequestException as e:
+        frappe.log_error(
+            title="Erro técnico ao consumir API do POS",
+            message=str(e)
+        )
+
+        # erro técnico REAL
+        frappe.throw("Erro de comunicação com o POS")
+
+@frappe.whitelist()
+def get_customer_by_fiscal_number(fiscal_number):
+    if not fiscal_number:
+        return {
+            "found": False,
+            "reason": "Fiscal Number não informado"
+        } 
+
+    try:
+        response = requests.get(
+            f"{base_url_pos}/customers/customer",
+			params={"fiscalNumber": fiscal_number },
+            timeout=10
+        )
+
+        # 👉 Caso de negócio: cliente não existe
+        if response.status_code == 404:
+            return {
+                "found": False,
+                "reason": "Cliente não encontrado no POS",
+                "fiscal_number": fiscal_number
+            }
+
+        response.raise_for_status()
+
+        return {
+            "found": True,
+            "data": response.json()
+        }
+
+    except requests.exceptions.RequestException as e:
+        frappe.log_error(
+            title="Erro técnico ao buscar cliente no POS",
+            message=str(e)
+        )
+
+        frappe.throw("Erro de comunicação com o POS")

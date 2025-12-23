@@ -25,6 +25,31 @@ frappe.listview_settings["Quotation"] = {
 		}
 	},
 
+	dropdown_button: {
+		get_label: __("Dropdown"),
+		buttons: [
+			{
+				get_label: __("Exported to POS"),
+				show: function (doc) {
+					return true;
+				},
+				get_description: function (doc) {
+					return "Exported to the POS " + doc.name;
+				},
+				action: async function (doc) {
+					// var ref, cell_range;
+					frappe.db.get_doc('Quotation', doc.name).then(async (doc) => {
+						// ref = doc.ref;
+						// cell_range = doc.cell_range;
+						// await generate(ref, doc.sheet_name, cell_range, compress);
+					}).catch((error) => {
+						console.error('Error fetching catalog data:', error);
+					});
+				}
+			}
+		]
+	},
+
 	get_indicator: function (doc) {
 		if (doc.status === "Open") {
 			return [__("Open"), "orange", "status,=,Open"];

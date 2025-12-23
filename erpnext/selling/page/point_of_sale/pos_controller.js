@@ -440,7 +440,7 @@ erpnext.PointOfSale.Controller = class {
 					this.cart.prev_action = null;
 					this.cart.toggle_item_highlight();
 				},
-				get_available_stock: (item_code, warehouse) => this.get_available_stock(item_code, warehouse),
+				get_available_stock: (item_code, warehouse) => this.get_available_stock(item_code, warehouse)
 			},
 		});
 	}
@@ -662,8 +662,7 @@ erpnext.PointOfSale.Controller = class {
 				if (field === "qty") value = flt(value);
 
 				if (["qty", "conversion_factor"].includes(field) && value > 0 && !this.allow_negative_stock) {
-					const qty_needed =
-						field === "qty" ? value * item_row.conversion_factor : item_row.qty * value;
+					const qty_needed = field === "qty" ? value * item_row.conversion_factor : item_row.qty * value;
 					await this.check_stock_availability(item_row, qty_needed, this.frm.doc.set_warehouse);
 				}
 
@@ -708,7 +707,7 @@ erpnext.PointOfSale.Controller = class {
 
 				if (field === "qty" && value !== 0 && !this.allow_negative_stock) {
 					const qty_needed = value * item_row.conversion_factor;
-					await this.check_stock_availability(item_row, qty_needed, this.frm.doc.set_warehouse);
+					// await this.check_stock_availability(item_row, qty_needed, this.frm.doc.set_warehouse);
 				}
 
 				await this.trigger_new_item_events(item_row);
