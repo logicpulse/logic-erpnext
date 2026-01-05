@@ -29,22 +29,28 @@ frappe.listview_settings["Quotation"] = {
 		get_label: __("Dropdown"),
 		buttons: [
 			{
-				get_label: __("Exported to POS"),
-				show: function (doc) {
-					return true;
+				get_label: __("Imprimir"),
+				show: async function (doc) {
+					const quotation = await frappe.db.get_doc('Quotation', doc.name);
+					return quotation.pos_id ? true : false;
 				},
 				get_description: function (doc) {
-					return "Exported to the POS " + doc.name;
+					return "Imprimir " + doc.name;
 				},
 				action: async function (doc) {
-					// var ref, cell_range;
-					frappe.db.get_doc('Quotation', doc.name).then(async (doc) => {
-						// ref = doc.ref;
-						// cell_range = doc.cell_range;
-						// await generate(ref, doc.sheet_name, cell_range, compress);
-					}).catch((error) => {
-						console.error('Error fetching catalog data:', error);
-					});
+					// const { message } = await frappe.call({
+					// 	method: "erpnext.selling.doctype.quotation.quotation.generate_pdf_document",
+					// 	args: { document_id: doc.pos_id }
+					// });^
+					const quotation = await frappe.db.get_doc('Quotation', doc.name);
+					const params = new URLSearchParams({
+						document_id: quotation.pos_id
+					}).toString();
+
+					window.open(
+						`/api/method/erpnext.selling.doctype.quotation.quotation.generate_pdf_document?${params}`,
+						"_blank"
+					);
 				}
 			}
 		]

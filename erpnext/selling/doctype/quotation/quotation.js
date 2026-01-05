@@ -45,168 +45,175 @@ frappe.ui.form.on("Quotation", {
 		frm.trigger("set_label");
 		frm.trigger("set_dynamic_field_label");
 
-		if (frm.doc.pos_id) { // for teste 
+		if (frm.doc.pos_id) {
 			frm.page.set_indicator(__('Sincronizado com POS'), 'green');
-		} else {
-			frm.add_custom_button(__('Exp. p/ o POS'), async function (doc) {
-				console.log('Clicaste em exportar para pos');
-				console.log("doc: ", frm.doc);
-
-				let items = [];
-				for (const element of frm.doc.items) {
-					const r = await frappe.call({
-						method: "erpnext.selling.doctype.quotation.quotation.get_article_by_code",
-						args: {
-							code: element.item_code
-						}
-					});
-
-					const res = r.message;
-
-					// 👉 Artigo não existe no POS
-					if (!res.found) {
-						frappe.msgprint({
-							title: "Artigo não encontrado no POS",
-							message: `O artigo <b>${element.item_code}</b> não existe no POS.`,
-							indicator: "orange"
-						});
-
-						continue; // pula este item
-					}
-
-					const article = res.data;
-
-					items.push({
-						articleId: article.id,
-						quantity: element.qty,
-						vatRateId: article.vatRateId,
-						vatExemptionId: article.vatExemptionId,
-						unitPrice: Number(element.rate.toFixed(2)),
-						discount: element.discount_amount,
-						priceType: null
-					});
-				}
-				console.log(items);
-
-				let customer;
-				let customer_id;
-				const erp_customer = await frappe.db.get_doc('Customer', frm.doc.customer_name);
-
-				const r_customer = await frappe.call({
-					method: "erpnext.selling.doctype.quotation.quotation.get_customer_by_fiscal_number",
-					args: {
-						fiscal_number: erp_customer.fiscal_number
-					}
-				});
-
-				const res = r_customer.message; // ✅ agora existe 
-				console.log("Custumer in pos:", res)
-
-				const erp_customer_address = await frappe.db.get_doc('Address', frm.doc.customer_address);
-
-				const default_company = frappe.defaults.get_user_default("Company");
-				const user_default_company = await frappe.db.get_doc('Company', default_company);
-				const r_country = await frappe.call({
-					method: "erpnext.setup.doctype.company.company.get_pos_country_by_code",
-					args: {
-						code: user_default_company.codigo
-					}
-				});
-				const countryId = r_country.message.data.id;
-
-				if (res.found) {
-					customer_id = res.data.id;
-
-					const payload = {
-						// type: erp_customer_address.country === "Portugal" ? "FP" : "PP",
-						type: "PP",
-						paymentConditionId: null,
-						customerId: customer_id,
-						discount: frm.doc.discount_amount,
-						details: items,
-						isDraft: true
-					};
-
-					console.log("payload: ", payload)
-
-					const r = await frappe.call({
-						method: "erpnext.selling.doctype.quotation.quotation.create_pos_document",
-						args: {
-							doctype: "Quotation",
-							docname: frm.doc.name,
-							payload: payload
-						}
-					});
-
-					if (!r.message.success) {
-						frappe.msgprint({
-							title: "Erro ao enviar para o POS",
-							message: r.message.error,
-							indicator: "red"
-						});
-						return;
-					}
-
-					frappe.show_alert({
-						message: "Documento criado no POS",
-						indicator: "green"
-					});
-
-				} else {
-					customer = {
-						name: erp_customer.name,
-						address: `${erp_customer_address.address_line1} - ${erp_customer_address.address_line2}`,
-						locality: erp_customer_address.address_type,
-						zipCode: erp_customer_address.pincode,
-						city: erp_customer_address.city,
-						country: erp_customer_address.country,
-						countryId: countryId,
-						fiscalNumber: erp_customer.fiscal_number,
-						email: erp_customer_address.email_id,
-						phone: erp_customer.mobile_no,
-						fax: erp_customer_address.fax
-					}
-
-					const payload = {
-						// type: erp_customer_address.country === "Portugal" ? "FP" : "PP",
-						type: "PP",
-						discount: frm.doc.discount_amount,
-						customer: customer,
-						details: items,
-						isDraft: true,
-						shipToAddress: null,
-						shipFromAddress: null,
-						paymentMethods: []
-					};
-
-					console.log("payload: ", payload)
-
-					const r = await frappe.call({
-						method: "erpnext.selling.doctype.quotation.quotation.create_pos_document",
-						args: {
-							doctype: "Quotation",
-							docname: frm.doc.name,
-							payload: payload
-						}
-					});
-
-					if (!r.message.success) {
-						frappe.msgprint({
-							title: "Erro ao enviar para o POS",
-							message: JSON.stringify(r.message, null, 2),
-							indicator: "red"
-						});
-						return;
-					}
-
-					frappe.show_alert({
-						message: "Documento criado no POS",
-						indicator: "green"
-					});
-				}
-			});
-			// frm.page.add_indicator(__('Não sincronizado com POS'), 'orange');
+			return;
 		}
+
+		frm.add_custom_button(__('Exp. p/ o POS'), () => export_to_pos(frm));
+
+		// if (frm.doc.pos_id) { // for teste 
+		// 	frm.page.set_indicator(__('Sincronizado com POS'), 'green');
+		// } else {
+		// 	frm.add_custom_button(__('Exp. p/ o POS'), async function (doc) {
+		// 		console.log('Clicaste em exportar para pos');
+		// 		console.log("doc: ", frm.doc);
+
+		// 		let items = [];
+		// 		for (const element of frm.doc.items) {
+		// 			const r = await frappe.call({
+		// 				method: "erpnext.selling.doctype.quotation.quotation.get_article_by_code",
+		// 				args: {
+		// 					code: element.item_code
+		// 				}
+		// 			});
+
+		// 			const res = r.message;
+
+		// 			// 👉 Artigo não existe no POS
+		// 			if (!res.found) {
+		// 				frappe.msgprint({
+		// 					title: "Artigo não encontrado no POS",
+		// 					message: `O artigo <b>${element.item_code}</b> não existe no POS.`,
+		// 					indicator: "orange"
+		// 				});
+
+		// 				continue; // pula este item
+		// 			}
+
+		// 			const article = res.data;
+
+		// 			items.push({
+		// 				articleId: article.id,
+		// 				quantity: element.qty,
+		// 				vatRateId: article.vatRateId,
+		// 				vatExemptionId: article.vatExemptionId,
+		// 				unitPrice: Number(element.rate.toFixed(2)),
+		// 				discount: element.discount_amount,
+		// 				priceType: null
+		// 			});
+		// 		}
+		// 		console.log(items);
+
+		// 		let customer;
+		// 		let customer_id;
+		// 		const erp_customer = await frappe.db.get_doc('Customer', frm.doc.customer_name);
+
+		// 		const r_customer = await frappe.call({
+		// 			method: "erpnext.selling.doctype.quotation.quotation.get_customer_by_fiscal_number",
+		// 			args: {
+		// 				fiscal_number: erp_customer.fiscal_number
+		// 			}
+		// 		});
+
+		// 		const res = r_customer.message; // ✅ agora existe 
+		// 		console.log("Custumer in pos:", res)
+
+		// 		const erp_customer_address = await frappe.db.get_doc('Address', frm.doc.customer_address);
+
+		// 		const default_company = frappe.defaults.get_user_default("Company");
+		// 		const user_default_company = await frappe.db.get_doc('Company', default_company);
+		// 		const r_country = await frappe.call({
+		// 			method: "erpnext.setup.doctype.company.company.get_pos_country_by_code",
+		// 			args: {
+		// 				code: user_default_company.codigo
+		// 			}
+		// 		});
+		// 		const countryId = r_country.message.data.id;
+
+		// 		if (res.found) {
+		// 			customer_id = res.data.id;
+
+		// 			const payload = {
+		// 				// type: erp_customer_address.country === "Portugal" ? "FP" : "PP",
+		// 				type: "PP",
+		// 				paymentConditionId: null,
+		// 				customerId: customer_id,
+		// 				discount: frm.doc.discount_amount,
+		// 				details: items,
+		// 				isDraft: true
+		// 			};
+
+		// 			console.log("payload: ", payload)
+
+		// 			const r = await frappe.call({
+		// 				method: "erpnext.selling.doctype.quotation.quotation.create_pos_document",
+		// 				args: {
+		// 					doctype: "Quotation",
+		// 					docname: frm.doc.name,
+		// 					payload: payload
+		// 				}
+		// 			});
+
+		// 			if (!r.message.success) {
+		// 				frappe.msgprint({
+		// 					title: "Erro ao enviar para o POS",
+		// 					message: r.message.error,
+		// 					indicator: "red"
+		// 				});
+		// 				return;
+		// 			}
+
+		// 			frappe.show_alert({
+		// 				message: "Documento criado no POS",
+		// 				indicator: "green"
+		// 			});
+
+		// 		} else {
+		// 			customer = {
+		// 				name: erp_customer.name,
+		// 				address: `${erp_customer_address.address_line1} - ${erp_customer_address.address_line2}`,
+		// 				locality: erp_customer_address.address_type,
+		// 				zipCode: erp_customer_address.pincode,
+		// 				city: erp_customer_address.city,
+		// 				country: erp_customer_address.country,
+		// 				countryId: countryId,
+		// 				fiscalNumber: erp_customer.fiscal_number,
+		// 				email: erp_customer_address.email_id,
+		// 				phone: erp_customer.mobile_no,
+		// 				fax: erp_customer_address.fax
+		// 			}
+
+		// 			const payload = {
+		// 				// type: erp_customer_address.country === "Portugal" ? "FP" : "PP",
+		// 				type: "PP",
+		// 				discount: frm.doc.discount_amount,
+		// 				customer: customer,
+		// 				details: items,
+		// 				isDraft: true,
+		// 				shipToAddress: null,
+		// 				shipFromAddress: null,
+		// 				paymentMethods: []
+		// 			};
+
+		// 			console.log("payload: ", payload)
+
+		// 			const r = await frappe.call({
+		// 				method: "erpnext.selling.doctype.quotation.quotation.create_pos_document",
+		// 				args: {
+		// 					doctype: "Quotation",
+		// 					docname: frm.doc.name,
+		// 					payload: payload
+		// 				}
+		// 			});
+
+		// 			if (!r.message.success) {
+		// 				frappe.msgprint({
+		// 					title: "Erro ao enviar para o POS",
+		// 					message: JSON.stringify(r.message, null, 2),
+		// 					indicator: "red"
+		// 				});
+		// 				return;
+		// 			}
+
+		// 			frappe.show_alert({
+		// 				message: "Documento criado no POS",
+		// 				indicator: "green"
+		// 			});
+		// 		}
+		// 	});
+		// 	// frm.page.add_indicator(__('Não sincronizado com POS'), 'orange');
+		// }
 
 
 		if (frm.doc.docstatus === 0) {
@@ -572,3 +579,183 @@ frappe.ui.form.on("Quotation Item", "stock_balance", function (frm, cdt, cdn) {
 	frappe.route_options = { item_code: d.item_code };
 	frappe.set_route("query-report", "Stock Balance");
 });
+
+// ===============================
+// MAIN FLOW
+// ===============================
+async function export_to_pos(frm) {
+    try {
+        const items = await build_items(frm);
+        if (!items.length) return;
+
+        const context = await load_customer_context(frm);
+        const payload = build_payload(frm, items, context);
+
+        const response = await send_to_pos(frm, payload);
+        handle_success(response);
+
+    } catch (error) {
+        handle_error(error);
+    }
+}
+
+// ===============================
+// ITEMS
+// ===============================
+async function build_items(frm) {
+    const items = [];
+
+    for (const row of frm.doc.items) {
+        const res = await fetch_article(row.item_code);
+
+        if (!res.found) {
+            frappe.msgprint({
+                title: __("Artigo não encontrado no POS"),
+                message: __("O artigo <b>{0}</b> não existe no POS.", [row.item_code]),
+                indicator: "orange"
+            });
+            continue;
+        }
+
+        items.push(map_item(row, res.data));
+    }
+
+    return items;
+}
+
+function map_item(row, article) {
+    return {
+        articleId: article.id,
+        quantity: row.qty,
+        vatRateId: article.vatRateId,
+        vatExemptionId: article.vatExemptionId,
+        unitPrice: Number(row.rate.toFixed(2)),
+        discount: row.discount_amount,
+        priceType: null
+    };
+}
+
+async function fetch_article(code) {
+    const { message } = await frappe.call({
+        method: "erpnext.selling.doctype.quotation.quotation.get_article_by_code",
+        args: { code }
+    });
+
+    return message;
+}
+
+// ===============================
+// CUSTOMER CONTEXT
+// ===============================
+async function load_customer_context(frm) {
+    const erp_customer = await frappe.db.get_doc('Customer', frm.doc.customer_name);
+    const erp_address = await frappe.db.get_doc('Address', frm.doc.customer_address);
+
+    const { message } = await frappe.call({
+        method: "erpnext.selling.doctype.quotation.quotation.get_customer_by_fiscal_number",
+        args: { fiscal_number: erp_customer.fiscal_number }
+    });
+
+    const countryId = await get_pos_country_id();
+
+    return {
+        erp_customer,
+        erp_address,
+        pos_customer: message,
+        countryId
+    };
+}
+
+async function get_pos_country_id() {
+    const company_name = frappe.defaults.get_user_default("Company");
+    const company = await frappe.db.get_doc("Company", company_name);
+
+    const { message } = await frappe.call({
+        method: "erpnext.setup.doctype.company.company.get_pos_country_by_code",
+        args: { code: company.codigo }
+    });
+
+    return message.data.id;
+}
+
+// ===============================
+// PAYLOAD
+// ===============================
+function build_payload(frm, items, ctx) {
+    const base = {
+        type: "PP",
+        discount: frm.doc.discount_amount || 0,
+        details: items,
+        isDraft: true
+    };
+
+    if (ctx.pos_customer.found) {
+        return {
+            ...base,
+            paymentConditionId: null,
+            customerId: ctx.pos_customer.data.id
+        };
+    }
+
+    return {
+        ...base,
+        customer: map_customer(ctx),
+        shipToAddress: null,
+        shipFromAddress: null,
+        paymentMethods: []
+    };
+}
+
+function map_customer({ erp_customer, erp_address, countryId }) {
+    return {
+        name: erp_customer.name,
+        address: `${erp_address.address_line1} - ${erp_address.address_line2}`,
+        locality: erp_address.address_type,
+        zipCode: erp_address.pincode,
+        city: erp_address.city,
+        country: erp_address.country,
+        countryId,
+        fiscalNumber: erp_customer.fiscal_number,
+        email: erp_address.email_id,
+        phone: erp_customer.mobile_no,
+        fax: erp_address.fax
+    };
+}
+
+// ===============================
+// POS CALL
+// ===============================
+async function send_to_pos(frm, payload) {
+    const { message } = await frappe.call({
+        method: "erpnext.selling.doctype.quotation.quotation.create_pos_document",
+        args: {
+            doctype: "Quotation",
+            docname: frm.doc.name,
+            payload
+        }
+    });
+
+    if (!message.success) {
+        throw message.error || __("Erro ao enviar para o POS");
+    }
+
+    return message;
+}
+
+// ===============================
+// FEEDBACK
+// ===============================
+function handle_success() {
+    frappe.show_alert({
+        message: __("Documento criado no POS"),
+        indicator: "green"
+    });
+}
+
+function handle_error(error) {
+    frappe.msgprint({
+        title: __("Erro ao enviar para o POS"),
+        message: typeof error === "string" ? error : JSON.stringify(error, null, 2),
+        indicator: "red"
+    });
+}
