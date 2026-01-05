@@ -14,6 +14,7 @@
   "abbr",
   "default_currency",
   "country",
+  "codigo",
   "is_group",
   "default_holiday_list",
   "cb0",
@@ -117,7 +118,12 @@
   "default_in_transit_warehouse",
   "manufacturing_section",
   "default_operating_cost_account",
-  "dashboard_tab"
+  "dashboard_tab",
+  "pos_integration_tab",
+  "pos_integration_section",
+  "base_url",
+  "column_break_pano",
+  "port"
  ],
  "fields": [
   {
@@ -834,6 +840,39 @@
    "fieldtype": "Select",
    "label": "Reconciliation Takes Effect On",
    "options": "Advance Payment Date\nOldest Of Invoice Or Advance\nReconciliation Date"
+  },
+  {
+   "fieldname": "codigo",
+   "fieldtype": "Data",
+   "label": "Codigo",
+   "oldfieldname": "abbr",
+   "oldfieldtype": "Data"
+  },
+  {
+   "fieldname": "pos_integration_tab",
+   "fieldtype": "Tab Break",
+   "label": "POS integration"
+  },
+  {
+   "fieldname": "pos_integration_section",
+   "fieldtype": "Section Break",
+   "label": "POS integration"
+  },
+  {
+   "fieldname": "base_url",
+   "fieldtype": "Data",
+   "label": "Base URL",
+   "translatable": 1
+  },
+  {
+   "fieldname": "column_break_pano",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "port",
+   "fieldtype": "Data",
+   "label": "Port",
+   "translatable": 1
   }
  ],
  "icon": "fa fa-building",
@@ -841,7 +880,7 @@
  "image_field": "company_logo",
  "is_tree": 1,
  "links": [],
- "modified": "2025-01-09 20:12:25.471544",
+ "modified": "2025-12-30 17:37:23.847662",
  "modified_by": "Administrator",
  "module": "Setup",
  "name": "Company",
@@ -903,6 +942,7 @@
    "select": 1
   }
  ],
+ "row_format": "Dynamic",
  "show_name_in_global_search": 1,
  "sort_field": "creation",
  "sort_order": "ASC",

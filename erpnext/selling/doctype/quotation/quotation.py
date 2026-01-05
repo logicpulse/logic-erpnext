@@ -11,7 +11,6 @@ from frappe.utils import flt, getdate, nowdate
 from erpnext.controllers.selling_controller import SellingController
 
 form_grid_templates = {"items": "templates/form_grid/item_grid.html"}
-base_url_pos = "https://de8ceb100f92.ngrok-free.app"
 
 
 class Quotation(SellingController):
@@ -21,19 +20,14 @@ class Quotation(SellingController):
 	from typing import TYPE_CHECKING
 
 	if TYPE_CHECKING:
-		from frappe.types import DF
-
 		from erpnext.accounts.doctype.payment_schedule.payment_schedule import PaymentSchedule
 		from erpnext.accounts.doctype.pricing_rule_detail.pricing_rule_detail import PricingRuleDetail
-		from erpnext.accounts.doctype.sales_taxes_and_charges.sales_taxes_and_charges import (
-			SalesTaxesandCharges,
-		)
+		from erpnext.accounts.doctype.sales_taxes_and_charges.sales_taxes_and_charges import SalesTaxesandCharges
 		from erpnext.crm.doctype.competitor_detail.competitor_detail import CompetitorDetail
 		from erpnext.selling.doctype.quotation_item.quotation_item import QuotationItem
-		from erpnext.setup.doctype.quotation_lost_reason_detail.quotation_lost_reason_detail import (
-			QuotationLostReasonDetail,
-		)
+		from erpnext.setup.doctype.quotation_lost_reason_detail.quotation_lost_reason_detail import QuotationLostReasonDetail
 		from erpnext.stock.doctype.packed_item.packed_item import PackedItem
+		from frappe.types import DF
 
 		additional_discount_percentage: DF.Float
 		address_display: DF.TextEditor | None
@@ -88,6 +82,7 @@ class Quotation(SellingController):
 		payment_schedule: DF.Table[PaymentSchedule]
 		payment_terms_template: DF.Link | None
 		plc_conversion_rate: DF.Float
+		pos_id: DF.Data | None
 		price_list_currency: DF.Link
 		pricing_rules: DF.Table[PricingRuleDetail]
 		quotation_to: DF.Link
@@ -100,9 +95,7 @@ class Quotation(SellingController):
 		shipping_address: DF.TextEditor | None
 		shipping_address_name: DF.Link | None
 		shipping_rule: DF.Link | None
-		status: DF.Literal[
-			"Draft", "Open", "Replied", "Partially Ordered", "Ordered", "Lost", "Cancelled", "Expired"
-		]
+		status: DF.Literal["Draft", "Open", "Replied", "Partially Ordered", "Ordered", "Lost", "Cancelled", "Expired"]
 		supplier_quotation: DF.Link | None
 		tax_category: DF.Link | None
 		taxes: DF.Table[SalesTaxesandCharges]
@@ -617,7 +610,7 @@ def get_article_by_code(code):
 
     try:
         response = requests.get(
-            f"{base_url_pos}/articles/code/{code}",
+            f"{get_pos_base_url()}/articles/code/{code}",
             timeout=10
         )
 
@@ -653,9 +646,9 @@ def get_customer_by_fiscal_number(fiscal_number):
             "reason": "Fiscal Number não informado"
         } 
 
-    try:
+    try: 
         response = requests.get(
-            f"{base_url_pos}/customers/customer",
+            f"{get_pos_base_url()}/customers/customer",
 			params={"fiscalNumber": fiscal_number },
             timeout=10
         )
@@ -682,3 +675,88 @@ def get_customer_by_fiscal_number(fiscal_number):
         )
 
         frappe.throw("Erro de comunicação com o POS")
+ 
+@frappe.whitelist()
+def get_pos_base_url():
+    company_name = frappe.defaults.get_user_default("Company")
+
+    if not company_name:
+        frappe.throw("O utilizador não tem empresa padrão definida")
+
+    company = frappe.db.get_value(
+        "Company",
+        company_name,
+        ["base_url", "port"],
+        as_dict=True
+    )
+
+    if not company or not company.base_url:
+        frappe.throw("Base URL não configurada na empresa")
+
+    return (
+        f"{company.base_url}:{company.port}"
+        if company.port
+        else company.base_url
+    )
+
+@frappe.whitelist()
+def create_pos_document(doctype=None, docname=None, payload=None):
+
+    if not payload:
+        frappe.throw("Payload não informado")
+
+    try:
+
+        frappe.log_error(title="Payload enviado ao POS", message=payload)
+		
+        response = requests.post(
+            f"{get_pos_base_url()}/documents",
+            data=payload,
+			headers={
+				"Content-Type": "application/json"
+			},
+            timeout=15
+        )
+
+        if response.status_code not in (200, 201):
+            frappe.log_error(
+                title="Erro POS - Create Document",
+                message=f"""
+                Status: {response.status_code}
+                Response: {response.text}
+                """
+            )
+
+            return {
+                "success": False,
+                "status_code": response.status_code,
+                "error": response.json() if response.text else None
+            }
+
+        data = response.json()
+
+        pos_id = data.get("id")
+        if not pos_id:
+            frappe.throw("POS não retornou o ID do documento")
+
+        # salvar no ERP se necessário
+        if doctype and docname:
+            doc = frappe.get_doc(doctype, docname)
+            doc.pos_id = pos_id
+            doc.save(ignore_permissions=True)
+
+        return {
+            "success": True,
+            "pos_id": pos_id,
+            "data": data
+        }
+
+    except requests.exceptions.Timeout:
+        frappe.throw("Timeout ao comunicar com o POS")
+
+    except requests.exceptions.RequestException as e:
+        frappe.log_error(
+            title="Erro técnico POS",
+            message=str(e)
+        )
+        frappe.throw("Erro técnico ao comunicar com o POS")

@@ -4,6 +4,7 @@
 
 import json
 
+import requests
 import frappe
 import frappe.defaults
 from frappe import _
@@ -16,6 +17,7 @@ from frappe.utils.nestedset import NestedSet, rebuild_tree
 
 from erpnext.accounts.doctype.account.account import get_account_currency
 from erpnext.setup.setup_wizard.operations.taxes_setup import setup_taxes_and_charges
+from pytz import country_names
 
 
 class Company(NestedSet):
@@ -33,9 +35,11 @@ class Company(NestedSet):
 		asset_received_but_not_billed: DF.Link | None
 		auto_err_frequency: DF.Literal["Daily", "Weekly", "Monthly"]
 		auto_exchange_rate_revaluation: DF.Check
+		base_url: DF.Data | None
 		book_advance_payments_in_separate_party_account: DF.Check
 		capital_work_in_progress_account: DF.Link | None
 		chart_of_accounts: DF.Literal[None]
+		codigo: DF.Data | None
 		company_description: DF.TextEditor | None
 		company_logo: DF.AttachImage | None
 		company_name: DF.Data
@@ -86,10 +90,9 @@ class Company(NestedSet):
 		parent_company: DF.Link | None
 		payment_terms: DF.Link | None
 		phone_no: DF.Data | None
+		port: DF.Data | None
 		reconcile_on_advance_payment_date: DF.Check
-		reconciliation_takes_effect_on: DF.Literal[
-			"Advance Payment Date", "Oldest Of Invoice Or Advance", "Reconciliation Date"
-		]
+		reconciliation_takes_effect_on: DF.Literal["Advance Payment Date", "Oldest Of Invoice Or Advance", "Reconciliation Date"]
 		registration_details: DF.Code | None
 		rgt: DF.Int
 		round_off_account: DF.Link | None
@@ -110,6 +113,11 @@ class Company(NestedSet):
 	# end: auto-generated types
 
 	nsm_parent_field = "parent_company"
+
+	def before_save(self):
+		codigo = get_country_code(self.country)
+		if codigo:
+			self.codigo = codigo
 
 	def onload(self):
 		load_address_and_contact(self, "company")
@@ -708,6 +716,24 @@ class Company(NestedSet):
 			frappe.flags.parent_company_changed = True
 
 
+def get_country_code(country_name: str) -> str | None:
+	if not country_name:
+		return None
+	
+	countries = {
+        "portugal": "PT",
+        "brasil": "BR",
+        "angola": "AO",
+        "moçambique": "MZ",
+        "espanha": "ES",
+        "frança": "FR",
+        "alemanha": "DE",
+        "estados unidos": "US",
+        "reino unido": "GB"
+    }  
+
+	return countries.get(country_name.strip().lower())
+
 def get_name_with_abbr(name, company):
 	company_abbr = frappe.get_cached_value("Company", company, "abbr")
 	parts = name.split(" - ")
@@ -948,3 +974,64 @@ def create_transaction_deletion_request(company):
 		),
 		frappe.bold(company),
 	)
+
+@frappe.whitelist()
+def get_pos_country_by_code(code):
+    if not code:
+        return {
+            "found": False,
+            "reason": "code não informado"
+        } 
+
+    try: 
+        response = requests.get(
+            f"{get_pos_base_url()}/countries/country",
+			params={"code2": code },
+            timeout=10
+        )
+
+        # 👉 Caso de negócio: pais não existe
+        if response.status_code == 404:
+            return {
+                "found": False,
+                "reason": "code não encontrado no POS",
+                "code": code
+            }
+
+        response.raise_for_status()
+
+        return {
+            "found": True,
+            "data": response.json()
+        }
+
+    except requests.exceptions.RequestException as e:
+        frappe.log_error(
+            title="Erro técnico ao buscar code no POS",
+            message=str(e)
+        )
+
+        frappe.throw("Erro de comunicação com o POS")
+
+
+def get_pos_base_url():
+    company_name = frappe.defaults.get_user_default("Company")
+
+    if not company_name:
+        frappe.throw("O utilizador não tem empresa padrão definida")
+
+    company = frappe.db.get_value(
+        "Company",
+        company_name,
+        ["base_url", "port"],
+        as_dict=True
+    )
+
+    if not company or not company.base_url:
+        frappe.throw("Base URL não configurada na empresa")
+
+    return (
+        f"{company.base_url}:{company.port}"
+        if company.port
+        else company.base_url
+    )
