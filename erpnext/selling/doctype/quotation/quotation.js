@@ -45,9 +45,21 @@ frappe.ui.form.on("Quotation", {
 		frm.trigger("set_label");
 		frm.trigger("set_dynamic_field_label");
 
+		frm.print_doc = async function () {
+			const quotation = await frappe.db.get_doc('Quotation', frm.doc.name);
+			const params = new URLSearchParams({
+				document_id: quotation.pos_id
+			}).toString();
+
+			window.open(
+				`/api/method/erpnext.selling.doctype.quotation.quotation.generate_pdf_document?${params}`,
+				"_blank"
+			);
+		};
+
 		if (frm.doc.pos_id) {
 			frm.page.set_indicator(__('Sincronizado com POS'), 'green');
-			return;
+			// return;
 		}
 
 		frm.add_custom_button(__('Exp. p/ o POS'), () => export_to_pos(frm));
@@ -214,7 +226,6 @@ frappe.ui.form.on("Quotation", {
 		// 	});
 		// 	// frm.page.add_indicator(__('Não sincronizado com POS'), 'orange');
 		// }
-
 
 		if (frm.doc.docstatus === 0) {
 			erpnext.set_unit_price_items_note(frm);
@@ -584,178 +595,208 @@ frappe.ui.form.on("Quotation Item", "stock_balance", function (frm, cdt, cdn) {
 // MAIN FLOW
 // ===============================
 async function export_to_pos(frm) {
-    try {
-        const items = await build_items(frm);
-        if (!items.length) return;
+	try {
+		// teste de log
+		const erp_quotation = await frappe.db.get_doc('Quotation', frm.doc.name);
+		console.log("erp_quotation: ", erp_quotation);
 
-        const context = await load_customer_context(frm);
-        const payload = build_payload(frm, items, context);
+		const items = await build_items(frm);
+		if (!items.length) return;
 
-        const response = await send_to_pos(frm, payload);
-        handle_success(response);
+		const context = await load_customer_context(frm);
+		const payload = build_payload(frm, items, context);
 
-    } catch (error) {
-        handle_error(error);
-    }
+		const response = await send_to_pos(frm, payload);
+		handle_success(response);
+
+	} catch (error) {
+		handle_error(error);
+	}
 }
 
 // ===============================
 // ITEMS
 // ===============================
 async function build_items(frm) {
-    const items = [];
+	const items = [];
 
-    for (const row of frm.doc.items) {
-        const res = await fetch_article(row.item_code);
+	for (const row of frm.doc.items) {
+		const res = await fetch_article(row.item_code);
 
-        if (!res.found) {
-            frappe.msgprint({
-                title: __("Artigo não encontrado no POS"),
-                message: __("O artigo <b>{0}</b> não existe no POS.", [row.item_code]),
-                indicator: "orange"
-            });
-            continue;
-        }
+		if (!res.found) {
+			// Pergunta ao usuário se deseja continuar sem este item ou abortar o envio
+			const proceed = await new Promise((resolve) => {
+				frappe.msgprint({
+					title: __("Artigo não encontrado no POS"),
+					message: __(
+						"O artigo <b>{0}</b> não foi encontrado no POS.<br><br> Deseja continuar sem este item ou abortar o envio?",
+						[row.item_code]
+					),
+					indicator: "orange",
+					primary_action: {
+						label: __("Continuar"),
+						action: () => {
+							frappe.hide_msgprint();
+							resolve(true);
+						},
+					},
+					secondary_action: {
+						label: __("Abortar"),
+						action: () => {
+							frappe.hide_msgprint();
+							resolve(false);
+						},
+					},
+				});
+			});
 
-        items.push(map_item(row, res.data));
-    }
+			if (!proceed) {
+				// Usuário optou por abortar: interrompe o processo
+				throw __("Envio para o POS abortado pelo usuário.");
+			}
+			// se continuar, pula o item e prossegue
+			continue;
+		}
 
-    return items;
+		items.push(map_item(row, res.data));
+	}
+
+	return items;
 }
 
 function map_item(row, article) {
-    return {
-        articleId: article.id,
-        quantity: row.qty,
-        vatRateId: article.vatRateId,
-        vatExemptionId: article.vatExemptionId,
-        unitPrice: Number(row.rate.toFixed(2)),
-        discount: row.discount_amount,
-        priceType: null
-    };
+	return {
+		articleId: article.id,
+		quantity: row.qty,
+		vatRateId: article.vatRateId,
+		vatExemptionId: article.vatExemptionId,
+		unitPrice: Number(row.rate.toFixed(2)),
+		discount: row.discount_amount,
+		priceType: null
+	};
 }
 
 async function fetch_article(code) {
-    const { message } = await frappe.call({
-        method: "erpnext.selling.doctype.quotation.quotation.get_article_by_code",
-        args: { code }
-    });
+	const { message } = await frappe.call({
+		method: "erpnext.selling.doctype.quotation.quotation.get_article_by_code",
+		args: { code }
+	});
 
-    return message;
+	return message;
 }
 
 // ===============================
 // CUSTOMER CONTEXT
 // ===============================
 async function load_customer_context(frm) {
-    const erp_customer = await frappe.db.get_doc('Customer', frm.doc.customer_name);
-    const erp_address = await frappe.db.get_doc('Address', frm.doc.customer_address);
+	const erp_customer = await frappe.db.get_doc('Customer', frm.doc.customer_name);
+	const erp_address = await frappe.db.get_doc('Address', frm.doc.customer_address);
 
-    const { message } = await frappe.call({
-        method: "erpnext.selling.doctype.quotation.quotation.get_customer_by_fiscal_number",
-        args: { fiscal_number: erp_customer.fiscal_number }
-    });
+	const { message } = await frappe.call({
+		method: "erpnext.selling.doctype.quotation.quotation.get_customer_by_fiscal_number",
+		args: { fiscal_number: erp_customer.fiscal_number }
+	});
 
-    const countryId = await get_pos_country_id();
+	const countryId = await get_pos_country_id();
 
-    return {
-        erp_customer,
-        erp_address,
-        pos_customer: message,
-        countryId
-    };
+	return {
+		erp_customer,
+		erp_address,
+		pos_customer: message,
+		countryId
+	};
 }
 
 async function get_pos_country_id() {
-    const company_name = frappe.defaults.get_user_default("Company");
-    const company = await frappe.db.get_doc("Company", company_name);
+	const company_name = frappe.defaults.get_user_default("Company");
+	const company = await frappe.db.get_doc("Company", company_name);
 
-    const { message } = await frappe.call({
-        method: "erpnext.setup.doctype.company.company.get_pos_country_by_code",
-        args: { code: company.codigo }
-    });
+	const { message } = await frappe.call({
+		method: "erpnext.setup.doctype.company.company.get_pos_country_by_code",
+		args: { code: company.codigo }
+	});
 
-    return message.data.id;
+	return message.data.id;
 }
 
 // ===============================
 // PAYLOAD
 // ===============================
 function build_payload(frm, items, ctx) {
-    const base = {
-        type: "PP",
-        discount: frm.doc.discount_amount || 0,
-        details: items,
-        isDraft: true
-    };
+	const base = {
+		type: "PP",
+		discount: frm.doc.discount_amount || 0,
+		details: items,
+		isDraft: true
+	};
 
-    if (ctx.pos_customer.found) {
-        return {
-            ...base,
-            paymentConditionId: null,
-            customerId: ctx.pos_customer.data.id
-        };
-    }
+	if (ctx.pos_customer.found) {
+		return {
+			...base,
+			paymentConditionId: null,
+			customerId: ctx.pos_customer.data.id
+		};
+	}
 
-    return {
-        ...base,
-        customer: map_customer(ctx),
-        shipToAddress: null,
-        shipFromAddress: null,
-        paymentMethods: []
-    };
+	return {
+		...base,
+		customer: map_customer(ctx),
+		shipToAddress: null,
+		shipFromAddress: null,
+		paymentMethods: []
+	};
 }
 
 function map_customer({ erp_customer, erp_address, countryId }) {
-    return {
-        name: erp_customer.name,
-        address: `${erp_address.address_line1} - ${erp_address.address_line2}`,
-        locality: erp_address.address_type,
-        zipCode: erp_address.pincode,
-        city: erp_address.city,
-        country: erp_address.country,
-        countryId,
-        fiscalNumber: erp_customer.fiscal_number,
-        email: erp_address.email_id,
-        phone: erp_customer.mobile_no,
-        fax: erp_address.fax
-    };
+	return {
+		name: erp_customer.name,
+		address: `${erp_address.address_line1} - ${erp_address.address_line2}`,
+		locality: erp_address.address_type,
+		zipCode: erp_address.pincode,
+		city: erp_address.city,
+		country: erp_address.country,
+		countryId,
+		fiscalNumber: erp_customer.fiscal_number,
+		email: erp_address.email_id,
+		phone: erp_customer.mobile_no,
+		fax: erp_address.fax
+	};
 }
 
 // ===============================
 // POS CALL
 // ===============================
 async function send_to_pos(frm, payload) {
-    const { message } = await frappe.call({
-        method: "erpnext.selling.doctype.quotation.quotation.create_pos_document",
-        args: {
-            doctype: "Quotation",
-            docname: frm.doc.name,
-            payload
-        }
-    });
+	const { message } = await frappe.call({
+		method: "erpnext.selling.doctype.quotation.quotation.create_pos_document",
+		args: {
+			doctype: "Quotation",
+			docname: frm.doc.name,
+			payload
+		}
+	});
 
-    if (!message.success) {
-        throw message.error || __("Erro ao enviar para o POS");
-    }
+	if (!message.success) {
+		throw message.error || __("Erro ao enviar para o POS");
+	}
 
-    return message;
+	return message;
 }
 
 // ===============================
 // FEEDBACK
 // ===============================
 function handle_success() {
-    frappe.show_alert({
-        message: __("Documento criado no POS"),
-        indicator: "green"
-    });
+	frappe.show_alert({
+		message: __("Documento criado no POS"),
+		indicator: "green"
+	});
 }
 
 function handle_error(error) {
-    frappe.msgprint({
-        title: __("Erro ao enviar para o POS"),
-        message: typeof error === "string" ? error : JSON.stringify(error, null, 2),
-        indicator: "red"
-    });
+	frappe.msgprint({
+		title: __("Erro ao enviar para o POS"),
+		message: typeof error === "string" ? error : JSON.stringify(error, null, 2),
+		indicator: "red"
+	});
 }

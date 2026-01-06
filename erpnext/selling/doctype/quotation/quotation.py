@@ -763,8 +763,7 @@ def create_pos_document(doctype=None, docname=None, payload=None):
         frappe.throw("Erro técnico ao comunicar com o POS")
 
 @frappe.whitelist()
-def generate_pdf_document(document_id: str | None = None):
-
+def generate_pdf_document(document_id: str | None = None): 
     url = f"{get_pos_base_url()}/documents/pdf"
   
     try:
@@ -788,7 +787,7 @@ def generate_pdf_document(document_id: str | None = None):
                 f"Resposta inesperada da API. Content-Type: {content_type}"
             )
 
-        # 🔹 Extrair nome do ficheiro
+        # Extrair nome do ficheiro
         disposition = response.headers.get("Content-Disposition", "")
         filename = "documento.pdf"
 
@@ -796,7 +795,7 @@ def generate_pdf_document(document_id: str | None = None):
         if match:
             filename = requests.utils.unquote(match.group(1))
 
-        # 🔹 Enviar diretamente para o browser
+        # Enviar diretamente para o browser
         frappe.local.response.filename = filename
         frappe.local.response.filecontent = response.content
         frappe.local.response.type = "download"

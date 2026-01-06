@@ -35,17 +35,14 @@ frappe.listview_settings["Quotation"] = {
 					return quotation.pos_id ? true : false;
 				},
 				get_description: function (doc) {
-					return "Imprimir " + doc.name;
+					return "Imprimir " + doc.name; 
 				},
-				action: async function (doc) {
-					// const { message } = await frappe.call({
-					// 	method: "erpnext.selling.doctype.quotation.quotation.generate_pdf_document",
-					// 	args: { document_id: doc.pos_id }
-					// });^
+				action: async function (doc) { 
 					const quotation = await frappe.db.get_doc('Quotation', doc.name);
 					const params = new URLSearchParams({
 						document_id: quotation.pos_id
 					}).toString();
+
 
 					window.open(
 						`/api/method/erpnext.selling.doctype.quotation.quotation.generate_pdf_document?${params}`,
