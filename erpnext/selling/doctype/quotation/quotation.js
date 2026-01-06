@@ -596,9 +596,7 @@ frappe.ui.form.on("Quotation Item", "stock_balance", function (frm, cdt, cdn) {
 // ===============================
 async function export_to_pos(frm) {
 	try {
-		// teste de log
-		const erp_quotation = await frappe.db.get_doc('Quotation', frm.doc.name);
-		console.log("erp_quotation: ", erp_quotation);
+		// teste de log 
 
 		const items = await build_items(frm);
 		if (!items.length) return;
@@ -619,7 +617,8 @@ async function export_to_pos(frm) {
 // ===============================
 async function build_items(frm) {
 	const items = [];
-
+	console.log("Building items for POS export...");
+	console.log("frm.doc.items: ", frm.doc.items);
 	for (const row of frm.doc.items) {
 		const res = await fetch_article(row.item_code);
 
@@ -671,7 +670,7 @@ function map_item(row, article) {
 		vatRateId: article.vatRateId,
 		vatExemptionId: article.vatExemptionId,
 		unitPrice: Number(row.rate.toFixed(2)),
-		discount: row.discount_amount,
+		discount: row.discount_percentage, // row.discount_amount,
 		priceType: null
 	};
 }
@@ -689,6 +688,7 @@ async function fetch_article(code) {
 // CUSTOMER CONTEXT
 // ===============================
 async function load_customer_context(frm) {
+	const erp_quotation = await frappe.db.get_doc('Quotation', frm.doc.name);
 	const erp_customer = await frappe.db.get_doc('Customer', frm.doc.customer_name);
 	const erp_address = await frappe.db.get_doc('Address', frm.doc.customer_address);
 
@@ -703,6 +703,7 @@ async function load_customer_context(frm) {
 		erp_customer,
 		erp_address,
 		pos_customer: message,
+		erp_quotation,
 		countryId
 	};
 }
@@ -723,17 +724,28 @@ async function get_pos_country_id() {
 // PAYLOAD
 // ===============================
 function build_payload(frm, items, ctx) {
+	const parsed = parseAddressDisplay(ctx.erp_address.address_display || "");
 	const base = {
-		type: "PP",
+		type: "PP", //erp_customer_address.country === "Portugal" ? "FP" : "PP",
 		discount: frm.doc.discount_amount || 0,
 		details: items,
-		isDraft: true
+		isDraft: true,
+		shipToAddress: null,
+		shipFromAddress: {
+			streetName: ctx.erp_quotation.shipping_address || null,
+			addressDetail: (ctx.erp_quotation.customer_address || "") + " - " + (ctx.erp_quotation.contact_display || "") + " - " + (ctx.erp_quotation.contact_mobile || ""),
+			city: parsed.city || null,
+			postalCode: parsed.postalCode || null,
+			region: parsed.region || null,
+			country: parsed.country || null
+		},
+		paymentMethods: [],
+		notes: stripHtmlToText(ctx.erp_quotation.terms || "")
 	};
 
 	if (ctx.pos_customer.found) {
 		return {
 			...base,
-			paymentConditionId: null,
 			customerId: ctx.pos_customer.data.id
 		};
 	}
@@ -741,9 +753,6 @@ function build_payload(frm, items, ctx) {
 	return {
 		...base,
 		customer: map_customer(ctx),
-		shipToAddress: null,
-		shipFromAddress: null,
-		paymentMethods: []
 	};
 }
 
@@ -761,6 +770,95 @@ function map_customer({ erp_customer, erp_address, countryId }) {
 		phone: erp_customer.mobile_no,
 		fax: erp_address.fax
 	};
+}
+
+function parseAddressDisplay(addressDisplay) {
+	// retorna { streetName, postalCode, city, region, country }
+	if (!addressDisplay) return {};
+
+	// normalize and strip html
+	const text = addressDisplay
+		.replace(/<br\s*\/?>/gi, "\n")
+		.replace(/&nbsp;/gi, " ")
+		.replace(/<[^>]+>/g, "")
+		.trim();
+
+	// split lines and drop empty / contact lines
+	const lines = text
+		.split(/\n+/)
+		.map((l) => l.trim())
+		.filter((l) => l && !/^(telefone|tel|fax|e-?mail|email|phone)\b/i.test(l) && !/@/.test(l));
+
+	// postal code (Portugal e fallback)
+	const postalRegex = /\b(\d{4}-\d{3}|\d{4})\b/;
+	let postalCode = null;
+	let postalLineIndex = -1;
+	for (let i = 0; i < lines.length; i++) {
+		const m = lines[i].match(postalRegex);
+		if (m) {
+			postalCode = m[1];
+			postalLineIndex = i;
+			break;
+		}
+	}
+
+	// country = último line válido
+	let country = lines.length ? lines[lines.length - 1] : null;
+	// Se última linha contiver postal ou parecer cidade, e existir uma linha acima, ajusta
+	if (postalLineIndex === lines.length - 1 && lines.length > 1) {
+		country = lines[lines.length - 1]; // em alguns casos country está na última linha, senão será ajustado abaixo
+	}
+
+	// city: tenta extrair da mesma linha do postal ou linha adjacente
+	let city = null;
+	if (postalLineIndex >= 0) {
+		const line = lines[postalLineIndex];
+		city = line.replace(postalRegex, "").replace(/^[,\-\s]+|[,\-\s]+$/g, "").trim();
+		if (!city && postalLineIndex + 1 < lines.length) {
+			city = lines[postalLineIndex + 1];
+		}
+	} else if (lines.length >= 2) {
+		city = lines[lines.length - 2];
+	}
+
+	// street: tudo antes da linha com postal / city / country
+	let streetName = "";
+	if (postalLineIndex > 0) {
+		streetName = lines.slice(0, postalLineIndex).join(", ");
+	} else if (lines.length >= 1) {
+		// assume primeira linha é rua se nenhuma postal identificada
+		streetName = lines[0];
+	}
+
+	// region: não presente no exemplo; deixamos null para possível posterior extração
+	const region = null;
+
+	return {
+		streetName: streetName || null,
+		postalCode: postalCode || null,
+		city: city || null,
+		region,
+		country: country || null,
+	};
+}
+
+function stripHtmlToText(html) {
+	if (!html) return "";
+	// converte <br> para newline para preservar separação por linhas
+	const withBreaks = html.replace(/<br\s*\/?>/gi, "\n");
+	// substitui entidades comuns antes de decodificar
+	const normalized = withBreaks.replace(/&nbsp;/gi, " ");
+	// usa um elemento DOM para decodificar entities e remover tags
+	const div = document.createElement("div");
+	div.innerHTML = normalized;
+	let text = div.textContent || div.innerText || "";
+	// normaliza espaços e remove linhas vazias extras
+	text = text
+		.split("\n")
+		.map((line) => line.trim())
+		.filter((line) => line.length)
+		.join("\n");
+	return text;
 }
 
 // ===============================
