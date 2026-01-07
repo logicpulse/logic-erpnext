@@ -43,7 +43,7 @@ Summary,Resumo
 'Entries' cannot be empty,'Entradas' não pode estar vazio
 'From Date' is required,'Da data' é necessário
 'From Date' must be after 'To Date','Da data' deve estar depois de 'até agora'
-'Has Serial No' can not be 'Yes' for non-stock item,'Tem serial não' não pode ser 'sim' para item ininterrupto
+'Has Serial No' can not be 'Yes' for non-stock item,'Tem nº de serial' não pode ser 'sim' para item ininterrupto
 "'Inspection Required before Delivery' has disabled for the item {0}, no need to create the QI","'Inspeção necessária antes da entrega' desativou o item {0}, não é necessário criar o qi"
 "'Inspection Required before Purchase' has disabled for the item {0}, no need to create the QI","'Inspeção necessária antes da compra' desativou o item {0}, não é necessário criar o qi"
 'Opening','Abertura'
@@ -110,7 +110,7 @@ Summary,Resumo
 "<pre><h5>Message Example</h5>||||||&lt;p&gt;Dear {{ doc.contact_person }},&lt;/p&gt;||||||&lt;p&gt;Requesting payment for {{ doc.doctype }}, {{ doc.name }} for {{ doc.grand_total }}.&lt;/p&gt;||||||&lt;a href=""{{ payment_url }}""&gt; click here to pay &lt;/a&gt;||||||</pre>|||","Exemplo de mensagem <H5> Mensagem </h5> |||||| & lt; p & gt; querido {{doc.contact_person}}, & lt;/p & gt; ||||| * para {lt; }}. Clique aqui para pagar & lt;/a & gt; |||||| </re> |||"
 <strong>Grand Total:</strong> {0},<strong> Grand Total: </strong> {0}
 <strong>Outstanding Amount:</strong> {0},<strong> Montante pendente: </strong> {0}
-"<table class=""table table-bordered table-condensed"">|||<thead>|||  <tr>|||         <th class=""table-sr"" style=""width: 50%;"">Child Document</th>|||         <th class=""table-sr"" style=""width: 50%;"">Non Child Document</th>|||   </tr>|||</thead>|||<tbody>|||<tr>|||         <td>|||                  <p> To access parent document field use parent.fieldname and to access child table document field use doc.fieldname </p>||||||         </td>|||         <td>|||                    <p>To access document field use doc.fieldname </p>|||         </td>|||</tr>|||<tr>|||        <td>|||                   <p><b>Example: </b> parent.doctype == ""Stock Entry"" and doc.item_code == ""Test"" </p>||||||        </td>|||         <td>|||                   <p><b>Example: </b> doc.doctype == ""Stock Entry"" and doc.purpose == ""Manufacture""</p>    |||          </td>|||</tr>||||||</tbody>|||</table>|||||||||||||||||||||","<tabela class = ""Table-bordered tabela de mesa""> ||| <Thead> |||  <tr> |||         <th class = ""tabela-sr"" style = ""width: 50%;""> documento filho </th> |||         <th class = ""tabela-sr"" style = ""width: 50%;""> documento não criança </th> |||   </tr> ||| </sead> ||| <tbody> ||| <tr> |||         <Td> |||                  <p> Para acessar o campo do documento pai, use parent.fieldname e para acessar o documento da tabela infantil, use doc.fieldname </p> ||||||         </td> |||         <Td> |||                    <p> Para acessar o campo de documento, use doc.fieldname </p> |||         </td> ||| </tr> ||| <tr> |||        <Td> |||                   <p> <b> Exemplo: </b> parent.doctype == ""Entrada de stock"" e doc.item_code == ""teste"" </p> ||||||        </td> |||         <Td> |||                   <p> <b> Exemplo: </b> doc.doctype == ""entrada de stock"" e doc.purpose == ""fabricação"" </p> |||          </td> ||| </tr> ||||||| </tbody> ||| </ tabela> ||||||||||||||||||||||"
+"<table class=""table table-bordered table-condensed"">|||<thead>|||  <tr>|||         <th class=""table-sr"" style=""width: 50%;"">Child Document</th>|||         <th class=""table-sr"" style=""width: 50%;"">Non Child Document</th>|||   </tr>|||</thead>|||<tbody>|||<tr>|||         <td>|||                  <p> To access parent document field use parent.fieldname and to access child table document field use doc.fieldname </p>||||||         </td>|||         <td>|||                    <p>To access document field use doc.fieldname </p>|||         </td>|||</tr>|||<tr>|||        <td>|||                   <p><b>Example: </b> parent.doctype == ""Stock Entry"" and doc.item_code == ""Test"" </p>||||||        </td>|||         <td>|||                   <p><b>Example: </b> doc.doctype == ""Stock Entry"" and doc.purpose == ""Manufacture""</p>    |||          </td>|||</tr>||||||</tbody>|||</table>|||||||||||||||||||||","<tabela class = ""Table-bordered tabela de mesa""> ||| <Thead> |||  <tr> |||         <th class = ""tabela-sr"" style = ""width: 50%;""> documento filho </th> |||         <th class = ""tabela-sr"" style = ""width: 50%;""> documento não filho </th> |||   </tr> ||| </sead> ||| <tbody> ||| <tr> |||         <Td> |||                  <p> Para acessar o campo do documento pai, use parent.fieldname e para acessar o documento da tabela infantil, use doc.fieldname </p> ||||||         </td> |||         <Td> |||                    <p> Para acessar o campo de documento, use doc.fieldname </p> |||         </td> ||| </tr> ||| <tr> |||        <Td> |||                   <p> <b> Exemplo: </b> parent.doctype == ""Entrada de stock"" e doc.item_code == ""teste"" </p> ||||||        </td> |||         <Td> |||                   <p> <b> Exemplo: </b> doc.doctype == ""entrada de stock"" e doc.purpose == ""fabricação"" </p> |||          </td> ||| </tr> ||||||| </tbody> ||| </ tabela> ||||||||||||||||||||||"
 A - B,A - b
 A - C,A - c
 A Customer Group exists with same name please change the Customer name or rename the Customer Group,"Um grupo de clientes existe com o mesmo nome, altere o nome do cliente ou renomeie o grupo de clientes"
@@ -330,7 +330,7 @@ Actual qty in stock,Qtdy real em stock
 Actual type tax cannot be included in Item rate in row {0},O imposto de tipo real não pode ser incluído na taxa de item na linha {0}
 Add,Adicionar
 Add / Edit Prices,Adicionar / editar preços
-Add Child,Adicionar criança
+Add Child,Adicionar Filho
 Add Columns in Transaction Currency,Adicione colunas na moeda de transação
 Add Comment,Adicione comentário
 Add Corrective Operation Cost in Finished Good Valuation,Adicione o custo de operação corretiva na boa avaliação
@@ -1303,11 +1303,11 @@ Cannot change Variant properties after stock transaction. You will have to make 
 "Cannot change company's default currency, because there are existing transactions. Transactions must be cancelled to change the default currency.","Não é possível alterar a moeda padrão da empresa, porque existem transações existentes. As transações devem ser canceladas para alterar a moeda padrão."
 Cannot complete task {0} as its dependant task {1} are not completed / cancelled.,Não é possível concluir a tarefa {0} como sua tarefa dependente {1} não é concluída / cancelada.
 Cannot convert Cost Center to ledger as it has child nodes,"Não é possível converter o centro de custo em Ledger, pois possui nós filhos"
-Cannot convert Task to non-group because the following child Tasks exist: {0}.,Não é possível converter tarefa em não grupo porque existem as seguintes tarefas da criança: {0}.
+Cannot convert Task to non-group because the following child Tasks exist: {0}.,Não é possível converter a tarefa em não-grupo porque existem as seguintes tarefas filhas: {0}.
 Cannot convert to Group because Account Type is selected.,Não é possível converter em grupo porque o tipo de conta é selecionado.
 Cannot covert to Group because Account Type is selected.,Não é possível encobrir o grupo porque o tipo de conta é selecionado.
 Cannot create Stock Reservation Entries for future dated Purchase Receipts.,Não é possível criar entradas de reserva de stock para futuros recibos de compra com datadas.
-Cannot create a pick list for Sales Order {0} because it has reserved stock. Please unreserve the stock in order to create a pick list.,"Não é possível criar uma lista de escolhas para a ordem de vendas {0} porque possui stock reservado. Por favor, não avalie o stock para criar uma lista de escolhas."
+Cannot create a pick list for Sales Order {0} because it has reserved stock. Please unreserve the stock in order to create a pick list.,"Não é possível criar uma Lista de separação para a ordem de vendas {0} porque possui stock reservado. Por favor, não avalie o stock para criar uma Lista de separação."
 Cannot create accounting entries against disabled accounts: {0},Não é possível criar entradas contábeis contra contas desativadas: {0}
 Cannot create return for consolidated invoice {0}.,Não é possível criar retorno para a fatura consolidada {0}.
 Cannot deactivate or cancel BOM as it is linked with other BOMs,"Não pode desativar ou cancelar o BOM, pois está vinculado a outros BOMs"
@@ -1441,8 +1441,8 @@ Cheques Required,Verificações necessárias
 Cheques and Deposits Incorrectly cleared,Cheques e depósitos limpos incorretamente
 Cheques and Deposits incorrectly cleared,Cheques e depósitos limpos incorretamente
 Child Docname,Child Docname
-Child Row Reference,Referência de fila de crianças
-Child Task exists for this Task. You can not delete this Task.,A tarefa de criança existe para esta tarefa. Você não pode excluir esta tarefa.
+Child Row Reference,Referência do Registro Filho
+Child Task exists for this Task. You can not delete this Task.,Existe uma tarefa filha para esta tarefa. Não é possível excluir esta tarefa.
 Child nodes can be only created under 'Group' type nodes,Os nós filhos podem ser criados apenas em nós do tipo 'grupo'
 Child warehouse exists for this warehouse. You can not delete this warehouse.,Existe um armazém infantil para este armazém. Você não pode excluir este armazém.
 Choose a WIP composite asset,Escolha um ativo composto de WIP
@@ -1451,7 +1451,7 @@ City,Cidade
 Class / Percentage,Classe / porcentagem
 Classification of Customers by region,Classificação de clientes por região
 Clauses and Conditions,Cláusulas e condições
-Clear,Claro
+Clear,Limpar
 Clear Demo Data,Dados de demonstração clara
 Clear Notifications,Notificações claras
 Clear Table,Tabela limpa
@@ -1531,7 +1531,7 @@ Company Description,Descrição da empresa
 Company Details,Detalhes da empresa
 Company Email,Email da empresa
 Company Logo,Logotipo da empresa
-Company Name,nome da empresa
+Company Name,Nome da empresa
 Company Name cannot be Company,O nome da empresa não pode ser empresa
 Company Not Linked,Empresa não vinculada
 Company Shipping Address,Endereço de entrega da empresa
@@ -1635,7 +1635,7 @@ Contact Person,Pessoa de contato
 Contact Person does not belong to the {0},A pessoa de contato não pertence ao {0}
 Contact: ,Contato:
 Contacts,Contatos
-Content,Contente
+Content,Conteúdo
 Content Type,Tipo de conteúdo
 Continue,Continuar
 Contra Entry,Contra entrada
@@ -2356,7 +2356,7 @@ Driving License Categories,Categorias de carteira de motorista
 Driving License Category,Categoria de carteira de motorista
 Drop Ship,Drop ship
 Dropdown,Dropdown
-Due Date,Duas datas
+Due Date,Data de Vencimento
 Due Date Based On,Data de vencimento com base em
 Due Date cannot be after {0},A data de vencimento não pode ser depois de {0}
 Due Date cannot be before {0},A data de vencimento não pode ser antes {0}
@@ -2394,7 +2394,7 @@ E-Invoicing Information Missing,Informações de investimento eletrônico ausent
 EAN,Ean
 EAN-12,EAN-12
 EAN-8,EAN-8
-EDI,Edi
+EDI,EDI
 ERPNext Integrations,Integrações ErpNext
 ERPNext User ID,ID do usuário do ERPNext
 Each Transaction,Cada transação
@@ -2449,7 +2449,7 @@ Email sent successfully.,Email enviado com sucesso.
 Email sent to,Email enviado para
 Email sent to {0},Email enviado para {0}
 Email verification failed.,A verificação de email falhou.
-Emails Queued,E -mails na fila
+Emails Queued,E-mails na fila
 Emergency Contact,Contato de emergência
 Emergency Contact Name,Nome do contato de emergência
 Emergency Phone,Telefone de emergência
@@ -3050,7 +3050,7 @@ Half-yearly,Semestral
 Handle Employee Advances,Lidar com os avanços dos funcionários
 Hardware,Hardware
 Has Alternative Item,Tem item alternativo
-Has Batch No,Tem lote não
+Has Batch No,Tem Nº de lote
 Has Certificate ,Tem certificado
 Has Corrective Cost,Tem custo corretivo
 Has Expiry Date,Tem data de validade
@@ -3089,9 +3089,9 @@ Hide timesheets,Ocultar quadros de horários
 High,Alto
 "Higher the number, higher the priority","Maior o número, maior a prioridade"
 History In Company,História na empresa
-Hold,Segurar
-Hold Invoice,Segure a fatura
-Hold Type,Hold Type
+Hold,Em Espera
+Hold Invoice,Fatura em Espera
+Hold Type,Tipo de Bloqueio
 Holiday,Feriado
 Holiday Date {0} added multiple times,Data de férias {0} adicionada várias vezes
 Holiday List,Lista de férias
@@ -3138,7 +3138,7 @@ If Income or Expense,Se receita ou despesa
 If different than customer address,Se diferente do endereço do cliente
 "If disable, 'In Words' field will not be visible in any transaction","Se desativar, o campo 'em palavras' não será visível em nenhuma transação"
 "If disable, 'Rounded Total' field will not be visible in any transaction","Se desativar, o campo 'total arredondado' não será visível em nenhuma transação"
-If enabled then system won't apply the pricing rule on the delivery note which will be create from the pick list,"Se ativado, o sistema não aplicará a regra de preços na nota de entrega que será criada na lista de escolhas"
+If enabled then system won't apply the pricing rule on the delivery note which will be create from the pick list,"Se ativado, o sistema não aplicará a regra de preços na nota de entrega que será criada na Lista de separação"
 If enabled then system won't override the picked qty / batches / serial numbers.,"Se ativado, o sistema não substituirá os números de qty / lotes / lotes escolhidos."
 "If enabled, Sales Invoice will be generated instead of POS Invoice in POS Transactions for real-time update of G/L and Stock Ledger.","Se ativado, a fatura de vendas será gerada em vez da fatura do POS nas transações de POS para atualização em tempo real do G/L e Ledger de ações."
 "If enabled, a print of this document will be attached to each email","Se ativado, uma impressão deste documento será anexada a cada e-mail"
@@ -3973,7 +3973,7 @@ Mandatory Depends On,Obrigatório depende
 Mandatory Field,Campo obrigatório
 Mandatory For Balance Sheet,Obrigatório para balanço patrimonial
 Mandatory For Profit and Loss Account,Conta obrigatória para lucro e perda
-Mandatory Missing,Falta de falta
+Mandatory Missing,Campo obrigatório em falta
 Mandatory Purchase Order,Pedido de compra obrigatório
 Mandatory Purchase Receipt,Recibo de compra obrigatória
 Mandatory Section,Seção obrigatória
@@ -4315,8 +4315,8 @@ No items in cart,Sem itens no carrinho
 No items to be received are overdue,Nenhum itens a serem recebidos está vencido
 No matches occurred via auto reconciliation,Nenhuma correspondência ocorreu via reconciliação automática
 No material request created,Nenhum pedido de material criado
-No more children on Left,Não há mais crianças à esquerda
-No more children on Right,Não há mais crianças à direita
+No more children on Left,Não há mais filhos à esquerda
+No more children on Right,Não há mais filhos à direita
 No of Docs,Nenhum dos documentos
 No of Employees,Nenhum dos funcionários
 No of Interactions,Não de interações
@@ -4941,14 +4941,14 @@ Phone,Telefone
 Phone Ext.,Telefone ext.
 Phone No,Telefone não
 Phone Number,Número de telefone
-Pick List,Lista de escolha
-Pick List Incomplete,Escolha Lista de Escolha Incompleta
-Pick List Item,Escolha o item da lista
-Pick Manually,Escolha manualmente
-Pick Serial / Batch Based On,Escolha serial / lote com base em
-Pick Serial / Batch No,Escolha serial / lote não
-Picked Qty,Qty escolhido
-Picked Qty (in Stock UOM),Qty escolhido (em stock UOM)
+Pick List,Lista de Separação
+Pick List Incomplete,Lista de Separação Incompleta
+Pick List Item,Item da Lista de Separação
+Pick Manually,Separar Manualmente
+Pick Serial / Batch Based On,Separar por Nº de Série / Lote com base em
+Pick Serial / Batch No,Nº de Série / Lote
+Picked Qty,Quantidade Separada
+Picked Qty (in Stock UOM),Quantidade Separada (na UM de Stock)
 Pickup,Escolher
 Pickup Contact Person,Pessoa de contato de pickup
 Pickup Date,Data de coleta
@@ -4988,7 +4988,7 @@ Plans,Planos
 Plant Dashboard,Planta Painel
 Plant Floor,Piso da planta
 Plants and Machineries,Plantas e máquinas
-"Please Restock Items and Update the Pick List to continue. To discontinue, cancel the Pick List.","Rstock itens e atualize a lista de escolha para continuar. Para interromper, cancele a lista de escolhas."
+"Please Restock Items and Update the Pick List to continue. To discontinue, cancel the Pick List.","Rstock itens e atualize a lista de escolha para continuar. Para interromper, cancele a Lista de separação."
 Please Select a Company,Selecione uma empresa
 Please Select a Company.,Selecione uma empresa.
 Please Select a Customer,Selecione um cliente
@@ -5668,7 +5668,7 @@ Raised By,Levantado por
 Raised By (Email),Criado por (email)
 Random,Aleatório
 Range,Faixa
-Rate,Avaliar
+Rate,Preço
 Rate & Amount,Taxa e valor
 Rate (Company Currency),Taxa (moeda da empresa)
 Rate Of Materials Based On,Taxa de materiais com base em
@@ -6071,7 +6071,7 @@ Review,Análise
 Review Date,Data de revisão
 Reviews,Revisões
 Rgt,Rgt
-Right Child,Criança certa
+Right Child,Filho Direito
 Right Index,ÍNDICE DIREITO
 Ringing,Toque
 Role Allowed to Create/Edit Back-dated Transactions,Função permitida para criar/editar transações com atraso
@@ -6164,7 +6164,7 @@ Row #{0}: From Time and To Time fields are required,Linha #{0}: dos campos do te
 Row #{0}: Incorrect Sequence ID. If any single operation has a Sequence ID then all other operations must have one too.,"Linha #{0}: ID de sequência incorreta. Se qualquer operação única tiver um ID de sequência, todas as outras operações também devem ter uma."
 Row #{0}: Item added,Linha #{0}: Item adicionado
 Row #{0}: Item {1} does not exist,Linha #{0}: item {1} não existe
-"Row #{0}: Item {1} has been picked, please reserve stock from the Pick List.","Linha #{0}: Item {1} foi escolhida, reserve o stock da lista de escolhas."
+"Row #{0}: Item {1} has been picked, please reserve stock from the Pick List.","Linha #{0}: Item {1} foi escolhida, reserve o stock da Lista de separação."
 Row #{0}: Item {1} is not a Serialized/Batched Item. It cannot have a Serial No/Batch No against it.,Linha #{0}: Item {1} não é um item serializado/em lotes. Não pode ter um não/lote serial não contra ele.
 Row #{0}: Item {1} is not a service item,Linha #{0}: Item {1} não é um item de serviço
 Row #{0}: Item {1} is not a stock item,Linha #{0}: Item {1} não é um item de stock
@@ -6627,8 +6627,8 @@ Send After (days),Enviar depois (dias)
 Send Attached Files,Enviar arquivos anexados
 Send Document Print,Envie a impressão do documento
 Send Email,Envie email
-Send Emails,Envie e -mails
-Send Emails to Suppliers,Envie e -mails para fornecedores
+Send Emails,Envie e-mails
+Send Emails to Suppliers,Envie e-mails para fornecedores
 Send Now,Envie agora
 Send SMS,Enviar SMS
 Send To,Enviar para
@@ -7023,7 +7023,7 @@ Stock Entry (Outward GIT),Entrada de stock (Git Outward)
 Stock Entry Child,Iniciar filho
 Stock Entry Detail,Detalhes de entrada de stock
 Stock Entry Type,Tipo de entrada de stock
-Stock Entry has been already created against this Pick List,A entrada de stock já foi criada contra esta lista de escolhas
+Stock Entry has been already created against this Pick List,A entrada de stock já foi criada contra esta Lista de separação
 Stock Entry {0} created,Entrada de stock {0} criada
 Stock Entry {0} has created,A entrada de stock {0} criou
 Stock Entry {0} is not submitted,A entrada de stock {0} não é enviada
@@ -7056,7 +7056,7 @@ Stock Reservation Entries Cancelled,Entradas de reserva de stock canceladas
 Stock Reservation Entries Created,Entradas de reserva de stock criadas
 Stock Reservation Entry,Entrada de reserva de stock
 Stock Reservation Entry cannot be updated as it has been delivered.,A entrada de reserva de stock não pode ser atualizada como foi entregue.
-"Stock Reservation Entry created against a Pick List cannot be updated. If you need to make changes, we recommend canceling the existing entry and creating a new one.","A entrada de reserva de stock criada contra uma lista de escolhas não pode ser atualizada. Se você precisar fazer alterações, recomendamos o cancelamento da entrada existente e a criação de uma nova."
+"Stock Reservation Entry created against a Pick List cannot be updated. If you need to make changes, we recommend canceling the existing entry and creating a new one.","A entrada de reserva de stock criada contra uma Lista de separação não pode ser atualizada. Se você precisar fazer alterações, recomendamos o cancelamento da entrada existente e a criação de uma nova."
 Stock Reservation Warehouse Mismatch,Indatibilidade de armazém de reserva de stock
 Stock Reservation can only be created against {0}.,A reserva de stock só pode ser criada contra {0}.
 Stock Reserved,Stock reservado
@@ -7288,8 +7288,8 @@ Target Distribution,Distribuição de alvo
 Target Exchange Rate,Taxa de câmbio alvo
 Target Fieldname (Stock Ledger Entry),Target FieldName (Entrada no registo de stock)
 Target Fixed Asset Account,Conta de ativo fixo alvo
-Target Has Batch No,Target não tem lote não
-Target Has Serial No,Alvo tem serial não
+Target Has Batch No,Target não tem nº de lote
+Target Has Serial No,Alvo tem nº de serial
 Target Incoming Rate,Taxa de entrada alvo
 Target Is Fixed Asset,Target é um ativo fixo
 Target Item Code,Código do item de destino
@@ -7414,7 +7414,7 @@ The Document Type {0} must have a Status field to configure Service Level Agreem
 The Loyalty Program isn't valid for the selected company,O programa de fidelidade não é válido para a empresa selecionada
 "The Payment Request {0} is already paid, cannot process payment twice","A solicitação de pagamento {0} já está paga, não pode processar o pagamento duas vezes"
 The Payment Term at row {0} is possibly a duplicate.,O prazo de pagamento na linha {0} é possivelmente uma duplicata.
-"The Pick List having Stock Reservation Entries cannot be updated. If you need to make changes, we recommend canceling the existing Stock Reservation Entries before updating the Pick List.","A lista de escolhas com entradas de reserva de stock não pode ser atualizada. Se você precisar fazer alterações, recomendamos o cancelamento das entradas de reserva de stock existente antes de atualizar a lista de escolhas."
+"The Pick List having Stock Reservation Entries cannot be updated. If you need to make changes, we recommend canceling the existing Stock Reservation Entries before updating the Pick List.","A Lista de separação com entradas de reserva de stock não pode ser atualizada. Se você precisar fazer alterações, recomendamos o cancelamento das entradas de reserva de stock existente antes de atualizar a Lista de separação."
 The Process Loss Qty has reset as per job cards Process Loss Qty,A QTY de perda de processo foi redefinida conforme os cartões de trabalho Process Perd Qty
 The Sales Person is linked with {0},O vendedor está vinculado a {0}
 The Serial No at Row #{0}: {1} is not available in warehouse {2}.,A série NO na linha #{0}: {1} não está disponível no armazém {2}.
@@ -7459,7 +7459,7 @@ The original invoice should be consolidated before or along with the return invo
 The parent account {0} does not exists in the uploaded template,A conta pai {0} não existe no modelo carregado
 The payment gateway account in plan {0} is different from the payment gateway account in this payment request,A conta de gateway de pagamento no plano {0} é diferente da conta do gateway de pagamento nesta solicitação de pagamento
 "The percentage you are allowed to bill more against the amount ordered. For example, if the order value is $100 for an item and tolerance is set as 10%, then you are allowed to bill up to $110 ","A porcentagem que você pode cobrar mais contra o valor ordenado. Por exemplo, se o valor do pedido for de US $ 100 para um item e a tolerância for definida como 10%, você poderá cobrar até US $ 110"
-The percentage you are allowed to pick more items in the pick list than the ordered quantity.,A porcentagem que você pode escolher mais itens na lista de escolhas do que a quantidade ordenada.
+The percentage you are allowed to pick more items in the pick list than the ordered quantity.,A porcentagem que você pode escolher mais itens na Lista de separação do que a quantidade ordenada.
 "The percentage you are allowed to receive or deliver more against the quantity ordered. For example, if you have ordered 100 units, and your Allowance is 10%, then you are allowed to receive 110 units.","A porcentagem que você pode receber ou entregar mais contra a quantidade solicitada. Por exemplo, se você pediu 100 unidades e seu subsídio é de 10%, poderá receber 110 unidades."
 "The percentage you are allowed to transfer more against the quantity ordered. For example, if you have ordered 100 units, and your Allowance is 10%, then you are allowed transfer 110 units.","A porcentagem que você pode transferir mais contra a quantidade ordenada. Por exemplo, se você pediu 100 unidades e seu subsídio é de 10%, poderá transferir 110 unidades."
 The reserved stock will be released when you update items. Are you certain you wish to proceed?,O stock reservado será liberado quando você atualizar itens. Você tem certeza de que deseja prosseguir?
@@ -7619,7 +7619,7 @@ To Date must be greater than From Date,Até o momento deve ser maior que a data
 To Date should be within the Fiscal Year. Assuming To Date = {0},"Até o momento, deve estar dentro do ano fiscal. Assumindo até datar = {0}"
 To Datetime,Para DateTime
 To Deliver,Para entregar
-To Deliver and Bill,Para entregar e Bill
+To Deliver and Bill,Para Entregar e Faturar
 To Delivery Date,Para a data de entrega
 To Doctype,Para Doctype
 To Due Date,Para a data de vencimento
@@ -8316,7 +8316,7 @@ You are not allowed to update as per the conditions set in {} Workflow.,Você n�
 You are not authorized to add or update entries before {0},Você não está autorizado a adicionar ou atualizar entradas antes {0}
 You are not authorized to make/edit Stock Transactions for Item {0} under warehouse {1} before this time.,Você não está autorizado a fazer/editar transações de stock para o item {0} em Warehouse {1} antes desse período.
 You are not authorized to set Frozen value,Você não está autorizado a definir valor congelado
-You are picking more than required quantity for the item {0}. Check if there is any other pick list created for the sales order {1}.,Você está escolhendo mais do que a quantidade necessária para o item {0}. Verifique se existe outra lista de escolhas criada para o pedido de vendas {1}.
+You are picking more than required quantity for the item {0}. Check if there is any other pick list created for the sales order {1}.,Você está escolhendo mais do que a quantidade necessária para o item {0}. Verifique se existe outra Lista de separação criada para o pedido de vendas {1}.
 You can add the original invoice {} manually to proceed.,Você pode adicionar a fatura original {} para prosseguir manualmente.
 You can also copy-paste this link in your browser,Você também pode copiar colas este link em seu navegador
 You can also set default CWIP account in Company {},Você também pode definir a conta CWIP padrão na Companhia {}
@@ -8458,7 +8458,7 @@ you must select Capital Work in Progress Account in accounts table,você deve se
 {0} asset cannot be transferred,{0} ativo não pode ser transferido
 {0} can be enabled/disabled after all the POS Opening Entries are closed.,{0} pode ser ativado/desativado depois que todas as entradas de abertura do POS forem fechadas.
 {0} can not be negative,{0} não pode ser negativo
-{0} cannot be used as a Main Cost Center because it has been used as child in Cost Center Allocation {1},{0} não pode ser usado como um centro de custo principal porque foi usado como criança na alocação do centro de custo {1}
+{0} cannot be used as a Main Cost Center because it has been used as child in Cost Center Allocation {1},{0} não pode ser usado como Centro de Custo Principal porque já foi utilizado como Centro de Custo Filho na Alocação {1}
 {0} cannot be zero,{0} não pode ser zero
 {0} created,{0} criado
 {0} currency must be same as company's default currency. Please select another account.,{0} A moeda deve ser a mesma que a moeda padrão da empresa. Selecione outra conta.
@@ -8501,7 +8501,7 @@ you must select Capital Work in Progress Account in accounts table,você deve se
 {0} to {1},{0} para {1}
 "{0} units are reserved for Item {1} in Warehouse {2}, please un-reserve the same to {3} the Stock Reconciliation.","{0} As unidades são reservadas para o item {1} no armazém {2}, por favor, revereva o mesmo para {3} a reconciliação de stock."
 {0} units of Item {1} is not available in any of the warehouses.,{0} unidades do item {1} não estão disponíveis em nenhum dos armazéns.
-{0} units of Item {1} is picked in another Pick List.,{0} unidades do item {1} são colhidas em outra lista de escolhas.
+{0} units of Item {1} is picked in another Pick List.,{0} unidades do item {1} são colhidas em outra Lista de separação.
 {0} units of {1} are required in {2} with the inventory dimension: {3} ({4}) on {5} {6} for {7} to complete the transaction.,{0} unidades de {1} são necessárias em {2} com a dimensão do inventário: {3} ({4}) em {5} {6} para {7} para concluir a transação.
 {0} units of {1} needed in {2} on {3} {4} for {5} to complete this transaction.,{0} unidades de {1} necessária em {2} em {3} {4} para {5} para concluir esta transação.
 {0} units of {1} needed in {2} on {3} {4} to complete this transaction.,{0} unidades de {1} necessária em {2} em {3} {4} para concluir esta transação.

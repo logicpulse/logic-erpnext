@@ -45,20 +45,20 @@ frappe.ui.form.on("Quotation", {
 		frm.trigger("set_label");
 		frm.trigger("set_dynamic_field_label");
 
-		frm.print_doc = async function () {
-			const quotation = await frappe.db.get_doc('Quotation', frm.doc.name);
-			const params = new URLSearchParams({
-				document_id: quotation.pos_id
-			}).toString();
+		// frm.print_doc = async function () {
+		// 	const quotation = await frappe.db.get_doc('Quotation', frm.doc.name);
+		// 	const params = new URLSearchParams({
+		// 		document_id: quotation.pos_id
+		// 	}).toString();
 
-			window.open(
-				`/api/method/erpnext.selling.doctype.quotation.quotation.generate_pdf_document?${params}`,
-				"_blank"
-			);
-		};
+		// 	window.open(
+		// 		`/api/method/erpnext.selling.doctype.quotation.quotation.generate_pdf_document?${params}`,
+		// 		"_blank"
+		// 	);
+		// };
 
 		if (frm.doc.pos_id) {
-			frm.page.set_indicator(__('Sincronizado com POS'), 'green');
+			// frm.page.set_indicator(__('Sincronizado com POS'), 'green');
 			// return;
 		}
 
