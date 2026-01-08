@@ -1403,7 +1403,7 @@ async function export_to_pos(frm) {
 		if (!items.length) return;
 
 		const context = await load_customer_context(frm);
-		const payload = build_payload(frm, items, context);
+		const payload = await build_payload(frm, items, context);
 
 		const response = await send_to_pos(frm, payload);
 		handle_success(response);
@@ -1524,7 +1524,7 @@ async function get_pos_country_id() {
 	return message.data.id;
 }
 
-async function get_shipping_and_dispatch_address(address_name) {
+async function get_shipping_address(address_name) {
 	if (!address_name) {
 		return null;
 	}
@@ -1534,32 +1534,42 @@ async function get_shipping_and_dispatch_address(address_name) {
 	if (!address) {
 		return null;
 	}
+	const streetName = [address.address_line1, address.address_line2].filter(Boolean).join(" - ") || null;
 
-	return null; // temporarily disabled
-	// return {
-	// 	streetName: ctx.erp_sales_order.shipping_address || null,
-	// 	addressDetail: (ctx.erp_sales_order.customer_address || "") + " - " + (ctx.erp_sales_order.contact_display || "") + " - " + (ctx.erp_sales_order.contact_mobile || ""),
-	// 	city: parsed.city || null,
-	// 	postalCode: parsed.postalCode || null,
-	// 	region: parsed.region || null,
-	// 	country: parsed.country || null
-	// };
+	const addressDetailParts = [];
+    if (address.address_title) addressDetailParts.push(address.address_title);
+    if (address.address_type) addressDetailParts.push(address.address_type);
+    if (address.phone) addressDetailParts.push(`Tel. ${address.phone}`);
+    if (address.email_id) addressDetailParts.push(`Email: ${address.email_id}`);
+    const addressDetail = addressDetailParts.length ? addressDetailParts.join(" - ") : null;
+
+	return {
+		streetName,
+		addressDetail, 
+		city: address.city || null,
+		postalCode: address.pincode || null,
+		region: address.state || null,
+		country: address.country || null
+	};
 }
 
 // ===============================
 // PAYLOAD
 // ===============================
-function build_payload(frm, items, ctx) {
-	const parsed = parseAddressDisplay(ctx.erp_address.address_display || "");
+async function build_payload(frm, items, ctx) { 
+	const shipFromAddress = await get_shipping_address(ctx.erp_sales_order.customer_address);
+	const shipToAddress = await get_shipping_address(ctx.erp_sales_order.shipping_address_name);
+	const notes = stripHtmlToText(ctx.erp_sales_order.terms || "");
+
 	const base = {
 		type: "PP", //erp_customer_address.country === "Portugal" ? "FP" : "PP",
 		discount: frm.doc.additional_discount_percentage || 0,
 		details: items,
 		isDraft: true,
-		shipToAddress: get_shipping_and_dispatch_address(ctx.erp_sales_order.dispatch_address_name),
-		shipFromAddress: get_shipping_and_dispatch_address(ctx.erp_sales_order.shipping_address_name),
+		shipToAddress,
+		shipFromAddress,
 		paymentMethods: [],
-		notes: stripHtmlToText(ctx.erp_sales_order.terms || "")
+		notes
 	};
 
 	if (ctx.pos_customer.found) {
@@ -1588,76 +1598,6 @@ function map_customer({ erp_customer, erp_address, countryId }) {
 		email: erp_address.email_id,
 		phone: erp_customer.mobile_no || erp_address.phone,
 		fax: erp_address.fax
-	};
-}
-
-function parseAddressDisplay(addressDisplay) {
-	// retorna { streetName, postalCode, city, region, country }
-	if (!addressDisplay) return {};
-
-	// normalize and strip html
-	const text = addressDisplay
-		.replace(/<br\s*\/?>/gi, "\n")
-		.replace(/&nbsp;/gi, " ")
-		.replace(/<[^>]+>/g, "")
-		.trim();
-
-	// split lines and drop empty / contact lines
-	const lines = text
-		.split(/\n+/)
-		.map((l) => l.trim())
-		.filter((l) => l && !/^(telefone|tel|fax|e-?mail|email|phone)\b/i.test(l) && !/@/.test(l));
-
-	// postal code (Portugal e fallback)
-	const postalRegex = /\b(\d{4}-\d{3}|\d{4})\b/;
-	let postalCode = null;
-	let postalLineIndex = -1;
-	for (let i = 0; i < lines.length; i++) {
-		const m = lines[i].match(postalRegex);
-		if (m) {
-			postalCode = m[1];
-			postalLineIndex = i;
-			break;
-		}
-	}
-
-	// country = último line válido
-	let country = lines.length ? lines[lines.length - 1] : null;
-	// Se última linha contiver postal ou parecer cidade, e existir uma linha acima, ajusta
-	if (postalLineIndex === lines.length - 1 && lines.length > 1) {
-		country = lines[lines.length - 1]; // em alguns casos country está na última linha, senão será ajustado abaixo
-	}
-
-	// city: tenta extrair da mesma linha do postal ou linha adjacente
-	let city = null;
-	if (postalLineIndex >= 0) {
-		const line = lines[postalLineIndex];
-		city = line.replace(postalRegex, "").replace(/^[,\-\s]+|[,\-\s]+$/g, "").trim();
-		if (!city && postalLineIndex + 1 < lines.length) {
-			city = lines[postalLineIndex + 1];
-		}
-	} else if (lines.length >= 2) {
-		city = lines[lines.length - 2];
-	}
-
-	// street: tudo antes da linha com postal / city / country
-	let streetName = "";
-	if (postalLineIndex > 0) {
-		streetName = lines.slice(0, postalLineIndex).join(", ");
-	} else if (lines.length >= 1) {
-		// assume primeira linha é rua se nenhuma postal identificada
-		streetName = lines[0];
-	}
-
-	// region: não presente no exemplo; deixamos null para possível posterior extração
-	const region = null;
-
-	return {
-		streetName: streetName || null,
-		postalCode: postalCode || null,
-		city: city || null,
-		region,
-		country: country || null,
 	};
 }
 
