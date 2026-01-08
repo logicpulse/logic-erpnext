@@ -43,7 +43,7 @@ Summary,Resumo
 'Entries' cannot be empty,'Entradas' não pode estar vazio
 'From Date' is required,'Da data' é necessário
 'From Date' must be after 'To Date','Da data' deve estar depois de 'até agora'
-'Has Serial No' can not be 'Yes' for non-stock item,'Tem nº de serial' não pode ser 'sim' para item ininterrupto
+ 'Has Serial No' can not be 'Yes' for non-stock item,'Tem nº de serial' não pode ser 'sim' para item ininterrupto
 "'Inspection Required before Delivery' has disabled for the item {0}, no need to create the QI","'Inspeção necessária antes da entrega' desativou o item {0}, não é necessário criar o qi"
 "'Inspection Required before Purchase' has disabled for the item {0}, no need to create the QI","'Inspeção necessária antes da compra' desativou o item {0}, não é necessário criar o qi"
 'Opening','Abertura'

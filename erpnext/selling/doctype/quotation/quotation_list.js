@@ -25,33 +25,33 @@ frappe.listview_settings["Quotation"] = {
 		}
 	},
 
-	dropdown_button: {
-		get_label: __("Dropdown"),
-		buttons: [
-			{
-				get_label: __("Imprimir"),
-				show: async function (doc) {
-					const quotation = await frappe.db.get_doc('Quotation', doc.name);
-					return quotation.pos_id ? true : false;
-				},
-				get_description: function (doc) {
-					return "Imprimir " + doc.name; 
-				},
-				action: async function (doc) { 
-					const quotation = await frappe.db.get_doc('Quotation', doc.name);
-					const params = new URLSearchParams({
-						document_id: quotation.pos_id
-					}).toString();
+	// dropdown_button: {
+	// 	get_label: __("Dropdown"),
+	// 	buttons: [
+	// 		{
+	// 			get_label: __("Imprimir"),
+	// 			show: async function (doc) {
+	// 				const quotation = await frappe.db.get_doc('Quotation', doc.name);
+	// 				return quotation.pos_id ? true : false;
+	// 			},
+	// 			get_description: function (doc) {
+	// 				return "Imprimir " + doc.name; 
+	// 			},
+	// 			action: async function (doc) { 
+	// 				const quotation = await frappe.db.get_doc('Quotation', doc.name);
+	// 				const params = new URLSearchParams({
+	// 					document_id: quotation.pos_id
+	// 				}).toString();
 
 
-					window.open(
-						`/api/method/erpnext.selling.doctype.quotation.quotation.generate_pdf_document?${params}`,
-						"_blank"
-					);
-				}
-			}
-		]
-	},
+	// 				window.open(
+	// 					`/api/method/erpnext.selling.doctype.quotation.quotation.generate_pdf_document?${params}`,
+	// 					"_blank"
+	// 				);
+	// 			}
+	// 		}
+	// 	]
+	// },
 
 	get_indicator: function (doc) {
 		if (doc.status === "Open") {

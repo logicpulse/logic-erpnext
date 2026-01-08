@@ -19,6 +19,7 @@
   "column_break_7",
   "transaction_date",
   "delivery_date",
+  "pos_id",
   "column_break1",
   "po_no",
   "po_date",
@@ -1681,13 +1682,21 @@
    "hidden": 1,
    "label": "Has Unit Price Items",
    "no_copy": 1
+  },
+  {
+   "fieldname": "pos_id",
+   "fieldtype": "Data",
+   "label": "POS ID",
+   "print_hide": 1,
+   "read_only": 1,
+   "report_hide": 1
   }
  ],
  "icon": "fa fa-file-text",
  "idx": 105,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-03-03 16:49:00.676927",
+ "modified": "2026-01-08 16:47:25.534137",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Sales Order",

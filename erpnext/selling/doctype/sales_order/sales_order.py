@@ -42,6 +42,8 @@ from erpnext.stock.get_item_details import (
 	get_price_list_rate,
 )
 from erpnext.stock.stock_balance import get_reserved_qty, update_bin_qty
+import requests
+import re
 
 form_grid_templates = {"items": "templates/form_grid/item_grid.html"}
 
@@ -57,16 +59,13 @@ class SalesOrder(SellingController):
 	from typing import TYPE_CHECKING
 
 	if TYPE_CHECKING:
-		from frappe.types import DF
-
 		from erpnext.accounts.doctype.payment_schedule.payment_schedule import PaymentSchedule
 		from erpnext.accounts.doctype.pricing_rule_detail.pricing_rule_detail import PricingRuleDetail
-		from erpnext.accounts.doctype.sales_taxes_and_charges.sales_taxes_and_charges import (
-			SalesTaxesandCharges,
-		)
+		from erpnext.accounts.doctype.sales_taxes_and_charges.sales_taxes_and_charges import SalesTaxesandCharges
 		from erpnext.selling.doctype.sales_order_item.sales_order_item import SalesOrderItem
 		from erpnext.selling.doctype.sales_team.sales_team import SalesTeam
 		from erpnext.stock.doctype.packed_item.packed_item import PackedItem
+		from frappe.types import DF
 
 		additional_discount_percentage: DF.Float
 		address_display: DF.TextEditor | None
@@ -104,9 +103,7 @@ class SalesOrder(SellingController):
 		customer_group: DF.Link | None
 		customer_name: DF.Data | None
 		delivery_date: DF.Date | None
-		delivery_status: DF.Literal[
-			"Not Delivered", "Fully Delivered", "Partly Delivered", "Closed", "Not Applicable"
-		]
+		delivery_status: DF.Literal["Not Delivered", "Fully Delivered", "Partly Delivered", "Closed", "Not Applicable"]
 		disable_rounded_total: DF.Check
 		discount_amount: DF.Currency
 		dispatch_address: DF.TextEditor | None
@@ -140,6 +137,7 @@ class SalesOrder(SellingController):
 		plc_conversion_rate: DF.Float
 		po_date: DF.Date | None
 		po_no: DF.Data | None
+		pos_id: DF.Data | None
 		price_list_currency: DF.Link
 		pricing_rules: DF.Table[PricingRuleDetail]
 		project: DF.Link | None
@@ -157,18 +155,7 @@ class SalesOrder(SellingController):
 		shipping_address_name: DF.Link | None
 		shipping_rule: DF.Link | None
 		skip_delivery_note: DF.Check
-		status: DF.Literal[
-			"",
-			"Draft",
-			"On Hold",
-			"To Pay",
-			"To Deliver and Bill",
-			"To Bill",
-			"To Deliver",
-			"Completed",
-			"Cancelled",
-			"Closed",
-		]
+		status: DF.Literal["", "Draft", "On Hold", "To Pay", "To Deliver and Bill", "To Bill", "To Deliver", "Completed", "Cancelled", "Closed"]
 		tax_category: DF.Link | None
 		tax_id: DF.Data | None
 		taxes: DF.Table[SalesTaxesandCharges]
@@ -1860,3 +1847,210 @@ def get_work_order_items(sales_order, for_raw_material_request=0):
 @frappe.whitelist()
 def get_stock_reservation_status():
 	return frappe.db.get_single_value("Stock Settings", "enable_stock_reservation")
+
+@frappe.whitelist()
+def get_article_by_code(code):
+    if not code:
+        return {
+            "found": False,
+            "reason": "Código não informado"
+        } 
+
+    try:
+        response = requests.get(
+            f"{get_pos_base_url()}/articles/code/{code}",
+            timeout=10
+        )
+
+        # 👉 CASO DE NEGÓCIO: NÃO ENCONTRADO
+        if response.status_code == 404:
+            return {
+                "found": False,
+                "reason": "Artigo não encontrado no POS",
+                "code": code
+            }
+
+        response.raise_for_status()
+
+        return {
+            "found": True,
+            "data": response.json()
+        }
+
+    except requests.exceptions.RequestException as e:
+        frappe.log_error(
+            title="Erro técnico ao consumir API do POS",
+            message=str(e)
+        )
+
+        # erro técnico REAL
+        frappe.throw("Erro de comunicação com o POS")
+
+@frappe.whitelist()
+def get_customer_by_fiscal_number(fiscal_number):
+    if not fiscal_number:
+        return {
+            "found": False,
+            "reason": "Fiscal Number não informado"
+        } 
+
+    try: 
+        response = requests.get(
+            f"{get_pos_base_url()}/customers/customer",
+			params={"fiscalNumber": fiscal_number },
+            timeout=10
+        )
+
+        # 👉 Caso de negócio: cliente não existe
+        if response.status_code == 404:
+            return {
+                "found": False,
+                "reason": "Cliente não encontrado no POS",
+                "fiscal_number": fiscal_number
+            }
+
+        response.raise_for_status()
+
+        return {
+            "found": True,
+            "data": response.json()
+        }
+
+    except requests.exceptions.RequestException as e:
+        frappe.log_error(
+            title="Erro técnico ao buscar cliente no POS",
+            message=str(e)
+        )
+
+        frappe.throw("Erro de comunicação com o POS")
+ 
+@frappe.whitelist()
+def get_pos_base_url():
+    company_name = frappe.defaults.get_user_default("Company")
+
+    if not company_name:
+        frappe.throw("O utilizador não tem empresa padrão definida")
+
+    company = frappe.db.get_value(
+        "Company",
+        company_name,
+        ["base_url", "port"],
+        as_dict=True
+    )
+
+    if not company or not company.base_url:
+        frappe.throw("Base URL não configurada na empresa")
+
+    return (
+        f"{company.base_url}:{company.port}"
+        if company.port
+        else company.base_url
+    )
+
+@frappe.whitelist()
+def create_pos_document(doctype=None, docname=None, payload=None):
+
+    if not payload:
+        frappe.throw("Payload não informado")
+
+    try:
+
+        frappe.log_error(title="Payload enviado ao POS", message=payload)
+		
+        response = requests.post(
+            f"{get_pos_base_url()}/documents",
+            data=payload,
+			headers={
+				"Content-Type": "application/json"
+			},
+            timeout=15
+        )
+
+        if response.status_code not in (200, 201):
+            frappe.log_error(
+                title="Erro POS - Create Document",
+                message=f"""
+                Status: {response.status_code}
+                Response: {response.text}
+                """
+            )
+
+            return {
+                "success": False,
+                "status_code": response.status_code,
+                "error": response.json() if response.text else None
+            }
+
+        data = response.json()
+
+        pos_id = data.get("id")
+        if not pos_id:
+            frappe.throw("POS não retornou o ID do documento")
+
+        # salvar no ERP se necessário
+        if doctype and docname:
+            doc = frappe.get_doc(doctype, docname)
+            doc.pos_id = pos_id
+            # doc.save(ignore_permissions=True)
+            frappe.db.set_value(doctype, docname, "pos_id", pos_id, update_modified=False)
+
+        return {
+            "success": True,
+            "pos_id": pos_id,
+            "data": data
+        }
+
+    except requests.exceptions.Timeout:
+        frappe.throw("Timeout ao comunicar com o POS")
+
+    except requests.exceptions.RequestException as e:
+        frappe.log_error(
+            title="Erro técnico POS",
+            message=str(e)
+        )
+        frappe.throw("Erro técnico ao comunicar com o POS")
+
+@frappe.whitelist()
+def generate_pdf_document(document_id: str | None = None): 
+    url = f"{get_pos_base_url()}/documents/pdf"
+  
+    try:
+        response = requests.get(
+            url=url,
+			params={
+				"id": document_id
+			},
+            headers={
+        		"Accept": "*/*"
+    		},
+            timeout=30,
+			stream=True
+        )
+
+        response.raise_for_status()  # lança erro para 4xx/5xx
+
+        content_type = response.headers.get("Content-Type", "")
+        if "octet-stream" not in content_type:
+            raise Exception(
+                f"Resposta inesperada da API. Content-Type: {content_type}"
+            )
+
+        # Extrair nome do ficheiro
+        disposition = response.headers.get("Content-Disposition", "")
+        filename = "documento.pdf"
+
+        match = re.search(r'filename\*?=(?:UTF-8\'\')?"?([^";]+)"?', disposition)
+        if match:
+            filename = requests.utils.unquote(match.group(1))
+
+        # Enviar diretamente para o browser
+        frappe.local.response.filename = filename
+        frappe.local.response.filecontent = response.content
+        frappe.local.response.type = "download"
+
+    except requests.exceptions.Timeout:
+        frappe.throw("Timeout ao comunicar com o POS")
+
+    except requests.exceptions.RequestException as e:
+        frappe.log_error(str(e), "Erro ao baixar PDF do POS")
+        frappe.throw("Erro ao baixar PDF do POS")
