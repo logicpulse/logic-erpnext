@@ -952,6 +952,7 @@
   {
    "fieldname": "scan_barcode",
    "fieldtype": "Data",
+   "is_virtual": 1,
    "label": "Scan Barcode",
    "options": "Barcode"
   },
@@ -1113,7 +1114,7 @@
  "idx": 82,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-12-31 12:40:58.192871",
+ "modified": "2026-01-09 17:39:21.077246",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Quotation",

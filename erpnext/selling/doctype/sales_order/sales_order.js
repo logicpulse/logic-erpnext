@@ -109,8 +109,8 @@ frappe.ui.form.on("Sales Order", {
 			frm.add_custom_button(__('Exportar'), () => export_to_pos(frm), __('POS'));
 
 			if (frm.doc.pos_id) {
-				frm.add_custom_button(__('Visualizar'), async () => { 
-					const params = new URLSearchParams({ document_id: frm.doc.pos_id }).toString(); 
+				frm.add_custom_button(__('Visualizar'), async () => {
+					const params = new URLSearchParams({ document_id: frm.doc.pos_id }).toString();
 					window.open(
 						`/api/method/erpnext.selling.doctype.sales_order.sales_order.generate_pdf_document?${params}`,
 						"_blank"
@@ -1489,12 +1489,15 @@ async function fetch_article(code) {
 // CUSTOMER CONTEXT
 // ===============================
 async function load_customer_context(frm) {
+	let erp_address = null;
 	const erp_sales_order = await frappe.db.get_doc('Sales Order', frm.doc.name);
 	console.log("ERP Sales Order:", erp_sales_order);
 	const erp_customer = await frappe.db.get_doc('Customer', frm.doc.customer_name);
 	console.log("ERP Customer:", erp_customer);
-	const erp_address = await frappe.db.get_doc('Address', erp_customer.customer_primary_address);
-	console.log("ERP Address:", erp_address);
+	if (erp_customer.customer_primary_address) {
+		erp_address = await frappe.db.get_doc('Address', erp_customer.customer_primary_address);
+		console.log("ERP Address:", erp_address);
+	}
 
 	const { message } = await frappe.call({
 		method: "erpnext.selling.doctype.sales_order.sales_order.get_customer_by_fiscal_number",
@@ -1537,15 +1540,15 @@ async function get_shipping_address(address_name) {
 	const streetName = [address.address_line1, address.address_line2].filter(Boolean).join(" - ") || null;
 
 	const addressDetailParts = [];
-    if (address.address_title) addressDetailParts.push(address.address_title);
-    if (address.address_type) addressDetailParts.push(address.address_type);
-    if (address.phone) addressDetailParts.push(`Tel. ${address.phone}`);
-    if (address.email_id) addressDetailParts.push(`Email: ${address.email_id}`);
-    const addressDetail = addressDetailParts.length ? addressDetailParts.join(" - ") : null;
+	if (address.address_title) addressDetailParts.push(address.address_title);
+	if (address.address_type) addressDetailParts.push(address.address_type);
+	if (address.phone) addressDetailParts.push(`Tel. ${address.phone}`);
+	if (address.email_id) addressDetailParts.push(`Email: ${address.email_id}`);
+	const addressDetail = addressDetailParts.length ? addressDetailParts.join(" - ") : null;
 
 	return {
 		streetName,
-		addressDetail, 
+		addressDetail,
 		city: address.city || null,
 		postalCode: address.pincode || null,
 		region: address.state || null,
@@ -1556,7 +1559,7 @@ async function get_shipping_address(address_name) {
 // ===============================
 // PAYLOAD
 // ===============================
-async function build_payload(frm, items, ctx) { 
+async function build_payload(frm, items, ctx) {
 	const shipFromAddress = await get_shipping_address(ctx.erp_sales_order.customer_address);
 	const shipToAddress = await get_shipping_address(ctx.erp_sales_order.shipping_address_name);
 	const notes = stripHtmlToText(ctx.erp_sales_order.terms || "");
@@ -1586,6 +1589,15 @@ async function build_payload(frm, items, ctx) {
 }
 
 function map_customer({ erp_customer, erp_address, countryId }) {
+	if (!erp_address) {
+		return {
+			name: erp_customer.name,
+			fiscalNumber: erp_customer.fiscal_number,
+			countryId,
+			phone: erp_customer.mobile_no || null,
+		};
+	}
+
 	return {
 		name: erp_customer.name,
 		address: `${erp_address.address_line1} - ${erp_address.address_line2}`,

@@ -40,10 +40,11 @@
   "plc_conversion_rate",
   "ignore_pricing_rule",
   "sec_warehouse",
-  "scan_barcode",
   "column_break_28",
   "set_warehouse",
   "reserve_stock",
+  "column_break_bokr",
+  "scan_barcode",
   "items_section",
   "items",
   "section_break_31",
@@ -589,6 +590,7 @@
    "fieldtype": "Data",
    "hide_days": 1,
    "hide_seconds": 1,
+   "is_virtual": 1,
    "label": "Scan Barcode",
    "options": "Barcode"
   },
@@ -1690,13 +1692,18 @@
    "print_hide": 1,
    "read_only": 1,
    "report_hide": 1
+  },
+  {
+   "fieldname": "column_break_bokr",
+   "fieldtype": "Column Break",
+   "hidden": 1
   }
  ],
  "icon": "fa fa-file-text",
  "idx": 105,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-01-08 16:47:25.534137",
+ "modified": "2026-01-09 17:37:41.413020",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Sales Order",

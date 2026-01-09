@@ -193,7 +193,7 @@ Account Number,Número de conta
 Account Number {0} already used in account {1},Número da conta {0} já usado na conta {1}
 Account Opening Balance,Saldo de abertura da conta
 Account Paid From,Conta paga de
-Account Paid To,Conta paga para
+Account Paid To,Conta Beneficiária
 Account Pay Only,Somente pagamento da conta
 Account Subtype,Subtipo de conta
 Account Type,Tipo de conta
@@ -431,7 +431,7 @@ Advances,Avanços
 Affected Transactions,Transações afetadas
 Against,Contra
 Against Account,Contra a conta
-Against Blanket Order,Contra a ordem geral
+Against Blanket Order,Contra a ordem aberta
 Against Customer Order {0},Contra o pedido do cliente {0}
 Against Default Supplier,Contra o fornecedor padrão
 Against Delivery Note Item,Contra o item de nota de entrega
@@ -1140,7 +1140,7 @@ Bisecting Left ...,Esquerctando a esquerda ...
 Bisecting Right ...,BISECTING DIREITO ...
 Bisecting To,BISECTING para
 Black,Preto
-Blanket Order,Ordem geral
+Blanket Order,Ordem Aberta
 Blanket Order Allowance (%),Subsídio de pedido geral (%)
 Blanket Order Item,Item de pedido geral
 Blanket Order Rate,Taxa de pedidos gerais
@@ -1428,18 +1428,17 @@ Checked On,Verificado
 Checking this will round off the tax amount to the nearest integer,Verificando isso vai completar o valor do imposto para o número inteiro mais próximo
 Checkout,Confira
 Checkout Order / Submit Order / New Order,Ordem de check -out / pedido de envio / novo pedido
-Cheque,Verificar
-Cheque Date,Verifique a data
-Cheque Height,Verifique a altura
-Cheque Number,Verifique o número
-Cheque Print Template,Verifique o modelo de impressão
-Cheque Size,Tamanho da verificação
-Cheque Width,Verifique a largura
-Cheque/Reference Date,Data de verificação/referência
-Cheque/Reference No,Verifique/referência no
-Cheques Required,Verificações necessárias
-Cheques and Deposits Incorrectly cleared,Cheques e depósitos limpos incorretamente
-Cheques and Deposits incorrectly cleared,Cheques e depósitos limpos incorretamente
+Cheque,Cheque
+Cheque Date,Data do Cheque
+Cheque Height,Altura do Cheque
+Cheque Number,Número do Cheque
+Cheque Print Template,Modelo de Impressão do Cheque
+Cheque Size,Tamanho do Cheque
+Cheque Width,Largura do Cheque
+Cheque/Reference Date,Data do Cheque / Referência
+Cheque/Reference No,Nº do Cheque / Referência
+Cheques Required,Cheques Necessários
+Cheques and Deposits Incorrectly cleared,Cheques e Depósitos Compensados Incorrectamente
 Child Docname,Child Docname
 Child Row Reference,Referência do Registro Filho
 Child Task exists for this Task. You can not delete this Task.,Existe uma tarefa filha para esta tarefa. Não é possível excluir esta tarefa.
@@ -3643,7 +3642,7 @@ Item valuation rate is recalculated considering landed cost voucher amount,"A ta
 Item valuation reposting in progress. Report might show incorrect item valuation.,Avaliação de itens Repositando em andamento. O relatório pode mostrar avaliação incorreta do item.
 Item variant {0} exists with same attributes,Variante de item {0} existe com os mesmos atributos
 Item {0} cannot be added as a sub-assembly of itself,Item {0} não pode ser adicionado como uma submontagem de si mesmo
-Item {0} cannot be ordered more than {1} against Blanket Order {2}.,O item {0} não pode ser encomendado mais do que {1} contra a ordem geral {2}.
+Item {0} cannot be ordered more than {1} against Blanket Order {2}.,O item {0} não pode ser encomendado mais do que {1} contra a ordem aberta{2}.
 Item {0} does not exist,Item {0} não existe
 Item {0} does not exist in the system or has expired,O item {0} não existe no sistema ou expirou
 Item {0} does not exist.,Item {0} não existe.
@@ -4539,7 +4538,7 @@ Opportunities by Campaign,Oportunidades por campanha
 Opportunities by Medium,Oportunidades por médio
 Opportunities by Source,Oportunidades por fonte
 Opportunity,Oportunidade
-Opportunity Amount,Quantidade de oportunidade
+Opportunity Amount,Valor Potencial da Oportunidade
 Opportunity Amount (Company Currency),Valor da oportunidade (moeda da empresa)
 Opportunity Date,Data de oportunidade
 Opportunity From,Oportunidade de
@@ -4564,7 +4563,7 @@ Order Confirmation No,Confirmação do pedido no
 Order Count,Contagem de pedidos
 Order Date,Data do pedido
 Order Information,Encomendar informações
-Order No,Ordem não
+Order No,Ordem nº
 Order Qty,Ordem Qtd
 Order Status,Status do pedido
 Order Summary,Resumo do pedido
