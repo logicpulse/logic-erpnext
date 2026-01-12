@@ -1504,14 +1504,14 @@ async function load_customer_context(frm) {
 		args: { fiscal_number: erp_customer.fiscal_number }
 	});
 
-	const countryId = await get_pos_country_id();
+	const countryDetails = await get_pos_country_id();
 
 	return {
 		erp_customer,
 		erp_address,
 		pos_customer: message,
 		erp_sales_order,
-		countryId
+		countryDetails
 	};
 }
 
@@ -1524,7 +1524,12 @@ async function get_pos_country_id() {
 		args: { code: company.codigo }
 	});
 
-	return message.data.id;
+	return { 
+		id: message.data.id,
+		code: message.data.code2,
+		currencyCode: message.data.currencyCode,
+		designation: message.data.designation
+	}
 }
 
 async function get_shipping_address(address_name) {
@@ -1565,7 +1570,7 @@ async function build_payload(frm, items, ctx) {
 	const notes = stripHtmlToText(ctx.erp_sales_order.terms || "");
 
 	const base = {
-		type: "PP", //erp_customer_address.country === "Portugal" ? "FP" : "PP",
+		type: getTypeOfDocument(ctx.countryDetails.designation),
 		discount: frm.doc.additional_discount_percentage || 0,
 		details: items,
 		isDraft: true,
@@ -1588,12 +1593,25 @@ async function build_payload(frm, items, ctx) {
 	};
 }
 
-function map_customer({ erp_customer, erp_address, countryId }) {
+function getTypeOfDocument(countryDesignation) {
+	switch (countryDesignation) {
+		case "Portugal":
+			return "FP";  
+		case "Moçambique":
+			return "PF";  
+		case "Angola":
+			return "PP";  
+		default:
+			return "PP"; 
+	}
+}
+
+function map_customer({ erp_customer, erp_address, countryDetails }) {
 	if (!erp_address) {
 		return {
 			name: erp_customer.name,
 			fiscalNumber: erp_customer.fiscal_number,
-			countryId,
+			countryId: countryDetails.id,
 			phone: erp_customer.mobile_no || null,
 		};
 	}
@@ -1605,7 +1623,7 @@ function map_customer({ erp_customer, erp_address, countryId }) {
 		zipCode: erp_address.pincode,
 		city: erp_address.city,
 		country: erp_address.country,
-		countryId,
+		countryId: countryDetails.id,
 		fiscalNumber: erp_customer.fiscal_number,
 		email: erp_address.email_id,
 		phone: erp_customer.mobile_no || erp_address.phone,
