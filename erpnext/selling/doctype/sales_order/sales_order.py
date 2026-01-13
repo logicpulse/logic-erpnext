@@ -42,8 +42,35 @@ from erpnext.stock.get_item_details import (
 	get_price_list_rate,
 )
 from erpnext.stock.stock_balance import get_reserved_qty, update_bin_qty
-import requests
-import re
+
+
+def _get_requests():
+	"""Import requests at runtime and raise a clear error if missing.
+	This avoids failing module import when 'requests' is not installed in production.
+	"""
+	try:
+		import requests
+		return requests
+	except Exception:
+		frappe.log_error(
+			title="Missing dependency 'requests'",
+			message="The 'requests' library is not available in the Python environment.",
+		)
+		frappe.throw("Dependência ausente: biblioteca 'requests' não instalada no servidor. Instale-a e reinicie os workers.")
+
+
+def _get_re():
+	"""Import `re` at runtime. This is mostly defensive — `re` is stdlib but keeping parity with _get_requests.
+	"""
+	try:
+		import re
+		return re
+	except Exception:
+		frappe.log_error(
+			title="Missing stdlib module 're'",
+			message="The Python 're' module could not be imported.",
+		)
+		frappe.throw("Dependência ausente: módulo padrão 're' não disponível no servidor.")
 
 form_grid_templates = {"items": "templates/form_grid/item_grid.html"}
 
@@ -1850,6 +1877,8 @@ def get_stock_reservation_status():
 
 @frappe.whitelist()
 def get_article_by_code(code):
+    requests = _get_requests()
+
     if not code:
         return {
             "found": False,
@@ -1888,6 +1917,8 @@ def get_article_by_code(code):
 
 @frappe.whitelist()
 def get_customer_by_fiscal_number(fiscal_number):
+    requests = _get_requests()
+
     if not fiscal_number:
         return {
             "found": False,
@@ -1949,6 +1980,7 @@ def get_pos_base_url():
 
 @frappe.whitelist()
 def create_pos_document(doctype=None, docname=None, payload=None):
+    requests = _get_requests()
 
     if not payload:
         frappe.throw("Payload não informado")
@@ -2012,6 +2044,8 @@ def create_pos_document(doctype=None, docname=None, payload=None):
 
 @frappe.whitelist()
 def generate_pdf_document(document_id: str | None = None): 
+    requests = _get_requests()
+    re = _get_re()
     url = f"{get_pos_base_url()}/documents/pdf"
   
     try:

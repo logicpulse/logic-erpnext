@@ -1406,10 +1406,9 @@ async function export_to_pos(frm) {
 		const payload = await build_payload(frm, items, context);
 
 		const response = await send_to_pos(frm, payload);
-		handle_success(response);
-
+		handle_success(response); 
 	} catch (error) {
-		handle_error(error);
+		handle_error(error.responseText || error);
 	}
 }
 
