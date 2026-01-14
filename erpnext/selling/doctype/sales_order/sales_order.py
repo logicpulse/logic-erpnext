@@ -1875,216 +1875,216 @@ def get_work_order_items(sales_order, for_raw_material_request=0):
 def get_stock_reservation_status():
 	return frappe.db.get_single_value("Stock Settings", "enable_stock_reservation")
 
-@frappe.whitelist()
-def get_article_by_code(code):
-    requests = _get_requests()
+# @frappe.whitelist()
+# def get_article_by_code(code):
+#     requests = _get_requests()
 
-    if not code:
-        return {
-            "found": False,
-            "reason": "Código não informado"
-        } 
+#     if not code:
+#         return {
+#             "found": False,
+#             "reason": "Código não informado"
+#         } 
 
-    try:
-        response = requests.get(
-            f"{get_pos_base_url()}/articles/code/{code}",
-            timeout=10
-        )
+#     try:
+#         response = requests.get(
+#             f"{get_pos_base_url()}/articles/code/{code}",
+#             timeout=10
+#         )
 
-        # 👉 CASO DE NEGÓCIO: NÃO ENCONTRADO
-        if response.status_code == 404:
-            return {
-                "found": False,
-                "reason": "Artigo não encontrado no POS",
-                "code": code
-            }
+#         # 👉 CASO DE NEGÓCIO: NÃO ENCONTRADO
+#         if response.status_code == 404:
+#             return {
+#                 "found": False,
+#                 "reason": "Artigo não encontrado no POS",
+#                 "code": code
+#             }
 
-        response.raise_for_status()
+#         response.raise_for_status()
 
-        return {
-            "found": True,
-            "data": response.json()
-        }
+#         return {
+#             "found": True,
+#             "data": response.json()
+#         }
 
-    except requests.exceptions.RequestException as e:
-        frappe.log_error(
-            title="Erro técnico ao consumir API do POS",
-            message=str(e)
-        )
+#     except requests.exceptions.RequestException as e:
+#         frappe.log_error(
+#             title="Erro técnico ao consumir API do POS",
+#             message=str(e)
+#         )
 
-        # erro técnico REAL
-        frappe.throw("Erro de comunicação com o POS")
+#         # erro técnico REAL
+#         frappe.throw("Erro de comunicação com o POS")
 
-@frappe.whitelist()
-def get_customer_by_fiscal_number(fiscal_number):
-    requests = _get_requests()
+# @frappe.whitelist()
+# def get_customer_by_fiscal_number(fiscal_number):
+#     requests = _get_requests()
 
-    if not fiscal_number:
-        return {
-            "found": False,
-            "reason": "Fiscal Number não informado"
-        } 
+#     if not fiscal_number:
+#         return {
+#             "found": False,
+#             "reason": "Fiscal Number não informado"
+#         } 
 
-    try: 
-        response = requests.get(
-            f"{get_pos_base_url()}/customers/customer",
-			params={"fiscalNumber": fiscal_number },
-            timeout=10
-        )
+#     try: 
+#         response = requests.get(
+#             f"{get_pos_base_url()}/customers/customer",
+# 			params={"fiscalNumber": fiscal_number },
+#             timeout=10
+#         )
 
-        # 👉 Caso de negócio: cliente não existe
-        if response.status_code == 404:
-            return {
-                "found": False,
-                "reason": "Cliente não encontrado no POS",
-                "fiscal_number": fiscal_number
-            }
+#         # 👉 Caso de negócio: cliente não existe
+#         if response.status_code == 404:
+#             return {
+#                 "found": False,
+#                 "reason": "Cliente não encontrado no POS",
+#                 "fiscal_number": fiscal_number
+#             }
 
-        response.raise_for_status()
+#         response.raise_for_status()
 
-        return {
-            "found": True,
-            "data": response.json()
-        }
+#         return {
+#             "found": True,
+#             "data": response.json()
+#         }
 
-    except requests.exceptions.RequestException as e:
-        frappe.log_error(
-            title="Erro técnico ao buscar cliente no POS",
-            message=str(e)
-        )
+#     except requests.exceptions.RequestException as e:
+#         frappe.log_error(
+#             title="Erro técnico ao buscar cliente no POS",
+#             message=str(e)
+#         )
 
-        frappe.throw("Erro de comunicação com o POS")
+#         frappe.throw("Erro de comunicação com o POS")
  
-@frappe.whitelist()
-def get_pos_base_url():
-    company_name = frappe.defaults.get_user_default("Company")
+# @frappe.whitelist()
+# def get_pos_base_url():
+#     company_name = frappe.defaults.get_user_default("Company")
 
-    if not company_name:
-        frappe.throw("O utilizador não tem empresa padrão definida")
+#     if not company_name:
+#         frappe.throw("O utilizador não tem empresa padrão definida")
 
-    company = frappe.db.get_value(
-        "Company",
-        company_name,
-        ["base_url", "port"],
-        as_dict=True
-    )
+#     company = frappe.db.get_value(
+#         "Company",
+#         company_name,
+#         ["base_url", "port"],
+#         as_dict=True
+#     )
 
-    if not company or not company.base_url:
-        frappe.throw("Base URL não configurada na empresa")
+#     if not company or not company.base_url:
+#         frappe.throw("Base URL não configurada na empresa")
 
-    return (
-        f"{company.base_url}:{company.port}"
-        if company.port
-        else company.base_url
-    )
+#     return (
+#         f"{company.base_url}:{company.port}"
+#         if company.port
+#         else company.base_url
+#     )
 
-@frappe.whitelist()
-def create_pos_document(doctype=None, docname=None, payload=None):
-    requests = _get_requests()
+# @frappe.whitelist()
+# def create_pos_document(doctype=None, docname=None, payload=None):
+#     requests = _get_requests()
 
-    if not payload:
-        frappe.throw("Payload não informado")
+#     if not payload:
+#         frappe.throw("Payload não informado")
 
-    try:
+#     try:
 
-        frappe.log_error(title="Payload enviado ao POS", message=payload)
+#         frappe.log_error(title="Payload enviado ao POS", message=payload)
 		
-        response = requests.post(
-            f"{get_pos_base_url()}/documents",
-            data=payload,
-			headers={
-				"Content-Type": "application/json"
-			},
-            timeout=15
-        )
+#         response = requests.post(
+#             f"{get_pos_base_url()}/documents",
+#             data=payload,
+# 			headers={
+# 				"Content-Type": "application/json"
+# 			},
+#             timeout=15
+#         )
 
-        if response.status_code not in (200, 201):
-            frappe.log_error(
-                title="Erro POS - Create Document",
-                message=f"""
-                Status: {response.status_code}
-                Response: {response.text}
-                """
-            )
+#         if response.status_code not in (200, 201):
+#             frappe.log_error(
+#                 title="Erro POS - Create Document",
+#                 message=f"""
+#                 Status: {response.status_code}
+#                 Response: {response.text}
+#                 """
+#             )
 
-            return {
-                "success": False,
-                "status_code": response.status_code,
-                "error": response.json() if response.text else None
-            }
+#             return {
+#                 "success": False,
+#                 "status_code": response.status_code,
+#                 "error": response.json() if response.text else None
+#             }
 
-        data = response.json()
+#         data = response.json()
 
-        pos_id = data.get("id")
-        if not pos_id:
-            frappe.throw("POS não retornou o ID do documento")
+#         pos_id = data.get("id")
+#         if not pos_id:
+#             frappe.throw("POS não retornou o ID do documento")
 
-        # salvar no ERP se necessário
-        if doctype and docname:
-            doc = frappe.get_doc(doctype, docname)
-            doc.pos_id = pos_id
-            # doc.save(ignore_permissions=True)
-            frappe.db.set_value(doctype, docname, "pos_id", pos_id, update_modified=False)
+#         # salvar no ERP se necessário
+#         if doctype and docname:
+#             doc = frappe.get_doc(doctype, docname)
+#             doc.pos_id = pos_id
+#             # doc.save(ignore_permissions=True)
+#             frappe.db.set_value(doctype, docname, "pos_id", pos_id, update_modified=False)
 
-        return {
-            "success": True,
-            "pos_id": pos_id,
-            "data": data
-        }
+#         return {
+#             "success": True,
+#             "pos_id": pos_id,
+#             "data": data
+#         }
 
-    except requests.exceptions.Timeout:
-        frappe.throw("Timeout ao comunicar com o POS")
+#     except requests.exceptions.Timeout:
+#         frappe.throw("Timeout ao comunicar com o POS")
 
-    except requests.exceptions.RequestException as e:
-        frappe.log_error(
-            title="Erro técnico POS",
-            message=str(e)
-        )
-        frappe.throw("Erro técnico ao comunicar com o POS")
+#     except requests.exceptions.RequestException as e:
+#         frappe.log_error(
+#             title="Erro técnico POS",
+#             message=str(e)
+#         )
+#         frappe.throw("Erro técnico ao comunicar com o POS")
 
-@frappe.whitelist()
-def generate_pdf_document(document_id: str | None = None): 
-    requests = _get_requests()
-    re = _get_re()
-    url = f"{get_pos_base_url()}/documents/pdf"
+# @frappe.whitelist()
+# def generate_pdf_document(document_id: str | None = None): 
+#     requests = _get_requests()
+#     re = _get_re()
+#     url = f"{get_pos_base_url()}/documents/pdf"
   
-    try:
-        response = requests.get(
-            url=url,
-			params={
-				"id": document_id
-			},
-            headers={
-        		"Accept": "*/*"
-    		},
-            timeout=30,
-			stream=True
-        )
+#     try:
+#         response = requests.get(
+#             url=url,
+# 			params={
+# 				"id": document_id
+# 			},
+#             headers={
+#         		"Accept": "*/*"
+#     		},
+#             timeout=30,
+# 			stream=True
+#         )
 
-        response.raise_for_status()  # lança erro para 4xx/5xx
+#         response.raise_for_status()  # lança erro para 4xx/5xx
 
-        content_type = response.headers.get("Content-Type", "")
-        if "octet-stream" not in content_type:
-            raise Exception(
-                f"Resposta inesperada da API. Content-Type: {content_type}"
-            )
+#         content_type = response.headers.get("Content-Type", "")
+#         if "octet-stream" not in content_type:
+#             raise Exception(
+#                 f"Resposta inesperada da API. Content-Type: {content_type}"
+#             )
 
-        # Extrair nome do ficheiro
-        disposition = response.headers.get("Content-Disposition", "")
-        filename = "documento.pdf"
+#         # Extrair nome do ficheiro
+#         disposition = response.headers.get("Content-Disposition", "")
+#         filename = "documento.pdf"
 
-        match = re.search(r'filename\*?=(?:UTF-8\'\')?"?([^";]+)"?', disposition)
-        if match:
-            filename = requests.utils.unquote(match.group(1))
+#         match = re.search(r'filename\*?=(?:UTF-8\'\')?"?([^";]+)"?', disposition)
+#         if match:
+#             filename = requests.utils.unquote(match.group(1))
 
-        # Enviar diretamente para o browser
-        frappe.local.response.filename = filename
-        frappe.local.response.filecontent = response.content
-        frappe.local.response.type = "download"
+#         # Enviar diretamente para o browser
+#         frappe.local.response.filename = filename
+#         frappe.local.response.filecontent = response.content
+#         frappe.local.response.type = "download"
 
-    except requests.exceptions.Timeout:
-        frappe.throw("Timeout ao comunicar com o POS")
+#     except requests.exceptions.Timeout:
+#         frappe.throw("Timeout ao comunicar com o POS")
 
-    except requests.exceptions.RequestException as e:
-        frappe.log_error(str(e), "Erro ao baixar PDF do POS")
-        frappe.throw("Erro ao baixar PDF do POS")
+#     except requests.exceptions.RequestException as e:
+#         frappe.log_error(str(e), "Erro ao baixar PDF do POS")
+#         frappe.throw("Erro ao baixar PDF do POS")

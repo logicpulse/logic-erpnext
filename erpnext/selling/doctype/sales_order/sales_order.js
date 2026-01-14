@@ -112,7 +112,7 @@ frappe.ui.form.on("Sales Order", {
 				frm.add_custom_button(__('Visualizar'), async () => {
 					const params = new URLSearchParams({ document_id: frm.doc.pos_id }).toString();
 					window.open(
-						`/api/method/erpnext.selling.doctype.sales_order.sales_order.generate_pdf_document?${params}`,
+						`/api/method/logicposintegration.logicpos_integration.documents.generate_pdf_document?${params}`,
 						"_blank"
 					);
 				}, __('POS'));
@@ -1477,7 +1477,8 @@ function map_item(row, article) {
 
 async function fetch_article(code) {
 	const { message } = await frappe.call({
-		method: "erpnext.selling.doctype.sales_order.sales_order.get_article_by_code",
+		// method: "erpnext.selling.doctype.sales_order.sales_order.get_article_by_code",
+		method: "logicposintegration.logicpos_integration.articles.get_article_by_code",
 		args: { code }
 	});
 
@@ -1499,7 +1500,7 @@ async function load_customer_context(frm) {
 	}
 
 	const { message } = await frappe.call({
-		method: "erpnext.selling.doctype.sales_order.sales_order.get_customer_by_fiscal_number",
+		method: "logicposintegration.logicpos_integration.customers.get_customer_by_fiscal_number",
 		args: { fiscal_number: erp_customer.fiscal_number }
 	});
 
@@ -1519,7 +1520,7 @@ async function get_pos_country_id() {
 	const company = await frappe.db.get_doc("Company", company_name);
 
 	const { message } = await frappe.call({
-		method: "erpnext.setup.doctype.company.company.get_pos_country_by_code",
+		method: "logicposintegration.logicpos_integration.utils.get_pos_country_by_code",
 		args: { code: company.codigo }
 	});
 
@@ -1654,7 +1655,7 @@ function stripHtmlToText(html) {
 // ===============================
 async function send_to_pos(frm, payload) {
 	const { message } = await frappe.call({
-		method: "erpnext.selling.doctype.sales_order.sales_order.create_pos_document",
+		method: "logicposintegration.logicpos_integration.documents.create_pos_document",
 		args: {
 			doctype: "Sales Order",
 			docname: frm.doc.name,

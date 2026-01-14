@@ -975,63 +975,64 @@ def create_transaction_deletion_request(company):
 		frappe.bold(company),
 	)
 
-@frappe.whitelist()
-def get_pos_country_by_code(code):
-    if not code:
-        return {
-            "found": False,
-            "reason": "code não informado"
-        } 
 
-    try: 
-        response = requests.get(
-            f"{get_pos_base_url()}/countries/country",
-			params={"code2": code },
-            timeout=10
-        )
+# @frappe.whitelist()
+# def get_pos_country_by_code(code):
+#     if not code:
+#         return {
+#             "found": False,
+#             "reason": "code não informado"
+#         } 
 
-        # 👉 Caso de negócio: pais não existe
-        if response.status_code == 404:
-            return {
-                "found": False,
-                "reason": "code não encontrado no POS",
-                "code": code
-            }
+#     try: 
+#         response = requests.get(
+#             f"{get_pos_base_url()}/countries/country",
+# 			params={"code2": code },
+#             timeout=10
+#         )
 
-        response.raise_for_status()
+#         # 👉 Caso de negócio: pais não existe
+#         if response.status_code == 404:
+#             return {
+#                 "found": False,
+#                 "reason": "code não encontrado no POS",
+#                 "code": code
+#             }
 
-        return {
-            "found": True,
-            "data": response.json()
-        }
+#         response.raise_for_status()
 
-    except requests.exceptions.RequestException as e:
-        frappe.log_error(
-            title="Erro técnico ao buscar code no POS",
-            message=str(e)
-        )
+#         return {
+#             "found": True,
+#             "data": response.json()
+#         }
 
-        frappe.throw("Erro de comunicação com o POS")
+#     except requests.exceptions.RequestException as e:
+#         frappe.log_error(
+#             title="Erro técnico ao buscar code no POS",
+#             message=str(e)
+#         )
+
+#         frappe.throw("Erro de comunicação com o POS")
 
 
-def get_pos_base_url():
-    company_name = frappe.defaults.get_user_default("Company")
+# def get_pos_base_url():
+#     company_name = frappe.defaults.get_user_default("Company")
 
-    if not company_name:
-        frappe.throw("O utilizador não tem empresa padrão definida")
+#     if not company_name:
+#         frappe.throw("O utilizador não tem empresa padrão definida")
 
-    company = frappe.db.get_value(
-        "Company",
-        company_name,
-        ["base_url", "port"],
-        as_dict=True
-    )
+#     company = frappe.db.get_value(
+#         "Company",
+#         company_name,
+#         ["base_url", "port"],
+#         as_dict=True
+#     )
 
-    if not company or not company.base_url:
-        frappe.throw("Base URL não configurada na empresa")
+#     if not company or not company.base_url:
+#         frappe.throw("Base URL não configurada na empresa")
 
-    return (
-        f"{company.base_url}:{company.port}"
-        if company.port
-        else company.base_url
-    )
+#     return (
+#         f"{company.base_url}:{company.port}"
+#         if company.port
+#         else company.base_url
+#     )
