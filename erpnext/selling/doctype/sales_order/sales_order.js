@@ -110,7 +110,11 @@ frappe.ui.form.on("Sales Order", {
 
 			if (frm.doc.pos_id) {
 				frm.add_custom_button(__('Visualizar'), async () => {
-					const params = new URLSearchParams({ document_id: frm.doc.pos_id }).toString();
+					const params = new URLSearchParams({ 
+						document_id: frm.doc.pos_id, 
+						company: frm.doc.company 
+					}).toString();
+					
 					window.open(
 						`/api/method/logicposintegration.logicpos_integration.documents.generate_pdf_document?${params}`,
 						"_blank"
@@ -1396,13 +1400,12 @@ extend_cscript(cur_frm.cscript, new erpnext.selling.SalesOrderController({ frm: 
 // MAIN FLOW
 // ===============================
 async function export_to_pos(frm) {
-	try {
-		// teste de log 
+	try { 
+		const context = await load_customer_context(frm);
 
-		const items = await build_items(frm);
+		const items = await build_items(frm, context.erp_sales_order.company);
 		if (!items.length) return;
 
-		const context = await load_customer_context(frm);
 		const payload = await build_payload(frm, items, context);
 
 		const response = await send_to_pos(frm, payload);
@@ -1415,12 +1418,12 @@ async function export_to_pos(frm) {
 // ===============================
 // ITEMS
 // ===============================
-async function build_items(frm) {
+async function build_items(frm, company) {
 	const items = [];
 	console.log("Building items for POS export...");
 	console.log("frm.doc.items: ", frm.doc.items);
 	for (const row of frm.doc.items) {
-		const res = await fetch_article(row.item_code);
+		const res = await fetch_article(row.item_code, company);
 
 		if (!res.found) {
 			// Pergunta ao usuário se deseja continuar sem este item ou abortar o envio
@@ -1475,11 +1478,11 @@ function map_item(row, article) {
 	};
 }
 
-async function fetch_article(code) {
+async function fetch_article(code, company) {
 	const { message } = await frappe.call({
 		// method: "erpnext.selling.doctype.sales_order.sales_order.get_article_by_code",
 		method: "logicposintegration.logicpos_integration.articles.get_article_by_code",
-		args: { code }
+		args: { code, company }
 	});
 
 	return message;
@@ -1501,10 +1504,10 @@ async function load_customer_context(frm) {
 
 	const { message } = await frappe.call({
 		method: "logicposintegration.logicpos_integration.customers.get_customer_by_fiscal_number",
-		args: { fiscal_number: erp_customer.fiscal_number }
+		args: { fiscal_number: erp_customer.fiscal_number, company: erp_sales_order.company }
 	});
 
-	const countryDetails = await get_pos_country_id();
+	const countryDetails = await get_pos_country_id(erp_sales_order.company);
 
 	return {
 		erp_customer,
@@ -1515,13 +1518,13 @@ async function load_customer_context(frm) {
 	};
 }
 
-async function get_pos_country_id() {
-	const company_name = frappe.defaults.get_user_default("Company");
+async function get_pos_country_id(company_name) {
+	// const company_name = frappe.defaults.get_user_default("Company"); // to do
 	const company = await frappe.db.get_doc("Company", company_name);
 
 	const { message } = await frappe.call({
 		method: "logicposintegration.logicpos_integration.utils.get_pos_country_by_code",
-		args: { code: company.codigo }
+		args: { code: company.codigo, company: company_name }
 	});
 
 	return { 
@@ -1659,7 +1662,8 @@ async function send_to_pos(frm, payload) {
 		args: {
 			doctype: "Sales Order",
 			docname: frm.doc.name,
-			payload
+			payload,
+			company: frm.doc.company
 		}
 	});
 
