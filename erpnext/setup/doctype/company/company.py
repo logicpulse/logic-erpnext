@@ -4,7 +4,6 @@
 
 import json
 
-import requests
 import frappe
 import frappe.defaults
 from frappe import _
