@@ -26,9 +26,8 @@ class Lead(SellingController, CRMNote):
 	from typing import TYPE_CHECKING
 
 	if TYPE_CHECKING:
-		from frappe.types import DF
-
 		from erpnext.crm.doctype.crm_note.crm_note import CRMNote
+		from frappe.types import DF
 
 		annual_revenue: DF.Currency
 		blog_subscriber: DF.Check
@@ -38,7 +37,7 @@ class Lead(SellingController, CRMNote):
 		country: DF.Link | None
 		customer: DF.Link | None
 		disabled: DF.Check
-		email_id: DF.Data | None
+		email_id: DF.Data
 		fax: DF.Data | None
 		first_name: DF.Data | None
 		gender: DF.Link | None
@@ -51,7 +50,7 @@ class Lead(SellingController, CRMNote):
 		lead_owner: DF.Link | None
 		market_segment: DF.Link | None
 		middle_name: DF.Data | None
-		mobile_no: DF.Data | None
+		mobile_no: DF.Data
 		naming_series: DF.Literal["CRM-LEAD-.YYYY.-"]
 		no_of_employees: DF.Literal["1-10", "11-50", "51-200", "201-500", "501-1000", "1000+"]
 		notes: DF.Table[CRMNote]
@@ -63,17 +62,7 @@ class Lead(SellingController, CRMNote):
 		request_type: DF.Literal["", "Product Enquiry", "Request for Information", "Suggestions", "Other"]
 		salutation: DF.Link | None
 		state: DF.Data | None
-		status: DF.Literal[
-			"Lead",
-			"Open",
-			"Replied",
-			"Opportunity",
-			"Quotation",
-			"Lost Quotation",
-			"Interested",
-			"Converted",
-			"Do Not Contact",
-		]
+		status: DF.Literal["Lead", "Open", "Replied", "Opportunity", "Quotation", "Lost Quotation", "Interested", "Converted", "Do Not Contact"]
 		territory: DF.Link | None
 		title: DF.Data | None
 		type: DF.Literal["", "Client", "Channel Partner", "Consultant"]

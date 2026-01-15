@@ -110,11 +110,11 @@ frappe.ui.form.on("Sales Order", {
 
 			if (frm.doc.pos_id) {
 				frm.add_custom_button(__('Visualizar'), async () => {
-					const params = new URLSearchParams({ 
-						document_id: frm.doc.pos_id, 
-						company: frm.doc.company 
+					const params = new URLSearchParams({
+						document_id: frm.doc.pos_id,
+						company: frm.doc.company
 					}).toString();
-					
+
 					window.open(
 						`/api/method/logicposintegration.logicpos_integration.documents.generate_pdf_document?${params}`,
 						"_blank"
@@ -1400,16 +1400,20 @@ extend_cscript(cur_frm.cscript, new erpnext.selling.SalesOrderController({ frm: 
 // MAIN FLOW
 // ===============================
 async function export_to_pos(frm) {
-	try { 
+	try {
 		const context = await load_customer_context(frm);
 
 		const items = await build_items(frm, context.erp_sales_order.company);
 		if (!items.length) return;
 
 		const payload = await build_payload(frm, items, context);
+		console.log("Payload to be sent to POS:", payload);
 
 		const response = await send_to_pos(frm, payload);
-		handle_success(response); 
+		if (response.success)
+			handle_success();
+		else
+			handle_error(response.error || __("Erro desconhecido ao enviar para o POS."));
 	} catch (error) {
 		handle_error(error.responseText || error);
 	}
@@ -1473,14 +1477,13 @@ function map_item(row, article) {
 		vatRateId: article.vatRateId,
 		vatExemptionId: article.vatExemptionId,
 		unitPrice: Number(row.rate.toFixed(2)),
-		discount: row.discount_percentage, // row.discount_amount,
+		discount: row.discount_percentage,
 		priceType: null
 	};
 }
 
 async function fetch_article(code, company) {
 	const { message } = await frappe.call({
-		// method: "erpnext.selling.doctype.sales_order.sales_order.get_article_by_code",
 		method: "logicposintegration.logicpos_integration.articles.get_article_by_code",
 		args: { code, company }
 	});
@@ -1519,15 +1522,22 @@ async function load_customer_context(frm) {
 }
 
 async function get_pos_country_id(company_name) {
-	// const company_name = frappe.defaults.get_user_default("Company"); // to do
 	const company = await frappe.db.get_doc("Company", company_name);
+
+	if (!company.codigo) {
+		throw __(`Codigo do pais não configurado para a empresa ${company_name}.`);
+	}
 
 	const { message } = await frappe.call({
 		method: "logicposintegration.logicpos_integration.utils.get_pos_country_by_code",
 		args: { code: company.codigo, company: company_name }
 	});
 
-	return { 
+	if (!message.found) {
+		throw __(`País com código ${company.codigo} não encontrado no POS.`);
+	}
+
+	return {
 		id: message.data.id,
 		code: message.data.code2,
 		currencyCode: message.data.currencyCode,
@@ -1573,7 +1583,7 @@ async function build_payload(frm, items, ctx) {
 	const notes = stripHtmlToText(ctx.erp_sales_order.terms || "");
 
 	const base = {
-		type: getTypeOfDocument(ctx.countryDetails.designation),
+		type: 'FT', // getTypeOfDocument(ctx.countryDetails.designation),
 		discount: frm.doc.additional_discount_percentage || 0,
 		details: items,
 		isDraft: true,
@@ -1594,19 +1604,6 @@ async function build_payload(frm, items, ctx) {
 		...base,
 		customer: map_customer(ctx),
 	};
-}
-
-function getTypeOfDocument(countryDesignation) {
-	switch (countryDesignation) {
-		case "Portugal":
-			return "FP";  
-		case "Moçambique":
-			return "PF";  
-		case "Angola":
-			return "PP";  
-		default:
-			return "PP"; 
-	}
 }
 
 function map_customer({ erp_customer, erp_address, countryDetails }) {
@@ -1682,6 +1679,8 @@ function handle_success() {
 		message: __("Documento criado no POS"),
 		indicator: "green"
 	});
+
+	cur_frm.reload_doc();
 }
 
 function handle_error(error) {
@@ -1690,4 +1689,4 @@ function handle_error(error) {
 		message: typeof error === "string" ? error : JSON.stringify(error, null, 2),
 		indicator: "red"
 	});
-}
+} 
