@@ -1401,6 +1401,9 @@ extend_cscript(cur_frm.cscript, new erpnext.selling.SalesOrderController({ frm: 
 // ===============================
 async function export_to_pos(frm) {
 	try {
+		frappe.dom.freeze(
+			__("Exporting Sales Order to POS...")
+		);
 		const context = await load_customer_context(frm);
 
 		const items = await build_items(frm, context.erp_sales_order.company);
@@ -1416,6 +1419,8 @@ async function export_to_pos(frm) {
 			handle_error(response.error || __("Erro desconhecido ao enviar para o POS."));
 	} catch (error) {
 		handle_error(error.responseText || error);
+	} finally {
+		frappe.dom.unfreeze();
 	}
 }
 

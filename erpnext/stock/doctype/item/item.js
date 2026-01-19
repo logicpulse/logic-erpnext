@@ -637,11 +637,11 @@ $.extend(erpnext.item, {
 				fields: [
 					frm.doc.image
 						? {
-								fieldtype: "Check",
-								label: __("Create a variant with the template image."),
-								fieldname: "use_template_image",
-								default: 0,
-						  }
+							fieldtype: "Check",
+							label: __("Create a variant with the template image."),
+							fieldname: "use_template_image",
+							default: 0,
+						}
 						: null,
 					{
 						fieldtype: "HTML",
