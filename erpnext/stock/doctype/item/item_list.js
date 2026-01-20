@@ -3,7 +3,7 @@
 frappe.listview_settings["Item"] = {
 	onload: function (listview) {
 		listview.page.add_inner_button(__('Completa'), async function (listview) {
-			await sync_with_google_sheet(listview);
+			await sync_with_google_sheet();
 		}, __('Sync'));
 		listview.page.add_inner_button(__('Gestão de Acessos'), async function (listview) {
 			await sync_with_google_sheet_single("access");
@@ -73,42 +73,41 @@ frappe.listview_settings["Item"] = {
 
 frappe.help.youtube_id["Item"] = "qXaEwld4_Ps";
 
-async function sync_with_google_sheet(listview) {
+async function sync_with_google_sheet() {
+	// frappe.show_progress('Loading..', 0, 100, 'Please wait');
 	const { message } = await frappe.call({
-		method: 'logicposintegration.logicpos_integration.spreadsheet.load.get_single_sheet_data',
-		args: {
-			sheet_name: "Gestão de Acessos",
-			cell_range: "E:P"
-		}
+		method: 'logicposintegration.logicpos_integration.spreadsheet.load.sync_datas',
+		args: {},
+		freeze: true,
+		freeze_message: "Sincronizando itens com Google Sheets..."
 	});
 
 	if (message.success) {
-		frappe.msgprint(__('Items synchronized successfully from Google Sheets!'));
-		console.log('datas => ', message.data);
+		frappe.msgprint({
+			title: "Itens sincronizados com sucesso a partir do Google Sheets",
+			message: `${message.message}`,
+			indicator: "green"
+		}); 
+		console.log('datas => ', message.message);
 		// listview.refresh();
-	}
+	} 
 }
 
 async function sync_with_google_sheet_single(ref) {
-	try {
-		frappe.dom.freeze(
-			__("Sincronizando {0} com Google Sheets...", [ref])
-		);
-
+	try {  
 		const { message } = await frappe.call({
-			method: 'logicposintegration.logicpos_integration.spreadsheet.load.get_single_sheet_data',
-			args: { ref }
+			method: 'logicposintegration.logicpos_integration.spreadsheet.load.sync_single_sheet_data',
+			args: { ref },
+			freeze: true,
+			freeze_message: `Sincronizando ${ref} com Google Sheets...`
 		});
 
 		if (!message.success) {
-			throw new Error(message.message || __("Erro desconhecido"));
+			throw new Error(message.message || "Erro desconhecido");
 		}
 
 		frappe.show_alert({
-			message: __("{0} sincronizado com sucesso!\n{1}", [
-				ref,
-				message.message
-			]),
+			message: `${ref} sincronizado com sucesso!\n${message.message}`,
 			indicator: "green"
 		});
 
@@ -118,11 +117,9 @@ async function sync_with_google_sheet_single(ref) {
 	} catch (error) {
 		console.error(error);
 		frappe.msgprint({
-			title: __("Erro"),
-			message: __("Ocorreu um erro ao sincronizar {0} a partir do Google Sheets.\n{1}", [ref, error.message]),
+			title: "Erro",
+			message: `Ocorreu um erro ao sincronizar ${ref} a partir do Google Sheets.\n${error.message}`,
 			indicator: "red"
 		});
-	} finally {
-		frappe.dom.unfreeze();
 	}
 }
