@@ -1,0 +1,32 @@
+{
+ "attach_print": 0,
+ "channel": "Email",
+ "condition_type": "Python",
+ "creation": "2026-02-05 17:38:24.801278",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Maintenance Contract",
+ "enabled": 1,
+ "event": "New",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "<p>Ol\u00e1 {{ doc.tenant or doc.customer_name }},</p>\r\n\r\n<p>\r\nO contrato de manuten\u00e7\u00e3o <strong>{{ doc.contract_name }}</strong> teve in\u00edcio em\r\n<strong>{{ frappe.format_date(doc.start_date) }}</strong>.\r\n</p>\r\n\r\n<p>\r\nPer\u00edodo:\r\n{{ frappe.format_date(doc.start_date) }}\r\na\r\n{{ frappe.format_date(doc.end_date) }}<br>\r\nProduto/Servi\u00e7o: {{ doc.product }}\r\n</p>\r\n\r\n<p>\r\nQualquer d\u00favida, estamos \u00e0 disposi\u00e7\u00e3o.\r\n</p>\r\n\r\n<p>\r\nCumprimentos,<br>\r\n<strong>{{ frappe.defaults.get_user_default(\"Company\") }}</strong>\r\n</p>\r\n",
+ "message_type": "Markdown",
+ "minutes_offset": 0,
+ "modified": "2026-02-05 19:45:10.679192",
+ "modified_by": "Administrator",
+ "module": "Selling",
+ "name": "Inicio de contrato",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "receiver_by_document_field": "client"
+  }
+ ],
+ "send_system_notification": 0,
+ "send_to_all_assignees": 0,
+ "sender": "Noreply",
+ "sender_email": "noreply@logicpulse.com",
+ "subject": "In\u00edcio do Contrato de Manuten\u00e7\u00e3o \u2013 {{ doc.contract_name }}"
+}

@@ -1410,7 +1410,7 @@ async function export_to_pos(frm) {
 		if (!items.length) return;
 
 		const payload = await build_payload(frm, items, context);
-		console.log("Payload to be sent to POS:", payload);
+		// console.log("Payload to be sent to POS:", payload);
 
 		const response = await send_to_pos(frm, payload);
 		if (response.success)
@@ -1476,6 +1476,7 @@ async function build_items(frm, company) {
 }
 
 function map_item(row, article) {
+	console.log($`artigo > ${article}`)
 	return {
 		articleId: article.id,
 		quantity: row.qty,
@@ -1484,6 +1485,7 @@ function map_item(row, article) {
 		unitPrice: Number(row.rate.toFixed(2)),
 		discount: row.discount_percentage,
 		priceType: null
+		// serialNumber: row.serialNumber
 	};
 }
 
@@ -1502,12 +1504,12 @@ async function fetch_article(code, company) {
 async function load_customer_context(frm) {
 	let erp_address = null;
 	const erp_sales_order = await frappe.db.get_doc('Sales Order', frm.doc.name);
-	console.log("ERP Sales Order:", erp_sales_order);
+	// console.log("ERP Sales Order:", erp_sales_order);
 	const erp_customer = await frappe.db.get_doc('Customer', frm.doc.customer_name);
-	console.log("ERP Customer:", erp_customer);
+	// console.log("ERP Customer:", erp_customer);
 	if (erp_customer.customer_primary_address) {
 		erp_address = await frappe.db.get_doc('Address', erp_customer.customer_primary_address);
-		console.log("ERP Address:", erp_address);
+		// console.log("ERP Address:", erp_address);
 	}
 
 	const { message } = await frappe.call({
@@ -1555,7 +1557,7 @@ async function get_shipping_address(address_name) {
 		return null;
 	}
 	const address = await frappe.db.get_doc('Address', address_name);
-	console.log("shipping_and_dispatch_address:", address);
+	// console.log("shipping_and_dispatch_address:", address);
 
 	if (!address) {
 		return null;

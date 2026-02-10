@@ -1,7 +1,7 @@
 Address,Endereço
 Amount,Quantia
 BOM,BOM
-Is Child Table,É uma mesa infantil
+Is Child Table,É uma tabela filha
 Is Subcontracted,Está subcontratado
 Item,Item
 Name,Nome
@@ -102,7 +102,7 @@ Summary,Resumo
 "<h4>Standard Terms and Conditions Example</h4>||||||<pre>Delivery Terms for Order number {{ name }}||||||-Order Date : {{ transaction_date }} |||-Expected Delivery Date : {{ delivery_date }}|||</pre>||||||<h4>How to get fieldnames</h4>||||||<p>The fieldnames you can use in your email template are the fields in the document from which you are sending the email. You can find out the fields of any documents via Setup &gt; Customize Form View and selecting the document type (e.g. Sales Invoice)</p>||||||<h4>Templating</h4>||||||<p>Templates are compiled using the Jinja Templating Language. To learn more about Jinja, <a class=""strong"" href=""http://jinja.pocoo.org/docs/dev/templates/"">read this documentation.</a></p>","<H4> Termos e condições padrão Exemplo </h4> |||||| <pre> Termos de entrega para o número do pedido {{name}} |||||| -Dord Data: {{transaction_date}} |||||| FieldNames </h4> |||||| <p> Os nomes de campo que você pode usar no seu modelo de e-mail são os campos no documento do qual você está enviando o email. Você pode descobrir os campos de qualquer documento via configuração & gt; Personalize a visualização do formulário e selecionando o tipo de documento (por exemplo, fatura de vendas) </p> |||||| <h4> modelo </h4> |||||| <p> Os modelos são compilados usando a linguagem de modelos Jinja. Para saber mais sobre Jinja, <a class = ""forte"" href = ""http://jinja.pocoo.org/docs/dev/templates/""> leia esta documentação. </a> </p>"
 "<h5 class=""text-muted uppercase"">Or</h5>","<h5 class = ""manchada de texto moída"" ou </h5>"
 "<label class=""control-label"" style=""margin-bottom: 0px;"">Account Number Settings</label>","<LABEL class = ""Control-Label"" style = ""margem-bottom: 0px;"">Configurações do número da conta </belt>"
-"<label class=""control-label"" style=""margin-bottom: 0px;"">Amount In Words</label>","<Label Class = ""Control-Label"" style = ""margem-bottom: 0px;"">quantidade em palavras</belt>"
+"<label class=""control-label"" style=""margin-bottom: 0px;"">Amount In Words</label>","<Label Class = ""Control-Label"" style = ""margem-bottom: 0px;"">quantidade por extenso</belt>"
 "<label class=""control-label"" style=""margin-bottom: 0px;"">Date Settings</label>","<LABEL class = ""Control-Label"" style = ""margem-bottom: 0px;"">Configurações de data</belt>"
 "<p>In your <b>Email Template</b>, you can use the following special variables:|||</p>|||<ul>|||        <li>|||            <code>{{ update_password_link }}</code>: A link where your supplier can set a new password to log into your portal.|||        </li>|||        <li>|||            <code>{{ portal_link }}</code>: A link to this RFQ in your supplier portal.|||        </li>|||        <li>|||            <code>{{ supplier_name }}</code>: The company name of your supplier.|||        </li>|||        <li>|||            <code>{{ contact.salutation }} {{ contact.last_name }}</code>: The contact person of your supplier.|||        </li><li>|||            <code>{{ user_fullname }}</code>: Your full name.|||        </li>|||    </ul>|||<p></p>|||<p>Apart from these, you can access all values in this RFQ, like <code>{{ message_for_supplier }}</code> or <code>{{ terms }}</code>.</p>","<p> No seu <b> modelo de email </b>, você pode usar as seguintes variáveis especiais: ||| </p> ||| <ul> |||        <li> |||            <code> {{update_password_link}} </code>: um link em que seu fornecedor pode definir uma nova senha para fazer login no seu portal. |||        </li> |||        <li> |||            <code> {{Portal_link}} </code>: um link para este RFQ no seu portal de fornecedores. |||        </li> |||        <li> |||            <code> {{fornecedor_name}} </code>: o nome da empresa do seu fornecedor. |||        </li> |||        <li> |||            <code> {{contact.salutation}} {{contact.last_name}} </code>: a pessoa de contato do seu fornecedor. |||        </li> <li> |||            <code> {{user_fullname}} </code>: seu nome completo. |||        </li> |||    </ul> ||| <p> </p> ||| <p> Além disso, você pode acessar todos os valores neste RFQ, como <code> {{message_for_supplier}} </code> ou <code> {{termos}} </code>. </p>"
 "<p>Price List Rate has not been set as editable in Selling Settings. In this scenario, setting <strong>Update Price List Based On</strong> to <strong>Price List Rate</strong> will prevent auto-updation of Item Price.</p>Are you sure you want to continue?","<p> A taxa de lista de preços não foi definida como editável nas configurações de venda. Nesse cenário, definir a lista de preços <strong> de atualização com base na taxa de lista de preços <strong> para <strong> </strong> impedirá a atualização automática do preço do item. </p> tem certeza de que deseja continuar?"
@@ -110,7 +110,7 @@ Summary,Resumo
 "<pre><h5>Message Example</h5>||||||&lt;p&gt;Dear {{ doc.contact_person }},&lt;/p&gt;||||||&lt;p&gt;Requesting payment for {{ doc.doctype }}, {{ doc.name }} for {{ doc.grand_total }}.&lt;/p&gt;||||||&lt;a href=""{{ payment_url }}""&gt; click here to pay &lt;/a&gt;||||||</pre>|||","Exemplo de mensagem <H5> Mensagem </h5> |||||| & lt; p & gt; querido {{doc.contact_person}}, & lt;/p & gt; ||||| * para {lt; }}. Clique aqui para pagar & lt;/a & gt; |||||| </re> |||"
 <strong>Grand Total:</strong> {0},<strong> Grand Total: </strong> {0}
 <strong>Outstanding Amount:</strong> {0},<strong> Montante pendente: </strong> {0}
-"<table class=""table table-bordered table-condensed"">|||<thead>|||  <tr>|||         <th class=""table-sr"" style=""width: 50%;"">Child Document</th>|||         <th class=""table-sr"" style=""width: 50%;"">Non Child Document</th>|||   </tr>|||</thead>|||<tbody>|||<tr>|||         <td>|||                  <p> To access parent document field use parent.fieldname and to access child table document field use doc.fieldname </p>||||||         </td>|||         <td>|||                    <p>To access document field use doc.fieldname </p>|||         </td>|||</tr>|||<tr>|||        <td>|||                   <p><b>Example: </b> parent.doctype == ""Stock Entry"" and doc.item_code == ""Test"" </p>||||||        </td>|||         <td>|||                   <p><b>Example: </b> doc.doctype == ""Stock Entry"" and doc.purpose == ""Manufacture""</p>    |||          </td>|||</tr>||||||</tbody>|||</table>|||||||||||||||||||||","<tabela class = ""Table-bordered tabela de mesa""> ||| <Thead> |||  <tr> |||         <th class = ""tabela-sr"" style = ""width: 50%;""> documento filho </th> |||         <th class = ""tabela-sr"" style = ""width: 50%;""> documento não filho </th> |||   </tr> ||| </sead> ||| <tbody> ||| <tr> |||         <Td> |||                  <p> Para acessar o campo do documento pai, use parent.fieldname e para acessar o documento da tabela infantil, use doc.fieldname </p> ||||||         </td> |||         <Td> |||                    <p> Para acessar o campo de documento, use doc.fieldname </p> |||         </td> ||| </tr> ||| <tr> |||        <Td> |||                   <p> <b> Exemplo: </b> parent.doctype == ""Entrada de stock"" e doc.item_code == ""teste"" </p> ||||||        </td> |||         <Td> |||                   <p> <b> Exemplo: </b> doc.doctype == ""entrada de stock"" e doc.purpose == ""fabricação"" </p> |||          </td> ||| </tr> ||||||| </tbody> ||| </ tabela> ||||||||||||||||||||||"
+"<table class=""table table-bordered table-condensed"">|||<thead>|||  <tr>|||         <th class=""table-sr"" style=""width: 50%;"">Child Document</th>|||         <th class=""table-sr"" style=""width: 50%;"">Non Child Document</th>|||   </tr>|||</thead>|||<tbody>|||<tr>|||         <td>|||                  <p> To access parent document field use parent.fieldname and to access child table document field use doc.fieldname </p>||||||         </td>|||         <td>|||                    <p>To access document field use doc.fieldname </p>|||         </td>|||</tr>|||<tr>|||        <td>|||                   <p><b>Example: </b> parent.doctype == ""Stock Entry"" and doc.item_code == ""Test"" </p>||||||        </td>|||         <td>|||                   <p><b>Example: </b> doc.doctype == ""Stock Entry"" and doc.purpose == ""Manufacture""</p>    |||          </td>|||</tr>||||||</tbody>|||</table>|||||||||||||||||||||","<tabela class = ""Table-bordered tabela de mesa""> ||| <Thead> |||  <tr> |||         <th class = ""tabela-sr"" style = ""width: 50%;""> documento filho </th> |||         <th class = ""tabela-sr"" style = ""width: 50%;""> documento não filho </th> |||   </tr> ||| </sead> ||| <tbody> ||| <tr> |||         <Td> |||                  <p> Para acessar o campo do documento pai, use parent.fieldname e para acessar o documento da tabela secundária, use doc.fieldname </p> ||||||         </td> |||         <Td> |||                    <p> Para acessar o campo de documento, use doc.fieldname </p> |||         </td> ||| </tr> ||| <tr> |||        <Td> |||                   <p> <b> Exemplo: </b> parent.doctype == ""Entrada de stock"" e doc.item_code == ""teste"" </p> ||||||        </td> |||         <Td> |||                   <p> <b> Exemplo: </b> doc.doctype == ""entrada de stock"" e doc.purpose == ""fabricação"" </p> |||          </td> ||| </tr> ||||||| </tbody> ||| </ tabela> ||||||||||||||||||||||"
 A - B,A - b
 A - C,A - c
 A Customer Group exists with same name please change the Customer name or rename the Customer Group,"Um grupo de clientes existe com o mesmo nome, altere o nome do cliente ou renomeie o grupo de clientes"
@@ -184,7 +184,7 @@ Account Currency,Moeda da conta
 Account Currency (From),Moeda da conta (de)
 Account Currency (To),Moeda da conta (para)
 Account Details,Detalhes da conta
-Account Head,Cabeça da conta
+Account Head,Conta Principal
 Account Manager,Gerente de contas
 Account Missing,Conta faltando
 Account Name,Nome da conta
@@ -517,7 +517,7 @@ Allocation,Alocação
 Allocations,Alocações
 Allotted Qty,Quantidade alocada
 Allow,Permitir
-Allow Account Creation Against Child Company,Permitir a criação de contas contra a empresa infantil
+Allow Account Creation Against Child Company,Permitir a criação de contas contra a empresa filha
 Allow Alternative Item,Permitir item alternativo
 Allow Alternative Item must be checked on Item {},Permitir item alternativo deve ser verificado no item {}
 Allow Continuous Material Consumption,Permitir consumo contínuo de material
@@ -599,7 +599,7 @@ Amount Difference with Purchase Invoice,Diferença de quantidade com fatura de c
 Amount Eligible for Commission,Valor elegível para comissão
 Amount In Figure,Quantidade na figura
 Amount in Account Currency,Valor na moeda da conta
-Amount in Words,Quantidade em palavras
+Amount in Words,Quantidade por extenso
 Amount in party's bank account currency,Valor na moeda da conta bancária da parte
 Amount in transaction currency,Valor em moeda de transação
 Amount in {0},Valor em {0}
@@ -1264,7 +1264,7 @@ Campaign Schedules,Horários de campanha
 Can be approved by {0},Pode ser aprovado por {0}
 Can not close Work Order. Since {0} Job Cards are in Work In Progress state.,Não pode fechar a ordem de serviço. Como {0} cartões de trabalho estão em andamento em andamento.
 "Can not filter based on Cashier, if grouped by Cashier","Não pode filtrar com base no caixa, se agrupado por caixa"
-"Can not filter based on Child Account, if grouped by Account","Não pode filtrar com base na conta infantil, se agrupada por conta"
+"Can not filter based on Child Account, if grouped by Account","Não é possível filtrar com base na conta filha, se estiver agrupado por conta"
 "Can not filter based on Customer, if grouped by Customer","Não pode filtrar com base no cliente, se agrupado pelo cliente"
 "Can not filter based on POS Profile, if grouped by POS Profile","Não pode filtrar com base no perfil de POS, se agrupado pelo perfil de POS"
 "Can not filter based on Payment Method, if grouped by Payment Method","Não pode filtrar com base no método de pagamento, se agrupado por método de pagamento"
@@ -1443,7 +1443,7 @@ Child Docname,Child Docname
 Child Row Reference,Referência do Registro Filho
 Child Task exists for this Task. You can not delete this Task.,Existe uma tarefa filha para esta tarefa. Não é possível excluir esta tarefa.
 Child nodes can be only created under 'Group' type nodes,Os nós filhos podem ser criados apenas em nós do tipo 'grupo'
-Child warehouse exists for this warehouse. You can not delete this warehouse.,Existe um armazém infantil para este armazém. Você não pode excluir este armazém.
+Child warehouse exists for this warehouse. You can not delete this warehouse.,Existe um armazém filho para este armazém. Não é possível eliminar este armazém.
 Choose a WIP composite asset,Escolha um ativo composto de WIP
 Circular Reference Error,Erro de referência circular
 City,Cidade
@@ -2231,7 +2231,7 @@ Direct Expenses,Despesas diretas
 Direct Income,Renda direta
 Disable,Desativar
 Disable Capacity Planning,Desativar o planejamento da capacidade
-Disable In Words,Desativar em palavras
+Disable In Words,Desativar por extenso
 Disable Last Purchase Rate,Desative a última taxa de compra
 Disable Rounded Total,Desative o total arredondado
 Disable Serial No And Batch Selector,Desativar o seletor de nº de série e lote
@@ -3135,7 +3135,7 @@ If Income or Expense,Se receita ou despesa
 "If checked, the tax amount will be considered as already included in the Print Rate / Print Amount","Se verificado, o valor do imposto será considerado como já incluído na taxa de impressão / valor de impressão"
 "If checked, we will create demo data for you to explore the system. This demo data can be erased later.","Se verificado, criaremos dados de demonstração para você explorar o sistema. Esses dados de demonstração podem ser apagados posteriormente."
 If different than customer address,Se diferente do endereço do cliente
-"If disable, 'In Words' field will not be visible in any transaction","Se desativar, o campo 'em palavras' não será visível em nenhuma transação"
+"If disable, 'In Words' field will not be visible in any transaction","Se desativar, o campo 'por extenso' não será visível em nenhuma transação"
 "If disable, 'Rounded Total' field will not be visible in any transaction","Se desativar, o campo 'total arredondado' não será visível em nenhuma transação"
 If enabled then system won't apply the pricing rule on the delivery note which will be create from the pick list,"Se ativado, o sistema não aplicará a regra de preços na nota de entrega que será criada na Lista de separação"
 If enabled then system won't override the picked qty / batches / serial numbers.,"Se ativado, o sistema não substituirá os números de qty / lotes / lotes escolhidos."
@@ -3244,7 +3244,7 @@ In Transit,Em trânsito
 In Transit Transfer,Na transferência de trânsito
 In Transit Warehouse,No armazém de trânsito
 In Value,Em valor
-In Words,Em palavras
+In Words,Por extenso
 In Words (Company Currency),Nas palavras (moeda da empresa)
 In Words (Export) will be visible once you save the Delivery Note.,Nas palavras (exportação) será visível assim que você salvar a nota de entrega.
 In Words will be visible once you save the Delivery Note.,"Nas palavras, será visível assim que você salvar a nota de entrega."
@@ -3395,7 +3395,7 @@ Invalid Attribute,Atributo inválido
 Invalid Auto Repeat Date,Data de repetição automática inválida
 Invalid Barcode. There is no Item attached to this barcode.,Código de barras inválidas. Não há item anexado a este código de barras.
 Invalid Blanket Order for the selected Customer and Item,Pedido geral inválido para o cliente e item selecionados
-Invalid Child Procedure,Procedimento infantil inválido
+Invalid Child Procedure,Procedimento filho inválido
 Invalid Company for Inter Company Transaction.,Companhia inválida para transação entre empresas.
 Invalid Cost Center,Centro de custo inválido
 Invalid Credentials,Credenciais inválidas
@@ -3819,7 +3819,7 @@ Limit Crossed,Limite cruzado
 Limit timeslot for Stock Reposting,Limite de intervalo de tempo para reposição de stock
 Limited to 12 characters,Limitado a 12 caracteres
 Limits don't apply on,Os limites não se aplicam em
-Line spacing for amount in words,Espaçamento de linha para quantidade em palavras
+Line spacing for amount in words,Espaçamento de linha para quantidade por extenso
 Link,Link
 Link Options,Opções de link
 Link a new bank account,Vincular uma nova conta bancária
@@ -3909,7 +3909,7 @@ Machine malfunction,Máquinas de funcionamento
 Machine operator errors,Erros do operador da máquina
 Main,Principal
 Main Cost Center,Centro de custo principal
-Main Cost Center {0} cannot be entered in the child table,Centro de custo principal {0} não pode ser inserido na tabela infantil
+Main Cost Center {0} cannot be entered in the child table,Centro de custo principal {0} não pode ser inserido na tabela filha
 Maintain Asset,Manter ativo
 Maintain Same Rate Throughout Sales Cycle,Mantenha a mesma taxa ao longo do ciclo de vendas
 Maintain Same Rate Throughout the Purchase Cycle,Mantenha a mesma taxa durante todo o ciclo de compra
@@ -4938,7 +4938,7 @@ Petrol,Gasolina
 Pharmaceutical,Farmacêutico
 Phone,Telefone
 Phone Ext.,Telefone ext.
-Phone No,Telefone não
+Phone No,Nº Telefone
 Phone Number,Número de telefone
 Pick List,Lista de Separação
 Pick List Incomplete,Lista de Separação Incompleta
@@ -5022,7 +5022,7 @@ Please click on 'Generate Schedule' to get schedule,Clique em 'Gereate Schedure'
 Please contact any of the following users to extend the credit limits for {0}: {1},Entre em contato com qualquer um dos seguintes usuários para estender os limites de crédito para {0}: {1}
 Please contact any of the following users to {} this transaction.,Entre em contato com qualquer um dos seguintes usuários para {} esta transação.
 Please contact your administrator to extend the credit limits for {0}.,Entre em contato com seu administrador para estender os limites de crédito para {0}.
-Please convert the parent account in corresponding child company to a group account.,"Por favor, converta a conta pai na empresa infantil correspondente em uma conta de grupo."
+Please convert the parent account in corresponding child company to a group account.,"Por favor, converta a conta-mãe na empresa-filha correspondente numa conta de grupo."
 Please create Customer from Lead {0}.,Crie o cliente do lead {0}.
 Please create Landed Cost Vouchers against Invoices that have 'Update Stock' enabled.,Crie comprovantes de custo de importação para faturas que tenham a opção 'Atualizar stock' ativada.
 Please create a new Accounting Dimension if required.,"Crie uma nova dimensão contábil, se necessário."
@@ -6215,7 +6215,7 @@ Row #{0}: Stock is reserved for item {1} in warehouse {2}.,Linha #{0}: O stock �
 Row #{0}: Stock not available to reserve for Item {1} against Batch {2} in Warehouse {3}.,Linha #{0}: stock não disponível para reserva para o item {1} contra o lote {2} no armazém {3}.
 Row #{0}: Stock not available to reserve for the Item {1} in Warehouse {2}.,Linha #{0}: stock não disponível para reserva para o item {1} no armazém {2}.
 Row #{0}: The batch {1} has already expired.,Linha #{0}: o lote {1} já expirou.
-Row #{0}: The warehouse {1} is not a child warehouse of a group warehouse {2},Linha #{0}: O armazém {1} não é um armazém infantil de um armazém de grupos {2}
+Row #{0}: The warehouse {1} is not a child warehouse of a group warehouse {2},Linha #{0}: O armazém {1} não é um armazém filho de um armazém de grupo {2}
 Row #{0}: Timings conflicts with row {1},Linha #{0}: Times conflitos com a linha {1}
 Row #{0}: Total Number of Depreciations cannot be less than or equal to Opening Number of Booked Depreciations,Linha #{0}: O número total de depreciações não pode ser menor ou igual ao número de abertura de depreciações reservadas
 Row #{0}: You cannot use the inventory dimension '{1}' in Stock Reconciliation to modify the quantity or valuation rate. Stock reconciliation with inventory dimensions is intended solely for performing opening entries.,Linha #{0}: você não pode usar a dimensão do inventário '{1}' na reconciliação de stock para modificar a quantidade ou taxa de avaliação. A reconciliação de stock com dimensões de inventário destina -se apenas a realizar entradas de abertura.
@@ -7648,7 +7648,7 @@ To add Operations tick the 'With Operations' checkbox.,"Para adicionar operaçõ
 To add subcontracted Item's raw materials if include exploded items is disabled.,"Para adicionar matérias -primas do item subcontratado, se incluir itens explodidos estiver desativada."
 "To allow over billing, update ""Over Billing Allowance"" in Accounts Settings or the Item.","Para permitir o excesso de cobrança, atualize ""subsídio por cobrança"" nas configurações de contas ou no item."
 "To allow over receipt / delivery, update ""Over Receipt/Delivery Allowance"" in Stock Settings or the Item.","Para permitir o excesso de recebimento / entrega, atualize ""Over Over Recibt / Delivery Subsídio"" nas configurações de stock ou no item."
-To apply condition on parent field use parent.field_name and to apply condition on child table use doc.field_name. Here field_name could be based on the actual column name of the respective field.,"Para aplicar a condição no campo pai, use parent.field_name e aplicar condição na tabela infantil use doc.field_name. Aqui Field_Name pode ser baseado no nome real da coluna do respectivo campo."
+To apply condition on parent field use parent.field_name and to apply condition on child table use doc.field_name. Here field_name could be based on the actual column name of the respective field.,"Para aplicar uma condição no campo pai, use parent.field_name e, para aplicar uma condição na tabela filha, use doc.field_name. Aqui, field_name pode basear-se no nome real da coluna do respetivo campo."
 To be Delivered to Customer,Para ser entregue ao cliente
 To cancel a {} you need to cancel the POS Closing Entry {}.,"Para cancelar um {}, você precisa cancelar a entrada de fechamento POS {}."
 To cancel this Sales Invoice you need to cancel the POS Closing Entry {}.,"Para cancelar esta fatura de vendas, você precisa cancelar a entrada de fechamento do POS {}."
@@ -7683,7 +7683,7 @@ Total Allocated Amount (Company Currency),Valor alocado total (moeda da empresa)
 Total Allocations,Alocações totais
 Total Amount,Montante total
 Total Amount Currency,Quantidade total de moeda
-Total Amount in Words,Quantidade total em palavras
+Total Amount in Words,Quantidade total por extenso
 Total Applicable Charges in Purchase Receipt Items table must be same as Total Taxes and Charges,Tabela total de cobranças aplicáveis na tabela de itens de recibo de compra deve ser o mesmo que os impostos e cobranças totais
 Total Asset,Ativo total
 Total Asset Cost,Custo total do ativo
@@ -8235,8 +8235,8 @@ WhatsApp,Whatsapp
 Wheels,Rodas
 "When a parent warehouse is chosen, the system conducts Project Qty checks against the associated child warehouses","Quando um armazém dos pais é escolhido, o sistema realiza verificações de Qty do projeto contra os armazéns infantis associados"
 "When creating an Item, entering a value for this field will automatically create an Item Price at the backend.","Ao criar um item, inserir um valor para este campo criará automaticamente um preço de item no back -end."
-"While creating account for Child Company {0}, parent account {1} found as a ledger account.","Ao criar uma conta para a empresa infantil {0}, a conta pai {1} encontrada como uma conta contábil."
-"While creating account for Child Company {0}, parent account {1} not found. Please create the parent account in corresponding COA","Ao criar uma conta para a empresa infantil {0}, a conta pai {1} não encontrada. Crie a conta pai no COA correspondente"
+"While creating account for Child Company {0}, parent account {1} found as a ledger account.","Ao criar uma conta para a empresa filha {0}, a conta pai {1} encontrada como uma conta contábil."
+"While creating account for Child Company {0}, parent account {1} not found. Please create the parent account in corresponding COA","Ao criar uma conta para a empresa filha {0}, a conta pai {1} não encontrada. Crie a conta pai no COA correspondente"
 "While making Purchase Invoice from Purchase Order, use Exchange Rate on Invoice's transaction date rather than inheriting it from Purchase Order. Only applies for Purchase Invoice.","Ao fazer a fatura de compra do pedido de compra, use a taxa de câmbio na data da transação da fatura, em vez de herdá -la do pedido de compra. Aplica -se apenas para fatura de compra."
 White,Branco
 Widowed,Viúva
@@ -8568,14 +8568,14 @@ you must select Capital Work in Progress Account in accounts table,você deve se
 {},{}
 {} can't be cancelled since the Loyalty Points earned has been redeemed. First cancel the {} No {},"{} não pode ser cancelado, pois os pontos de fidelidade ganhos foram resgatados. Primeiro cancele o {} no {}"
 {} has submitted assets linked to it. You need to cancel the assets to create purchase return.,{} enviou ativos vinculados a ele. Você precisa cancelar os ativos para criar retorno de compra.
-{} is a child company.,{} é uma empresa infantil.
+{} is a child company.,{} é uma empresa-filha.
 {} {} is already linked with another {},{} {} já está vinculado a outro {}
 {} {} is already linked with {} {},{} {} já está vinculado a {} {}
 {} {} is not affecting bank account {},{} {} não está afetando a conta bancária {}
  Address,Endereço
  Amount,Quantia
  BOM,BOM
- Is Child Table,É uma tabela secundária
+ Is Child Table,É uma tabela filha
  Is Subcontracted,É subcontratado
  Item,Item
  Name,Nome
