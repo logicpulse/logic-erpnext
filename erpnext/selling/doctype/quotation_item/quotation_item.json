@@ -216,13 +216,12 @@
   {
    "fieldname": "price_list_rate",
    "fieldtype": "Currency",
-   "label": "Price List Rate",
+   "label": "Unit\u00e1rio",
    "oldfieldname": "ref_rate",
    "oldfieldtype": "Currency",
    "options": "currency",
    "print_hide": 1,
    "print_width": "100px",
-   "read_only": 1,
    "width": "100px"
   },
   {
@@ -273,7 +272,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "depends_on": "price_list_rate",
    "fieldname": "discount_percentage",
    "fieldtype": "Percent",
    "label": "Discount (%) on Price List Rate with Margin",
@@ -698,12 +696,14 @@
  "idx": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-12-12 13:49:17.765883",
+ "modified": "2026-02-18 12:50:08.336033",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Quotation Item",
  "owner": "Administrator",
  "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
  "sort_field": "creation",
  "sort_order": "DESC",
  "states": [],

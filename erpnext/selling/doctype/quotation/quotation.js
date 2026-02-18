@@ -56,6 +56,7 @@ frappe.ui.form.on("Quotation", {
 		// 		"_blank"
 		// 	);
 		// };
+		// console.log('quotacao chamada cotacao');
 
 		if (frm.doc.docstatus === 0) {
 			erpnext.set_unit_price_items_note(frm);
@@ -70,6 +71,16 @@ frappe.ui.form.on("Quotation", {
 					voucher_type: frm.doc.doctype,
 				};
 			};
+		}
+	},
+
+	before_save: function (frm) {
+		if (frm.doc.valid_till && frm.doc.valid_till < frm.doc.transaction_date) {
+			frappe.throw("A data de validade não pode ser anterior à data atual.");
+		}
+		if (!frm.doc.valid_till) {
+			const default_validity_period = frappe.datetime.add_days(frm.doc.transaction_date, 10);
+			frm.set_value("valid_till", default_validity_period);
 		}
 	},
 
