@@ -214,14 +214,17 @@
    "fieldtype": "Section Break"
   },
   {
+   "bold": 1,
    "fieldname": "price_list_rate",
    "fieldtype": "Currency",
-   "label": "Unit\u00e1rio",
+   "in_list_view": 1,
+   "label": "Pre\u00e7o Uni.",
    "oldfieldname": "ref_rate",
    "oldfieldtype": "Currency",
    "options": "currency",
    "print_hide": 1,
    "print_width": "100px",
+   "search_index": 1,
    "width": "100px"
   },
   {
@@ -274,6 +277,7 @@
   {
    "fieldname": "discount_percentage",
    "fieldtype": "Percent",
+   "in_list_view": 1,
    "label": "Discount (%) on Price List Rate with Margin",
    "oldfieldname": "adj_rate",
    "oldfieldtype": "Float",
@@ -306,7 +310,6 @@
    "columns": 2,
    "fieldname": "rate",
    "fieldtype": "Currency",
-   "in_list_view": 1,
    "label": "Rate",
    "oldfieldname": "export_rate",
    "oldfieldtype": "Currency",
@@ -696,7 +699,7 @@
  "idx": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-02-18 12:50:08.336033",
+ "modified": "2026-02-20 20:11:24.427457",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Quotation Item",

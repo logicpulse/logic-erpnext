@@ -107,7 +107,7 @@ erpnext.selling.QuotationController = class QuotationController extends erpnext.
 	party_name() {
 		var me = this;
 		erpnext.utils.get_party_details(this.frm, null, null, function () {
-			me.apply_price_list();
+			me.apply_price_list(); 
 		});
 
 		if (me.frm.doc.quotation_to == "Lead" && me.frm.doc.party_name) {

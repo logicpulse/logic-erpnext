@@ -551,9 +551,9 @@ def draw_table(pdf: FPDF, ref: str, produts: list[ProdutModel], show_pvr: bool, 
         pdf.set_y(temp_y + line_height)
 
 def clean_image_formula(formula: str) -> str: 
-    resultado = formula.replace('=image("', '')
-    resultado = resultado.replace('"; 1)', '')
-    resultado = resultado.replace('\n', '')
-    resultado = resultado.strip()
+    result = formula.replace('=image("', '')
+    result = result.replace('"; 1)', '')
+    result = result.replace('\n', '')
+    result = result.strip()
     
-    return resultado
+    return result
