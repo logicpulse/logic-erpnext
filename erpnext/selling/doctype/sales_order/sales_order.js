@@ -1482,7 +1482,8 @@ function map_item(row, article) {
 		quantity: row.qty,
 		vatRateId: article.vatRateId,
 		vatExemptionId: article.vatExemptionId,
-		unitPrice: Number(row.rate.toFixed(2)),
+		// unitPrice: Number(row.rate.toFixed(2)),
+		unitPrice: Number(row.price_list_rate.toFixed(2)),
 		discount: row.discount_percentage,
 		priceType: null
 		// serialNumber: row.serialNumber
