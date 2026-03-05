@@ -320,7 +320,8 @@ class PricingRule(Document):
 
 
 @frappe.whitelist()
-def apply_pricing_rule(args, doc=None):
+def apply_pricing_rule(args, doc=None): 
+	# print(f"Applying Pricing Rule with 📲: {args} in 📄 {doc}")
 	"""
 	args = {
 	        "items": [{"doctype": "", "name": "", "item_code": "", "brand": "", "item_group": ""}, ...],

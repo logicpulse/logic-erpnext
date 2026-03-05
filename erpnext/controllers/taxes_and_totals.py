@@ -169,53 +169,72 @@ class calculate_taxes_and_totals:
 		self.doc.conversion_rate = flt(self.doc.conversion_rate)
 
 	def calculate_item_values(self):
+		print("✨ Calculating item values... ")
 		if self.doc.get("is_consolidated"):
 			return
 
 		if not self.discount_amount_applied:
 			for item in self.doc.items:
+				
+				if item.doctype in [
+					"Quotation Item",
+					"Sales Order Item", 
+				]:
+					company = self.doc.get("company")
+					if "AO" in company:
+						pvp_ao = frappe.db.get_value("Item", item.item_code, "pvp_ao")
+						item.price_list_rate = pvp_ao  
+						item.rate = pvp_ao  
+					elif "MZ" in company:
+						pvp_mz = frappe.db.get_value("Item", item.item_code, "pvp_mz")
+						item.price_list_rate = pvp_mz 
+						item.rate = pvp_mz 
+						
+					item.ignore_pricing_rule = 1
+					# print(f"Getting item details for {item.item_code} in company {company}")
+				
 				self.doc.round_floats_in(item)
 
 				if item.discount_percentage == 100:
 					item.rate = 0.0
-				elif item.price_list_rate:
-					if not item.rate or (item.pricing_rules and item.discount_percentage > 0):
-						item.rate = flt(
-							item.price_list_rate * (1.0 - (item.discount_percentage / 100.0)),
-							item.precision("rate"),
-						)
+				# elif item.price_list_rate:
+				# 	if not item.rate or (item.pricing_rules and item.discount_percentage > 0):
+				# 		item.rate = flt(
+				# 			item.price_list_rate * (1.0 - (item.discount_percentage / 100.0)),
+				# 			item.precision("rate"),
+				# 		)
 
-						item.discount_amount = item.price_list_rate * (item.discount_percentage / 100.0)
+				# 		item.discount_amount = item.price_list_rate * (item.discount_percentage / 100.0)
 
-					elif item.discount_amount and item.pricing_rules:
-						item.rate = item.price_list_rate - item.discount_amount
+				# 	elif item.discount_amount and item.pricing_rules:
+				# 		item.rate = item.price_list_rate - item.discount_amount
 
-				if item.doctype in [
-					"Quotation Item",
-					"Sales Order Item",
-					"Delivery Note Item",
-					"Sales Invoice Item",
-					"POS Invoice Item",
-					"Purchase Invoice Item",
-					"Purchase Order Item",
-					"Purchase Receipt Item",
-				]:
-					item.rate_with_margin, item.base_rate_with_margin = self.calculate_margin(item)
-					if flt(item.rate_with_margin) > 0:
-						item.rate = flt(
-							item.rate_with_margin * (1.0 - (item.discount_percentage / 100.0)),
-							item.precision("rate"),
-						)
+				# if item.doctype in [
+				# 	"Quotation Item",
+				# 	"Sales Order Item",
+				# 	"Delivery Note Item",
+				# 	"Sales Invoice Item",
+				# 	"POS Invoice Item",
+				# 	"Purchase Invoice Item",
+				# 	"Purchase Order Item",
+				# 	"Purchase Receipt Item",
+				# ]:
+				# 	item.rate_with_margin, item.base_rate_with_margin = self.calculate_margin(item)
+				# 	if flt(item.rate_with_margin) > 0:
+				# 		item.rate = flt(
+				# 			item.rate_with_margin * (1.0 - (item.discount_percentage / 100.0)),
+				# 			item.precision("rate"),
+				# 		)
 
-						if item.discount_amount and not item.discount_percentage:
-							item.rate = item.rate_with_margin - item.discount_amount
-						else:
-							item.discount_amount = item.rate_with_margin - item.rate
+				# 		if item.discount_amount and not item.discount_percentage:
+				# 			item.rate = item.rate_with_margin - item.discount_amount
+				# 		else:
+				# 			item.discount_amount = item.rate_with_margin - item.rate
 
-					elif flt(item.price_list_rate) > 0:
-						item.discount_amount = item.price_list_rate - item.rate
-				elif flt(item.price_list_rate) > 0 and not item.discount_amount:
-					item.discount_amount = item.price_list_rate - item.rate
+				# 	elif flt(item.price_list_rate) > 0:
+				# 		item.discount_amount = item.price_list_rate - item.rate
+				# elif flt(item.price_list_rate) > 0 and not item.discount_amount:
+				# 	item.discount_amount = item.price_list_rate - item.rate
 
 				item.net_rate = item.rate
 

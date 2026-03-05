@@ -3,9 +3,13 @@
     <p>Prezado(a) <strong>{{ doc.client }}</strong>,</p>
 
     <p>
+        Esperamos que esteja bem.
+    </p>
+
+    <p>
         Informamos que o contrato de manutenção 
         <strong>{{ doc.contract_name }}</strong> 
-        encontra-se ativo conforme os detalhes abaixo:
+        encontra-se <strong>prest es a expirar</strong>.
     </p>
 
     <table style="border-collapse: collapse; margin-top: 15px;">
@@ -15,12 +19,8 @@
         </tr>
         <tr>
             <td style="padding: 6px 0;"><strong>Data de Término:</strong></td>
-            <td style="padding: 6px 15px;">{{ frappe.format_date(doc.end_date) }}</td>
-        </tr>
-        <tr>
-            <td style="padding: 6px 0;"><strong>Período Contratual:</strong></td>
-            <td style="padding: 6px 15px;">
-                {{ doc.number_of_months }} mês(es)
+            <td style="padding: 6px 15px; color: #c0392b; font-weight: 600;">
+                {{ frappe.format_date(doc.end_date) }}
             </td>
         </tr>
         <tr>
@@ -32,17 +32,21 @@
     </table>
 
     <p style="margin-top: 20px;">
-        Permanecemos à disposição para quaisquer esclarecimentos adicionais.
+        Para garantir a continuidade dos serviços e evitar qualquer interrupção,
+        recomendamos que a renovação seja efetuada antes da data de término.
+    </p>
+
+    <p>
+        Caso já tenha iniciado o processo de renovação, pedimos que desconsidere esta mensagem.
+    </p>
+
+    <p style="margin-top: 25px;">
+        Permanecemos à disposição para qualquer esclarecimento adicional.
     </p>
 
     <p style="margin-top: 25px;">
         Atenciosamente,<br>
         <strong>{{ doc.company }}</strong>
     </p>
-    
-    <img src="{{ frappe.db.get_value('Company', doc.company, 'company_logo') or 'https://www.logicpulse.com/images/thumbs/0002017.png' }}"
-                                     alt="company-logo"
-                                     height="80px"
-                                     width="auto" />
 
 </div>

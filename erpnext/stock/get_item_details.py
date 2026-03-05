@@ -1415,6 +1415,13 @@ def apply_price_list(ctx: ItemDetailsCtx, as_doc=False, doc=None):
 	                "ignore_pricing_rule": 0/1
 	        }
 	"""
+	# if ctx.doctype in ["Quotation", "Sales Order"]:
+	# 	ctx.ignore_pricing_rule = 1
+	# 	return ctx
+ 
+	# print(f"apply_price_list for 📲 ctx: {ctx} in 📄 {doc}")
+	# ctx.ignore_pricing_rule = 1
+
 	_preprocess_ctx(ctx)
 	parent = get_price_list_currency_and_exchange_rate(ctx)
 	ctx.update(parent)
@@ -1427,8 +1434,13 @@ def apply_price_list(ctx: ItemDetailsCtx, as_doc=False, doc=None):
 
 		for item in item_list:
 			ctx_copy = ItemDetailsCtx(ctx.copy())
+			# print(f"apply_price_list_on_item for ⚠️ item before update: {item}")
 			ctx_copy.update(item)
+			# print(f"apply_price_list_on_item for ⚠️ item after update: {item}")
+			# print(f"apply_price_list_on_item for ⚠️ ctx_copy: {ctx_copy}") 
 			item_details = apply_price_list_on_item(ctx_copy, doc=doc)
+			item_details.price_list_rate = ctx_copy.price_list_rate
+			# print(f"apply_price_list_on_item for ⚠️ item_details: {item_details}") 
 			children.append(item_details)
 
 	if as_doc:
@@ -1440,9 +1452,10 @@ def apply_price_list(ctx: ItemDetailsCtx, as_doc=False, doc=None):
 					# if the field exists in the original doc
 					# update the value
 					if fieldname in item and fieldname not in ("name", "doctype"):
-						item[fieldname] = children[i][fieldname]
+						item[fieldname] = children[i][fieldname] 
 		return ctx
 	else:
+		print(f"apply_price_list returning ⚠️ parent: {parent}, children: {children}")
 		return {"parent": parent, "children": children}
 
 

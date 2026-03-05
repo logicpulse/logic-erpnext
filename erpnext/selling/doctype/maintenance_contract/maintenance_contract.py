@@ -10,9 +10,8 @@ class MaintenanceContract(Document):
 	# This code is auto-generated. Do not modify anything in this block.
 
 	from typing import TYPE_CHECKING
-	
  
-	def before_insert(doc, method):
+	def before_insert(doc):
 		if doc.start_date and doc.end_date:
 			days = date_diff(doc.end_date, doc.start_date)
 			doc.number_of_months = round(days / 30)
