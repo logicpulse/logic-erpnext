@@ -208,6 +208,10 @@ frappe.ui.form.on("Customer", {
 		var grid = cur_frm.get_field("sales_team").grid;
 		grid.set_column_disp("allocated_amount", false);
 		grid.set_column_disp("incentives", false);
+
+
+		frm.add_custom_button(__('Proposta'), () => show_proposal_dialog(frm.doc));
+		// frm.page.set_inner_btn_group_as_primary(__('Proposta'));
 	},
 	validate: function (frm) {
 		if (frm.doc.lead_name) frappe.model.clear_doc("Lead", frm.doc.lead_name);
@@ -264,3 +268,61 @@ frappe.ui.form.on("Customer", {
 		dialog.show();
 	},
 });
+
+function show_proposal_dialog(doc) {
+	console.log(doc);
+	let d = new frappe.ui.Dialog({
+		title: 'Preencha os detalhes da proposta',
+		fields: [
+			{
+				label: 'Client',
+				fieldname: 'client',
+				fieldtype: 'Data',
+				read_only: 1,
+				default: doc.name
+
+			},
+			{
+				label: 'Artigo',
+				fieldname: 'article',
+				fieldtype: 'Select',
+				options: "q.track\ntime.track\naccess.track\nfactory.track\nlibrary.track\nfleet.track\nlogicPOS\nothers"
+			},
+			{
+				label: 'Moeda',
+				fieldname: 'currency',
+				fieldtype: 'Select',
+				options: "AOA\nEUR\nMZN"
+			}
+		],
+		size: 'small', // small, large, extra-large 
+		primary_action_label: 'Gerar',
+		primary_action(values) {
+			console.log(values);
+
+			frappe.call({
+				freeze: true,
+				freeze_message: "A gerar a proposta...",
+				method: "logicposintegration.logicpos_integration.proposals.generate.generate_proposal",
+				args: {
+					article: values.article, 
+					client: values.client, 
+					currency: values.currency, 
+				},
+				callback: function (res) {
+					if (res.message) {
+						console.log('message:', res.message);
+						window.open(res.message, '_blank');
+						frappe.msgprint(__('Ficheiro gerado com sucesso!'));
+					} else {
+						frappe.msgprint(__('No catalogs found or an error occurred.'));
+					}
+				}
+			});
+
+			d.hide();
+		}
+	});
+
+	d.show();
+}
