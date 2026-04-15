@@ -21,12 +21,21 @@ erpnext.TransactionController = class TransactionController extends erpnext.taxe
 				if(item.rate > item.price_list_rate && has_margin_field) {
 					// if rate is greater than price_list_rate, set margin
 					// or set discount
+					delete item._manual_rate_fixed_discount_pct;
 					item.discount_percentage = 0;
 					item.margin_type = 'Amount';
 					item.margin_rate_or_amount = flt(item.rate - item.price_list_rate,
 						precision("margin_rate_or_amount", item));
 					item.rate_with_margin = item.rate;
+				} else if (flt(item.discount_percentage) > 0) {
+					// Manual net rate while keeping the existing discount % (do not derive % from rate / list)
+					item._manual_rate_fixed_discount_pct = true;
+					item.discount_amount = flt(item.price_list_rate) - flt(item.rate);
+					item.margin_type = '';
+					item.margin_rate_or_amount = 0;
+					item.rate_with_margin = 0;
 				} else {
+					delete item._manual_rate_fixed_discount_pct;
 					item.discount_percentage = flt((1 - item.rate / item.price_list_rate) * 100.0,
 						precision("discount_percentage", item));
 					item.discount_amount = flt(item.price_list_rate) - flt(item.rate);
@@ -35,6 +44,7 @@ erpnext.TransactionController = class TransactionController extends erpnext.taxe
 					item.rate_with_margin = 0;
 				}
 			} else {
+				delete item._manual_rate_fixed_discount_pct;
 				item.discount_percentage = 0.0;
 				item.margin_type = '';
 				item.margin_rate_or_amount = 0;
@@ -625,6 +635,8 @@ erpnext.TransactionController = class TransactionController extends erpnext.taxe
 							is_old_subcontracting_flow: me.frm.doc.is_old_subcontracting_flow,
 							use_serial_batch_fields: item.use_serial_batch_fields,
 							serial_and_batch_bundle: item.serial_and_batch_bundle,
+							apply_company_item_rate: ["Quotation", "Sales Order"].includes(me.frm.doc.doctype)
+								? 1 : 0,
 						}
 					},
 
@@ -729,6 +741,7 @@ erpnext.TransactionController = class TransactionController extends erpnext.taxe
 
 	price_list_rate(doc, cdt, cdn) {
 		var item = frappe.get_doc(cdt, cdn);
+		delete item._manual_rate_fixed_discount_pct;
 		frappe.model.round_floats_in(item, ["price_list_rate", "discount_percentage"]);
 
 		// check if child doctype is Sales Order Item/Quotation Item and calculate the rate
@@ -744,6 +757,7 @@ erpnext.TransactionController = class TransactionController extends erpnext.taxe
 	margin_rate_or_amount(doc, cdt, cdn) {
 		// calculated the revised total margin and rate on margin rate changes
 		let item = frappe.get_doc(cdt, cdn);
+		delete item._manual_rate_fixed_discount_pct;
 		this.apply_pricing_rule_on_item(item);
 		this.calculate_taxes_and_totals();
 		cur_frm.refresh_fields();
@@ -752,6 +766,7 @@ erpnext.TransactionController = class TransactionController extends erpnext.taxe
 	margin_type(doc, cdt, cdn) {
 		// calculate the revised total margin and rate on margin type changes
 		let item = frappe.get_doc(cdt, cdn);
+		delete item._manual_rate_fixed_discount_pct;
 		if (!item.margin_type) {
 			frappe.model.set_value(cdt, cdn, "margin_rate_or_amount", 0);
 		} else {

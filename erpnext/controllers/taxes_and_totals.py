@@ -169,7 +169,7 @@ class calculate_taxes_and_totals:
 		self.doc.conversion_rate = flt(self.doc.conversion_rate)
 
 	def calculate_item_values(self):
-		print("✨ Calculating item values... ")
+		# print("✨ Calculating item values... ")
 		if self.doc.get("is_consolidated"):
 			return
 
@@ -178,18 +178,20 @@ class calculate_taxes_and_totals:
 				
 				if item.doctype in [
 					"Quotation Item",
-					"Sales Order Item", 
+					"Sales Order Item",
 				]:
 					company = self.doc.get("company")
-					if "AO" in company:
-						pvp_ao = frappe.db.get_value("Item", item.item_code, "pvp_ao")
-						item.price_list_rate = pvp_ao  
-						item.rate = pvp_ao  
-					elif "MZ" in company:
-						pvp_mz = frappe.db.get_value("Item", item.item_code, "pvp_mz")
-						item.price_list_rate = pvp_mz 
-						item.rate = pvp_mz 
-						
+					pvp = None
+					if company and "AO" in company:
+						pvp = frappe.db.get_value("Item", item.item_code, "pvp_ao")
+					elif company and "MZ" in company:
+						pvp = frappe.db.get_value("Item", item.item_code, "pvp_mz")
+					if pvp is not None:
+						# Só preenche linhas vazias a partir do artigo; não sobrescrever preços já definidos ao gravar
+						if not flt(item.price_list_rate):
+							item.price_list_rate = pvp
+						if not flt(item.rate):
+							item.rate = pvp
 					item.ignore_pricing_rule = 1
 					# print(f"Getting item details for {item.item_code} in company {company}")
 				

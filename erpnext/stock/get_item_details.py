@@ -116,6 +116,7 @@ def get_item_details(
 		ctx.customer = None
 
 	out.update(get_price_list_rate(ctx, item))
+	apply_logicpulse_company_item_rate(ctx, item, out, for_validate=for_validate)
 
 	ctx.customer = current_customer
 
@@ -939,6 +940,38 @@ def get_default_supplier(_ctx: ItemDetailsCtx, item, item_group, brand):
 	return item.get("default_supplier") or item_group.get("default_supplier") or brand.get("default_supplier")
 
 
+def get_logicpulse_company_item_rate(company: str | None, item_doc) -> float | None:
+	"""Preço por defeito: MZ → pvp_mz, AO → pvp_ao; caso contrário (incl. LP) → standard_rate."""
+	cu = cstr(company or "").upper()
+	if "MZ" in cu:
+		val = flt(item_doc.get("pvp_mz"))
+	elif "AO" in cu:
+		val = flt(item_doc.get("pvp_ao"))
+	else:
+		val = flt(item_doc.get("standard_rate"))
+	return val if val else None
+
+
+def apply_logicpulse_company_item_rate(
+	ctx: ItemDetailsCtx, item_doc, out: ItemDetails, for_validate: bool = False
+):
+	"""Usa PVP do Item na seleção (não em validate). ctx.apply_company_item_rate omite-se no API → default 1."""
+	if for_validate:
+		return
+	if not cint(ctx.get("apply_company_item_rate", 1)):
+		return
+	if ctx.doctype not in ("Quotation", "Sales Order"):
+		return
+	if ctx.get("transaction_type") != "selling":
+		return
+	raw = get_logicpulse_company_item_rate(ctx.company, item_doc)
+	if raw is None:
+		return
+	# Mesma conversão que get_price_list_rate (lista → moeda do documento)
+	out.price_list_rate = flt(raw) * flt(ctx.plc_conversion_rate) / flt(ctx.conversion_rate or 1)
+	out.rate = out.price_list_rate
+
+
 def get_price_list_rate(ctx: ItemDetailsCtx, item_doc, out: ItemDetails = None):
 	if out is None:
 		out = ItemDetails()
@@ -967,7 +1000,7 @@ def get_price_list_rate(ctx: ItemDetailsCtx, item_doc, out: ItemDetails = None):
 		):
 			insert_item_price(ctx)
 
-		if price_list_rate is None:
+		if price_list_rate is None: 
 			return out
 
 		out.price_list_rate = flt(price_list_rate) * flt(ctx.plc_conversion_rate) / flt(ctx.conversion_rate)
@@ -1455,7 +1488,7 @@ def apply_price_list(ctx: ItemDetailsCtx, as_doc=False, doc=None):
 						item[fieldname] = children[i][fieldname] 
 		return ctx
 	else:
-		print(f"apply_price_list returning ⚠️ parent: {parent}, children: {children}")
+		# print(f"apply_price_list returning ⚠️ parent: {parent}, children: {children}")
 		return {"parent": parent, "children": children}
 
 
