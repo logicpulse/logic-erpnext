@@ -617,7 +617,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Vendas",
-   "link_count": 7,
+   "link_count": 8,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -698,9 +698,19 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Proposta Comercial",
+   "link_count": 0,
+   "link_to": "proposta",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2026-03-02 16:40:19.247897",
+ "modified": "2026-04-15 16:47:37.314179",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Selling",
