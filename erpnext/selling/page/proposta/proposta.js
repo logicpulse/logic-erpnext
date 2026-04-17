@@ -39,10 +39,10 @@ class PropostaForm {
 					<table class="table table-bordered table-condensed proposta-items-table">
 						<thead>
 							<tr>
-								<th style="min-width: 200px">${__("Artigo (Item)")}</th>
+								<th style="min-width: 150px">${__("Artigo (Item)")}</th>
 								<th style="width: 100px">${__("Quantidade")}</th>
-								<th style="width: 120px">${__("Preço unitário")}</th>
-								<th style="width: 120px">${__("Total")}</th>
+								<th style="width: 145px">${__("Preço unitário")}</th>
+								<th style="width: 145px">${__("Total")}</th>
 								<th style="width: 48px"></th>
 							</tr>
 						</thead>
