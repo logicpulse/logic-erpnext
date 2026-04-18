@@ -80,7 +80,7 @@ class PropostaForm {
 			df: {
 				label: __("Artigo"),
 				fieldtype: "Select",
-				options: ["q.track", "time.track", "access.track", "fatory.track", "library.track", "fleet.track", "logicPOS", "others"].join("\n"),
+				options: ["q.track", "q.track.survey","time.track", "access.track", "fatory.track", "library.track", "fleet.track", "logicPOS", "others"].join("\n"),
 				reqd: 1,
 			},
 			parent: this.$container.find(".artigo-field"),
