@@ -502,8 +502,11 @@ def get_loyalty_programs(doc):
 		filters={
 			"auto_opt_in": 1,
 			"from_date": ["<=", today()],
-			"ifnull(to_date, '2500-01-01')": [">=", today()],
 		},
+		or_filters=[
+			["to_date", "is", "not set"],
+			["to_date", ">=", today()],
+		],
 	)
 
 	for loyalty_program in loyalty_programs:
