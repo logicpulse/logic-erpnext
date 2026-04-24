@@ -15,31 +15,23 @@ erpnext.TransactionController = class TransactionController extends erpnext.taxe
 			var item = frappe.get_doc(cdt, cdn);
 			var has_margin_field = frappe.meta.has_field(cdt, "margin_type");
 
+			// Skip recalculation when rate is being set programmatically by apply_pricing_rule_on_item
+			if (item._updating_rate) return;
+
 			frappe.model.round_floats_in(item, ["rate", "price_list_rate"]);
 
 			if (item.price_list_rate && !item.blanket_order_rate) {
-				if (item.rate > item.price_list_rate && has_margin_field) {
-					// if rate is greater than price_list_rate, set margin
-					// or set discount
-					item.discount_percentage = 0;
-					item.margin_type = "Amount";
-					item.margin_rate_or_amount = flt(
-						item.rate - item.price_list_rate,
-						precision("margin_rate_or_amount", item)
-					);
-					item.rate_with_margin = item.rate;
-				} else {
-					item.discount_percentage = flt(
-						(1 - item.rate / item.price_list_rate) * 100.0,
-						precision("discount_percentage", item)
-					);
-					item.discount_amount = flt(item.price_list_rate) - flt(item.rate);
-					item.margin_type = "";
-					item.margin_rate_or_amount = 0;
-					item.rate_with_margin = 0;
-				}
+				// R3: user changed rate — always keep discount_percentage, only update discount_amount
+				item.discount_amount = flt(
+					flt(item.price_list_rate) - flt(item.rate),
+					precision("discount_amount", item)
+				);
+				item.margin_type = "";
+				item.margin_rate_or_amount = 0;
+				item.rate_with_margin = 0;
 			} else {
 				item.discount_percentage = 0.0;
+				item.discount_amount = 0.0;
 				item.margin_type = "";
 				item.margin_rate_or_amount = 0;
 				item.rate_with_margin = 0;
@@ -1173,7 +1165,7 @@ erpnext.TransactionController = class TransactionController extends erpnext.taxe
 		var set_pricing = function () {
 			if (me.frm.doc.company && me.frm.fields_dict.currency) {
 				frappe.run_serially([
-					() => get_party_currency(),
+					() => get_company_and_set_currency(),
 					() => me.update_item_tax_map(),
 					() => me.apply_default_taxes(),
 					() => me.apply_pricing_rule(),
@@ -1183,40 +1175,32 @@ erpnext.TransactionController = class TransactionController extends erpnext.taxe
 			}
 		};
 
-		var get_party_currency = function () {
+		// Fetch company's default_currency from server and set document currency
+		var get_company_and_set_currency = function () {
 			if (me.is_a_mapped_document() || me.frm.doc.__onload?.load_after_mapping) {
 				return;
 			}
+			return frappe.db
+				.get_value("Company", me.frm.doc.company, "default_currency")
+				.then(function (r) {
+					var company_currency =
+						r.message?.default_currency || frappe.boot.sysdefaults.currency;
 
-			var party_type, party_name;
-			if (me.frm.doc.doctype == "Quotation" && me.frm.doc.quotation_to == "Customer") {
-				(party_type = "Customer"), (party_name = me.frm.doc.party_name);
-			} else {
-				party_type = frappe.meta.has_field(me.frm.doc.doctype, "supplier") ? "Supplier" : "Customer";
-				party_name = me.frm.doc[party_type.toLowerCase()];
-			}
-			if (party_name) {
-				frappe.call({
-					method: "frappe.client.get_value",
-					args: {
-						doctype: party_type,
-						filters: { name: party_name },
-						fieldname: "default_currency",
-					},
-					callback: function (r) {
-						if (r.message) {
-							set_currency(r.message.default_currency);
-						}
-					},
+					// Update local cache so get_company_currency() works correctly
+					var company_doc = frappe.get_doc(":Company", me.frm.doc.company);
+					if (company_doc) {
+						company_doc.default_currency = company_currency;
+					}
+
+					set_currency(company_currency);
 				});
-			} else {
-				set_currency();
-			}
 		};
 
-		var set_currency = function (party_default_currency) {
-			var company_currency = me.get_company_currency();
-			var currency = party_default_currency || company_currency;
+		var set_currency = function (company_currency) {
+			if (!company_currency) {
+				company_currency = me.get_company_currency();
+			}
+			var currency = company_currency;
 			if (me.frm.doc.currency != currency) {
 				me.frm.set_value("currency", currency);
 			}
@@ -1730,20 +1714,10 @@ erpnext.TransactionController = class TransactionController extends erpnext.taxe
 	}
 
 	qty(doc, cdt, cdn) {
-		let item = frappe.get_doc(cdt, cdn);
-		if (!this.is_a_mapped_document(item)) {
-			// item.pricing_rules = ''
-			frappe.run_serially([
-				() => this.remove_pricing_rule_for_item(item),
-				() => this.conversion_factor(doc, cdt, cdn, true),
-				() => this.apply_price_list(item, true), //reapply price list before applying pricing rule
-				() => this.calculate_stock_uom_rate(doc, cdt, cdn),
-				() => this.apply_pricing_rule(item, true),
-			]);
-		} else {
-			this.conversion_factor(doc, cdt, cdn, true);
-			this.calculate_taxes_and_totals();
-		}
+		// R1: when qty changes, only recalculate amount — preserve rate and discount_percentage
+		this.conversion_factor(doc, cdt, cdn, true);
+		this.calculate_stock_uom_rate(doc, cdt, cdn);
+		this.calculate_taxes_and_totals();
 	}
 
 	stock_qty(doc, cdt, cdn) {

@@ -142,6 +142,26 @@ frappe.ui.form.on("Sales Order", {
 			}
 		}
 
+		if (frm.doc.docstatus === 1) {
+			frm.add_custom_button(__('Exportar'), () => export_to_pos(frm), __('POS'));
+
+			if (frm.doc.pos_id) {
+				frm.add_custom_button(__('Visualizar'), async () => {
+					const params = new URLSearchParams({
+						document_id: frm.doc.pos_id,
+						company: frm.doc.company
+					}).toString();
+
+					window.open(
+						`/api/method/logicposintegration.logicpos_integration.documents.generate_pdf_document?${params}`,
+						"_blank"
+					);
+				}, __('POS'));
+			}
+
+			frm.page.set_inner_btn_group_as_primary(__('POS'));
+		}
+
 		if (frm.doc.docstatus === 0) {
 			erpnext.set_unit_price_items_note(frm);
 
@@ -1849,3 +1869,307 @@ function prevent_past_delivery_dates(frm) {
 		});
 	}
 }
+
+
+// ===============================
+// MAIN FLOW
+// ===============================
+async function export_to_pos(frm) {
+	try {
+		frappe.dom.freeze(
+			__("Exporting Sales Order to POS...")
+		);
+		const context = await load_customer_context(frm);
+
+		const items = await build_items(frm, context.erp_sales_order.company);
+		if (!items.length) return;
+
+		const payload = await build_payload(frm, items, context);
+		// console.log("Payload to be sent to POS:", payload);
+
+		const response = await send_to_pos(frm, payload);
+		if (response.success)
+			handle_success();
+		else
+			handle_error(response.error || __("Erro desconhecido ao enviar para o POS."));
+	} catch (error) {
+		handle_error(error.responseText || error);
+	} finally {
+		frappe.dom.unfreeze();
+	}
+}
+
+// ===============================
+// ITEMS
+// ===============================
+async function build_items(frm, company) {
+	const items = [];
+	console.log("Building items for POS export...");
+	console.log("frm.doc.items: ", frm.doc.items);
+	for (const row of frm.doc.items) {
+		const res = await fetch_article(row.item_code, company);
+
+		if (!res.found) {
+			// Pergunta ao usuário se deseja continuar sem este item ou abortar o envio
+			const proceed = await new Promise((resolve) => {
+				frappe.msgprint({
+					title: __("Artigo não encontrado no POS"),
+					message: __(
+						"O artigo <b>{0}</b> não foi encontrado no POS.<br><br> Deseja continuar sem este item ou abortar o envio?",
+						[row.item_code]
+					),
+					indicator: "orange",
+					primary_action: {
+						label: __("Continuar"),
+						action: () => {
+							frappe.hide_msgprint();
+							resolve(true);
+						},
+					},
+					secondary_action: {
+						label: __("Abortar"),
+						action: () => {
+							frappe.hide_msgprint();
+							resolve(false);
+						},
+					},
+				});
+			});
+
+			if (!proceed) {
+				// Usuário optou por abortar: interrompe o processo
+				throw __("Envio para o POS abortado pelo usuário.");
+			}
+			// se continuar, pula o item e prossegue
+			continue;
+		}
+
+		items.push(map_item(row, res.data));
+	}
+
+	return items;
+}
+
+function map_item(row, article) {
+	console.log($`artigo > ${article}`)
+	return {
+		articleId: article.id,
+		quantity: row.qty,
+		vatRateId: article.vatRateId,
+		vatExemptionId: article.vatExemptionId,
+		// unitPrice: Number(row.rate.toFixed(2)),
+		unitPrice: Number(row.price_list_rate.toFixed(2)),
+		discount: row.discount_percentage,
+		priceType: null
+		// serialNumber: row.serialNumber
+	};
+}
+
+async function fetch_article(code, company) {
+	const { message } = await frappe.call({
+		method: "logicposintegration.logicpos_integration.articles.get_article_by_code",
+		args: { code, company }
+	});
+
+	return message;
+}
+
+// ===============================
+// CUSTOMER CONTEXT
+// ===============================
+async function load_customer_context(frm) {
+	let erp_address = null;
+	const erp_sales_order = await frappe.db.get_doc('Sales Order', frm.doc.name);
+	// console.log("ERP Sales Order:", erp_sales_order);
+	const erp_customer = await frappe.db.get_doc('Customer', frm.doc.customer);
+	// console.log("ERP Customer:", erp_customer);
+	if (erp_customer.customer_primary_address) {
+		erp_address = await frappe.db.get_doc('Address', erp_customer.customer_primary_address);
+		// console.log("ERP Address:", erp_address);
+	}
+
+	const { message } = await frappe.call({
+		method: "logicposintegration.logicpos_integration.customers.get_customer_by_fiscal_number",
+		args: { fiscal_number: erp_customer.fiscal_number || "", company: erp_sales_order.company }
+	});
+
+	const countryDetails = await get_pos_country_id(erp_sales_order.company);
+
+	return {
+		erp_customer,
+		erp_address,
+		pos_customer: message,
+		erp_sales_order,
+		countryDetails
+	};
+}
+
+async function get_pos_country_id(company_name) {
+	const company = await frappe.db.get_doc("Company", company_name);
+
+	if (!company.codigo) {
+		throw __(`Codigo do pais não configurado para a empresa ${company_name}.`);
+	}
+
+	const { message } = await frappe.call({
+		method: "logicposintegration.logicpos_integration.utils.get_pos_country_by_code",
+		args: { code: company.codigo, company: company_name }
+	});
+
+	if (!message.found) {
+		throw __(`País com código ${company.codigo} não encontrado no POS.`);
+	}
+
+	return {
+		id: message.data.id,
+		code: message.data.code2,
+		currencyCode: message.data.currencyCode,
+		designation: message.data.designation
+	}
+}
+
+async function get_shipping_address(address_name) {
+	if (!address_name) {
+		return null;
+	}
+	const address = await frappe.db.get_doc('Address', address_name);
+	// console.log("shipping_and_dispatch_address:", address);
+
+	if (!address) {
+		return null;
+	}
+	const streetName = [address.address_line1, address.address_line2].filter(Boolean).join(" - ") || null;
+
+	const addressDetailParts = [];
+	if (address.address_title) addressDetailParts.push(address.address_title);
+	if (address.address_type) addressDetailParts.push(address.address_type);
+	if (address.phone) addressDetailParts.push(`Tel. ${address.phone}`);
+	if (address.email_id) addressDetailParts.push(`Email: ${address.email_id}`);
+	const addressDetail = addressDetailParts.length ? addressDetailParts.join(" - ") : null;
+
+	return {
+		streetName,
+		addressDetail,
+		city: address.city || null,
+		postalCode: address.pincode || null,
+		region: address.state || null,
+		country: address.country || null
+	};
+}
+
+// ===============================
+// PAYLOAD
+// ===============================
+async function build_payload(frm, items, ctx) {
+	const shipFromAddress = await get_shipping_address(ctx.erp_sales_order.customer_address);
+	const shipToAddress = await get_shipping_address(ctx.erp_sales_order.shipping_address_name);
+	const notes = stripHtmlToText(ctx.erp_sales_order.terms || "");
+
+	const base = {
+		type: 'FT', // getTypeOfDocument(ctx.countryDetails.designation),
+		discount: frm.doc.additional_discount_percentage || 0,
+		details: items,
+		isDraft: true,
+		shipToAddress,
+		shipFromAddress,
+		paymentMethods: [],
+		notes
+	};
+
+	if (ctx.pos_customer.found) {
+		return {
+			...base,
+			customerId: ctx.pos_customer.data.id
+		};
+	}
+
+	return {
+		...base,
+		customer: map_customer(ctx),
+	};
+}
+
+function map_customer({ erp_customer, erp_address, countryDetails }) {
+	if (!erp_address) {
+		return {
+			name: erp_customer.name,
+			fiscalNumber: erp_customer.fiscal_number,
+			countryId: countryDetails.id,
+			phone: erp_customer.mobile_no || null,
+		};
+	}
+
+	return {
+		name: erp_customer.name,
+		address: `${erp_address.address_line1} - ${erp_address.address_line2}`,
+		locality: erp_address.state,
+		zipCode: erp_address.pincode,
+		city: erp_address.city,
+		country: erp_address.country,
+		countryId: countryDetails.id,
+		fiscalNumber: erp_customer.fiscal_number,
+		email: erp_address.email_id,
+		phone: erp_customer.mobile_no || erp_address.phone,
+		fax: erp_address.fax
+	};
+}
+
+function stripHtmlToText(html) {
+	if (!html) return "";
+	// converte <br> para newline para preservar separação por linhas
+	const withBreaks = html.replace(/<br\s*\/?>/gi, "\n");
+	// substitui entidades comuns antes de decodificar
+	const normalized = withBreaks.replace(/&nbsp;/gi, " ");
+	// usa um elemento DOM para decodificar entities e remover tags
+	const div = document.createElement("div");
+	div.innerHTML = normalized;
+	let text = div.textContent || div.innerText || "";
+	// normaliza espaços e remove linhas vazias extras
+	text = text
+		.split("\n")
+		.map((line) => line.trim())
+		.filter((line) => line.length)
+		.join("\n");
+	return text;
+}
+
+// ===============================
+// POS CALL
+// ===============================
+async function send_to_pos(frm, payload) {
+	const { message } = await frappe.call({
+		method: "logicposintegration.logicpos_integration.documents.create_pos_document",
+		args: {
+			doctype: "Sales Order",
+			docname: frm.doc.name,
+			payload,
+			company: frm.doc.company
+		}
+	});
+
+	if (!message.success) {
+		throw message.error || __("Erro ao enviar para o POS");
+	}
+
+	return message;
+}
+
+// ===============================
+// FEEDBACK
+// ===============================
+function handle_success() {
+	frappe.show_alert({
+		message: __("Documento criado no POS"),
+		indicator: "green"
+	});
+
+	cur_frm.reload_doc();
+}
+
+function handle_error(error) {
+	frappe.msgprint({
+		title: __("Erro ao enviar para o POS"),
+		message: typeof error === "string" ? error : JSON.stringify(error, null, 2),
+		indicator: "red"
+	});
+} 

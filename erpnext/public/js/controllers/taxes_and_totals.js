@@ -24,16 +24,23 @@ erpnext.taxes_and_totals = class TaxesAndTotals extends erpnext.payments {
 
 		item_rate = flt(item.rate_with_margin, precision("rate", item));
 
-		if (item.discount_percentage && !item.discount_amount) {
-			item.discount_amount = (flt(item.rate_with_margin) * flt(item.discount_percentage)) / 100;
-		}
-
-		if (item.discount_amount > 0) {
+		// R2/R3: discount_percentage has priority — never recalculate it when price changes
+		if (item.discount_percentage) {
+			item.discount_amount = flt(
+				(flt(item.rate_with_margin) * flt(item.discount_percentage)) / 100,
+				precision("discount_amount", item)
+			);
+			item_rate = flt(item.rate_with_margin - item.discount_amount, precision("rate", item));
+		} else if (item.discount_amount > 0) {
 			item_rate = flt(item.rate_with_margin - item.discount_amount, precision("rate", item));
 			item.discount_percentage = (100 * flt(item.discount_amount)) / flt(item.rate_with_margin);
 		}
 
-		frappe.model.set_value(item.doctype, item.name, "rate", item_rate);
+		// Use flag to prevent rate handler from overriding values set here
+		item._updating_rate = true;
+		frappe.model.set_value(item.doctype, item.name, "rate", item_rate).finally(() => {
+			item._updating_rate = false;
+		});
 	}
 
 	async calculate_taxes_and_totals(update_paid_amount) {

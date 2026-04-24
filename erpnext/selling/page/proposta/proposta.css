@@ -1,0 +1,59 @@
+/* Proposta — formulário desk (metade da largura, centrado) */
+
+.proposta-main-row {
+	margin-left: 0;
+	margin-right: 0;
+	justify-content: center;
+}
+
+.proposta-form .frappe-control {
+	margin-bottom: 0.75rem;
+}
+
+.proposta-form table .frappe-control {
+	margin-bottom: 0;
+}
+
+.proposta-form table .form-group {
+	margin-bottom: 0;
+}
+
+.proposta-form .items-header {
+	margin-top: 0.5rem;
+}
+
+/* Itens: células alinhadas ao topo para o Link não “descer” para baixo do botão */
+.proposta-items-table td.item-cell,
+.proposta-items-table td.qty-cell,
+.proposta-items-table td.rate-cell {
+	vertical-align: top;
+}
+
+.proposta-items-table td.item-cell .frappe-control,
+.proposta-items-table td.item-cell .control-input-wrapper {
+	width: 100%;
+	min-width: 0;
+}
+
+/* .table-responsive usa overflow:auto e recorta o autocomplete do Link (Cliente fora da tabela não sofre isto) */
+.proposta-items-table-wrap.table-responsive {
+	overflow: visible !important;
+	width: 100%;
+}
+
+/* Célula em foco passa por cima das linhas de baixo (stacking) */
+.proposta-items-table td.item-cell:focus-within {
+	position: relative;
+	z-index: 5;
+}
+
+.proposta-items-table td.item-cell .awesomplete > [role="listbox"],
+.proposta-items-table td.item-cell .awesomplete > ul {
+	z-index: 6;
+}
+
+.proposta-add-row td {
+	border-top: 1px solid var(--border-color, #d1d8dd);
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+}
