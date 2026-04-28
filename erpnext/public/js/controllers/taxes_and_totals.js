@@ -17,8 +17,13 @@ erpnext.taxes_and_totals = class TaxesAndTotals extends erpnext.payments {
 		if (item.margin_type == "Percentage") {
 			item.rate_with_margin =
 				flt(effective_item_rate) + flt(effective_item_rate) * (flt(item.margin_rate_or_amount) / 100);
-		} else {
+		} else if (item.margin_rate_or_amount) {
 			item.rate_with_margin = flt(effective_item_rate) + flt(item.margin_rate_or_amount);
+		} else if (!item.rate_with_margin) {
+			// No margin active: use price_list_rate unless rate_with_margin was
+			// already set by a manual rate edit (stored there to preserve it as
+			// the discount base when the user later changes discount_percentage)
+			item.rate_with_margin = flt(effective_item_rate);
 		}
 		item.base_rate_with_margin = flt(item.rate_with_margin) * flt(this.frm.doc.conversion_rate);
 

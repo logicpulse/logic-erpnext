@@ -21,14 +21,14 @@ erpnext.TransactionController = class TransactionController extends erpnext.taxe
 			frappe.model.round_floats_in(item, ["rate", "price_list_rate"]);
 
 			if (item.price_list_rate && !item.blanket_order_rate) {
-				// R3: user changed rate — always keep discount_percentage, only update discount_amount
+				// R3: user changed rate — store edited rate as base for discount calculations
 				item.discount_amount = flt(
 					flt(item.price_list_rate) - flt(item.rate),
 					precision("discount_amount", item)
 				);
 				item.margin_type = "";
 				item.margin_rate_or_amount = 0;
-				item.rate_with_margin = 0;
+				item.rate_with_margin = flt(item.rate);
 			} else {
 				item.discount_percentage = 0.0;
 				item.discount_amount = 0.0;
@@ -950,6 +950,13 @@ erpnext.TransactionController = class TransactionController extends erpnext.taxe
 		var item = frappe.get_doc(cdt, cdn);
 		frappe.model.round_floats_in(item, ["price_list_rate", "discount_percentage"]);
 
+		// Reset rate_with_margin only when price_list_rate field itself changed.
+		// When called via apply_discount_on_item (discount change), preserve the
+		// manually-edited rate_with_margin so discounts apply on the edited price.
+		if (!item._keep_rate_with_margin) {
+			item.rate_with_margin = 0;
+		}
+
 		// check if child doctype is Sales Order Item/Quotation Item and calculate the rate
 		if (
 			(in_list([
@@ -1500,7 +1507,11 @@ erpnext.TransactionController = class TransactionController extends erpnext.taxe
 		if (item && !item.price_list_rate) {
 			item[field] = 0.0;
 		} else {
+			// Preserve rate_with_margin set by manual rate edit so that the discount
+			// is applied on the edited price, not on the original price_list_rate.
+			item._keep_rate_with_margin = true;
 			this.price_list_rate(doc, cdt, cdn);
+			delete item._keep_rate_with_margin;
 		}
 		this.set_gross_profit(item);
 	}
