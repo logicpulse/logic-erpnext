@@ -271,13 +271,13 @@
   {
    "fieldname": "price_list_rate",
    "fieldtype": "Currency",
-   "label": "Price List Rate",
+   "in_list_view": 1,
+   "label": "Preço",
    "oldfieldname": "ref_rate",
    "oldfieldtype": "Currency",
    "options": "currency",
    "print_hide": 1,
    "print_width": "70px",
-   "read_only": 1,
    "width": "70px"
   },
   {
@@ -333,12 +333,13 @@
    "fieldname": "rate",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Rate",
+   "label": "Preço c/ desconto",
    "oldfieldname": "export_rate",
    "oldfieldtype": "Currency",
    "options": "currency",
    "print_width": "100px",
-   "width": "100px"
+   "width": "100px",
+   "read_only": 1
   },
   {
    "columns": 3,
@@ -346,7 +347,7 @@
    "fieldname": "discount_percentage",
    "fieldtype": "Percent",
    "in_list_view": 1,
-   "label": "Discount (%) on Price List Rate with Margin",
+   "label": "Desconto (%)",
    "oldfieldname": "adj_rate",
    "oldfieldtype": "Float",
    "print_width": "70px",
