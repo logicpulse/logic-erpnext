@@ -1,0 +1,96 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-07 15:02:26.985657",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "name1",
+  "ref",
+  "sheet_name",
+  "cell_range",
+  "route",
+  "website",
+  "published",
+  "image",
+  "image_desc"
+ ],
+ "fields": [
+  {
+   "bold": 1,
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name"
+  },
+  {
+   "fieldname": "ref",
+   "fieldtype": "Data",
+   "label": "Ref"
+  },
+  {
+   "fieldname": "sheet_name",
+   "fieldtype": "Data",
+   "label": "Sheet Name"
+  },
+  {
+   "fieldname": "cell_range",
+   "fieldtype": "Data",
+   "label": "Cell Range"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Data",
+   "label": "Route"
+  },
+  {
+   "fieldname": "website",
+   "fieldtype": "Data",
+   "label": "Website"
+  },
+  {
+   "default": "0",
+   "fieldname": "published",
+   "fieldtype": "Check",
+   "label": "Published"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "in_preview": 1,
+   "label": "Image"
+  },
+  {
+   "fieldname": "image_desc",
+   "fieldtype": "Attach Image",
+   "label": "Image Desc"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-05-07 15:10:22.548572",
+ "modified_by": "Administrator",
+ "module": "Selling",
+ "name": "Catalogo",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "route": "catalogos",
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
