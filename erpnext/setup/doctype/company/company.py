@@ -47,6 +47,7 @@ class Company(NestedSet):
 		asset_received_but_not_billed: DF.Link | None
 		auto_err_frequency: DF.Literal["Daily", "Weekly", "Monthly"]
 		auto_exchange_rate_revaluation: DF.Check
+		base_url: DF.Data | None
 		book_advance_payments_in_separate_party_account: DF.Check
 		capital_work_in_progress_account: DF.Link | None
 		chart_of_accounts: DF.Literal[None]
@@ -106,6 +107,7 @@ class Company(NestedSet):
 		parent_company: DF.Link | None
 		payment_terms: DF.Link | None
 		phone_no: DF.Data | None
+		port: DF.Data | None
 		purchase_expense_account: DF.Link | None
 		purchase_expense_contra_account: DF.Link | None
 		reconcile_on_advance_payment_date: DF.Check

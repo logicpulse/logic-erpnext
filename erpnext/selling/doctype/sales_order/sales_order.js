@@ -140,9 +140,7 @@ frappe.ui.form.on("Sales Order", {
 					}
 				});
 			}
-		}
 
-		if (frm.doc.docstatus === 1) {
 			frm.add_custom_button(__('Exportar'), () => export_to_pos(frm), __('POS'));
 
 			if (frm.doc.pos_id) {
@@ -1496,10 +1494,10 @@ erpnext.selling.SalesOrderController = class SalesOrderController extends erpnex
 							frappe.msgprint(
 								__("Material Request {0} submitted.", [
 									'<a href="/app/material-request/' +
-										r.message.name +
-										'">' +
-										r.message.name +
-										"</a>",
+									r.message.name +
+									'">' +
+									r.message.name +
+									"</a>",
 								])
 							);
 						}
@@ -1536,8 +1534,8 @@ erpnext.selling.SalesOrderController = class SalesOrderController extends erpnex
 						</div>
 					</div>
 					${delivery_dates
-						.map(
-							(date) => `
+					.map(
+						(date) => `
 						<div class="list-item">
 							<div class="list-item__content list-item__content--flex-2">
 								<label>
@@ -1551,8 +1549,8 @@ erpnext.selling.SalesOrderController = class SalesOrderController extends erpnex
 							</div>
 						</div>
 					`
-						)
-						.join("")}
+					)
+					.join("")}
 				</div>
 			`);
 
@@ -1879,13 +1877,25 @@ async function export_to_pos(frm) {
 		frappe.dom.freeze(
 			__("Exporting Sales Order to POS...")
 		);
+
+		const login_response = await frappe.call({
+			method: "logicposintegration.logicpos_integration.utils.login_to_pos",
+			args: {
+				company: frm.doc.company
+			}
+		}); 
+		if (!login_response.message.success) {
+			handle_error(login_response.message.message || __("Erro ao fazer login no POS."));
+			return;
+		} 
+
 		const context = await load_customer_context(frm);
 
 		const items = await build_items(frm, context.erp_sales_order.company);
 		if (!items.length) return;
 
 		const payload = await build_payload(frm, items, context);
-		// console.log("Payload to be sent to POS:", payload);
+		console.log("Payload to be sent to POS:", payload);
 
 		const response = await send_to_pos(frm, payload);
 		if (response.success)
@@ -1957,8 +1967,8 @@ function map_item(row, article) {
 		quantity: row.qty,
 		vatRateId: article.vatRateId,
 		vatExemptionId: article.vatExemptionId,
-		// unitPrice: Number(row.rate.toFixed(2)),
-		unitPrice: Number(row.price_list_rate.toFixed(2)),
+		unitPrice: Number(row.rate.toFixed(2)),
+		// unitPrice: Number(row.price_list_rate.toFixed(2)),
 		discount: row.discount_percentage,
 		priceType: null
 		// serialNumber: row.serialNumber
@@ -1980,9 +1990,9 @@ async function fetch_article(code, company) {
 async function load_customer_context(frm) {
 	let erp_address = null;
 	const erp_sales_order = await frappe.db.get_doc('Sales Order', frm.doc.name);
-	// console.log("ERP Sales Order:", erp_sales_order);
+	console.log("ERP Sales Order:", erp_sales_order);
 	const erp_customer = await frappe.db.get_doc('Customer', frm.doc.customer);
-	// console.log("ERP Customer:", erp_customer);
+	console.log("ERP Customer ➡️", erp_customer);
 	if (erp_customer.customer_primary_address) {
 		erp_address = await frappe.db.get_doc('Address', erp_customer.customer_primary_address);
 		// console.log("ERP Address:", erp_address);
@@ -1990,7 +2000,10 @@ async function load_customer_context(frm) {
 
 	const { message } = await frappe.call({
 		method: "logicposintegration.logicpos_integration.customers.get_customer_by_fiscal_number",
-		args: { fiscal_number: erp_customer.fiscal_number || "", company: erp_sales_order.company }
+		args: { 
+			fiscal_number: erp_customer.tax_id || "", 
+			company: erp_sales_order.company 
+		}
 	});
 
 	const countryDetails = await get_pos_country_id(erp_sales_order.company);
@@ -2013,7 +2026,10 @@ async function get_pos_country_id(company_name) {
 
 	const { message } = await frappe.call({
 		method: "logicposintegration.logicpos_integration.utils.get_pos_country_by_code",
-		args: { code: company.codigo, company: company_name }
+		args: { 
+			code: company.codigo, 
+			company: company_name 
+		}
 	});
 
 	if (!message.found) {
@@ -2093,7 +2109,7 @@ function map_customer({ erp_customer, erp_address, countryDetails }) {
 	if (!erp_address) {
 		return {
 			name: erp_customer.name,
-			fiscalNumber: erp_customer.fiscal_number,
+			fiscalNumber: erp_customer.tax_id,
 			countryId: countryDetails.id,
 			phone: erp_customer.mobile_no || null,
 		};
@@ -2107,7 +2123,7 @@ function map_customer({ erp_customer, erp_address, countryDetails }) {
 		city: erp_address.city,
 		country: erp_address.country,
 		countryId: countryDetails.id,
-		fiscalNumber: erp_customer.fiscal_number,
+		fiscalNumber: erp_customer.tax_id,
 		email: erp_address.email_id,
 		phone: erp_customer.mobile_no || erp_address.phone,
 		fax: erp_address.fax

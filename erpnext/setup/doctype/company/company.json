@@ -136,7 +136,11 @@
   "default_wip_warehouse",
   "default_fg_warehouse",
   "default_scrap_warehouse",
-  "dashboard_tab"
+  "dashboard_tab",
+  "pos_integration_tab",
+  "base_url",
+  "column_break_lfaj",
+  "port"
  ],
  "fields": [
   {
@@ -968,6 +972,29 @@
    "fieldname": "codigo",
    "fieldtype": "Data",
    "label": "Codigo"
+  },
+  {
+   "fieldname": "pos_integration_tab",
+   "fieldtype": "Tab Break",
+   "label": "POS Integrations"
+  },
+  {
+   "fieldname": "base_url",
+   "fieldtype": "Data",
+   "label": "Base URL",
+   "print_hide": 1,
+   "report_hide": 1
+  },
+  {
+   "fieldname": "column_break_lfaj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "port",
+   "fieldtype": "Data",
+   "label": "Porta",
+   "print_hide": 1,
+   "report_hide": 1
   }
  ],
  "grid_page_length": 50,
@@ -976,7 +1003,7 @@
  "image_field": "company_logo",
  "is_tree": 1,
  "links": [],
- "modified": "2026-04-24 12:02:04.569403",
+ "modified": "2026-05-08 11:34:12.638042",
  "modified_by": "Administrator",
  "module": "Setup",
  "name": "Company",
