@@ -288,6 +288,10 @@ frappe.ui.form.on("Item", {
 		});
 
 		frm.toggle_display(["standard_rate"], frappe.model.can_create("Item Price"));
+
+		frm.add_custom_button('Sincronizar', async function () {
+			await sync_item_with_speedsheet(frm);
+		});
 	},
 
 	validate: function (frm) {
@@ -1215,4 +1219,39 @@ function open_form(frm, doctype, child_doctype, parentfield) {
 			},
 		]);
 	});
+}
+
+
+async function sync_item_with_speedsheet(frm) {  
+	try {
+		const { message } = await frappe.call({
+			method: "erpnext.selling.doctype.catalogo.catalogo.synchronize_item_prices_with_spreadsheet",
+			args: { 
+				ref: frm.doc.item_code, 
+			},
+			freeze: true,
+			freeze_message: `Sincronizando item ${frm.doc.item_code} com Google Sheets...`
+		});
+
+		if (message.success) {
+			frappe.show_alert({
+				title: "Sucesso",
+				message: `${message.message}`,
+				indicator: "green"
+			});
+		} else {
+			frappe.msgprint({
+				title: "Erro",
+				message: `Ocorreu um erro ao sincronizar item ${frm.doc.item_code} a partir do Google Sheets! ${message.message}`,
+				indicator: "red"
+			});
+		}
+	} catch (error) {
+		console.error(error);
+		frappe.show_alert({
+			title: "Erro",
+			message: `Ocorreu um erro ao sincronizar item ${frm.doc.item_code} a partir do Google Sheets! ${error.message}`,
+			indicator: "red"
+		});
+	}
 }

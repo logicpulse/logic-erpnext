@@ -200,7 +200,7 @@
   {
    "fieldname": "tax_id",
    "fieldtype": "Data",
-   "label": "Tax ID"
+   "label": "NIF"
   },
   {
    "fieldname": "tax_category",
@@ -640,7 +640,7 @@
    "link_fieldname": "party"
   }
  ],
- "modified": "2026-03-09 17:15:26.040050",
+ "modified": "2026-05-13 14:45:49.390444",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Customer",

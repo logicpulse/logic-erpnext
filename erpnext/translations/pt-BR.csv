@@ -35,11 +35,11 @@
 % Raw Material Returned,% de matéria-prima devolvida
 % Received,% Recebido
 % Returned,% Devolvida
-% of materials billed against this Sales Order,% de materiais faturados neste pedido de venda
+% of materials billed against this Sales Order,% de materiais faturados nesta ordem de vendas
 % of materials delivered against this Pick List,% de materiais entregues nesta lista de seleção
-% of materials delivered against this Sales Order,% de materiais entregues neste pedido de venda
+% of materials delivered against this Sales Order,% de materiais entregues nesta ordem de vendas
 'Account' in the Accounting section of Customer {0},'Conta' na seção Contabilidade do Cliente {0}
-'Allow Multiple Sales Orders Against a Customer's Purchase Order','Permitir vários pedidos de vendas em relação ao pedido de compra de um cliente'
+'Allow Multiple Sales Orders Against a Customer's Purchase Order','Permitir várias ordens de vendas em relação à ordem de compra de um cliente'
 'Default {0} Account' in Company {1},'Conta {0} padrão' na empresa {1}
 "'Inspection Required before Delivery' has disabled for the item {0}, no need to create the QI","'Inspeção necessária antes da entrega' foi desativada para o item {0}, não há necessidade de criar o QI"
 "'Inspection Required before Purchase' has disabled for the item {0}, no need to create the QI","'Inspeção necessária antes da compra' foi desativada para o item {0}, não há necessidade de criar o QI"
@@ -403,8 +403,8 @@ Against Journal Entry {0} is already adjusted against some other voucher,O lanç
 Against Pick List,Contra lista de seleção
 Against Sales Invoice,Contra fatura de vendas
 Against Sales Invoice Item,Contra item da fatura de vendas
-Against Sales Order,Contra pedido de venda
-Against Sales Order Item,Contra item do pedido de vendas
+Against Sales Order,Contra ordem de vendas
+Against Sales Order Item,Contra item da ordem de vendas
 Against Stock Entry,Contra entrada de ações
 Against Supplier Invoice {0},Contra fatura do fornecedor {0}
 Against Voucher No,Contra Voucher Não
@@ -440,8 +440,8 @@ All communications including and above this shall be moved into the new Issue,"T
 All items are already requested,Todos os itens já foram solicitados
 All items have already been received,Todos os itens já foram recebidos
 All items in this document already have a linked Quality Inspection.,Todos os itens deste documento já possuem uma Inspeção de Qualidade vinculada.
-All items must be linked to a Sales Order or Subcontracting Inward Order for this Sales Invoice.,Todos os itens devem estar vinculados a um Pedido de Venda ou Pedido de Entrada de Subcontratação para esta Fatura de Venda.
-All linked Sales Orders must be subcontracted.,Todos os pedidos de vendas vinculados devem ser subcontratados.
+All items must be linked to a Sales Order or Subcontracting Inward Order for this Sales Invoice.,Todos os itens devem estar vinculados a uma Ordem de vendas ou Pedido de Entrada de Subcontratação para esta Fatura de Venda.
+All linked Sales Orders must be subcontracted.,Todas as ordens de vendas vinculadas devem ser subcontratadas.
 All the Comments and Emails will be copied from one document to another newly created document(Lead -> Opportunity -> Quotation) throughout the CRM documents.,Todos os comentários e e-mails serão copiados de um documento para outro documento recém-criado (Lead -> Oportunidade -> Cotação) em todos os documentos do CRM.
 All the items have been already returned.,Todos os itens já foram devolvidos.
 "All the required items (raw materials) will be fetched from BOM and populated in this table. Here you can also change the Source Warehouse for any item. And during the production, you can track transferred raw materials from this table.","Todos os itens necessários (matérias-primas) serão obtidos da BOM e preenchidos nesta tabela. Aqui você também pode alterar o Armazém de Origem para qualquer item. E durante a produção, você pode acompanhar as matérias-primas transferidas desta tabela."
@@ -468,7 +468,7 @@ Allow Item To Be Added Multiple Times in a Transaction,Permitir que o item seja 
 Allow Item to Be Added Multiple Times in a Transaction,Permitir que o item seja adicionado várias vezes em uma transação
 Allow Item to be Added Multiple Times in a Transaction,Permitir que o item seja adicionado várias vezes em uma transação
 Allow Lead Duplication based on Emails,Permitir duplicação de leads com base em e-mails
-Allow Multiple Sales Orders Against a Customer's Purchase Order,Permitir vários pedidos de vendas em relação ao pedido de compra de um cliente
+Allow Multiple Sales Orders Against a Customer's Purchase Order,Permitir várias ordens de vendas em relação à ordem de compra de um cliente
 Allow Negative Stock,Permitir estoque negativo
 Allow Negative Stock for Batch,Permitir estoque negativo para lote
 Allow Negative rates for Items,Permitir taxas negativas para itens
@@ -487,9 +487,9 @@ Allow Request for Quotation with Zero Quantity,Permitir solicitação de cotaç�
 Allow Resetting Service Level Agreement,Permitir redefinição do acordo de nível de serviço
 Allow Sales,Permitir vendas
 Allow Sales Invoice Creation Without Delivery Note,Permitir criação de fatura de venda sem nota de entrega
-Allow Sales Invoice Creation Without Sales Order,Permitir a criação de faturas de vendas sem pedido de vendas
-Allow Sales Order Creation For Expired Quotation,Permitir criação de pedido de vendas para cotação expirada
-Allow Sales Order with Zero Quantity,Permitir pedido de venda com quantidade zero
+Allow Sales Invoice Creation Without Sales Order,Permitir a criação de faturas de vendas sem ordem de vendas
+Allow Sales Order Creation For Expired Quotation,Permitir criação de ordem de vendas para cotação expirada
+Allow Sales Order with Zero Quantity,Permitir ordem de vendas com quantidade zero
 Allow Stale Exchange Rates,Permitir taxas de câmbio obsoletas
 Allow Supplier Quotation with Zero Quantity,Permitir cotação de fornecedor com quantidade zero
 Allow UOM with Conversion Rate Defined in Item,Permitir UOM com taxa de conversão definida no item
@@ -513,7 +513,7 @@ Allows to keep aside a specific quantity of inventory for a particular order.,Pe
 Allows users to submit Purchase Orders with zero quantity. Useful when rates are fixed but the quantities are not. Eg. Rate Contracts.,"Permite que os usuários enviem pedidos de compra com quantidade zero. Útil quando as taxas são fixas, mas as quantidades não. Por exemplo. Contratos de taxas."
 Allows users to submit Quotations with zero quantity. Useful when rates are fixed but the quantities are not. Eg. Rate Contracts.,"Permite que os usuários enviem cotações com quantidade zero. Útil quando as taxas são fixas, mas as quantidades não. Por exemplo. Contratos de taxas."
 Allows users to submit Request for Quotations with zero quantity. Useful when rates are fixed but the quantities are not. Eg. Rate Contracts.,"Permite que os usuários enviem Solicitações de Cotações com quantidade zero. Útil quando as taxas são fixas, mas as quantidades não. Por exemplo. Contratos de taxas."
-Allows users to submit Sales Orders with zero quantity. Useful when rates are fixed but the quantities are not. Eg. Rate Contracts.,"Permite que os usuários enviem Pedidos de Vendas com quantidade zero. Útil quando as taxas são fixas, mas as quantidades não. Por exemplo. Contratos de taxas."
+Allows users to submit Sales Orders with zero quantity. Useful when rates are fixed but the quantities are not. Eg. Rate Contracts.,"Permite que os usuários enviem Ordens de vendas com quantidade zero. Útil quando as taxas são fixas, mas as quantidades não. Por exemplo. Contratos de taxas."
 Allows users to submit Supplier Quotations with zero quantity. Useful when rates are fixed but the quantities are not. Eg. Rate Contracts.,"Permite que os usuários enviem cotações de fornecedores com quantidade zero. Útil quando as taxas são fixas, mas as quantidades não. Por exemplo. Contratos de taxas."
 Already Picked,Já escolhido
 Already record exists for the item {0},Já existe registro para o item {0}
@@ -752,7 +752,7 @@ Auto Repeat,Repetição automática
 Auto Repeat Detail,Detalhe de repetição automática
 Auto Reserve Serial and Batch Nos,Números de série e lote de reserva automática
 Auto Reserve Stock,Estoque de reserva automática
-Auto Reserve Stock for Sales Order on Purchase,Estoque de reserva automática para pedido de venda na compra
+Auto Reserve Stock for Sales Order on Purchase,Estoque de reserva automática para ordem de vendas na compra
 Auto Tax Settings Error,Erro nas configurações de imposto automático
 Auto User Creation Error,Erro de criação automática de usuário
 Auto close Opportunity Replied after the no. of days mentioned above,Oportunidade de fechamento automático respondida após o não. de dias mencionados acima
@@ -1022,8 +1022,8 @@ Buying and Selling,Compra e Venda
 "Buying must be checked, if Applicable For is selected as {0}",A compra deve ser marcada se Aplicável a estiver selecionado como {0}
 "By default, the Supplier Name is set as per the Supplier Name entered. If you want Suppliers to be named by a <a href='https://docs.erpnext.com/docs/user/manual/en/setting-up/settings/naming-series' target='_blank'>Naming Series</a> choose the 'Naming Series' option.","Por padrão, o Nome do Fornecedor é definido de acordo com o Nome do Fornecedor inserido. Se você deseja que os fornecedores sejam nomeados por uma <a href='https://docs.erpnext.com/docs/user/manual/en/setting-up/settings/naming-series' target='_blank'>Série de nomenclatura</a>, escolha a opção 'Série de nomenclatura'."
 By-Product,Subproduto
-Bypass Credit Limit Check at Sales Order,Ignorar verificação de limite de crédito no pedido de vendas
-Bypass credit check at Sales Order,Ignorar verificação de crédito no pedido de vendas
+Bypass Credit Limit Check at Sales Order,Ignorar verificação de limite de crédito na ordem de vendas
+Bypass credit check at Sales Order,Ignorar verificação de crédito na ordem de vendas
 CANCELLED,CANCELADO
 CBAL-.#####,CBAL-.######
 CC,CC
@@ -1107,7 +1107,7 @@ Cannot convert Task to non-group because the following child Tasks exist: {0}.,N
 Cannot convert to Group because Account Type is selected.,Não é possível converter para Grupo porque o Tipo de Conta está selecionado.
 Cannot covert to Group because Account Type is selected.,Não é possível converter para Grupo porque o Tipo de Conta está selecionado.
 Cannot create Stock Reservation Entries for future dated Purchase Receipts.,Não é possível criar entradas de reserva de estoque para recibos de compra com datas futuras.
-Cannot create a pick list for Sales Order {0} because it has reserved stock. Please unreserve the stock in order to create a pick list.,Não é possível criar uma lista de seleção para o pedido de vendas {0} porque ele possui estoque reservado. Cancele a reserva do estoque para criar uma lista de seleção.
+Cannot create a pick list for Sales Order {0} because it has reserved stock. Please unreserve the stock in order to create a pick list.,Não é possível criar uma lista de seleção para a ordem de vendas {0} porque ela possui estoque reservado. Cancele a reserva do estoque para criar uma lista de seleção.
 Cannot create accounting entries against disabled accounts: {0},Não é possível criar lançamentos contábeis em contas desativadas: {0}
 Cannot create return for consolidated invoice {0}.,Não é possível criar devolução para fatura consolidada {0}.
 Cannot deactivate or cancel BOM as it is linked with other BOMs,"Não é possível desativar ou cancelar a BOM, pois ela está vinculada a outras BOMs"
@@ -1129,7 +1129,7 @@ Cannot find Item or Warehouse with this Barcode,Não é possível encontrar Item
 Cannot find Item with this Barcode,Não foi possível encontrar o item com este código de barras
 Cannot find a default warehouse for item {0}. Please set one in the Item Master or in Stock Settings.,"Não é possível localizar um armazém padrão para o item {0}. Por favor, defina um no Item Master ou nas Configurações de Estoque."
 Cannot merge {0} '{1}' into '{2}' as both have existing accounting entries in different currencies for company '{3}'.,Não é possível mesclar {0} '{1}' em '{2}' porque ambos possuem lançamentos contábeis existentes em moedas diferentes para a empresa '{3}'.
-Cannot produce more Item {0} than Sales Order quantity {1} {2},Não é possível produzir mais Item {0} do que a quantidade do Pedido de Vendas {1} {2}
+Cannot produce more Item {0} than Sales Order quantity {1} {2},Não é possível produzir mais Item {0} do que a quantidade da Ordem de vendas {1} {2}
 Cannot produce more item for {0},Não é possível produzir mais itens para {0}
 Cannot produce more than {0} items for {1},Não é possível produzir mais de {0} itens para {1}
 Cannot receive from customer against negative outstanding,Não é possível receber do cliente contra saldo negativo
@@ -1139,7 +1139,7 @@ Cannot retrieve link token for update. Check Error Log for more information,Não
 Cannot retrieve link token. Check Error Log for more information,Não é possível recuperar o token do link. Verifique o log de erros para obter mais informações
 Cannot select a Group type Customer Group. Please select a non-group Customer Group.,Não é possível selecionar um grupo de clientes do tipo Grupo. Selecione um grupo de clientes que não seja do grupo.
 Cannot select charge type as 'On Previous Row Amount' or 'On Previous Row Total' for first row,Não é possível selecionar o tipo de cobrança como 'Valor da linha anterior' ou 'Total da linha anterior' para a primeira linha
-Cannot set as Lost as Sales Order is made.,Não é possível definir como Perdido porque o Pedido de Venda é feito.
+Cannot set as Lost as Sales Order is made.,Não é possível definir como Perdido porque a Ordem de vendas é feita.
 Cannot set multiple Item Defaults for a company.,Não é possível definir vários padrões de item para uma empresa.
 Cannot start deletion. Another deletion {0} is already queued/running. Please wait for it to complete.,Não é possível iniciar a exclusão. Outra exclusão {0} já está na fila/em execução. Aguarde a conclusão.
 Cannot update rate as item {0} is already ordered or purchased against this quotation,Não é possível atualizar a taxa porque o item {0} já foi pedido ou comprado com base nesta cotação
@@ -1238,9 +1238,9 @@ Clear Notifications,Limpar notificações
 Clear Table,Limpar tabela
 Clearance date changed from {0} to {1} via Bank Clearance Tool,Data de compensação alterada de {0} para {1} através da ferramenta de compensação bancária
 Clearing Demo Data...,Limpando dados de demonstração...
-Click on 'Get Finished Goods for Manufacture' to fetch the items from the above Sales Orders. Items only for which a BOM is present will be fetched.,Clique em 'Obter produtos acabados para fabricação' para buscar os itens dos pedidos de vendas acima. Somente os itens para os quais uma BOM estiver presente serão buscados.
+Click on 'Get Finished Goods for Manufacture' to fetch the items from the above Sales Orders. Items only for which a BOM is present will be fetched.,Clique em 'Obter produtos acabados para fabricação' para buscar os itens das ordens de vendas acima. Somente os itens para os quais uma BOM estiver presente serão buscados.
 Click on Add to Holidays. This will populate the holidays table with all the dates that fall on the selected weekly off. Repeat the process for populating the dates for all your weekly holidays,Clique em Adicionar aos feriados. Isso preencherá a tabela de feriados com todas as datas que caem na folga semanal selecionada. Repita o processo para preencher as datas de todos os seus feriados semanais
-Click on Get Sales Orders to fetch sales orders based on the above filters.,Clique em Obter pedidos de vendas para buscar pedidos de vendas com base nos filtros acima.
+Click on Get Sales Orders to fetch sales orders based on the above filters.,Clique em Obter ordens de vendas para buscar ordens de vendas com base nos filtros acima.
 Click on Import Invoices button once the zip file has been attached to the document. Any errors related to processing will be shown in the Error Log.,Clique no botão Importar faturas assim que o arquivo zip for anexado ao documento. Quaisquer erros relacionados ao processamento serão mostrados no Log de Erros.
 Click on the link below to verify your email and confirm the appointment,Clique no link abaixo para verificar seu e-mail e confirmar o agendamento
 Click this button if you encounter a negative stock error for a serial or batch item. The system will fetch the available serials or batches automatically.,Clique neste botão se encontrar um erro de estoque negativo para um item de série ou lote. O sistema irá buscar os números de série ou lotes disponíveis automaticamente.
@@ -1306,7 +1306,7 @@ Company Field,Campo da empresa
 Company Logo,Logotipo da empresa
 Company Name,nome da empresa
 Company Shipping Address,Endereço de envio da empresa
-Company Tax ID,ID fiscal da empresa
+Company Tax ID,NIF da empresa
 Company and Posting Date is mandatory,A empresa e a data de lançamento são obrigatórias
 Company is mandatory,A empresa é obrigatória
 Company is mandatory for company account,Empresa é obrigatória para conta corporativa
@@ -1368,7 +1368,7 @@ Consider Tax or Charge for,Considere Imposto ou Taxa para
 Consider for Tax Withholding,Considere para retenção de imposto
 Consider for Tax Withholding ,Considere para retenção de imposto
 Considered In Paid Amount,Considerado no valor pago
-Consolidate Sales Order Items,Consolidar itens do pedido de vendas
+Consolidate Sales Order Items,Consolidar itens da ordem de vendas
 Consolidate Sub Assembly Items,Consolidar itens de subconjunto
 Consolidated,Consolidado
 Consolidated Credit Note,Nota de Crédito Consolidada
@@ -1499,7 +1499,7 @@ Create Prospect,Criar cliente potencial
 Create Receiver List,Criar lista de destinatários
 Create Reposting Entries,Criar entradas de repostagem
 Create Reposting Entry,Criar entrada de repostagem
-Create Sales Orders to help you plan your work and deliver on-time,Crie pedidos de vendas para ajudá-lo a planejar seu trabalho e entregar no prazo
+Create Sales Orders to help you plan your work and deliver on-time,Crie ordens de vendas para ajudá-lo a planejar seu trabalho e entregar no prazo
 Create Stock Entry,Criar entrada de estoque
 Create User Automatically,Criar usuário automaticamente
 Create User Permission,Criar permissão de usuário
@@ -2000,7 +2000,7 @@ Domain,Domínio
 Don't Create Loyalty Points,Não crie pontos de fidelidade
 Don't Enforce Free Item Qty,Não imponha quantidade de item grátis
 Don't Recompute Tax,Não recalcule imposto
-Don't Reserve Sales Order Qty on Sales Return,Não reserve a quantidade do pedido de vendas na devolução de vendas
+Don't Reserve Sales Order Qty on Sales Return,Não reserve a quantidade da ordem de vendas na devolução de vendas
 Don't Send Emails,Não envie e-mails
 Doors,Portas
 Double Declining Balance,Saldo decrescente duplo
@@ -2161,7 +2161,7 @@ Enable Stock Reservation,Habilitar Reserva de Estoque
 Enable Subscription,Habilitar assinatura
 Enable Subscription tracking in invoice,Ativar rastreamento de assinatura na fatura
 Enable UTM,Habilitar UTM
-"Enable Urchin Tracking Module parameters in Quotation, Sales Order, Sales Invoice, POS Invoice, Lead,  and Delivery Note.","Ative os parâmetros do módulo de rastreamento do Urchin em cotação, pedido de vendas, fatura de vendas, fatura de PDV, lead e nota de entrega."
+"Enable Urchin Tracking Module parameters in Quotation, Sales Order, Sales Invoice, POS Invoice, Lead,  and Delivery Note.","Ative os parâmetros do módulo de rastreamento do Urchin em cotação, ordem de vendas, fatura de vendas, fatura de PDV, lead e nota de entrega."
 Enable YouTube Tracking,Ativar rastreamento do YouTube
 "Enable cost center, projects and other custom accounting dimensions","Habilite centro de custo, projetos e outras dimensões contábeis personalizadas"
 Enable it if users want to consider rejected materials to dispatch.,Habilite-o se os usuários quiserem considerar materiais rejeitados para envio.
@@ -2285,7 +2285,7 @@ Exploded Items,Itens Explodidos
 Export Errored Rows,Exportar linhas com erros
 Export Import Log,Exportar registro de importação
 Exportar,Exportar
-Exporting Sales Order to POS...,Exportando Pedido de Venda para PDV...
+Exporting Sales Order to POS...,Exportando Ordem de vendas para PDV...
 Extended Bank Statement,Extrato bancário estendido
 External,Externo
 External Work History,Histórico de Trabalho Externo
@@ -2329,7 +2329,7 @@ Fetch exploded BOM (including sub-assemblies),Buscar BOM explodida (incluindo su
 Fetched only {0} available serial numbers.,Foram buscados apenas {0} números de série disponíveis.
 Fetching Error,Erro ao buscar
 Fetching Material Requests...,Buscando solicitações de materiais...
-Fetching Sales Orders...,Buscando pedidos de vendas...
+Fetching Sales Orders...,Buscando ordens de vendas...
 Fetching exchange rates ...,Buscando taxas de câmbio...
 Fetching...,Buscando...
 Field '{0}' is not a valid Company link field for DocType {1},O campo '{0}' não é um campo de link de empresa válido para DocType {1}
@@ -2352,7 +2352,7 @@ Filter by invoice status,Filtrar por status da fatura
 Filter on Invoice,Filtrar por fatura
 Filter on Payment,Filtrar por pagamento
 Filters for Material Requests,Filtros para Solicitações de Materiais
-Filters for Sales Orders,Filtros para pedidos de vendas
+Filters for Sales Orders,Filtros para ordens de vendas
 Filters missing,Filtros ausentes
 Final BOM,Final BOM
 Final Product,Produto Final
@@ -2580,7 +2580,7 @@ Get Material Requests,Obtenha solicitações de materiais
 Get Outstanding Invoices,Obtenha faturas pendentes
 Get Outstanding Orders,Obtenha pedidos pendentes
 Get Raw Materials Cost from Consumption Entry,Obtenha o custo das matérias-primas a partir da entrada de consumo
-Get Sales Orders,Obter pedidos de vendas
+Get Sales Orders,Obter ordens de vendas
 Get Secondary Items,Obtenha itens secundários
 Get Started Sections,Seções de introdução
 Get Stock,Obter estoque
@@ -2665,7 +2665,7 @@ Here are the options to proceed:,Aqui estão as opções para prosseguir:
 Hidden Line (Internal Use Only),Linha oculta (somente para uso interno)
 Hidden list maintaining the list of contacts linked to Shareholder,Lista oculta mantendo a lista de contatos vinculados ao Acionista
 Hide Currency Symbol,Ocultar símbolo monetário
-Hide Customer's Tax ID from Sales Transactions,Ocultar a identificação fiscal do cliente nas transações de vendas
+Hide Customer's Tax ID from Sales Transactions,Ocultar NIF do cliente nas transações de vendas
 Hide If Zero,Ocultar se for zero
 Hide Images,Ocultar imagens
 Hide Recent Orders,Ocultar pedidos recentes
@@ -2692,7 +2692,7 @@ Hrs,Horas
 I - J,Eu - J
 I - K,Eu - K
 IBAN,IBAN
-ID,EU IA
+ID,ID
 IMPORTANT: Create a backup before proceeding!,IMPORTANTE: Crie um backup antes de continuar!
 IRS 1099,Receita Federal 1099
 ISBN,ISBN
@@ -2700,7 +2700,7 @@ ISBN-10,ISBN-10
 ISBN-13,ISBN-13
 ISS-.YYYY.-,ISS-.AAAA.-
 ISSN,ISSN
-Id,Eu ia
+Id,Id
 Identification of the package for the delivery (for print),Identificação da embalagem para entrega (para impressão)
 Idle,Parado
 "If ""Months"" is selected, a fixed amount will be booked as deferred revenue or expense for each month irrespective of the number of days in a month. It will be prorated if deferred revenue or expense is not booked for an entire month","Se ""Meses"" for selecionado, um valor fixo será contabilizado como receita ou despesa diferida para cada mês, independentemente do número de dias do mês. Será rateado se a receita ou despesa diferida não for contabilizada durante um mês inteiro"
@@ -2752,7 +2752,7 @@ If more than one package of the same type (for print),Se houver mais de um pacot
 "If party does not exist, create it using the Customer Name field.","Se a parte não existir, crie-a usando o campo Nome do Cliente."
 "If party does not exist, create it using the Supplier Name field.","Caso a parte não exista, crie-a utilizando o campo Nome do Fornecedor."
 "If rate is zero then item will be treated as ""Free Item""","Se a taxa for zero, o item será tratado como ""Item Grátis"""
-"If selected Pricing Rule is made for 'Rate', it will overwrite Price List. Pricing Rule rate is the final rate, so no further discount should be applied. Hence, in transactions like Sales Order, Purchase Order etc, it will be fetched in 'Rate' field, rather than 'Price List Rate' field.","Se a Regra de Preços selecionada for definida como 'Taxa', ela substituirá a Lista de Preços. A taxa da Regra de Preços é a taxa final, portanto nenhum desconto adicional deve ser aplicado. Portanto, em transações como Pedido de Venda, Pedido de Compra, etc., ele será buscado no campo 'Taxa', ao invés do campo 'Taxa da Lista de Preços'."
+"If selected Pricing Rule is made for 'Rate', it will overwrite Price List. Pricing Rule rate is the final rate, so no further discount should be applied. Hence, in transactions like Sales Order, Purchase Order etc, it will be fetched in 'Rate' field, rather than 'Price List Rate' field.","Se a Regra de Preços selecionada for definida como 'Taxa', ela substituirá a Lista de Preços. A taxa da Regra de Preços é a taxa final, portanto nenhum desconto adicional deve ser aplicado. Portanto, em transações como Ordem de vendas, Pedido de Compra, etc., ele será buscado no campo 'Taxa', ao invés do campo 'Taxa da Lista de Preços'."
 "If set, the system does not use the user's Email or the standard outgoing Email account for sending request for quotations.","Se definido, o sistema não utiliza o e-mail do usuário ou a conta de e-mail de saída padrão para enviar solicitação de cotação."
 "If the BOM results in Scrap material, the Scrap Warehouse needs to be selected.","Se a BOM resultar em material de sucata, o armazém de sucata deverá ser selecionado."
 "If the account is frozen, entries are allowed to restricted users.","Se a conta estiver congelada, as entradas serão permitidas para usuários restritos."
@@ -2766,7 +2766,7 @@ If this is checked subsequent new invoices will be created on calendar  month an
 If this is unchecked Journal Entries will be saved in a Draft state and will have to be submitted manually,"Se esta opção estiver desmarcada, os lançamentos contábeis manuais serão salvos em estado de rascunho e deverão ser enviados manualmente"
 "If this is unchecked, direct GL entries will be created to book deferred revenue or expense","Se esta opção estiver desmarcada, lançamentos contábeis diretos serão criados para contabilizar receitas ou despesas diferidas"
 If this is undesirable please cancel the corresponding Payment Entry.,"Se isso for indesejável, cancele o lançamento de pagamento correspondente."
-"If this item has variants, then it cannot be selected in sales orders etc.","Se este item tiver variantes, ele não poderá ser selecionado em pedidos de vendas, etc."
+"If this item has variants, then it cannot be selected in sales orders etc.","Se este item tiver variantes, ele não poderá ser selecionado em ordens de vendas, etc."
 "If this option is configured 'Yes', ERPNext will prevent you from creating a Purchase Invoice or Receipt without creating a Purchase Order first. This configuration can be overridden for a particular supplier by enabling the 'Allow Purchase Invoice Creation Without Purchase Order' checkbox in the Supplier master.","Se esta opção estiver configurada como 'Sim', o ERPNext impedirá que você crie uma Fatura ou Recibo de Compra sem antes criar um Pedido de Compra. Esta configuração pode ser substituída para um determinado fornecedor ativando a caixa de seleção 'Permitir criação de fatura de compra sem pedido de compra' no cadastro de fornecedores."
 "If this option is configured 'Yes', ERPNext will prevent you from creating a Purchase Invoice without creating a Purchase Receipt first. This configuration can be overridden for a particular supplier by enabling the 'Allow Purchase Invoice Creation Without Purchase Receipt' checkbox in the Supplier master.","Se esta opção estiver configurada como 'Sim', o ERPNext impedirá que você crie uma Fatura de Compra sem antes criar um Recibo de Compra. Esta configuração pode ser substituída para um determinado fornecedor ativando a caixa de seleção 'Permitir criação de fatura de compra sem recibo de compra' no cadastro de fornecedores."
 "If ticked, the BOM cost will be automatically updated based on Valuation Rate / Price List Rate / last purchase rate of raw materials.","Se marcado, o custo da lista técnica será atualizado automaticamente com base na Taxa de avaliação/Taxa da lista de preços/Taxa da última compra de matéria-prima."
@@ -2831,7 +2831,7 @@ In Words (Company Currency),Em palavras (moeda da empresa)
 In Words (Export) will be visible once you save the Delivery Note.,Em Words (Exportar) ficará visível assim que você salvar a Nota de Entrega.
 In Words will be visible once you save the Delivery Note.,Em Words ficará visível assim que você salvar a Nota de Entrega.
 In Words will be visible once you save the Sales Invoice.,O Words ficará visível assim que você salvar a Nota Fiscal de Venda.
-In Words will be visible once you save the Sales Order.,O Words ficará visível assim que você salvar o Pedido de Venda.
+In Words will be visible once you save the Sales Order.,O Words ficará visível assim que você salvar a Ordem de vendas.
 In mins,Em minutos
 In minutes,Em minutos
 "In row {0} of Appointment Booking Slots: ""To Time"" must be later than ""From Time"".","Na linha {0} dos horários de reserva de compromisso: ""Hora final"" deve ser posterior a ""Hora inicial""."
@@ -2929,7 +2929,7 @@ Inter Company Journal Entry Reference,Referência de lançamento contábil entre
 Inter Company Order Reference,Referência de pedido entre empresas
 Inter Company Purchase Order,Pedido de compra entre empresas
 Inter Company Reference,Referência Interempresa
-Inter Company Sales Order,Pedido de vendas entre empresas
+Inter Company Sales Order,Ordem de vendas entre empresas
 Inter Transfer Reference,Referência entre transferências
 Interest,Interesse
 Interest Expense,Despesas de juros
@@ -2941,7 +2941,7 @@ Internal Customer Accounting,Contabilidade de Cliente Interno
 Internal Customer for company {0} already exists,O cliente interno da empresa {0} já existe
 Internal Purchase Order,Ordem de Compra Interna
 Internal Sale or Delivery Reference missing.,Falta referência interna de venda ou entrega.
-Internal Sales Order,Pedido de vendas interno
+Internal Sales Order,Ordem de vendas interna
 Internal Sales Reference Missing,Referência de vendas internas ausente
 Internal Supplier Accounting,Contabilidade Interna de Fornecedores
 Internal Supplier for company {0} already exists,O fornecedor interno da empresa {0} já existe
@@ -3077,7 +3077,7 @@ Is Rejected,Foi rejeitado
 Is Rejected Warehouse,É armazém rejeitado
 Is Return (Credit Note),É Retorno (Nota de Crédito)
 Is Return (Debit Note),É Devolução (Nota de Débito)
-Is Sales Order Required for Sales Invoice & Delivery Note Creation?,O pedido de vendas é necessário para a criação de faturas de vendas e notas de entrega?
+Is Sales Order Required for Sales Invoice & Delivery Note Creation?,A ordem de vendas é necessária para a criação de faturas de vendas e notas de entrega?
 Is Short/Long Year,É um ano curto/longo
 Is Stock Item,É item de estoque
 Is Sub Assembly Item,É item de subconjunto
@@ -3179,7 +3179,7 @@ Item {0} has been disabled,O item {0} foi desativado
 Item {0} has no Serial No. Only serialized items can have delivery based on Serial No,O item {0} não tem número de série. Somente itens serializados podem ter entrega com base no número de série
 Item {0} has reached its end of life on {1},O item {0} atingiu o fim de sua vida útil em {1}
 Item {0} ignored since it is not a stock item,Item {0} ignorado porque não é um item de estoque
-Item {0} is already reserved/delivered against Sales Order {1}.,O item {0} já está reservado/entregue no pedido de vendas {1}.
+Item {0} is already reserved/delivered against Sales Order {1}.,O item {0} já está reservado/entregue na ordem de vendas {1}.
 Item {0} is cancelled,O item {0} foi cancelado
 Item {0} is disabled,O item {0} está desativado
 Item {0} is not a serialized Item,O item {0} não é um item serializado
@@ -3196,7 +3196,7 @@ Item {0}: {1} qty produced. ,Item {0}: {1} quantidade produzida.
 Item {} does not exist.,O item {} não existe.
 Item/Item Code required to get Item Tax Template.,Código do item/item necessário para obter o modelo de imposto do item.
 Item: {0} does not exist in the system,Item: {0} não existe no sistema
-Items cannot be updated as Subcontracting Inward Order(s) exist against this Subcontracted Sales Order.,"Os itens não podem ser atualizados, pois existem pedidos de entrada de subcontratação em relação a este pedido de vendas subcontratado."
+Items cannot be updated as Subcontracting Inward Order(s) exist against this Subcontracted Sales Order.,"Os itens não podem ser atualizados, pois existem pedidos de entrada de subcontratação em relação a esta ordem de vendas subcontratada."
 Items cannot be updated as Subcontracting Order is created against the Purchase Order {0}.,Os itens não podem ser atualizados porque a Ordem de Subcontratação é criada em relação à Ordem de Compra {0}.
 Items not found.,Itens não encontrados.
 Items rate has been updated to zero as Allow Zero Valuation Rate is checked for the following items: {0},"A taxa de itens foi atualizada para zero, pois a opção Permitir taxa de avaliação zero está marcada para os seguintes itens: {0}"
@@ -3238,7 +3238,7 @@ Journal Entry type should be set as Depreciation Entry for asset depreciation,O 
 Journal entries have been created,Lançamentos de diário foram criados
 Journals,Diários
 Kanban Board,Quadro Kanban
-"Keep Track of Sales Campaigns. Keep track of Leads, Quotations, Sales Order etc from Campaigns to gauge Return on Investment. ","Acompanhe as campanhas de vendas. Acompanhe leads, cotações, pedidos de vendas, etc. de campanhas para avaliar o retorno do investimento."
+"Keep Track of Sales Campaigns. Keep track of Leads, Quotations, Sales Order etc from Campaigns to gauge Return on Investment. ","Acompanhe as campanhas de vendas. Acompanhe leads, cotações, ordens de vendas, etc. de campanhas para avaliar o retorno do investimento."
 Keyboard Shortcuts,Atalhos de teclado
 Kindly cancel the Manufacturing Entries first against the work order {0}.,"Por favor, cancele primeiro as Entradas de Fabricação na ordem de serviço {0}."
 LIFO,LIFO
@@ -3474,7 +3474,7 @@ Material Request Item,Item de solicitação de material
 Material Request Plan Item,Item de plano de solicitação de material
 Material Request Type,Tipo de solicitação de material
 Material Request already created for the ordered quantity,Solicitação de material já criada para a quantidade solicitada
-Material Request of maximum {0} can be made for Item {1} against Sales Order {2},Solicitação de material de no máximo {0} pode ser feita para o item {1} em relação ao pedido de vendas {2}
+Material Request of maximum {0} can be made for Item {1} against Sales Order {2},Solicitação de material de no máximo {0} pode ser feita para o item {1} em relação à ordem de vendas {2}
 Material Request used to make this Stock Entry,Solicitação de Material utilizada para fazer esta Entrada de Estoque
 Material Requested,Material solicitado
 Material Requests,Solicitações de Materiais
@@ -3652,7 +3652,7 @@ New Purchase Invoice,Nova fatura de compra
 New Purchase Orders,Novos pedidos de compra
 New Quotations,Novas cotações
 New Sales Invoice,Nova fatura de vendas
-New Sales Orders,Novos pedidos de vendas
+New Sales Orders,Novas ordens de vendas
 New Serial No cannot have Warehouse. Warehouse must be set by Stock Entry or Purchase Receipt,O novo número de série não pode ter armazém. O armazém deve ser definido por Entrada de Estoque ou Recibo de Compra
 New Task,Nova tarefa
 New Version,Nova versão
@@ -3703,8 +3703,8 @@ No email found for {0} {1},Nenhum e-mail encontrado para {0} {1}
 No employee was scheduled for call popup,Nenhum funcionário foi agendado para pop-up de chamada
 No failed logs,Nenhum registro com falha
 No item available for transfer.,Nenhum item disponível para transferência.
-No items are available in sales orders {0} for production,Nenhum item está disponível nos pedidos de vendas {0} para produção
-No items are available in the sales order {0} for production,Nenhum item está disponível no pedido de venda {0} para produção
+No items are available in sales orders {0} for production,Nenhum item está disponível nas ordens de vendas {0} para produção
+No items are available in the sales order {0} for production,Nenhum item está disponível na ordem de vendas {0} para produção
 No items found. Scan barcode again.,Nenhum item encontrado. Digitalize o código de barras novamente.
 No items in cart,Nenhum item no carrinho
 No matches occurred via auto reconciliation,Nenhuma correspondência ocorreu por meio da reconciliação automática
@@ -3857,7 +3857,7 @@ Open Item {0},Abrir item {0}
 Open Orders,Pedidos abertos
 Open Projects ,Abrir projetos
 Open Quotations,Cotações Abertas
-Open Sales Orders,Pedidos de vendas abertos
+Open Sales Orders,Ordens de vendas abertas
 Open Task,Abrir tarefa
 Open Tasks,Abrir tarefas
 Open To Do,Abra para fazer
@@ -3963,7 +3963,7 @@ Overdue Payments,Pagamentos em atraso
 Overdue Tasks,Tarefas atrasadas
 Overdue and Discounted,Vencido e com desconto
 Overlapping conditions found between:,Condições sobrepostas encontradas entre:
-Overproduction Percentage For Sales Order,Porcentagem de superprodução para pedido de vendas
+Overproduction Percentage For Sales Order,Porcentagem de superprodução para ordem de vendas
 Overproduction Percentage For Work Order,Porcentagem de superprodução para ordem de serviço
 Overproduction for Sales and Work Order,Superprodução para vendas e ordem de serviço
 Overview,Visão geral
@@ -4081,7 +4081,7 @@ Partial Material Transferred,Material Parcial Transferido
 Partial Payment in POS Transactions are not allowed.,Não são permitidos pagamentos parciais em transações de PDV.
 Partial Stock Reservation,Reserva Parcial de Estoque
 Partial Success,Sucesso Parcial
-"Partial stock can be reserved. For example, If you have a Sales Order of 100 units and the Available Stock is 90 units then a Stock Reservation Entry will be created for 90 units. ","Estoque parcial pode ser reservado. Por exemplo, se você tiver um pedido de venda de 100 unidades e o estoque disponível for de 90 unidades, será criada uma entrada de reserva de estoque para 90 unidades."
+"Partial stock can be reserved. For example, If you have a Sales Order of 100 units and the Available Stock is 90 units then a Stock Reservation Entry will be created for 90 units. ","Estoque parcial pode ser reservado. Por exemplo, se você tiver uma ordem de vendas de 100 unidades e o estoque disponível for de 90 unidades, será criada uma entrada de reserva de estoque para 90 unidades."
 Partially Billed,Parcialmente faturado
 Partially Completed,Parcialmente concluído
 Partially Delivered,Parcialmente entregue
@@ -4169,7 +4169,7 @@ Payment Schedules,Cronogramas de Pagamento
 Payment Status,Status de pagamento
 Payment Term Name,Nome do prazo de pagamento
 Payment Term Outstanding,Prazo de pagamento pendente
-Payment Terms Status for Sales Order,Status das condições de pagamento para pedido de venda
+Payment Terms Status for Sales Order,Status das condições de pagamento para ordem de vendas
 Payment Terms from orders will be fetched into the invoices as is,As condições de pagamento dos pedidos serão incluídas nas faturas como estão
 Payment Terms:,Condições de pagamento:
 Payment Type,Tipo de pagamento
@@ -4368,7 +4368,7 @@ Please enter the phone number first,"Por favor, insira o número de telefone pri
 Please enter the {schedule_date}.,Insira {schedule_date}.
 Please enter valid Financial Year Start and End Dates,Insira datas válidas de início e término do exercício financeiro
 Please enter {0} first,Por favor insira {0} primeiro
-Please fill the Sales Orders table,Por favor preencha a tabela Pedidos de Vendas
+Please fill the Sales Orders table,Por favor preencha a tabela de ordens de vendas
 "Please first set Full Name, Email and Phone for the user","Primeiro defina o nome completo, e-mail e telefone do usuário"
 Please fix overlapping time slots for {0},Corrija intervalos de tempo sobrepostos para {0}
 Please fix overlapping time slots for {0}.,Corrija intervalos de tempo sobrepostos para {0}.
@@ -4386,7 +4386,7 @@ Please refresh or reset the Plaid linking of the Bank {}.,Atualize ou redefina a
 Please review the {0} configuration and complete any required financial setup activities.,Revise a configuração de {0} e conclua todas as atividades de configuração financeira necessárias.
 Please save before proceeding.,Salve antes de continuar.
 Please save first,Salve primeiro
-Please save the Sales Order before adding a delivery schedule.,Salve o pedido de venda antes de adicionar uma programação de entrega.
+Please save the Sales Order before adding a delivery schedule.,Salve a ordem de vendas antes de adicionar uma programação de entrega.
 Please select <b>Template Type</b> to download template,Selecione <b>Tipo de modelo</b> para baixar o modelo
 Please select Apply Discount On,Selecione Aplicar desconto em
 Please select BOM against item {0},Selecione BOM no item {0}
@@ -4473,7 +4473,7 @@ Please set Fixed Asset Account in {} against {}.,Defina a conta de ativo fixo em
 Please set Parent Row No for item {0},Defina o número da linha pai para o item {0}
 Please set Purchase Expense Contra Account in Company {0},Defina a conta de contrapartida de despesas de compra na empresa {0}
 Please set Root Type,Defina o tipo de raiz
-Please set Tax ID for the customer '%s',Defina o ID fiscal do cliente '%s'
+Please set Tax ID for the customer '%s',Defina o NIF do cliente '%s'
 Please set Unrealized Exchange Gain/Loss Account in Company {0},Defina a conta de ganho/perda cambial não realizada na empresa {0}
 Please set VAT Accounts in {0},Defina contas de IVA em {0}
 "Please set Vat Accounts for Company: ""{0}"" in UAE VAT Settings","Defina as contas de IVA para a empresa: ""{0}"" nas configurações de IVA dos Emirados Árabes Unidos"
@@ -4486,7 +4486,7 @@ Please set an Address on the Company '%s',Por favor defina um endereço na empre
 Please set an Expense Account in the Items table,Defina uma conta de despesas na tabela Itens
 Please set an email id for the Lead {0},Defina um ID de e-mail para o lead {0}
 Please set at least one row in the Taxes and Charges Table,"Por favor, defina pelo menos uma linha na Tabela de Impostos e Taxas"
-Please set both the Tax ID and Fiscal Code on Company {0},Defina o número de identificação fiscal e o código fiscal na empresa {0}
+Please set both the Tax ID and Fiscal Code on Company {0},Defina o NIF e o código fiscal na empresa {0}
 Please set default Exchange Gain/Loss Account in Company {},Defina a conta padrão de ganhos/perdas cambiais na empresa {}
 Please set default Expense Account in Company {0},Defina a conta de despesas padrão na empresa {0}
 Please set default cost of goods sold account in company {0} for booking rounding gain and loss during stock transfer,Defina a conta padrão de custo de mercadorias vendidas na empresa {0} para registrar ganhos e perdas de arredondamento durante a transferência de estoque
@@ -4967,7 +4967,7 @@ Reference Type,Tipo de referência
 Reference for Reservation,Referência para Reserva
 Reference number of the invoice from the previous system,Número de referência da fatura do sistema anterior
 References to Sales Invoices are Incomplete,As referências às faturas de vendas estão incompletas
-References to Sales Orders are Incomplete,As referências aos pedidos de vendas estão incompletas
+References to Sales Orders are Incomplete,As referências às ordens de vendas estão incompletas
 References {0} of type {1} had no outstanding amount left before submitting the Payment Entry. Now they have a negative outstanding amount.,As referências {0} do tipo {1} não tinham nenhum valor pendente antes do envio da Entrada de Pagamento. Agora eles têm um valor pendente negativo.
 Referral Code,Código de referência
 Referral Sales Partner,Parceiro de vendas de referência
@@ -5239,7 +5239,7 @@ Row #{0}: Cannot delete item {1} which has already been billed.,Linha #{0}: Não
 Row #{0}: Cannot delete item {1} which has already been delivered,Linha #{0}: Não é possível excluir o item {1} que já foi entregue
 Row #{0}: Cannot delete item {1} which has already been received,Linha #{0}: Não é possível excluir o item {1} que já foi recebido
 Row #{0}: Cannot delete item {1} which has work order assigned to it.,Linha #{0}: Não é possível excluir o item {1} que possui uma ordem de serviço atribuída a ele.
-Row #{0}: Cannot delete item {1} which is already ordered against this Sales Order.,Linha #{0}: Não é possível excluir o item {1} que já foi pedido neste Pedido de Venda.
+Row #{0}: Cannot delete item {1} which is already ordered against this Sales Order.,Linha #{0}: Não é possível excluir o item {1} que já foi pedido nesta Ordem de vendas.
 Row #{0}: Cannot set Rate if the billed amount is greater than the amount for Item {1}.,Linha #{0}: Não é possível definir a Taxa se o valor faturado for maior que o valor do Item {1}.
 Row #{0}: Cannot transfer more than Required Qty {1} for Item {2} against Job Card {3},Linha #{0}: Não é possível transferir mais do que a Quantidade Necessária {1} para o Item {2} em relação ao Cartão de Trabalho {3}
 Row #{0}: Child Item should not be a Product Bundle. Please remove Item {1} and Save,Linha #{0}: o item filho não deve ser um pacote de produtos. Remova o item {1} e salve
@@ -5318,7 +5318,7 @@ Row #{0}: Quantity should be greater than 0 for {1} Item {2},Linha #{0}: a quant
 Row #{0}: Quantity to reserve for the Item {1} should be greater than 0.,Linha #{0}: A quantidade a ser reservada para o Item {1} deve ser maior que 0.
 Row #{0}: Rate must be same as {1}: {2} ({3} / {4}),Linha #{0}: A taxa deve ser igual a {1}: {2} ({3} / {4})
 "Row #{0}: Reference Document Type must be one of Purchase Order, Purchase Invoice or Journal Entry","Linha #{0}: O tipo de documento de referência deve ser Ordem de compra, Fatura de compra ou Lançamento contábil manual"
-"Row #{0}: Reference Document Type must be one of Sales Order, Sales Invoice, Journal Entry or Dunning","Linha #{0}: O tipo de documento de referência deve ser Pedido de venda, Fatura de venda, Lançamento contábil manual ou Cobrança"
+"Row #{0}: Reference Document Type must be one of Sales Order, Sales Invoice, Journal Entry or Dunning","Linha #{0}: O tipo de documento de referência deve ser Ordem de vendas, Fatura de venda, Lançamento contábil manual ou Cobrança"
 Row #{0}: Rejected Qty cannot be set for Secondary Item {1}.,Linha #{0}: A quantidade rejeitada não pode ser definida para o item secundário {1}.
 Row #{0}: Rejected Warehouse is mandatory for the rejected Item {1},Linha #{0}: Armazém rejeitado é obrigatório para o item rejeitado {1}
 Row #{0}: Repair cost {1} exceeds available amount {2} for Purchase Invoice {3} and Account {4},Linha #{0}: O custo do reparo {1} excede o valor disponível {2} para a fatura de compra {3} e a conta {4}
@@ -5512,24 +5512,24 @@ Sales Invoice is not created using POS,A fatura de vendas não é criada usando 
 Sales Invoice is not submitted,A fatura de venda não foi enviada
 Sales Invoice isn't created by user {},A fatura de vendas não foi criada pelo usuário {}
 Sales Invoice mode is activated in POS. Please create Sales Invoice instead.,"O modo Fatura de Venda está ativado no PDV. Em vez disso, crie uma fatura de vendas."
-Sales Invoice {0} must be deleted before cancelling this Sales Order,A fatura de vendas {0} deve ser excluída antes de cancelar este pedido de vendas
+Sales Invoice {0} must be deleted before cancelling this Sales Order,A fatura de vendas {0} deve ser excluída antes de cancelar esta ordem de vendas
 Sales Manager,Gerente de vendas
 Sales Master Manager,Gerente Mestre de Vendas
 Sales Monthly History,Histórico Mensal de Vendas
 Sales Opportunities by Campaign,Oportunidades de vendas por campanha
 Sales Opportunities by Medium,Oportunidades de vendas por meio
 Sales Opportunities by Source,Oportunidades de vendas por fonte
-Sales Order Date,Data do pedido de venda
-Sales Order Item,Item de pedido de venda
-Sales Order Packed Item,Item embalado do pedido de vendas
-Sales Order Reference,Referência do pedido de vendas
-Sales Order Schedule,Programação de pedidos de vendas
-Sales Order Status,Status do pedido de vendas
-Sales Order required for Item {0},Ordem de venda necessária para o item {0}
-"Sales Order {0} already exists against Customer's Purchase Order {1}. To allow multiple Sales Orders, Enable {2} in {3}","A Ordem de Venda {0} já existe em relação à Ordem de Compra {1} do Cliente. Para permitir vários pedidos de vendas, ative {2} em {3}"
-Sales Order {0} is not available for production,O pedido de vendas {0} não está disponível para produção
-Sales Orders to Bill,Pedidos de vendas a serem faturados
-Sales Orders to Deliver,Pedidos de vendas a serem entregues
+Sales Order Date,Data da ordem de vendas
+Sales Order Item,Item da ordem de vendas
+Sales Order Packed Item,Item embalado da ordem de vendas
+Sales Order Reference,Referência da ordem de vendas
+Sales Order Schedule,Programação de ordens de vendas
+Sales Order Status,Status da ordem de vendas
+Sales Order required for Item {0},Ordem de vendas necessária para o item {0}
+"Sales Order {0} already exists against Customer's Purchase Order {1}. To allow multiple Sales Orders, Enable {2} in {3}","A Ordem de vendas {0} já existe em relação à Ordem de Compra {1} do Cliente. Para permitir várias ordens de vendas, ative {2} em {3}"
+Sales Order {0} is not available for production,A ordem de vendas {0} não está disponível para produção
+Sales Orders to Bill,Ordens de vendas a serem faturadas
+Sales Orders to Deliver,Ordens de vendas a serem entregues
 Sales Partner ,Parceiro de vendas
 Sales Partner Item,Item de parceiro de vendas
 Sales Partner Name,Nome do parceiro de vendas
@@ -5613,7 +5613,7 @@ Selecione o tipo de artigo.,Selecione o tipo de artigo.
 Selecione um cliente.,Selecione um cliente.
 Select,Selecione
 Select Accounting Dimension.,Selecione Dimensão Contábil.
-Select Alternative Items for Sales Order,Selecione itens alternativos para pedido de vendas
+Select Alternative Items for Sales Order,Selecione itens alternativos para ordem de vendas
 Select Batch No,Selecione o número do lote
 Select Billing Address,Selecione o endereço de cobrança
 Select Columns and Filters,Selecione colunas e filtros
@@ -5644,7 +5644,7 @@ Select a Customer,Selecione um cliente
 Select a Payment Method.,Selecione um método de pagamento.
 Select an Item Group.,Selecione um grupo de itens.
 Select an invoice to load summary data,Selecione uma fatura para carregar dados resumidos
-Select an item from each set to be used in the Sales Order.,Selecione um item de cada conjunto para ser usado no Pedido de Venda.
+Select an item from each set to be used in the Sales Order.,Selecione um item de cada conjunto para ser usado na Ordem de vendas.
 Select at least one value from each of the attributes.,Selecione pelo menos um valor de cada um dos atributos.
 Select company name first.,Selecione primeiro o nome da empresa.
 Select finance book for the item {0} at row {1},Selecione o livro financeiro para o item {0} na linha {1}
@@ -5658,8 +5658,8 @@ Select the date,Selecione a data
 Select the date and your timezone,Selecione a data e seu fuso horário
 Select the raw materials (Items) required to manufacture the Item,Selecione as matérias-primas (itens) necessárias para fabricar o item
 Select variant item code for the template item {0},Selecione o código do item variante para o item de modelo {0}
-Select whether to get items from a Sales Order or a Material Request. For now select <b>Sales Order</b>.||| A Production Plan can also be created manually where you can select the Items to manufacture.,Selecione se deseja obter itens de um pedido de vendas ou de uma solicitação de material. Por enquanto selecione <b>Pedido de venda</b>.||| Um Plano de Produção também pode ser criado manualmente onde você pode selecionar os Itens a serem fabricados.
-Select whether to get items from a Sales Order or a Material Request. For now select <b>Sales Order</b>.|||| A Production Plan can also be created manually where you can select the Items to manufacture.,Selecione se deseja obter itens de um pedido de vendas ou de uma solicitação de material. Por enquanto selecione <b>Pedido de venda</b>.|||| Um Plano de Produção também pode ser criado manualmente onde você pode selecionar os Itens a serem fabricados.
+Select whether to get items from a Sales Order or a Material Request. For now select <b>Sales Order</b>.||| A Production Plan can also be created manually where you can select the Items to manufacture.,Selecione se deseja obter itens de uma ordem de vendas ou de uma solicitação de material. Por enquanto selecione <b>Ordem de vendas</b>.||| Um Plano de Produção também pode ser criado manualmente onde você pode selecionar os Itens a serem fabricados.
+Select whether to get items from a Sales Order or a Material Request. For now select <b>Sales Order</b>.|||| A Production Plan can also be created manually where you can select the Items to manufacture.,Selecione se deseja obter itens de uma ordem de vendas ou de uma solicitação de material. Por enquanto selecione <b>Ordem de vendas</b>.|||| Um Plano de Produção também pode ser criado manualmente onde você pode selecionar os Itens a serem fabricados.
 Select your weekly off day,Selecione seu dia de folga semanal
 "Select, to make the customer searchable with these fields",Selecione para tornar o cliente pesquisável com estes campos
 Selected Print Format does not exist.,O formato de impressão selecionado não existe.
@@ -6063,7 +6063,7 @@ Stock has been unreserved for work order {0}.,O estoque foi cancelado para a ord
 Stock not available for Item {0} in Warehouse {1}.,Estoque não disponível para o Item {0} no Armazém {1}.
 Stock quantity not enough for Item Code: {0} under warehouse {1}. Available quantity {2} {3}.,A quantidade em estoque não é suficiente para o Código do Item: {0} no armazém {1}. Quantidade disponível {2} {3}.
 Stock transactions that are older than the mentioned days cannot be modified.,As transações de ações anteriores aos dias mencionados não podem ser modificadas.
-Stock will be reserved on submission of <b>Purchase Receipt</b> created against Material Request for Sales Order.,O estoque será reservado mediante envio do <b>Recibo de Compra</b> gerado na Solicitação de Material para Pedido de Venda.
+Stock will be reserved on submission of <b>Purchase Receipt</b> created against Material Request for Sales Order.,O estoque será reservado mediante envio do <b>Recibo de Compra</b> gerado na Solicitação de Material para ordem de vendas.
 Stock/Accounts can not be frozen as processing of backdated entries is going on. Please try again later.,"Os estoques/contas não podem ser congelados, pois o processamento de lançamentos retroativos está em andamento. Por favor, tente novamente mais tarde."
 Stop,Parar
 Stopped,Parou
@@ -6111,7 +6111,7 @@ Subcontracting Receipt,Recibo de Subcontratação
 Subcontracting Receipt Item,Item de recebimento de subcontratação
 Subcontracting Receipt Supplied Item,Item fornecido de recibo de subcontratação
 Subcontracting Return,Retorno de subcontratação
-Subcontracting Sales Order,Ordem de venda de subcontratação
+Subcontracting Sales Order,Ordem de vendas de subcontratação
 Subcontracting Settings,Configurações de subcontratação
 Subdivision,Subdivisão
 Subject,Assunto
@@ -6268,9 +6268,9 @@ Tax Amount will be rounded on a row(items) level,O valor do imposto será arredo
 Tax Breakup,Rompimento de impostos
 "Tax Category has been changed to ""Total"" because all the Items are non-stock items","A categoria de imposto foi alterada para ""Total"" porque todos os itens são itens sem estoque"
 Tax Expense,Despesa Fiscal
-Tax Id,ID fiscal
-Tax Id: ,ID fiscal:
-Tax Id: {0},CPF: {0}
+Tax Id,NIF
+Tax Id: ,NIF:
+Tax Id: {0},NIF: {0}
 Tax Rate %,Taxa de imposto %
 Tax Rates,Taxas de imposto
 Tax Refunds provided to Tourists under the Tax Refunds for Tourists Scheme,Reembolsos de impostos fornecidos a turistas no âmbito do regime de reembolso de impostos para turistas
@@ -6431,7 +6431,7 @@ There were issues unlinking payment entry {0}.,Ocorreram problemas ao desvincula
 This Account has '0' balance in either Base Currency or Account Currency,Esta conta tem saldo '0' na moeda base ou na moeda da conta
 This Item is a Template and cannot be used in transactions.<br>All fields present in the 'Copy Fields to Variant' table in Item Variant Settings will be copied to its variant items.,Este item é um modelo e não pode ser usado em transações.<br>Todos os campos presentes na tabela 'Copiar campos para variante' em Configurações de variante de item serão copiados para seus itens variantes.
 This Purchase Order has been fully subcontracted.,Este Pedido de Compra foi totalmente subcontratado.
-This Sales Order has been fully subcontracted.,Esta Ordem de Venda foi totalmente subcontratada.
+This Sales Order has been fully subcontracted.,Esta Ordem de vendas foi totalmente subcontratada.
 This action will unlink this account from any external service integrating ERPNext with your bank accounts. It cannot be undone. Are you certain ?,Esta ação irá desvincular esta conta de qualquer serviço externo que integre o ERPNext com suas contas bancárias. Não pode ser desfeito. Você tem certeza?
 This asset category is marked as non-depreciable. Please disable depreciation calculation or choose a different category.,Esta categoria de ativo está marcada como não depreciável. Desative o cálculo de depreciação ou escolha uma categoria diferente.
 This covers all scorecards tied to this Setup,Isso abrange todos os scorecards vinculados a esta configuração
@@ -6613,7 +6613,7 @@ Total Purchase Amount,Valor total da compra
 Total Purchase Cost (via Purchase Invoice),Custo total de compra (via fatura de compra)
 Total Repair Cost,Custo total de reparo
 Total Sales Amount,Valor total de vendas
-Total Sales Amount (via Sales Order),Valor total de vendas (via pedido de vendas)
+Total Sales Amount (via Sales Order),Valor total de vendas (via ordem de vendas)
 Total Supplied Qty,Quantidade total fornecida
 Total Taxable Amount,Valor total tributável
 Total Taxes and Charges,Total de Impostos e Encargos
@@ -6776,7 +6776,7 @@ Update Batch Qty,Atualizar quantidade do lote
 Update Billed Amount in Delivery Note,Atualizar valor faturado na nota de entrega
 Update Billed Amount in Purchase Order,Atualizar valor faturado no pedido de compra
 Update Billed Amount in Purchase Receipt,Atualizar valor faturado no recibo de compra
-Update Billed Amount in Sales Order,Atualizar valor faturado no pedido de venda
+Update Billed Amount in Sales Order,Atualizar valor faturado na ordem de vendas
 Update Consumed Material Cost In Project,Atualizar custo de material consumido no projeto
 Update Costing and Billing,Atualizar custos e faturamento
 Update Existing Price List Rate,Atualizar taxa de lista de preços existente
@@ -6801,7 +6801,7 @@ Updating details.,Atualizando detalhes.
 Upload Bank Statement,Carregar extrato bancário
 Upload XML Invoices,Carregar faturas XML
 "Upon enabling this, the JV will be submitted for a different exchange rate.","Ao habilitar isso, a JV será submetida a uma taxa de câmbio diferente."
-"Upon submission of the Sales Order, Work Order, or Production Plan, the system will automatically reserve the stock.","Ao enviar o Pedido de Venda, Ordem de Serviço ou Plano de Produção, o sistema reservará automaticamente o estoque."
+"Upon submission of the Sales Order, Work Order, or Production Plan, the system will automatically reserve the stock.","Ao enviar a Ordem de vendas, Ordem de Serviço ou Plano de Produção, o sistema reservará automaticamente o estoque."
 Urgent,Urgente
 Use 'Repost in background' button to trigger background job. Job can only be triggered when document is in Queued or Failed status.,Use o botão 'Repost em segundo plano' para acionar o trabalho em segundo plano. O trabalho só pode ser acionado quando o documento está no status Em fila ou Com falha.
 Use <strong>Python</strong> filters to get Accounts,Use filtros <strong>Python</strong> para obter contas
@@ -6971,7 +6971,7 @@ Warehouse wise Item Balance Age and Value,Idade e valor do saldo do item no arma
 Warehouse {0} can not be deleted as quantity exists for Item {1},O armazém {0} não pode ser excluído porque existe quantidade para o item {1}
 Warehouse {0} does not belong to Company {1}.,O Armazém {0} não pertence à Empresa {1}.
 Warehouse {0} does not exist,O armazém {0} não existe
-"Warehouse {0} is not allowed for Sales Order {1}, it should be {2}","O armazém {0} não é permitido para o pedido de vendas {1}, deveria ser {2}"
+"Warehouse {0} is not allowed for Sales Order {1}, it should be {2}","O armazém {0} não é permitido para a ordem de vendas {1}, deveria ser {2}"
 "Warehouse {0} is not linked to any account, please mention the account in the warehouse record or set default inventory account in company {1}.","O armazém {0} não está vinculado a nenhuma conta, mencione a conta no registro do armazém ou defina a conta de estoque padrão na empresa {1}."
 Warn,Avisar
 Warn POs,Avisar POs
@@ -7084,7 +7084,7 @@ You are about to permanently delete data for {0} entries for company {1}.,Você 
 You are importing data for the code list:,Você está importando dados para a lista de códigos:
 You are not allowed to update as per the conditions set in {} Workflow.,Você não tem permissão para atualizar de acordo com as condições definidas no {} Workflow.
 You are not authorized to make/edit Stock Transactions for Item {0} under warehouse {1} before this time.,Você não está autorizado a fazer/editar transações de estoque para o item {0} no armazém {1} antes desse horário.
-You are picking more than required quantity for the item {0}. Check if there is any other pick list created for the sales order {1}.,Você está selecionando mais quantidade do que o necessário para o item {0}. Verifique se existe alguma outra lista de seleção criada para o pedido de venda {1}.
+You are picking more than required quantity for the item {0}. Check if there is any other pick list created for the sales order {1}.,Você está selecionando mais quantidade do que o necessário para o item {0}. Verifique se existe alguma outra lista de seleção criada para a ordem de vendas {1}.
 You can add the original invoice {} manually to proceed.,Você pode adicionar a fatura original {} manualmente para continuar.
 You can change the parent account to a Balance Sheet account or select a different account.,Você pode alterar a conta principal para uma conta de Balanço Patrimonial ou selecionar uma conta diferente.
 "You can set it as a machine name or operation type. For example, stiching machine 12","Você pode configurá-lo como um nome de máquina ou tipo de operação. Por exemplo, máquina de costura 12"
@@ -7158,7 +7158,7 @@ payments app is not installed. Please install it from {0} or {1},o aplicativo de
 payments app is not installed. Please install it from {} or {},o aplicativo de pagamentos não está instalado. Instale-o em {} ou {}
 per hour,por hora
 performing either one below:,executando qualquer um dos seguintes:
-product bundle item row's name in sales order. Also indicates that picked item is to be used for a product bundle,nome da linha do item do pacote de produtos no pedido de venda. Também indica que o item selecionado será usado para um pacote de produtos
+product bundle item row's name in sales order. Also indicates that picked item is to be used for a product bundle,nome da linha do item do pacote de produtos na ordem de vendas. Também indica que o item selecionado será usado para um pacote de produtos
 production,produção
 quotation_item,item_cotação
 ratings,classificações

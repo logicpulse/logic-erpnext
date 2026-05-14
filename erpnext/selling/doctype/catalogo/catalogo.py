@@ -55,6 +55,27 @@ class ProdutModel:
 class ProdutModelToExcel(ProdutModel):
     Unit_Measure: str
 
+DEFAULT_CATALOG_SPREADSHEET_ID = "1Nm6YatjJrugBxM38yaXlIJgLHfVAMCnnMLw83lga5YQ"
+
+def get_catalog_spreadsheet():
+	"""Abre a planilha do catálogo com a conta de serviço (gspread).
+	`spreadsheet_id`: opcional; senão usa `frappe.conf.catalog_spreadsheet_id` ou o ID por defeito.
+	"""
+	import gspread
+	from oauth2client.service_account import ServiceAccountCredentials
+
+	key = DEFAULT_CATALOG_SPREADSHEET_ID
+	creds_path = os.path.join(
+		frappe.get_app_path("erpnext", "selling", "doctype", "catalogo", "utils", "app_client_secret.json")
+	)
+	scope = [
+		"https://www.googleapis.com/auth/spreadsheets",
+		"https://spreadsheets.google.com/feeds",
+	]
+	creds = ServiceAccountCredentials.from_json_keyfile_name(creds_path, scope)
+	client = gspread.authorize(creds)
+	return client.open_by_key(key)
+
 @frappe.whitelist()
 def get_catalog(ref: str, spreadsheet_id: str, sheet_name: str, cell_range: str, country: str, price_type: str, compress: bool):
     try:
@@ -303,7 +324,145 @@ def get_values(spreadsheet_id, sheet_name, cell_range):
             if isinstance(cell, str) and cell.startswith('=image'):  
                 values[i][j] = valuesForm[i][j]
 
-    return values 
+    return values
+
+@frappe.whitelist()
+def synchronize_item_prices_with_spreadsheet(ref: str):
+    """ 
+    Sincroniza os preços dos itens com a planilha do Google Sheets.
+    Args:
+        spreadsheet_id: ID da planilha do Google Sheets.
+        ref: Referência do item.
+    Returns:
+        dict: Dicionário com o resultado da sincronização:
+            - success: bool: True se a sincronização foi bem-sucedida, False caso contrário.
+            - message: str: Mensagem de sucesso ou erro.
+    Raises:
+        Exception: Se ocorrer um erro ao sincronizar os preços dos itens.
+    """
+    
+    datas = [
+        {
+            "ref": "access",
+            "sheet_name": "Gestão de Acessos",
+            "cell_range": "E:P"
+        },
+        {
+            "ref": "time",
+            "sheet_name": "Gestão de Assiduidade",
+            "cell_range": "E:P"
+        },
+        {
+            "ref": "q",
+            "sheet_name": "Gestão de Filas de Espera",
+            "cell_range": "E:P"
+        },
+        {
+            "ref": "fleet",
+            "sheet_name": "Gestão de Frotas",
+            "cell_range": "E:P"
+        },
+        {
+            "ref": "pos",
+            "sheet_name": "POS",
+            "cell_range": "E:P"
+        },
+        {
+            "ref": "library",
+            "sheet_name": "Gestão de Bibliotecas",
+            "cell_range": "D:P"
+        },
+        {
+            "ref": "factory",
+            "sheet_name": "Gestão industrial",
+            "cell_range": "D:R"
+        }
+    ]
+
+    sort_sheets = ["Gestão de Bibliotecas", "Gestão industrial"]
+    doc_name = "Item Price"
+
+    ref_key = (ref or "").strip()
+    if not ref_key:
+        return {"success": False, "message": "Referência não encontrada"}
+
+    spreadsheet = get_catalog_spreadsheet()
+    
+    for data in datas:
+        sheet_name = data.get("sheet_name") 
+        sheet = spreadsheet.worksheet(sheet_name)
+        col_g = sheet.col_values(7 if sheet_name not in sort_sheets else 5)
+        row_number = None
+
+        for i, cell in enumerate(col_g):
+            if str(cell).strip() == ref_key:
+                row_number = i + 1
+                break   
+
+        if row_number is not None:
+            print(f'sheet_name: {sheet_name} | row_number: {row_number}') 
+            item_price_pt_pvr = frappe.db.get_value(doc_name, {"item_code": ref_key, "price_list": "Standard Selling", "selling": 1}, fieldname=["price_list_rate", "note", "name"], as_dict=True)
+            item_price_pt = frappe.db.get_value(doc_name, {"item_code": ref_key, "price_list": "Venda PT", "selling": 1}, fieldname=["price_list_rate", "note", "name"], as_dict=True)
+            item_price_ao = frappe.db.get_value(doc_name, {"item_code": ref_key, "price_list": "Venda AO", "selling": 1}, fieldname=["price_list_rate", "note", "name"], as_dict=True)
+            item_price_mz = frappe.db.get_value(doc_name, {"item_code": ref_key, "price_list": "Venda MZ", "selling": 1}, fieldname=["price_list_rate", "item_name"], as_dict=True)
+            
+            
+            line = sheet.row_values(row_number, value_render_option="UNFORMATTED_VALUE")
+            
+            if sheet_name not in sort_sheets:
+                i_pvr, i_pt, i_ao, i_mz = 11, 12, 14, 15
+            elif sheet_name == "Gestão de Bibliotecas":
+                i_pvr, i_pt, i_ao, i_mz = 11, 12, 14, 15
+            else:
+                i_pvr, i_pt, i_ao, i_mz = 8, 9, 11, 12
+            
+            price_pt_pvr = line[i_pvr]
+            price_pt = line[i_pt]
+            price_ao = line[i_ao]
+            price_mz = line[i_mz]
+
+            ok, err = validate_sheet_prices(price_pt_pvr, price_pt, price_ao, price_mz)
+            if not ok:
+                return {"success": False, "message": err}
+
+            frappe.db.set_value(doc_name, item_price_pt_pvr.name, "price_list_rate", price_pt_pvr)
+            frappe.db.set_value(doc_name, item_price_pt.name, "price_list_rate", price_pt)
+            frappe.db.set_value(doc_name, item_price_ao.name, "price_list_rate", price_ao)
+            frappe.db.set_value(doc_name, item_price_mz.name, "price_list_rate", price_mz)
+            
+            return {
+                "success": True,
+                "message": f'Item Price atualizado com sucesso: {ref_key}'
+            }
+        
+    return {
+        "success": False,
+        "message": f'A referência não foi encontrada: {ref_key}',
+    }
+
+def validate_sheet_prices(price_pt_pvr, price_pt, price_ao, price_mz, *, allow_negative=False):
+    """Valida os preços lidos da folha antes de gravar em Item Price.
+    Devolve (ok: bool, error_message: str | None). Se ok é False, error_message
+    descreve o primeiro campo inválido.
+    """
+    labels = (
+        (price_pt_pvr, "PVR PT (planilha)"),
+        (price_pt, "PVP PT (planilha)"),
+        (price_ao, "PVP AO (planilha)"),
+        (price_mz, "PVP MZ (planilha)"),
+    )
+    for raw, label in labels:
+        if raw is None or (isinstance(raw, str) and not str(raw).strip()):
+            return False, f"{label}: valor vazio."
+        try:
+            n = float(raw)
+        except (TypeError, ValueError):
+            return False, f"{label}: valor não numérico ({raw!r})."
+        if not math.isfinite(n):
+            return False, f"{label}: valor inválido (não finito)."
+        if not allow_negative and n < 0:
+            return False, f"{label}: não pode ser negativo ({n})."
+    return True, None
 
 def convert_list_to_model(values: list[list[str]]) -> list[ProdutModel]:
     if not values or len(values) < 3:
