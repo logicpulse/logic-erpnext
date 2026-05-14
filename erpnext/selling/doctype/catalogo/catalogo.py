@@ -56,6 +56,7 @@ class ProdutModelToExcel(ProdutModel):
     Unit_Measure: str
 
 DEFAULT_CATALOG_SPREADSHEET_ID = "1Nm6YatjJrugBxM38yaXlIJgLHfVAMCnnMLw83lga5YQ"
+SHORT_SHEETS = ["Gestão de Bibliotecas", "Gestão industrial"]
 
 def get_catalog_spreadsheet():
 	"""Abre a planilha do catálogo com a conta de serviço (gspread).
@@ -377,9 +378,8 @@ def synchronize_item_prices_with_spreadsheet(ref: str):
             "sheet_name": "Gestão industrial",
             "cell_range": "D:R"
         }
-    ]
+    ] 
 
-    sort_sheets = ["Gestão de Bibliotecas", "Gestão industrial"]
     doc_name = "Item Price"
 
     ref_key = (ref or "").strip()
@@ -388,57 +388,102 @@ def synchronize_item_prices_with_spreadsheet(ref: str):
 
     spreadsheet = get_catalog_spreadsheet()
     
-    for data in datas:
-        sheet_name = data.get("sheet_name") 
-        sheet = spreadsheet.worksheet(sheet_name)
-        col_g = sheet.col_values(7 if sheet_name not in sort_sheets else 5)
-        row_number = None
+    try:
+        for data in datas:
+            sheet_name = data.get("sheet_name")  
+            sheet, col_g = get_catalog_worksheet_and_ref_column(spreadsheet, sheet_name)
+            row_number = find_row_number_for_ref(col_g, ref_key)
+    
+            if row_number is not None:
+                print(f'sheet_name: {sheet_name} | row_number: {row_number}') 
+                item_price_pt_pvr, item_price_pt, item_price_ao, item_price_mz = get_catalog_item_prices_for_item(ref_key, doc_name)
+            
+                line = sheet.row_values(row_number, value_render_option="UNFORMATTED_VALUE")
+                price_pt_pvr, price_pt, price_ao, price_mz = get_sheet_prices_from_line(line, sheet_name)
 
-        for i, cell in enumerate(col_g):
-            if str(cell).strip() == ref_key:
-                row_number = i + 1
-                break   
+                ok, err = validate_sheet_prices(price_pt_pvr, price_pt, price_ao, price_mz)
+                if not ok:
+                    return {"success": False, "message": err}
 
-        if row_number is not None:
-            print(f'sheet_name: {sheet_name} | row_number: {row_number}') 
-            item_price_pt_pvr = frappe.db.get_value(doc_name, {"item_code": ref_key, "price_list": "Standard Selling", "selling": 1}, fieldname=["price_list_rate", "note", "name"], as_dict=True)
-            item_price_pt = frappe.db.get_value(doc_name, {"item_code": ref_key, "price_list": "Venda PT", "selling": 1}, fieldname=["price_list_rate", "note", "name"], as_dict=True)
-            item_price_ao = frappe.db.get_value(doc_name, {"item_code": ref_key, "price_list": "Venda AO", "selling": 1}, fieldname=["price_list_rate", "note", "name"], as_dict=True)
-            item_price_mz = frappe.db.get_value(doc_name, {"item_code": ref_key, "price_list": "Venda MZ", "selling": 1}, fieldname=["price_list_rate", "item_name"], as_dict=True)
-            
-            
-            line = sheet.row_values(row_number, value_render_option="UNFORMATTED_VALUE")
-            
-            if sheet_name not in sort_sheets:
-                i_pvr, i_pt, i_ao, i_mz = 11, 12, 14, 15
-            elif sheet_name == "Gestão de Bibliotecas":
-                i_pvr, i_pt, i_ao, i_mz = 11, 12, 14, 15
-            else:
-                i_pvr, i_pt, i_ao, i_mz = 8, 9, 11, 12
-            
-            price_pt_pvr = line[i_pvr]
-            price_pt = line[i_pt]
-            price_ao = line[i_ao]
-            price_mz = line[i_mz]
-
-            ok, err = validate_sheet_prices(price_pt_pvr, price_pt, price_ao, price_mz)
-            if not ok:
-                return {"success": False, "message": err}
-
-            frappe.db.set_value(doc_name, item_price_pt_pvr.name, "price_list_rate", price_pt_pvr)
-            frappe.db.set_value(doc_name, item_price_pt.name, "price_list_rate", price_pt)
-            frappe.db.set_value(doc_name, item_price_ao.name, "price_list_rate", price_ao)
-            frappe.db.set_value(doc_name, item_price_mz.name, "price_list_rate", price_mz)
-            
-            return {
-                "success": True,
-                "message": f'Item Price atualizado com sucesso: {ref_key}'
-            }
+                apply_catalog_prices_to_item_prices(
+                    doc_name, 
+                    [(item_price_pt_pvr, price_pt_pvr), 
+                    (item_price_pt, price_pt), 
+                    (item_price_ao, price_ao), 
+                    (item_price_mz, price_mz)]
+                ) 
+                return {
+                    "success": True,
+                    "message": f'Item Price atualizado com sucesso: {ref_key}'
+                }
+    except Exception as e:
+        return {
+            "success": False,
+            "message": f"Ocorreu um erro ao sincronizar preços do catálogo: {str(e)}"
+        }
+       
         
     return {
         "success": False,
         "message": f'A referência não foi encontrada: {ref_key}',
     }
+
+def get_catalog_worksheet_and_ref_column(spreadsheet, sheet_name: str):
+    sheet = spreadsheet.worksheet(sheet_name)
+    ref_col = 7 if sheet_name not in SHORT_SHEETS else 5
+    col_values = sheet.col_values(ref_col)
+    return sheet, col_values
+
+def find_row_number_for_ref(col_values: list[int | float | str | None], ref_key: str) -> int | None: 
+    key = (ref_key or "").strip()
+    for i, cell in enumerate(col_values):
+        if str(cell).strip() == key:
+            return i + 1
+    return None
+
+def get_catalog_item_prices_for_item(ref_key: str, doc_name: str = "Item Price"):
+    """Carrega os quatro Item Price de venda para o item. Ordem: Standard Selling, Venda PT, AO, MZ."""
+    common = {"item_code": ref_key, "selling": 1}
+    fields_std = ["price_list_rate", "note", "name"]
+    item_price_pt_pvr = frappe.db.get_value(
+        doc_name,
+        {**common, "price_list": "Standard Selling"},
+        fieldname=fields_std,
+        as_dict=True,
+    )
+    item_price_pt = frappe.db.get_value(
+        doc_name,
+        {**common, "price_list": "Venda PT"},
+        fieldname=fields_std,
+        as_dict=True,
+    )
+    item_price_ao = frappe.db.get_value(
+        doc_name,
+        {**common, "price_list": "Venda AO"},
+        fieldname=fields_std,
+        as_dict=True,
+    )
+    item_price_mz = frappe.db.get_value(
+        doc_name,
+        {**common, "price_list": "Venda MZ"},
+        fieldname=["price_list_rate", "item_name"],
+        as_dict=True,
+    )
+    return item_price_pt_pvr, item_price_pt, item_price_ao, item_price_mz
+
+def get_sheet_prices_from_line(line: list, sheet_name: str) -> tuple:
+    """Índices das colunas PVR PT, PVP PT, PVP AO, PVP MZ conforme o layout da folha."""
+    if sheet_name not in SHORT_SHEETS or sheet_name == "Gestão de Bibliotecas":
+        i_pvr, i_pt, i_ao, i_mz = 11, 12, 14, 15
+    else:
+        i_pvr, i_pt, i_ao, i_mz = 8, 9, 11, 12
+    return line[i_pvr], line[i_pt], line[i_ao], line[i_mz]
+
+def apply_catalog_prices_to_item_prices(doc_name: str, pairs: list[tuple[object, object]]):
+    """Grava os preços lidos da folha em Item Price."""
+    for row, rate in pairs:
+        frappe.db.set_value(doc_name, row.name, "price_list_rate", rate)
+    return True
 
 def validate_sheet_prices(price_pt_pvr, price_pt, price_ao, price_mz, *, allow_negative=False):
     """Valida os preços lidos da folha antes de gravar em Item Price.
@@ -717,3 +762,76 @@ def clean_image_formula(formula: str) -> str:
     result = result.strip()
     
     return result
+
+@frappe.whitelist()
+def synchronize_item_prices_with_spreadsheet_by_sheet_name(sheet_name: str):
+    """
+    Sincroniza os preços dos itens com a planilha do Google Sheets.
+    Args:
+        sheet_name: Nome da planilha do Google Sheets.
+    Returns:
+        dict: Dicionário com o resultado da sincronização:
+            - success: bool: True se a sincronização foi bem-sucedida, False caso contrário.
+            - message: str: Mensagem de sucesso ou erro.
+            - updated_count: int: Número de artigos cujos preços foram gravados (só em sucesso).
+    Raises:
+        Exception: Se ocorrer um erro ao sincronizar os preços dos itens.
+    """
+    doc_name = "Item Price"
+    spreadsheet = get_catalog_spreadsheet()
+    sheet, col_g = get_catalog_worksheet_and_ref_column(spreadsheet, sheet_name)
+
+    PRICE_LISTS = ("Standard Selling", "Venda PT", "Venda AO", "Venda MZ")
+    _in = ", ".join(["%s"] * len(PRICE_LISTS))
+    try:
+        rows = frappe.db.sql(
+            f"""
+            SELECT item_code
+            FROM `tabItem Price`
+            WHERE selling = 1
+              AND price_list IN ({_in})
+            GROUP BY item_code
+            HAVING COUNT(DISTINCT price_list) = 4
+            """,
+            PRICE_LISTS,
+            as_dict=True,
+        )
+        mapped_items_codes = [r["item_code"] for r in rows]
+
+        print(f'Rows ➡️ {len(mapped_items_codes)}')
+        updated_count = 0
+        for item_code in mapped_items_codes:
+            row_number = find_row_number_for_ref(col_g, item_code)
+
+            if row_number is None:
+                continue
+
+            item_price_pt_pvr, item_price_pt, item_price_ao, item_price_mz = get_catalog_item_prices_for_item(item_code)
+            line = sheet.row_values(row_number, value_render_option="UNFORMATTED_VALUE")
+            price_pt_pvr, price_pt, price_ao, price_mz = get_sheet_prices_from_line(line, sheet_name)
+
+            ok, err = validate_sheet_prices(price_pt_pvr, price_pt, price_ao, price_mz)
+            if not ok:
+                return {"success": False, "message": f"{item_code}: {err}"}
+
+            apply_catalog_prices_to_item_prices(
+                doc_name,
+                [
+                    (item_price_pt_pvr, price_pt_pvr),
+                    (item_price_pt, price_pt),
+                    (item_price_ao, price_ao),
+                    (item_price_mz, price_mz),
+                ],
+            )
+            updated_count += 1
+
+        return {
+            "success": True,
+            "updated_count": updated_count,
+            "message": f"Preços atualizados para {updated_count} artigo(s).",
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "message": f"Ocorreu um erro ao sincronizar preços do catálogo: {str(e)}"
+        }

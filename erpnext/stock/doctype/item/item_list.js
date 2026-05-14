@@ -130,9 +130,9 @@ async function sync_prices_with_spreadsheet_sheet(values) {
 			// });
 		} else {
 			message = await frappe.call({
-				method: "erpnext.selling.doctype.catalogo.catalogo.synchronize_item_prices_with_spreadsheet",
+				method: "erpnext.selling.doctype.catalogo.catalogo.synchronize_item_prices_with_spreadsheet_by_sheet_name",
 				args: { 
-					sheet_name: sheet_name, 
+					sheet_name, 
 				},
 				freeze: false
 			});
