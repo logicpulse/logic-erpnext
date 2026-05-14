@@ -3,6 +3,7 @@
 
 import frappe
 import math
+import time
 # from frappe.website.website_generator import WebsiteGenerator
 import frappe 
 import os 
@@ -399,7 +400,12 @@ def synchronize_item_prices_with_spreadsheet(ref: str):
                 item_price_pt_pvr, item_price_pt, item_price_ao, item_price_mz = get_catalog_item_prices_for_item(ref_key, doc_name)
             
                 line = sheet.row_values(row_number, value_render_option="UNFORMATTED_VALUE")
+                line_formula = sheet.row_values(row_number, value_render_option="FORMULA")
+                # print(f'line: {line}')
+                # print(f'line_formula: {line_formula}')
+                
                 price_pt_pvr, price_pt, price_ao, price_mz = get_sheet_prices_from_line(line, sheet_name)
+                image = clean_image_formula(line_formula[8]) if sheet_name not in SHORT_SHEETS else None
 
                 ok, err = validate_sheet_prices(price_pt_pvr, price_pt, price_ao, price_mz)
                 if not ok:
@@ -412,17 +418,16 @@ def synchronize_item_prices_with_spreadsheet(ref: str):
                     (item_price_ao, price_ao), 
                     (item_price_mz, price_mz)]
                 ) 
+                if image:
+                    frappe.db.set_value("Item", ref_key, "image", image) 
+                
                 return {
                     "success": True,
                     "message": f'Item Price atualizado com sucesso: {ref_key}'
                 }
     except Exception as e:
-        return {
-            "success": False,
-            "message": f"Ocorreu um erro ao sincronizar preços do catálogo: {str(e)}"
-        }
-       
-        
+        return {"success": False, "message": str(e)}
+
     return {
         "success": False,
         "message": f'A referência não foi encontrada: {ref_key}',
@@ -808,7 +813,9 @@ def synchronize_item_prices_with_spreadsheet_by_sheet_name(sheet_name: str):
 
             item_price_pt_pvr, item_price_pt, item_price_ao, item_price_mz = get_catalog_item_prices_for_item(item_code)
             line = sheet.row_values(row_number, value_render_option="UNFORMATTED_VALUE")
+            line_formula = sheet.row_values(row_number, value_render_option="FORMULA")
             price_pt_pvr, price_pt, price_ao, price_mz = get_sheet_prices_from_line(line, sheet_name)
+            image = clean_image_formula(line_formula[8]) if sheet_name not in SHORT_SHEETS else None
 
             ok, err = validate_sheet_prices(price_pt_pvr, price_pt, price_ao, price_mz)
             if not ok:
@@ -823,7 +830,11 @@ def synchronize_item_prices_with_spreadsheet_by_sheet_name(sheet_name: str):
                     (item_price_mz, price_mz),
                 ],
             )
+            if image:
+                frappe.db.set_value("Item", item_code, "image", image) 
             updated_count += 1
+            # Espaça leituras à API do Google Sheets (evita 429 read requests / minuto)
+            time.sleep(0.35)
 
         return {
             "success": True,
@@ -831,17 +842,22 @@ def synchronize_item_prices_with_spreadsheet_by_sheet_name(sheet_name: str):
             "message": f"Preços atualizados para {updated_count} artigo(s). - {sheet_name}",
         }
     except Exception as e:
-        return {
-            "success": False,
-            "message": f"Ocorreu um erro ao sincronizar preços do catálogo: {str(e)}"
-        }
+        return {"success": False, "message": str(e)}
 
 @frappe.whitelist()
 def synchronize_all_item_prices_with_spreadsheet():
-    SHEET_NAMES = ["Gestão de Acessos", "Gestão de Assiduidade", "Gestão de Filas de Espera", "Gestão de Frotas", "POS", "Gestão de Bibliotecas", "Gestão industrial"]
+    SHEET_NAMES = [
+        "Gestão de Acessos",
+        "Gestão de Assiduidade",
+        "Gestão de Filas de Espera",
+        "Gestão de Frotas",
+        "POS",
+        "Gestão de Bibliotecas",
+        "Gestão industrial",
+    ]
     updated_count = 0
     try:
-        for sheet_name in SHEET_NAMES:
+        for i, sheet_name in enumerate(SHEET_NAMES):
             result = synchronize_item_prices_with_spreadsheet_by_sheet_name(sheet_name)
             if result["success"]:
                 updated_count += result["updated_count"]
@@ -849,18 +865,20 @@ def synchronize_all_item_prices_with_spreadsheet():
             else:
                 return {
                     "success": False,
-                    "message": f"Ocorreu um erro ao sincronizar preços do catálogo: {result["message"]}",
+                    "message": f'Folha «{sheet_name}»: {result.get("message") or "Erro desconhecido."}',
                     "updated_count": updated_count,
                 }
+            if i < len(SHEET_NAMES) - 1:
+                time.sleep(2.5)
     except Exception as e:
         print(f'Ocorreu um erro ao sincronizar preços de todos os artigos: {str(e)}')
         return {
             "success": False,
-            "message": f"Ocorreu um erro ao sincronizar preços de todos os artigos: {str(e)}",
+            "message": f"Erro na sincronização completa: {str(e)}",
             "updated_count": updated_count,
         }
     return {
         "success": True,
-        "message": f"Preços atualizados para {updated_count} artigo(s).",
+        "message": f"Preços atualizados para {updated_count} artigo(s) (todas as folhas).",
         "updated_count": updated_count,
     }

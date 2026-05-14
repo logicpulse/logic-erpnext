@@ -60,7 +60,7 @@ async function show_form() {
 				label: 'Sincronização Completa?',
 				fieldname: 'is_complete',
 				fieldtype: 'Check',
-				default: 0,
+				default: 0
 			},
 			{
 				label: 'Grupo de itens',
