@@ -1,33 +1,10 @@
 frappe.listview_settings["Item"] = {
 	onload: function (listview) {
-		frm.add_custom_button('Sincronizar', async function () {
-			await show_form(frm);
-		});
-		// listview.page.add_inner_button(__('Completa'), async function (listview) {
-		// 	await sync_with_google_sheet();
-		// }, __('Sync'));
-		// listview.page.add_inner_button(__('Gestão de Acessos'), async function (listview) {
-		// 	await sync_with_google_sheet_single("access");
-		// }, __('Sync'));
-		// listview.page.add_inner_button(__('Gestão de Assiduidade'), async function (listview) {
-		// 	await sync_with_google_sheet_single("time");
-		// }, __('Sync'));
-		// listview.page.add_inner_button(__('Gestão de Filas de Espera'), async function (listview) {
-		// 	await sync_with_google_sheet_single("q");
-		// }, __('Sync'));
-		// listview.page.add_inner_button(__('Gestão de Frotas'), async function (listview) {
-		// 	await sync_with_google_sheet_single("fleet");
-		// }, __('Sync'));
-		// listview.page.add_inner_button(__('POS'), async function (listview) {
-		// 	await sync_with_google_sheet_single("pos");
-		// }, __('Sync'));
-		// listview.page.add_inner_button(__('Gestão de Bibliotecas'), async function (listview) {
-		// 	await sync_with_google_sheet_single("library");
-		// }, __('Sync'));
-		// listview.page.add_inner_button(__('Gestão industrial'), async function (listview) {
-		// 	await sync_with_google_sheet_single("factory");
-		// }, __('Sync'));
+		listview.page.set_secondary_action('Sincronizar', async function () {
+			await show_form();
+		}, "octicon octicon-sync");
 	},
+
 	add_fields: [
 		"item_name",
 		"stock_uom",
@@ -75,7 +52,7 @@ frappe.listview_settings["Item"] = {
 frappe.help.youtube_id["Item"] = "qXaEwld4_Ps";
 
 
-async function show_form(frm) {
+async function show_form() {
 	let d = new frappe.ui.Dialog({
 		title: 'Sincronizar preços',
 		fields: [
@@ -98,19 +75,50 @@ async function show_form(frm) {
 					"Gestão de Bibliotecas",
 					"Gestão industrial",
 				],
-				depends_on: 'eval:doc.is_complete == 1',
+				depends_on: 'eval:doc.is_complete == 0'
 			},
 		],
 		size: 'small', // small, large, extra-large 
 		primary_action_label: 'Sincronizar',
 		primary_action: async function (values) {
+			console.log(values);
+			if (values.is_complete == 0 && !values.sheet_name) {
+				frappe.show_alert({
+					title: "Erro",
+					message: "Selecione um grupo de itens",
+					indicator: "red"
+				});
+				return;
+			}
 			d.hide();
-			frappe.show_progress(`Sincronizando preços para o grupo de itens: ${sheet_name}...`, 70, 100, 'Por favor, aguarde');
-			await sync_prices_with_spreadsheet_sheet(values);
-			frappe.hide_progress();
+			const title = __("A Sincronizar preços...");
+			const max_before_done = 95; // nunca 100 até terminar
+			const start = Date.now();
+			// estimativa opcional (ms); a barra aproxima-se disso mas não passa de max_before_done
+			const estimated_ms = 120_000;
+			frappe.show_progress(title, 0, 100, "Por favor, aguarde");
+			const tick = setInterval(() => {
+				const elapsed = Date.now() - start;
+				const pct = Math.min(
+					max_before_done,
+					Math.floor((elapsed / estimated_ms) * 100)
+				);
+				frappe.show_progress(title, pct, 100, __("Por favor, aguarde"));
+			}, 300);
+			try {
+				await sync_prices_with_spreadsheet_sheet(values);
+				frappe.show_progress(title, 100, 100, "Concluído");
+				setTimeout(() => frappe.hide_progress(), 400);
+			} finally {
+				clearInterval(tick);
+			}
+			// d.hide();
+			// frappe.show_progress(`Sincronizando preços...`, 70, 100, 'Por favor, aguarde');
+			// await sync_prices_with_spreadsheet_sheet(values);
+			// frappe.hide_progress();
 		}
 	});
-	
+
 	d.show();
 }
 
@@ -118,36 +126,32 @@ async function sync_prices_with_spreadsheet_sheet(values) {
 	let { is_complete, sheet_name } = values;
 
 	try {
-		let message = '';
-		if (is_complete) {
-			// message = await frappe.call({
-			// 	method: "erpnext.selling.doctype.catalogo.catalogo.synchronize_item_prices_with_spreadsheet",
-			// 	args: { 
-			// 		ref: frm.doc.item_code, 
-			// 	},
-			// 	freeze: true,
-			// 	freeze_message: `Sincronizando item ${frm.doc.item_code} com Google Sheets...`
-			// });
+		let response = '';
+		if (is_complete == 1) {
+			response = await frappe.call({
+				method: "erpnext.selling.doctype.catalogo.catalogo.synchronize_all_item_prices_with_spreadsheet",
+				freeze: false
+			});
 		} else {
-			message = await frappe.call({
+			response = await frappe.call({
 				method: "erpnext.selling.doctype.catalogo.catalogo.synchronize_item_prices_with_spreadsheet_by_sheet_name",
-				args: { 
-					sheet_name, 
+				args: {
+					sheet_name,
 				},
 				freeze: false
 			});
-		} 
-		 
-		if (message.success) {
+		}
+		console.log(response.message);
+		if (response.message.success) {
 			frappe.show_alert({
 				title: "Sucesso",
-				message: `${message.message}`,
+				message: `${response.message.message}`,
 				indicator: "green"
 			});
 		} else {
 			frappe.msgprint({
 				title: "Erro",
-				message: `Ocorreu um erro ao sincronizar item ${frm.doc.item_code} a partir do Google Sheets! ${message.message}`,
+				message: `Ocorreu um erro ao sincronizar preços! ${response.message.message}`,
 				indicator: "red"
 			});
 		}
@@ -155,8 +159,8 @@ async function sync_prices_with_spreadsheet_sheet(values) {
 		console.error(error);
 		frappe.show_alert({
 			title: "Erro",
-			message: `Ocorreu um erro ao sincronizar item ${frm.doc.item_code} a partir do Google Sheets! ${error.message}`,
+			message: `Ocorreu um erro ao sincronizar preços! ${error.message}`,
 			indicator: "red"
 		});
-	} 
+	}
 }

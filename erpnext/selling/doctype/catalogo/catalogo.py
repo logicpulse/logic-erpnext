@@ -798,7 +798,7 @@ def synchronize_item_prices_with_spreadsheet_by_sheet_name(sheet_name: str):
         )
         mapped_items_codes = [r["item_code"] for r in rows]
 
-        print(f'Rows ➡️ {len(mapped_items_codes)}')
+        # print(f'Rows ➡️ {len(mapped_items_codes)}')
         updated_count = 0
         for item_code in mapped_items_codes:
             row_number = find_row_number_for_ref(col_g, item_code)
@@ -828,10 +828,39 @@ def synchronize_item_prices_with_spreadsheet_by_sheet_name(sheet_name: str):
         return {
             "success": True,
             "updated_count": updated_count,
-            "message": f"Preços atualizados para {updated_count} artigo(s).",
+            "message": f"Preços atualizados para {updated_count} artigo(s). - {sheet_name}",
         }
     except Exception as e:
         return {
             "success": False,
             "message": f"Ocorreu um erro ao sincronizar preços do catálogo: {str(e)}"
         }
+
+@frappe.whitelist()
+def synchronize_all_item_prices_with_spreadsheet():
+    SHEET_NAMES = ["Gestão de Acessos", "Gestão de Assiduidade", "Gestão de Filas de Espera", "Gestão de Frotas", "POS", "Gestão de Bibliotecas", "Gestão industrial"]
+    updated_count = 0
+    try:
+        for sheet_name in SHEET_NAMES:
+            result = synchronize_item_prices_with_spreadsheet_by_sheet_name(sheet_name)
+            if result["success"]:
+                updated_count += result["updated_count"]
+                print(f'Sheet {sheet_name} atualizado com sucesso: {result["updated_count"]} artigo(s).')
+            else:
+                return {
+                    "success": False,
+                    "message": f"Ocorreu um erro ao sincronizar preços do catálogo: {result["message"]}",
+                    "updated_count": updated_count,
+                }
+    except Exception as e:
+        print(f'Ocorreu um erro ao sincronizar preços de todos os artigos: {str(e)}')
+        return {
+            "success": False,
+            "message": f"Ocorreu um erro ao sincronizar preços de todos os artigos: {str(e)}",
+            "updated_count": updated_count,
+        }
+    return {
+        "success": True,
+        "message": f"Preços atualizados para {updated_count} artigo(s).",
+        "updated_count": updated_count,
+    }

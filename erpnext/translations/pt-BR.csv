@@ -1069,7 +1069,7 @@ Campaign Schedules,Cronogramas de campanha
 Campaign {0} not found,Campanha {0} não encontrada
 Can not close Work Order. Since {0} Job Cards are in Work In Progress state.,Não é possível fechar a Ordem de Serviço. Como {0} os cartões de trabalho estão no estado Trabalho em andamento.
 "Can not filter based on Child Account, if grouped by Account","Não é possível filtrar com base na conta infantil, se agrupada por conta"
-"Can not filter based on POS Profile, if grouped by POS Profile","Não é possível filtrar com base no perfil PDV, se agrupado por perfil PDV"
+"Can not filter based on POS Profile, if grouped by POS Profile","Não é possível filtrar com base no perfil POS, se agrupado por perfil POS"
 "Can not filter based on Voucher No, if grouped by Voucher","Não é possível filtrar com base no número do voucher, se agrupado por voucher"
 Can refer row only if the charge type is 'On Previous Row Amount' or 'Previous Row Total',Pode consultar a linha somente se o tipo de cobrança for 'Valor da linha anterior' ou 'Total da linha anterior'
 "Can't change the valuation method, as there are transactions against some items which do not have its own valuation method","Não é possível alterar o método de avaliação, pois existem transações em alguns itens que não possuem método de avaliação próprio"
@@ -1090,7 +1090,7 @@ Cannot add child table {0} to deletion list. Child tables are automatically dele
 Cannot apply TDS against multiple parties in one entry,Não é possível aplicar TDS a várias partes em uma entrada
 Cannot be a fixed asset item as Stock Ledger is created.,Não pode ser um item de ativo fixo porque o razão de estoque é criado.
 Cannot cancel Asset Depreciation Schedule {0} as it has a draft journal entry {1}.,Não é possível cancelar o Cronograma de depreciação de ativos {0} porque ele possui um lançamento contábil preliminar {1}.
-Cannot cancel POS Closing Entry,Não é possível cancelar a entrada de fechamento do PDV
+Cannot cancel POS Closing Entry,Não é possível cancelar a entrada de fechamento do POS
 "Cannot cancel Stock Reservation Entry {0}, as it has used in the work order {1}. Please cancel the work order first or unreserved the stock","Não é possível cancelar a entrada de reserva de estoque {0}, pois foi utilizada na ordem de serviço {1}. Por favor, cancele a ordem de serviço primeiro ou cancele a reserva do estoque"
 Cannot cancel as processing of cancelled documents is pending.,Não é possível cancelar porque o processamento dos documentos cancelados está pendente.
 Cannot cancel because submitted Stock Entry {0} exists,Não é possível cancelar porque existe a entrada de estoque enviada {0}
@@ -1162,7 +1162,7 @@ Carrier Service,Serviço de transportadora
 Carry Forward Communication and Comments,Levar adiante comunicações e comentários
 Cash Entry,Entrada de dinheiro
 Cash/Bank Account,Dinheiro/Conta Bancária
-Cashier is currently assigned to another POS.,O caixa está atualmente atribuído a outro PDV.
+Cashier is currently assigned to another POS.,O caixa está atualmente atribuído a outro POS.
 Catch All,Pegue tudo
 Categorize By,Categorizar por
 Categorize by,Categorizar por
@@ -1321,7 +1321,7 @@ Company {0} added multiple times,Empresa {0} adicionada várias vezes
 Company {0} is added more than once,A empresa {0} foi adicionada mais de uma vez
 Company {0} is not in South Africa.,A empresa {0} não está na África do Sul.
 Company {} does not exist yet. Taxes setup aborted.,A empresa {} ainda não existe. Configuração de impostos abortada.
-Company {} does not match with POS Profile Company {},A empresa {} não corresponde ao perfil de PDV da empresa {}
+Company {} does not match with POS Profile Company {},A empresa {} não corresponde ao perfil de POS da empresa {}
 Competitor,Concorrente
 Competitor Detail,Detalhes do concorrente
 Competitor Name,Nome do Concorrente
@@ -1493,7 +1493,7 @@ Create New Contact,Criar novo contato
 Create New Customer,Criar novo cliente
 Create New Lead,Criar novo lead
 Create Opportunity,Criar oportunidade
-Create Payment Entry for Consolidated POS Invoices.,Criar lançamento de pagamento para faturas de PDV consolidadas.
+Create Payment Entry for Consolidated POS Invoices.,Criar lançamento de pagamento para faturas de POS consolidadas.
 Create Payment Request,Criar solicitação de pagamento
 Create Prospect,Criar cliente potencial
 Create Receiver List,Criar lista de destinatários
@@ -1618,7 +1618,7 @@ Customer Number,Número do cliente
 Customer Number At Supplier,Número do cliente no fornecedor
 Customer Numbers,Números de clientes
 Customer PO Details,Detalhes da ordem de compra do cliente
-Customer POS ID,ID do PDV do cliente
+Customer POS ID,ID do POS do cliente
 Customer Portal Users,Usuários do Portal do Cliente
 Customer Primary Address,Endereço principal do cliente
 Customer Primary Contact,Contato principal do cliente
@@ -2041,8 +2041,8 @@ Duplicate Finance Book,Livro Financeiro Duplicado
 Duplicate Item Group,Grupo de itens duplicados
 Duplicate Item Under Same Parent,Item duplicado no mesmo pai
 Duplicate Operating Component {0} found in Operating Components,Componente operacional duplicado {0} encontrado em Componentes operacionais
-Duplicate POS Fields,Campos PDV duplicados
-Duplicate POS Invoices found,Foram encontradas faturas de PDV duplicadas
+Duplicate POS Fields,Campos POS duplicados
+Duplicate POS Invoices found,Foram encontradas faturas de POS duplicadas
 Duplicate Payment Schedule selected,Cronograma de pagamento duplicado selecionado
 Duplicate Sales Invoices found,Foram encontradas faturas de vendas duplicadas
 Duplicate Serial Number Error,Erro de número de série duplicado
@@ -2067,7 +2067,7 @@ Edit Cart,Editar carrinho
 Edit Full Form,Editar formulário completo
 Edit Note,Editar nota
 Edit Tax Withholding Entries,Editar lançamentos de retenção de impostos
-Editing {0} is not allowed as per POS Profile settings,A edição de {0} não é permitida de acordo com as configurações do perfil de PDV
+Editing {0} is not allowed as per POS Profile settings,A edição de {0} não é permitida de acordo com as configurações do perfil de POS
 Education,Educação
 Educational Qualification,Qualificação Educacional
 Either 'Selling' or 'Buying' must be selected,'Vender' ou 'Comprar' deve ser selecionado
@@ -2161,7 +2161,7 @@ Enable Stock Reservation,Habilitar Reserva de Estoque
 Enable Subscription,Habilitar assinatura
 Enable Subscription tracking in invoice,Ativar rastreamento de assinatura na fatura
 Enable UTM,Habilitar UTM
-"Enable Urchin Tracking Module parameters in Quotation, Sales Order, Sales Invoice, POS Invoice, Lead,  and Delivery Note.","Ative os parâmetros do módulo de rastreamento do Urchin em cotação, ordem de vendas, fatura de vendas, fatura de PDV, lead e nota de entrega."
+"Enable Urchin Tracking Module parameters in Quotation, Sales Order, Sales Invoice, POS Invoice, Lead,  and Delivery Note.","Ative os parâmetros do módulo de rastreamento do Urchin em cotação, ordem de vendas, fatura de vendas, fatura de POS, lead e nota de entrega."
 Enable YouTube Tracking,Ativar rastreamento do YouTube
 "Enable cost center, projects and other custom accounting dimensions","Habilite centro de custo, projetos e outras dimensões contábeis personalizadas"
 Enable it if users want to consider rejected materials to dispatch.,Habilite-o se os usuários quiserem considerar materiais rejeitados para envio.
@@ -2285,7 +2285,7 @@ Exploded Items,Itens Explodidos
 Export Errored Rows,Exportar linhas com erros
 Export Import Log,Exportar registro de importação
 Exportar,Exportar
-Exporting Sales Order to POS...,Exportando Ordem de vendas para PDV...
+Exporting Sales Order to POS...,Exportando Ordem de vendas para POS...
 Extended Bank Statement,Extrato bancário estendido
 External,Externo
 External Work History,Histórico de Trabalho Externo
@@ -2726,7 +2726,7 @@ If enabled then system won't override the picked qty / batches / serial numbers 
 "If enabled, do not update serial / batch values in the stock transactions on creation of auto Serial ||| / Batch Bundle. ","Se habilitado, não atualiza valores de série/lote nas transações de estoque na criação do Serial automático ||| / Pacote de lote."
 "If enabled, formula for <b>Qty to Order</b>: <br>|||Required Qty (BOM) - <a href=""https://docs.frappe.io/erpnext/user/manual/en/projected-quantity"" rel=""noopener noreferrer"">Projected Qty</a>. <br> This helps avoid over-ordering.","Se ativado, fórmula para <b>Quantidade a ser solicitada</b>: <br>|||Quantidade necessária (BOM) - <a href=""https://docs.frappe.io/erpnext/user/manual/en/projected-quantity"" rel=""noopener noreferrer"">Quantidade projetada</a>. <br> Isso ajuda a evitar pedidos excessivos."
 "If enabled, formula for <b>Required Qty</b>: <br>|||Required Qty (BOM) - <a href=""https://docs.frappe.io/erpnext/user/manual/en/projected-quantity"" rel=""noopener noreferrer"">Projected Qty</a>. <br> This helps avoid over-ordering.","Se ativado, fórmula para <b>Quantidade necessária</b>: <br>|||Quantidade necessária (BOM) - <a href=""https://docs.frappe.io/erpnext/user/manual/en/projected-quantity"" rel=""noopener noreferrer"">Quantidade projetada</a>. <br> Isso ajuda a evitar pedidos excessivos."
-"If enabled, ledger entries will be posted for change amount in POS transactions","Se ativado, as entradas do razão serão lançadas para o valor da alteração nas transações de PDV"
+"If enabled, ledger entries will be posted for change amount in POS transactions","Se ativado, as entradas do razão serão lançadas para o valor da alteração nas transações de POS"
 "If enabled, system will allow user to deliver the entire quantity of the finished goods produced against the Subcontracting Inward Order. If disabled, system will allow delivery of only the ordered quantity.","Se ativado, o sistema permitirá ao usuário entregar toda a quantidade de produtos acabados produzidos contra a Ordem de Entrada de Subcontratação. Se desativado, o sistema permitirá a entrega apenas da quantidade solicitada."
 "If enabled, system will set incoming rate as zero for stand-alone credit notes with expired batch item.","Se ativado, o sistema definirá a taxa de entrada como zero para notas de crédito independentes com item de lote expirado."
 "If enabled, the Secondary Items generated against a Finished Good will also be added in the Stock Entry when delivering that Finished Good.","Se habilitado, os Itens Secundários gerados em relação a um Produto Acabado também serão adicionados na Entrada de Estoque ao entregar esse Produto Acabado."
@@ -3600,7 +3600,7 @@ Moving Average,Média Móvel
 Moving up in tree ...,Subindo na árvore...
 Multi-level BOM Creator,Criador de BOM multinível
 Multiple Loyalty Programs found for Customer {}. Please select manually.,Vários programas de fidelidade encontrados para o cliente {}. Selecione manualmente.
-Multiple POS Opening Entry,Múltipla entrada de abertura de PDV
+Multiple POS Opening Entry,Múltipla entrada de abertura de POS
 Multiple Tier Program,Programa de vários níveis
 Multiple company fields available: {0}. Please select manually.,Vários campos de empresa disponíveis: {0}. Selecione manualmente.
 Multiple fiscal years exist for the date {0}. Please set company in Fiscal Year,"Existem vários anos fiscais para a data {0}. Por favor, defina a empresa no ano fiscal"
@@ -3679,7 +3679,7 @@ No Matching Bank Transactions Found,Nenhuma transação bancária correspondente
 No Matching Vouchers Found,Nenhum voucher correspondente encontrado
 No Notes,Sem notas
 No Outstanding Invoices found for this party,Nenhuma fatura pendente encontrada para esta parte
-No POS Profile found. Please create a New POS Profile first,Nenhum perfil de PDV encontrado. Crie primeiro um novo perfil de PDV
+No POS Profile found. Please create a New POS Profile first,Nenhum perfil de POS encontrado. Crie primeiro um novo perfil de POS
 No Purchase Orders were created,Nenhum pedido de compra foi criado
 No Records for these settings.,Não há registros para essas configurações.
 No Selection,Sem seleção
@@ -3724,7 +3724,7 @@ No of Units Produced,Nº de unidades produzidas
 No of Visits,Nº de visitas
 No of Workstations,Nº de estações de trabalho
 No open Material Requests found for the given criteria.,Nenhuma solicitação de material aberta foi encontrada para os critérios especificados.
-No open POS Opening Entry found for POS Profile {0}.,Nenhuma entrada de abertura de PDV aberta encontrada para o perfil de PDV {0}.
+No open POS Opening Entry found for POS Profile {0}.,Nenhuma entrada de abertura de POS aberta encontrada para o perfil de POS {0}.
 No open event,Nenhum evento aberto
 No open task,Nenhuma tarefa aberta
 No outstanding {0} found for the {1} {2} which qualify the filters you have specified.,Nenhum {0} pendente encontrado para o {1} {2} que qualifica os filtros especificados.
@@ -3795,7 +3795,7 @@ Number of days that the subscriber has to pay invoices generated by this subscri
 Numeric,Numérico
 Numeric Inspection,Inspeção Numérica
 Numeric Values,Valores Numéricos
-O artigo <b>{0}</b> não foi encontrado no POS.<br><br> Deseja continuar sem este item ou abortar o envio?,O item <b>{0}</b> não foi encontrado no PDV. <br><br> Deseja continuar sem este item ou abortar o envio?
+O artigo <b>{0}</b> não foi encontrado no POS.<br><br> Deseja continuar sem este item ou abortar o envio?,O item <b>{0}</b> não foi encontrado no POS. <br><br> Deseja continuar sem este item ou abortar o envio?
 O+,Ó+
 O-,O-
 Objective,Objetivo
@@ -3941,7 +3941,7 @@ Out Qty,Quantidade de saída
 Out of AMC,Fora da AMC
 Out of Warranty,Fora da garantia
 Out of stock,Fora de estoque
-Outdated POS Opening Entry,Entrada desatualizada de abertura de PDV
+Outdated POS Opening Entry,Entrada desatualizada de abertura de POS
 Outgoing Rate,Taxa de saída
 Outstanding,Fora do comum
 Outstanding (Company Currency),Pendente (moeda da empresa)
@@ -3979,40 +3979,40 @@ PIN,ALFINETE
 PMO-,PMO-
 PO Supplied Item,Item fornecido pela ordem de compra
 PO-JOB.#####,PO-JOB.#####
-POS,PDV
-POS Additional Fields,Campos adicionais de PDV
-POS Closed,PDV fechado
-POS Closing Failed,Falha no fechamento do PDV
-POS Closing failed while running in a background process. You can resolve the {0} and retry the process again.,O fechamento do PDV falhou durante a execução de um processo em segundo plano. Você pode resolver o {0} e tentar novamente o processo.
-POS ID,ID do PDV
-POS Invoice Item,Item de fatura de PDV
-POS Invoice is already consolidated,A fatura do PDV já está consolidada
-POS Invoice is not submitted,A fatura do PDV não foi enviada
-POS Invoice should have the field {0} checked.,Nota Fiscal PDV deverá ter o campo {0} marcado.
-POS Invoices,Faturas de PDV
-POS Invoices can't be added when Sales Invoice is enabled,As faturas de PDV não podem ser adicionadas quando a fatura de vendas está ativada
-POS Invoices will be consolidated in a background process,As faturas de PDV serão consolidadas em um processo em background
-POS Invoices will be unconsolidated in a background process,As faturas de PDV não serão consolidadas em um processo em segundo plano
-POS Opening Entry - {0} is outdated. Please close the POS and create a new POS Opening Entry.,Entrada de abertura de PDV - {0} está desatualizada. Feche o PDV e crie uma nova entrada de abertura de PDV.
-POS Opening Entry Cancellation Error,Erro de cancelamento de entrada de abertura de PDV
-POS Opening Entry Cancelled,Entrada de abertura de PDV cancelada
-POS Opening Entry Exists,Existe entrada de abertura de PDV
-POS Opening Entry Missing,Entrada de abertura de PDV ausente
-POS Opening Entry cannot be cancelled as unconsolidated Invoices exists.,O Lançamento de Abertura de PDV não pode ser cancelado pois existem Faturas não consolidadas.
-POS Opening Entry has been cancelled. Please refresh the page.,O lançamento de abertura de PDV foi cancelado. Atualize a página.
-POS Profile - {0} has multiple open POS Opening Entries. Please close or cancel the existing entries before proceeding.,Perfil de PDV - {0} tem diversas entradas de abertura de PDV abertas. Feche ou cancele as entradas existentes antes de continuar.
-POS Profile - {0} is currently open. Please close the POS or cancel the existing POS Opening Entry before cancelling this POS Closing Entry.,"Perfil PDV - {0} está aberto no momento. Por favor, feche o PDV ou cancele a Entrada de Abertura de PDV existente antes de cancelar esta Entrada de Fechamento de PDV."
-POS Profile doesn't match {},O perfil PDV não corresponde a {}
+POS,POS
+POS Additional Fields,Campos adicionais de POS
+POS Closed,POS fechado
+POS Closing Failed,Falha no fechamento do POS
+POS Closing failed while running in a background process. You can resolve the {0} and retry the process again.,O fechamento do POS falhou durante a execução de um processo em segundo plano. Você pode resolver o {0} e tentar novamente o processo.
+POS ID,ID do POS
+POS Invoice Item,Item de fatura de POS
+POS Invoice is already consolidated,A fatura do POS já está consolidada
+POS Invoice is not submitted,A fatura do POS não foi enviada
+POS Invoice should have the field {0} checked.,Nota Fiscal POS deverá ter o campo {0} marcado.
+POS Invoices,Faturas de POS
+POS Invoices can't be added when Sales Invoice is enabled,As faturas de POS não podem ser adicionadas quando a fatura de vendas está ativada
+POS Invoices will be consolidated in a background process,As faturas de POS serão consolidadas em um processo em background
+POS Invoices will be unconsolidated in a background process,As faturas de POS não serão consolidadas em um processo em segundo plano
+POS Opening Entry - {0} is outdated. Please close the POS and create a new POS Opening Entry.,Entrada de abertura de POS - {0} está desatualizada. Feche o POS e crie uma nova entrada de abertura de POS.
+POS Opening Entry Cancellation Error,Erro de cancelamento de entrada de abertura de POS
+POS Opening Entry Cancelled,Entrada de abertura de POS cancelada
+POS Opening Entry Exists,Existe entrada de abertura de POS
+POS Opening Entry Missing,Entrada de abertura de POS ausente
+POS Opening Entry cannot be cancelled as unconsolidated Invoices exists.,O Lançamento de Abertura de POS não pode ser cancelado pois existem Faturas não consolidadas.
+POS Opening Entry has been cancelled. Please refresh the page.,O lançamento de abertura de POS foi cancelado. Atualize a página.
+POS Profile - {0} has multiple open POS Opening Entries. Please close or cancel the existing entries before proceeding.,Perfil de POS - {0} tem diversas entradas de abertura de POS abertas. Feche ou cancele as entradas existentes antes de continuar.
+POS Profile - {0} is currently open. Please close the POS or cancel the existing POS Opening Entry before cancelling this POS Closing Entry.,"Perfil POS - {0} está aberto no momento. Por favor, feche o POS ou cancele a Entrada de Abertura de POS existente antes de cancelar esta Entrada de Fechamento de POS."
+POS Profile doesn't match {},O perfil POS não corresponde a {}
 POS Profile is mandatory to mark this invoice as POS Transaction.,O Perfil POS é obrigatório para marcar esta fatura como Transação POS.
-POS Profile {0} cannot be disabled as there are ongoing POS sessions.,O perfil de PDV {0} não pode ser desativado porque há sessões de PDV em andamento.
-POS Profile {} contains Mode of Payment {}. Please remove them to disable this mode.,O perfil de PDV {} contém o modo de pagamento {}. Remova-os para desativar este modo.
-POS Profile {} does not belong to company {},O perfil de PDV {} não pertence à empresa {}
-POS Profile {} does not exist.,O perfil PDV {} não existe.
-POS Profile {} is disabled.,O perfil PDV {} está desativado.
-POS Search Fields,Campos de pesquisa de PDV
-POS Transactions,Transações PDV
-POS has been closed at {0}. Please refresh the page.,O PDV foi fechado às {0}. Atualize a página.
-POS invoice {0} created successfully,Fatura de PDV {0} criada com sucesso
+POS Profile {0} cannot be disabled as there are ongoing POS sessions.,O perfil de POS {0} não pode ser desativado porque há sessões de POS em andamento.
+POS Profile {} contains Mode of Payment {}. Please remove them to disable this mode.,O perfil de POS {} contém o modo de pagamento {}. Remova-os para desativar este modo.
+POS Profile {} does not belong to company {},O perfil de POS {} não pertence à empresa {}
+POS Profile {} does not exist.,O perfil POS {} não existe.
+POS Profile {} is disabled.,O perfil POS {} está desativado.
+POS Search Fields,Campos de pesquisa de POS
+POS Transactions,Transações POS
+POS has been closed at {0}. Please refresh the page.,O POS foi fechado às {0}. Atualize a página.
+POS invoice {0} created successfully,Fatura de POS {0} criada com sucesso
 POS-CLO-,POS-CLO-
 PRLE-.####,PRLE-.####
 PROJ-.####,PROJ-.####
@@ -4078,7 +4078,7 @@ Parent Territory,Território Pai
 Parsed file is not in valid MT940 format or contains no transactions.,O arquivo analisado não está no formato MT940 válido ou não contém transações.
 Parsing Error,Erro de análise
 Partial Material Transferred,Material Parcial Transferido
-Partial Payment in POS Transactions are not allowed.,Não são permitidos pagamentos parciais em transações de PDV.
+Partial Payment in POS Transactions are not allowed.,Não são permitidos pagamentos parciais em transações de POS.
 Partial Stock Reservation,Reserva Parcial de Estoque
 Partial Success,Sucesso Parcial
 "Partial stock can be reserved. For example, If you have a Sales Order of 100 units and the Available Stock is 90 units then a Stock Reservation Entry will be created for 90 units. ","Estoque parcial pode ser reservado. Por exemplo, se você tiver uma ordem de vendas de 100 unidades e o estoque disponível for de 90 unidades, será criada uma entrada de reserva de estoque para 90 unidades."
@@ -5381,9 +5381,9 @@ Row #{idx}: {schedule_date} cannot be before {transaction_date}.,Linha #{idx}: {
 Row #{}: Currency of {} - {} doesn't matches company currency.,Linha nº{}: a moeda de {} - {} não corresponde à moeda da empresa.
 Row #{}: Either Party ID or Party Name is required,Linha nº{}: o ID ou o nome da parte é obrigatório
 Row #{}: Finance Book should not be empty since you're using multiple.,"Linha #{}: o livro financeiro não deve estar vazio, pois você está usando vários."
-Row #{}: POS Invoice {} has been {},Linha nº{}: fatura de PDV {} foi {}
-Row #{}: POS Invoice {} is not against customer {},Linha nº{}: a fatura do PDV {} não é contra o cliente {}
-Row #{}: POS Invoice {} is not submitted yet,Linha nº{}: fatura de PDV {} ainda não foi enviada
+Row #{}: POS Invoice {} has been {},Linha nº{}: fatura de POS {} foi {}
+Row #{}: POS Invoice {} is not against customer {},Linha nº{}: a fatura do POS {} não é contra o cliente {}
+Row #{}: POS Invoice {} is not submitted yet,Linha nº{}: fatura de POS {} ainda não foi enviada
 Row #{}: Party ID is required,Linha #{}: ID do grupo é obrigatório
 Row #{}: Please assign task to a member.,Linha #{}: atribua a tarefa a um membro.
 Row #{}: Please use a different Finance Book.,Linha #{}: use um livro financeiro diferente.
@@ -5511,7 +5511,7 @@ Sales Invoice is already consolidated,A fatura de vendas já está consolidada
 Sales Invoice is not created using POS,A fatura de vendas não é criada usando POS
 Sales Invoice is not submitted,A fatura de venda não foi enviada
 Sales Invoice isn't created by user {},A fatura de vendas não foi criada pelo usuário {}
-Sales Invoice mode is activated in POS. Please create Sales Invoice instead.,"O modo Fatura de Venda está ativado no PDV. Em vez disso, crie uma fatura de vendas."
+Sales Invoice mode is activated in POS. Please create Sales Invoice instead.,"O modo Fatura de Venda está ativado no POS. Em vez disso, crie uma fatura de vendas."
 Sales Invoice {0} must be deleted before cancelling this Sales Order,A fatura de vendas {0} deve ser excluída antes de cancelar esta ordem de vendas
 Sales Manager,Gerente de vendas
 Sales Master Manager,Gerente Mestre de Vendas
@@ -6343,7 +6343,7 @@ The amount of {0} set in this payment request is different from the calculated a
 The company {0} is not in South Africa. VAT Audit Report is only available for companies in South Africa.,A empresa {0} não está na África do Sul. O Relatório de Auditoria do IVA está disponível apenas para empresas na África do Sul.
 The completed quantity {0} of an operation {1} cannot be greater than the completed quantity {2} of a previous operation {3}.,A quantidade concluída {0} de uma operação {1} não pode ser maior que a quantidade concluída {2} de uma operação anterior {3}.
 The currency of invoice {} ({}) is different from the currency of this dunning ({}).,A moeda da fatura {} ({}) é diferente da moeda desta cobrança ({}).
-The current POS opening entry is outdated. Please close it and create a new one.,A entrada atual de abertura do PDV está desatualizada. Feche-o e crie um novo.
+The current POS opening entry is outdated. Please close it and create a new one.,A entrada atual de abertura do POS está desatualizada. Feche-o e crie um novo.
 The default BOM for that item will be fetched by the system. You can also change the BOM.,A lista técnica padrão desse item será buscada pelo sistema. Você também pode alterar a lista técnica.
 The difference between from time and To Time must be a multiple of Appointment,A diferença entre o horário inicial e o horário final deve ser um múltiplo do horário marcado
 The field {0} in row {1} is not set,O campo {0} na linha {1} não está definido
@@ -6389,7 +6389,7 @@ The serial no {0} does not belong to item {1},O número de série {0} não perte
 "The stock for the item {0} in the {1} warehouse was negative on the {2}. You should create a positive entry {3} before the date {4} and time {5} to post the correct valuation rate. For more details, please read the <a href='https://docs.erpnext.com/docs/user/manual/en/stock-adjustment-cogs-with-negative-stock'>documentation<a>.","O estoque do item {0} no armazém {1} era negativo em {2}. Você deve criar uma entrada positiva {3} antes da data {4} e hora {5} para lançar a taxa de avaliação correta. Para obter mais detalhes, leia a <a href='https://docs.erpnext.com/docs/user/manual/en/stock-adjustment-cogs-with-negative-stock'>documentação<a>."
 "The stock has been reserved for the following Items and Warehouses, un-reserve the same to {0} the Stock Reconciliation: <br /><br /> {1}","O estoque foi reservado para os seguintes Itens e Armazéns, cancele a reserva dos mesmos para {0} a Reconciliação de Estoque: <br /><br /> {1}"
 "The sync has started in the background, please check the {0} list for new records.",A sincronização começou em segundo plano. Verifique a lista {0} para novos registros.
-"The system will create a Sales Invoice or a POS Invoice from the POS interface based on this setting. For high-volume transactions, it is recommended to use POS Invoice.","O sistema criará uma fatura de vendas ou uma fatura de PDV a partir da interface do PDV com base nesta configuração. Para transações de alto volume, recomenda-se a utilização da Fatura POS."
+"The system will create a Sales Invoice or a POS Invoice from the POS interface based on this setting. For high-volume transactions, it is recommended to use POS Invoice.","O sistema criará uma fatura de vendas ou uma fatura de POS a partir da interface do POS com base nesta configuração. Para transações de alto volume, recomenda-se a utilização da Fatura POS."
 "The task has been enqueued as a background job. In case there is any issue on processing in background, the system will add a comment about the error on this Stock Reconciliation and revert to the Draft stage","A tarefa foi enfileirada como uma tarefa em segundo plano. Caso haja algum problema no processamento em background, o sistema adicionará um comentário sobre o erro nesta Conciliação de Estoque e voltará para a etapa Rascunho"
 "The task has been enqueued as a background job. In case there is any issue on processing in background, the system will add a comment about the error on this Stock Reconciliation and revert to the Submitted stage","A tarefa foi enfileirada como uma tarefa em segundo plano. Caso haja algum problema no processamento em background, o sistema adicionará um comentário sobre o erro nesta Conciliação de Estoque e voltará para a etapa Enviado"
 The total Issue / Transfer quantity {0} in Material Request {1}  cannot be greater than allowed requested quantity {2} for Item {3},A quantidade total de emissão/transferência {0} na solicitação de material {1} ​​não pode ser maior que a quantidade solicitada permitida {2} para o item {3}
@@ -6527,8 +6527,8 @@ To add subcontracted Item's raw materials if include exploded items is disabled.
 "To allow over receipt / delivery, update ""Over Receipt/Delivery Allowance"" in Stock Settings or the Item.","Para permitir recebimento/entrega excedentes, atualize ""Comissão de recebimento/entrega excedente"" nas configurações de estoque ou no item."
 To apply condition on parent field use parent.field_name and to apply condition on child table use doc.field_name. Here field_name could be based on the actual column name of the respective field.,"Para aplicar a condição no campo pai, use parent.field_name e para aplicar a condição na tabela filho, use doc.field_name. Aqui field_name pode ser baseado no nome real da coluna do respectivo campo."
 To be Delivered to Customer,Para ser entregue ao cliente
-To cancel a {} you need to cancel the POS Closing Entry {}.,Para cancelar um {} você precisa cancelar a entrada de fechamento do PDV {}.
-To cancel this Sales Invoice you need to cancel the POS Closing Entry {}.,Para cancelar esta Nota Fiscal de Venda é necessário cancelar o Registro de Fechamento do PDV {}.
+To cancel a {} you need to cancel the POS Closing Entry {}.,Para cancelar um {} você precisa cancelar a entrada de fechamento do POS {}.
+To cancel this Sales Invoice you need to cancel the POS Closing Entry {}.,Para cancelar esta Nota Fiscal de Venda é necessário cancelar o Registro de Fechamento do POS {}.
 "To enable Capital Work in Progress Accounting,","Para ativar a contabilidade de trabalho de capital em andamento,"
 To include non-stock items in the material request planning. i.e. Items for which 'Maintain Stock' checkbox is unticked.,"Incluir itens não estocáveis ​​no planejamento de solicitação de material. ou seja, itens para os quais a caixa de seleção 'Manter estoque' está desmarcada."
 "To include sub-assembly costs and secondary items in Finished Goods on a work order without using a job card, when the 'Use Multi-Level BOM' option is enabled.","Para incluir custos de submontagem e itens secundários em Produtos Acabados em uma ordem de serviço sem usar um cartão de trabalho, quando a opção 'Usar BOM Multinível' estiver habilitada."
@@ -6669,7 +6669,7 @@ Transaction from which tax is withheld,Transação da qual o imposto é retido
 Transaction reference no {0} dated {1},Referência de transação nº {0} datada de {1}
 Transactions Annual History,Histórico Anual de Transações
 Transactions against the Company already exist! Chart of Accounts can only be imported for a Company with no transactions.,Já existem transações contra a Empresa! O Plano de Contas só pode ser importado para uma Empresa sem transações.
-Transactions using Sales Invoice in POS are disabled.,As transações que utilizam Nota Fiscal de Venda no PDV estão desabilitadas.
+Transactions using Sales Invoice in POS are disabled.,As transações que utilizam Nota Fiscal de Venda no POS estão desabilitadas.
 Transfer Asset,Transferir ativo
 Transfer Extra Raw Materials to WIP (%),Transferir matérias-primas extras para WIP (%)
 Transfer From Warehouses,Transferência de armazéns
@@ -6832,7 +6832,7 @@ User,Usuário
 User Details,Detalhes do usuário
 User Forum,Fórum de usuários
 User Resolution Time,Tempo de resolução do usuário
-User {0} doesn't have any default POS Profile. Check Default at Row {1} for this User.,O usuário {0} não possui nenhum perfil de PDV padrão. Verifique o padrão na linha {1} para este usuário.
+User {0} doesn't have any default POS Profile. Check Default at Row {1} for this User.,O usuário {0} não possui nenhum perfil de POS padrão. Verifique o padrão na linha {1} para este usuário.
 User {0}: Removed Employee Self Service role as there is no mapped employee.,Usuário {0}: função de autoatendimento para funcionários removida porque não há funcionário mapeado.
 User {0}: Removed Employee role as there is no mapped employee.,Usuário {0}: Função de funcionário removida porque não há funcionário mapeado.
 Users,Usuários
@@ -7111,7 +7111,7 @@ You have entered a duplicate Delivery Note on Row,Você inseriu uma nota de entr
 You have unsaved changes. Do you want to save the invoice?,Você tem alterações não salvas. Quer salvar a fatura?
 You haven't created a {0} yet,Você ainda não criou um {0}
 You must select a customer before adding an item.,Você deve selecionar um cliente antes de adicionar um item.
-You need to cancel POS Closing Entry {} to be able to cancel this document.,Você precisa cancelar a entrada de fechamento do PDV {} para poder cancelar este documento.
+You need to cancel POS Closing Entry {} to be able to cancel this document.,Você precisa cancelar a entrada de fechamento do POS {} para poder cancelar este documento.
 You selected the account group {1} as {2} Account in row {0}. Please select a single account.,Você selecionou o grupo de contas {1} como {2} Conta na linha {0}. Selecione uma única conta.
 YouTube,YouTube
 YouTube Interactions,Interações no YouTube
@@ -7214,7 +7214,7 @@ you must select Capital Work in Progress Account in accounts table,você deve se
 {0} is not a valid Accounting Dimension.,{0} não é uma dimensão contábil válida.
 {0} is not running. Cannot trigger events for this Document,{0} não está em execução. Não é possível acionar eventos para este documento
 {0} is not the default supplier for any items.,{0} não é o fornecedor padrão de nenhum item.
-{0} is open. Close the POS or cancel the existing POS Opening Entry to create a new POS Opening Entry.,{0} está aberto. Feche o PDV ou cancele a Entrada de Abertura de PDV existente para criar uma nova Entrada de Abertura de PDV.
+{0} is open. Close the POS or cancel the existing POS Opening Entry to create a new POS Opening Entry.,{0} está aberto. Feche o POS ou cancele a Entrada de Abertura de POS existente para criar uma nova Entrada de Abertura de POS.
 {0} items disassembled,{0} itens desmontados
 {0} items lost during process.,{0} itens perdidos durante o processo.
 {0} items returned,{0} itens devolvidos
