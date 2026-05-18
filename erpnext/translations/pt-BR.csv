@@ -3345,7 +3345,7 @@ Log the selling and buying rate of an Item,Registrar a taxa de venda e compra de
 Logo,Logotipo
 Long-term Provisions,Disposições de longo prazo
 Longitude,Longitude
-Lost Quotations,Citações perdidas
+Lost Quotations,Cotações perdidas
 Lost Quotations %,% de cotações perdidas
 Lost Reasons are required in case opportunity is Lost.,Os motivos de perda são necessários caso a oportunidade seja perdida.
 Lost Value,Valor perdido
@@ -3419,7 +3419,7 @@ Make Lead Time,Faça o prazo de entrega
 Make Payment via Journal Entry,Efetue o pagamento por meio de lançamento contábil manual
 Make Purchase / Work Order,Fazer Compra/Ordem de Serviço
 Make Purchase Invoice,Fazer fatura de compra
-Make Quotation,Faça cotação
+Make Quotation,Fazer cotação
 Make Return Entry,Fazer entrada de devolução
 Make Sales Invoice,Fazer fatura de vendas
 Make Serial No / Batch from Work Order,Faça o número de série/lote da ordem de serviço
@@ -4818,7 +4818,7 @@ Quot/Lead %,Cota/Lead %
 Quotation Item,Item de cotação
 Quotation Number,Número da cotação
 Quotation To,Cotação para
-Quotations: ,Citações:
+Quotations: ,Cotações:
 Quote Status,Status da cotação
 Quoted Amount,Valor cotado
 RFQ and Purchase Order Settings,Configurações de RFQ e ordem de compra
