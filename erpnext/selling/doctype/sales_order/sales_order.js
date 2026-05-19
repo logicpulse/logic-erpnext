@@ -1883,11 +1883,11 @@ async function export_to_pos(frm) {
 			args: {
 				company: frm.doc.company
 			}
-		}); 
+		});
 		if (!login_response.message.success) {
 			handle_error(login_response.message.message || __("Erro ao fazer login no POS."));
 			return;
-		} 
+		}
 
 		const context = await load_customer_context(frm);
 
@@ -1967,8 +1967,8 @@ function map_item(row, article) {
 		quantity: row.qty,
 		vatRateId: article.vatRateId,
 		vatExemptionId: article.vatExemptionId,
-		unitPrice: Number(row.rate.toFixed(2)),
-		// unitPrice: Number(row.price_list_rate.toFixed(2)),
+		// unitPrice: Number(row.rate.toFixed(2)),
+		unitPrice: Number(row.price_list_rate.toFixed(2)),
 		discount: row.discount_percentage,
 		priceType: null
 		// serialNumber: row.serialNumber
@@ -2000,9 +2000,9 @@ async function load_customer_context(frm) {
 
 	const { message } = await frappe.call({
 		method: "logicposintegration.logicpos_integration.customers.get_customer_by_fiscal_number",
-		args: { 
-			fiscal_number: erp_customer.tax_id || "", 
-			company: erp_sales_order.company 
+		args: {
+			fiscal_number: erp_customer.tax_id || "",
+			company: erp_sales_order.company
 		}
 	});
 
@@ -2026,9 +2026,9 @@ async function get_pos_country_id(company_name) {
 
 	const { message } = await frappe.call({
 		method: "logicposintegration.logicpos_integration.utils.get_pos_country_by_code",
-		args: { 
-			code: company.codigo, 
-			company: company_name 
+		args: {
+			code: company.codigo,
+			company: company_name
 		}
 	});
 
