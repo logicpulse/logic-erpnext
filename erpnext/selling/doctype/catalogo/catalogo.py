@@ -447,31 +447,31 @@ def find_row_number_for_ref(col_values: list[int | float | str | None], ref_key:
     return None
 
 def get_catalog_item_prices_for_item(ref_key: str, doc_name: str = "Item Price"):
-    """Carrega os quatro Item Price de venda para o item. Ordem: Standard Selling, Venda PT, AO, MZ."""
+    """Carrega os quatro Item Price de venda para o item. Ordem: PVR-PT, PVP-PT, PVP-AO, PVP-MZ."""
     common = {"item_code": ref_key, "selling": 1}
     fields_std = ["price_list_rate", "note", "name"]
     item_price_pt_pvr = frappe.db.get_value(
         doc_name,
-        {**common, "price_list": "Standard Selling"},
+        {**common, "price_list": "PVR-PT"},
         fieldname=fields_std,
         as_dict=True,
     )
     item_price_pt = frappe.db.get_value(
         doc_name,
-        {**common, "price_list": "Venda PT"},
+        {**common, "price_list": "PVP-PT"},
         fieldname=fields_std,
         as_dict=True,
     )
     item_price_ao = frappe.db.get_value(
         doc_name,
-        {**common, "price_list": "Venda AO"},
+        {**common, "price_list": "PVP-AO"},
         fieldname=fields_std,
         as_dict=True,
     )
     item_price_mz = frappe.db.get_value(
         doc_name,
-        {**common, "price_list": "Venda MZ"},
-        fieldname=["price_list_rate", "item_name"],
+        {**common, "price_list": "PVP-MZ"},
+        fieldname=fields_std,
         as_dict=True,
     )
     return item_price_pt_pvr, item_price_pt, item_price_ao, item_price_mz
@@ -786,7 +786,7 @@ def synchronize_item_prices_with_spreadsheet_by_sheet_name(sheet_name: str):
     spreadsheet = get_catalog_spreadsheet()
     sheet, col_g = get_catalog_worksheet_and_ref_column(spreadsheet, sheet_name)
 
-    PRICE_LISTS = ("Standard Selling", "Venda PT", "Venda AO", "Venda MZ")
+    PRICE_LISTS = ("PVR-PT", "PVP-PT", "PVP-AO", "PVP-MZ")
     _in = ", ".join(["%s"] * len(PRICE_LISTS))
     try:
         rows = frappe.db.sql(

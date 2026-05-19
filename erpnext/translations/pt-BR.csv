@@ -3919,17 +3919,17 @@ Optional. Select a specific manufacture entry to reverse.,Opcional. Selecione um
 Optional. Used with Financial Report Template,Opcional. Usado com modelo de relatório financeiro
 Options,Opções
 Orange,Laranja
-Order Confirmation Date,Data de confirmação do pedido
-Order Confirmation No,Confirmação do pedido Não
-Order Date,Data do pedido
-Order Information,Informações do pedido
-Order No,Número do pedido
-Order Status,Status do pedido
-Order Summary,Resumo do pedido
-Order Type,Tipo de pedido
-Order/Quot %,Pedido/Cotação %
-Ordered Qty,Quantidade pedida
-"Ordered Qty: Quantity ordered for purchase, but not received.","Quantidade pedida: Quantidade encomendada para compra, mas não recebida."
+Order Confirmation Date,Data de Confirmação da Ordem
+Order Confirmation No,Nº de Confirmação da Ordem
+Order Date,Data da Ordem
+Order Information,Informações da Ordem
+Order No,Nº da Ordem
+Order Status,Estado da Ordem
+Order Summary,Resumo da Ordem
+Order Type,Tipo de Ordem
+Order/Quot %,Ordem/Cotação %
+Ordered Qty,Quantidade Encomendada
+"Ordered Qty: Quantity ordered for purchase, but not received.","Quantidade encomendada: Quantidade encomendada para compra, mas ainda não recebida."
 Organization Name,Nome da organização
 Orientation,Orientação
 Original Item,Item original
