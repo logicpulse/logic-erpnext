@@ -1,0 +1,237 @@
+{# Maintenance Contract — alerta de expiração (estilo LogicPulse / item.jinja) #}
+{% set company_name = doc.company or frappe.db.get_default('company') or frappe.db.get_single_value('Global Defaults', 'default_company') %}
+
+{% if company_name %}
+{% set links = frappe.get_all('Dynamic Link', filters={'link_doctype': 'Company', 'link_name': company_name, 'parenttype': 'Address'}, fields=['parent'], limit=1) %}
+{% set company_address = links and frappe.db.get_value('Address', links[0].parent, ['address_line1', 'address_line2', 'city', 'state', 'country', 'email_id', 'phone'], as_dict=True) or none %}
+{% set company = frappe.db.get_value("Company", company_name, ["name", "country", "website", "phone_no", "email", "company_logo"], as_dict=1) %}
+{% endif %}
+
+{% set customer_name = doc.client and frappe.db.get_value("Customer", doc.client, "customer_name") or doc.client %}
+{% set days_left = doc.end_date and frappe.utils.date_diff(doc.end_date, frappe.utils.today()) %}
+{% set doc_link = frappe.utils.get_url_to_form(doc.doctype, doc.name) %}
+
+<style>
+    .mc-alert { font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #36414c; }
+    .mc-alert h3 { color: #36414c; margin: 0; }
+    .mc-alert .label-muted { color: #8d99a6; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .mc-alert .spec-table th { background: #f5f7fa; width: 38%; font-weight: 600; }
+    .mc-alert .spec-table td, .mc-alert .spec-table th { border: 1px solid #d1d8dd !important; padding: 8px 10px !important; vertical-align: middle; }
+    .mc-alert .alert-banner { background: #fff8e6; border: 1px solid #f0c36d; border-radius: 4px; padding: 12px 14px; margin: 16px 0; }
+    .mc-alert .alert-banner strong { color: #b45309; }
+    .mc-alert .end-date { color: #e24c4c; font-weight: 700; }
+</style>
+
+<div class="mc-alert">
+
+{# ── Cabeçalho (empresa + título) ── #}
+<table class="table" style="margin-top: 0; border-bottom: solid 1px #d1d8dd">
+    <tbody>
+        <tr>
+            <td style="width: 55%; border: 0; vertical-align: top">
+                <table class="table" style="margin: 0">
+                    <thead>
+                        {% if company %}
+                        <tr>
+                            <td style="border: 0; padding: 0 !important">
+                                <h3 style="margin: 0">{{ company.name[:-2] if company.name|length > 2 else company.name }} {{ company.country }}</h3>
+                            </td>
+                        </tr>
+                        {% if company_address %}
+                        <tr>
+                            <td style="border: 0; padding: 0 !important">
+                                <small>{{ [company_address.address_line1, company_address.city, company_address.state] | select | join(", ") }}</small>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% if company.phone_no %}
+                        <tr>
+                            <td style="border: 0; padding: 0 !important">
+                                <small>{{ _("Telefone") }}: {{ company.phone_no }}</small>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% if company_address and company_address.phone %}
+                        <tr>
+                            <td style="border: 0; padding: 0 !important">
+                                <small>{{ _("Telemóvel") }}: {{ company_address.phone }}</small>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% if company.email %}
+                        <tr>
+                            <td style="border: 0; padding: 0 !important">
+                                <small>Email: {{ company.email }}</small>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <td style="border: 0; padding: 0 !important">
+                                <small>
+                                    Website:
+                                    <a href="{{ company.website or 'https://www.logicpulse.com/pt/' }}"
+                                       target="_blank"
+                                       class="text-info">
+                                        <strong>logicpulse.com</strong>
+                                    </a>
+                                </small>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </thead>
+                </table>
+            </td>
+            <td style="width: 45%; border: 0; vertical-align: top">
+                <table class="table" style="margin: 0">
+                    <tbody>
+                        <tr>
+                            <td style="border: 0; text-align: right; padding-bottom: 8px">
+                                {% if company %}
+                                <img src="{{ company.company_logo or 'https://www.logicpulse.com/images/thumbs/0002017.png' }}"
+                                     alt="company-logo"
+                                     height="80"
+                                     width="auto" />
+                                {% else %}
+                                <img src="https://www.logicpulse.com/images/thumbs/0002017.png"
+                                     alt="company-logo"
+                                     height="80"
+                                     width="auto" />
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-striped" style="margin: 0">
+                    <tbody>
+                        <tr>
+                            <th class="text-center" style="padding: 10px">{{ _("Contrato de Manutenção") }}</th>
+                        </tr>
+                        <tr>
+                            <td class="text-center" style="font-size: 16px; font-weight: 600; padding: 10px">{{ doc.name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{# ── Alerta principal ── #}
+<div class="alert-banner">
+    <p style="margin: 0 0 6px 0; font-size: 14px">
+        <strong>{{ _("O seu contrato está prestes a expirar") }}</strong>
+    </p>
+    <p style="margin: 0; line-height: 1.5">
+        {% if customer_name %}
+        {{ _("Exmo.(a) Cliente") }} <strong>{{ customer_name }}</strong>,<br>
+        {% endif %}
+        {{ _("Informamos que o contrato de manutenção referente ao artigo") }}
+        <strong>{{ doc.article }}</strong>{% if doc.article_description %} — {{ doc.article_description }}{% endif %}
+        {{ _("termina em") }}
+        <span class="end-date">{{ frappe.format_value(doc.end_date, {"fieldtype": "Date"}) }}</span>.
+        {% if days_left is not none and days_left >= 0 %}
+        ({{ _("faltam") }} <strong>{{ days_left }}</strong> {{ _("dia(s)") }}.)
+        {% elif days_left is not none and days_left < 0 %}
+        ({{ _("expirou há") }} <strong>{{ days_left | abs }}</strong> {{ _("dia(s)") }}.)
+        {% endif %}
+    </p>
+</div>
+
+<p style="margin: 0 0 12px 0; line-height: 1.5">
+    {{ _("Para renovar o contrato ou esclarecer dúvidas, contacte-nos através dos dados acima.") }}
+</p>
+
+{# ── Detalhes do contrato ── #}
+<h4 style="margin: 16px 0 8px 0">{{ _("Resumo do contrato") }}</h4>
+
+<table class="table spec-table" style="margin: 0">
+    <tbody>
+        <tr>
+            <th>{{ _("Referência") }}</th>
+            <td><strong>{{ doc.name }}</strong></td>
+        </tr>
+        {% if doc.contract_name %}
+        <tr>
+            <th>{{ _("Nome do contrato") }}</th>
+            <td>{{ doc.contract_name }}</td>
+        </tr>
+        {% endif %}
+        {% if customer_name %}
+        <tr>
+            <th>{{ _("Locatário") }}</th>
+            <td>{{ customer_name }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <th>{{ _("Artigo") }}</th>
+            <td><strong>{{ doc.article }}</strong>{% if doc.article_description %} — {{ doc.article_description }}{% endif %}</td>
+        </tr>
+        {% if doc.version %}
+        <tr>
+            <th>{{ _("Versão") }}</th>
+            <td>{{ doc.version }}</td>
+        </tr>
+        {% endif %}
+        {% if doc.number_of_licenses %}
+        <tr>
+            <th>{{ _("Nº de licenças") }}</th>
+            <td>{{ doc.number_of_licenses }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <th>{{ _("Data de início") }}</th>
+            <td>{{ frappe.format_value(doc.start_date, {"fieldtype": "Date"}) }}</td>
+        </tr>
+        <tr>
+            <th>{{ _("Data de fim") }}</th>
+            <td class="end-date">{{ frappe.format_value(doc.end_date, {"fieldtype": "Date"}) }}</td>
+        </tr>
+        <tr>
+            <th>{{ _("Estado") }}</th>
+            <td>{{ doc.status or "—" }}</td>
+        </tr>
+        {% if doc.contract_signed %}
+        <tr>
+            <th>{{ _("Contrato assinado") }}</th>
+            <td><span class="text-success">✓ {{ _("Sim") }}</span></td>
+        </tr>
+        {% endif %}
+        {% if doc.billing_frequency %}
+        <tr>
+            <th>{{ _("Prestação") }}</th>
+            <td>{{ doc.billing_frequency }}</td>
+        </tr>
+        {% endif %}
+        {% if doc.travel_included %}
+        <tr>
+            <th>{{ _("Deslocação incluída") }}</th>
+            <td><span class="text-success">✓ {{ _("Sim") }}</span></td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+
+{% if doc.notes %}
+<p style="margin: 16px 0 4px 0"><span class="label-muted">{{ _("Observações") }}</span></p>
+<div style="border: 1px solid #d1d8dd; border-radius: 4px; padding: 10px 12px; background: #fafbfc; line-height: 1.5">
+    {{ doc.notes }}
+</div>
+{% endif %}
+
+<!-- <p style="margin: 20px 0 0 0">
+    <a href="{{ doc_link }}" style="color: #2490ef; font-weight: 600">{{ _("Ver contrato no sistema") }}</a>
+</p> -->
+
+<table class="table" style="margin-top: 24px; border-top: solid 1px #d1d8dd">
+    <tbody>
+        <tr>
+            <td style="border: 0; padding-top: 8px">
+                <small style="color: #8d99a6">
+                    {{ _("Mensagem automática gerada em") }} {{ frappe.utils.format_datetime(frappe.utils.now(), "dd-MM-yyyy HH:mm") }}
+                </small>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+</div>

@@ -2,17 +2,35 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Maintenance Contract", {
-	onload: function (frm) {
-        // if (!frm.doc.start_date) {
-        //     frm.set_value("start_date", frappe.datetime.get_today());
-        // }
-    },
-    before_insert: function (frm) {
-        if (!frm.doc.start_date) {
-            frm.set_value("start_date", frappe.datetime.get_today());
+    client: function (frm) {
+        if (!frm.doc.client) {
+            frm.set_value("email_contacto", "");
+            return;
         }
+        frm.call("get_email_contacto")
+            .then((r) => {
+                frm.refresh_field('email_contacto');
+            })
+            .catch((e) => {
+                console.log('Error: ', e);
+            });
     },
-    refresh: function (frm) {
-        console.log(frm);
+    validate: function (frm) {
+        if (frm.doc.email_contacto) {
+            return;
+        }
+
+        return new Promise((resolve, reject) => {
+            frappe.confirm(
+                __(
+                    "O email de contacto não foi encontrado. Deseja continuar?<br>Sem o email de contacto, o cliente não será notificado sobre o contrato de manutenção, data de início e fim do contrato."
+                ),
+                () => resolve(),
+                () => {
+                    frappe.validated = false;
+                    reject();
+                }
+            );
+        });
     },
 });

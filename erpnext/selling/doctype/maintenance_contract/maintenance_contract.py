@@ -3,7 +3,7 @@
 
 # import frappe
 from frappe.model.document import Document
-
+import frappe
 
 class MaintenanceContract(Document):
 	# begin: auto-generated types
@@ -14,7 +14,7 @@ class MaintenanceContract(Document):
 	if TYPE_CHECKING:
 		from erpnext.selling.doctype.visit.visit import Visit
 		from frappe.types import DF
-		
+
 		article: DF.Link
 		article_description: DF.Data | None
 		billing_frequency: DF.Data | None
@@ -31,8 +31,12 @@ class MaintenanceContract(Document):
 		travel_included: DF.Check
 		version: DF.Data | None
 		visits: DF.Table[Visit]
-
-
 	# end: auto-generated types
+
+	@frappe.whitelist()
+	def get_email_contacto(self):
+		email = frappe.db.get_value("Address", { 'link_doctype': 'Customer', 'link_name': self.client }, "email_id")
+		# print("Email Contacto: ", email)
+		self.email_contacto = email
 
 	pass

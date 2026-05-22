@@ -1270,7 +1270,7 @@ Codigo,Código
 Codigo do pais não configurado para a empresa ${company_name}.,Codigo do pais não configurado para a empresa ${company_name}.
 Collapse All,Recolher tudo
 Collect Outstanding Amount,Coletar valor pendente
-Collect Progress,Colete Progresso
+Collect Progress,Recolher Progresso
 Collection Factor (=1 LP),Fator de Coleta (=1 LP)
 Collection Rules,Regras de coleta
 Collection Tier,Nível de coleta
@@ -1347,7 +1347,7 @@ Composite Asset,Ativo Composto
 Composite Component,Componente Composto
 Comprehensive Insurance,Seguro Abrangente
 Computer,Computador
-Condition,Doença
+Condition,Condição
 Conditional Rule,Regra Condicional
 Conditional Rule Examples,Exemplos de regras condicionais
 Conditions will be applied on all the selected items combined. ,As condições serão aplicadas a todos os itens selecionados combinados.
@@ -1456,12 +1456,12 @@ Cost of Goods Sold Account in Items Table,Conta de Custo das Mercadorias Vendida
 Cost of Poor Quality Report,Relatório de custo de má qualidade
 Cost of various activities,Custo de diversas atividades
 Cost to Company (CTC),Custo para a Empresa (CTC)
-Costing,Custeio
-Costing Amount,Valor de custo
-Costing Details,Detalhes de custos
-Costing Rate,Taxa de Custeio
-Costing and Billing,Custeio e Faturamento
-Costing and Billing fields has been updated,Os campos Custo e Faturamento foram atualizados
+Costing,Custos
+Costing Amount,Valor dos Custos
+Costing Details,Detalhes dos Custos
+Costing Rate,Taxa de Custos
+Costing and Billing,Custos e Faturação
+Costing and Billing fields has been updated,Os campos de Custos e Faturação foram actualizados
 Could Not Delete Demo Data,Não foi possível excluir dados de demonstração
 Could not auto create Customer due to the following missing mandatory field(s):,Não foi possível criar automaticamente o Cliente devido aos seguintes campos obrigatórios ausentes:
 "Could not create Credit Note automatically, please uncheck 'Issue Credit Note' and submit again","Não foi possível criar nota de crédito automaticamente, desmarque 'Emitir nota de crédito' e envie novamente"
@@ -3260,7 +3260,7 @@ Last Scanned Warehouse,Último armazém digitalizado
 Last Stock Transaction for item {0} under warehouse {1} was on {2}.,A última transação de estoque do item {0} no armazém {1} foi em {2}.
 Last transacted,Última transação
 Latitude,Latitude
-Lead,Liderar
+Lead,Lead
 Lead -> Prospect,Lead -> Cliente potencial
 Lead Count,Contagem de leads
 Lead Details,Detalhes do lead

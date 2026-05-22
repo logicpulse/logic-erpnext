@@ -218,7 +218,7 @@
    "read_only": 1
   },
   {
-   "collapsible": 1,
+   "collapsible": 0,
    "fieldname": "section_break0",
    "fieldtype": "Section Break",
    "label": "Notes",
@@ -233,7 +233,7 @@
    "oldfieldtype": "Text Editor"
   },
   {
-   "collapsible": 1,
+   "collapsible": 0,
    "fieldname": "section_break_18",
    "fieldtype": "Section Break",
    "label": "Timeline"

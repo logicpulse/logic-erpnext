@@ -803,7 +803,7 @@ def synchronize_item_prices_with_spreadsheet_by_sheet_name(sheet_name: str):
         )
         mapped_items_codes = [r["item_code"] for r in rows]
 
-        # print(f'Rows ➡️ {len(mapped_items_codes)}')
+        print(f'Items ➡️ {mapped_items_codes}')
         updated_count = 0
         for item_code in mapped_items_codes:
             row_number = find_row_number_for_ref(col_g, item_code)
