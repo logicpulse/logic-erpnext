@@ -89,7 +89,7 @@
 "<b>Cannot create asset.</b><br><br>You're trying to create <b>{0} asset(s)</b> from {2} {3}.<br>However, only <b>{1} item(s)</b> were purchased and <b>{4} asset(s)</b> already exist against {5}.","<b>Não é possível criar recurso.</b><br><br>Você está tentando criar <b>{0} recurso(s)</b> de {2} {3}.<br>No entanto, apenas <b>{1} item(s)</b> foram comprados e já existem <b>{4} recurso(s)</b> em {5}."
 <b>From Time</b> cannot be later than <b>To Time</b> for {0},<b>Hora inicial</b> não pode ser posterior a <b>Hora final</b> de {0}
 <b>Row #{0}:</b> Bundle {1} in warehouse {2} has insufficient packed items:<br><div style='margin-top: 15px;'><ul style='line-height: 0.8;'>{3}</ul></div>,<b>Linha nº{0}:</b> o pacote {1} no armazém {2} tem itens embalados insuficientes:<br><div style='margin-top: 15px;'><ul style='line-height: 0.8;'>{3}</ul></div>
-"<br>|||<h4>Note</h4>|||<ul>|||<li>|||You can use <a href=""https://jinja.palletsprojects.com/en/2.11.x/"" target=""_blank"">Jinja tags</a> in <b>Subject</b> and <b>Body</b> fields for dynamic values.|||</li><li>|||    All fields in this doctype are available under the <b>doc</b> object and all fields for the customer to whom the mail will go to is available under the  <b>customer</b> object.|||</li></ul>|||<h4> Examples</h4>|||<!-- {% raw %} -->|||<ul>|||    <li><b>Subject</b>:<br><br><pre><code>Statement Of Accounts for {{ customer.customer_name }}</code></pre><br></li>|||    <li><b>Body</b>: <br><br>|||<pre><code>Hello {{ customer.customer_name }},<br>PFA your Statement Of Accounts from {{ doc.from_date }} to {{ doc.to_date }}.</code> </pre></li>|||</ul>|||<!-- {% endraw %} -->","<br>|||<h4>Observação</h4>|||<ul>|||<li>|||Você pode usar <a href=""https://jinja.palletsprojects.com/en/2.11.x/"" target=""_blank"">Tags Jinja</a> nos campos <b>Assunto</b> e <b>Corpo</b> para valores dinâmicos.|||</li><li>|||    Todos os campos neste tipo de documento estão disponíveis no objeto <b>doc</b> e todos os campos do cliente para quem o e-mail será enviado estão disponíveis no objeto <b>customer</b>.|||</li></ul>|||<h4> Exemplos</h4>|||<!-- {% raw %} -->|||<ul>|||    <li><b>Assunto</b>:<br><br><pre><code>Declaração de contas para {{ customer.customer_name }}</code></pre><br></li>|||    <li><b>Body</b>: <br><br>|||<pre><code>Olá {{ customer.customer_name }},<br>PFA seu extrato de contas de {{ doc.from_date }} a {{ doc.to_date }}.</code> </pre></li>|||</ul>|||<!-- {% endraw %} -->"
+"<br>|||<h4>Note</h4>|||<ul>|||<li>|||You can use <a href=""https://jinja.palletsprojects.com/en/2.11.x/"" target=""_blank"">Jinja tags</a> in <b>Subject</b> and <b>Body</b> fields for dynamic values.|||</li><li>|||    All fields in this doctype are available under the <b>doc</b> object and all fields for the customer to whom the mail will go to is available under the  <b>customer</b> object.|||</li></ul>|||<h4> Examples</h4>|||<!-- {% raw %} -->|||<ul>|||    <li><b>Subject</b>:<br><br><pre><code>Statement Of Accounts for {{ customer.customer_name }}</code></pre><br></li>|||    <li><b>Body</b>: <br><br>|||<pre><code>Hello {{ customer.customer_name }},<br>PFA your Statement Of Accounts from {{ doc.from_date }} to {{ doc.to_date }}.</code> </pre></li>|||</ul>|||<!-- {% endraw %} -->","<br>|||<h4>Observação</h4>|||<ul>|||<li>|||Você pode usar <a href=""https://jinja.palletsprojects.com/en/2.11.x/"" target=""_blank"">Tags Jinja</a> nos campos <b>Assunto</b> e <b>Corpo</b> para valores dinâmicos.|||</li><li>|||    Todos os campos neste tipo de documento estão disponíveis no objeto <b>doc</b> e todos os campos do cliente para quem o Email será enviado estão disponíveis no objeto <b>customer</b>.|||</li></ul>|||<h4> Exemplos</h4>|||<!-- {% raw %} -->|||<ul>|||    <li><b>Assunto</b>:<br><br><pre><code>Declaração de contas para {{ customer.customer_name }}</code></pre><br></li>|||    <li><b>Body</b>: <br><br>|||<pre><code>Olá {{ customer.customer_name }},<br>PFA seu extrato de contas de {{ doc.from_date }} a {{ doc.to_date }}.</code> </pre></li>|||</ul>|||<!-- {% endraw %} -->"
 "<div class=""columnHeading"">Other Details</div>","<div class=""columnHeading"">Outros detalhes</div>"
 "<div class=""text-muted text-center"">No Matching Bank Transactions Found</div>","<div class=""text-muted text-center"">Nenhuma transação bancária correspondente encontrada</div>"
 "<div class=""text-muted text-center"">{0}</div>","<div class=""text-muted text-center"">{0}</div>"
@@ -98,7 +98,7 @@
 "<h3>Currency Exchange Settings Help</h3>|||<p>There are 3 variables that could be used within the endpoint, result key and in values of the parameter.</p>|||<p>Exchange rate between {from_currency} and {to_currency} on {transaction_date} is fetched by the API.</p>|||<p>Example: If your endpoint is exchange.com/2021-08-01, then, you will have to input exchange.com/{transaction_date}</p>","<h3>Ajuda de configurações de câmbio</h3>|||<p>Existem três variáveis que podem ser usadas no endpoint, na chave de resultado e nos valores do parâmetro.</p>|||<p>A taxa de câmbio entre {from_currency} e {to_currency} em {transaction_date} é buscada pela API.</p>|||<p>Exemplo: se seu endpoint for exchange.com/2021-08-01, então você terá que inserir exchange.com/{transaction_date}</p>"
 "<h4>Body Text and Closing Text Example</h4>||||||<div>We have noticed that you have not yet paid invoice {{sales_invoice}} for {{frappe.db.get_value(""Currency"", currency, ""symbol"")}} {{outstanding_amount}}. This is a friendly reminder that the invoice was due on {{due_date}}. Please pay the amount due immediately to avoid any further dunning cost.</div>||||||<h4>How to get fieldnames</h4>||||||<p>The fieldnames you can use in your template are the fields in the document. You can find out the fields of any documents via Setup &gt; Customize Form View and selecting the document type (e.g. Sales Invoice)</p>||||||<h4>Templating</h4>||||||<p>Templates are compiled using the Jinja Templating Language. To learn more about Jinja, <a class=""strong"" href=""http://jinja.pocoo.org/docs/dev/templates/"">read this documentation.</a></p>","<h4>Exemplo de corpo de texto e texto de fechamento</h4>||||||<div>Percebemos que você ainda não pagou a fatura {{sales_invoice}} de {{frappe.db.get_value(""Currency"", currency, ""symbol"")}} {{outstanding_amount}}. Este é um lembrete amigável de que a fatura vence em {{due_date}}. Pague o valor devido imediatamente para evitar custos adicionais de cobrança.</div>||||||<h4>Como obter nomes de campo</h4>||||||<p>Os nomes de campo que você pode usar em seu modelo são os campos do documento. Você pode descobrir os campos de qualquer documento em Configuração &gt; Personalize a visualização do formulário e selecione o tipo de documento (por exemplo, fatura de vendas)</p>||||||<h4>Modelos</h4>||||||<p>Os modelos são compilados usando a linguagem de modelos Jinja. Para saber mais sobre o Jinja, <a class=""strong"" href=""http://jinja.pocoo.org/docs/dev/templates/"">leia esta documentação.</a></p>"
 "<h4>Contract Template Example</h4>||||||<pre>Contract for Customer {{ party_name }}||||||-Valid From : {{ start_date }} |||-Valid To : {{ end_date }}|||</pre>||||||<h4>How to get fieldnames</h4>||||||<p>The field names you can use in your Contract Template are the fields in the Contract for which you are creating the template. You can find out the fields of any documents via Setup &gt; Customize Form View and selecting the document type (e.g. Contract)</p>||||||<h4>Templating</h4>||||||<p>Templates are compiled using the Jinja Templating Language. To learn more about Jinja, <a class=""strong"" href=""http://jinja.pocoo.org/docs/dev/templates/"">read this documentation.</a></p>","<h4>Exemplo de modelo de contrato</h4>||||||<pre>Contrato para o cliente {{ party_name }}||||||-Válido de: {{ start_date }} |||-Válido até: {{ end_date }}|||</pre>||||||<h4>Como obter nomes de campo</h4>||||||<p>Os nomes de campos que você pode usar em seu modelo de contrato são os campos no Contrato para o qual você está criando o modelo. Você pode descobrir os campos de qualquer documento em Configuração &gt; Personalize a visualização do formulário e selecione o tipo de documento (por exemplo, Contrato)</p>||||||<h4>Modelos</h4>||||||<p>Os modelos são compilados usando a linguagem de modelos Jinja. Para saber mais sobre o Jinja, <a class=""strong"" href=""http://jinja.pocoo.org/docs/dev/templates/"">leia esta documentação.</a></p>"
-"<h4>Standard Terms and Conditions Example</h4>||||||<pre>Delivery Terms for Order number {{ name }}||||||-Order Date : {{ transaction_date }} |||-Expected Delivery Date : {{ delivery_date }}|||</pre>||||||<h4>How to get fieldnames</h4>||||||<p>The fieldnames you can use in your email template are the fields in the document from which you are sending the email. You can find out the fields of any documents via Setup &gt; Customize Form View and selecting the document type (e.g. Sales Invoice)</p>||||||<h4>Templating</h4>||||||<p>Templates are compiled using the Jinja Templating Language. To learn more about Jinja, <a class=""strong"" href=""http://jinja.pocoo.org/docs/dev/templates/"">read this documentation.</a></p>","<h4>Exemplo de termos e condições padrão</h4>||||||<pre>Condições de entrega para o número do pedido {{ name }}||||||-Data do pedido: {{ transaction_date }} |||-Data de entrega esperada: {{ delivery_date }}|||</pre>||||||<h4>Como obter nomes de campo</h4>||||||<p>Os nomes de campo que você que você pode usar em seu modelo de e-mail são os campos do documento do qual você está enviando o e-mail. Você pode descobrir os campos de qualquer documento em Configuração &gt; Personalize a visualização do formulário e selecione o tipo de documento (por exemplo, fatura de vendas)</p>||||||<h4>Modelos</h4>||||||<p>Os modelos são compilados usando a linguagem de modelos Jinja. Para saber mais sobre o Jinja, <a class=""strong"" href=""http://jinja.pocoo.org/docs/dev/templates/"">leia esta documentação.</a></p>"
+"<h4>Standard Terms and Conditions Example</h4>||||||<pre>Delivery Terms for Order number {{ name }}||||||-Order Date : {{ transaction_date }} |||-Expected Delivery Date : {{ delivery_date }}|||</pre>||||||<h4>How to get fieldnames</h4>||||||<p>The fieldnames you can use in your email template are the fields in the document from which you are sending the email. You can find out the fields of any documents via Setup &gt; Customize Form View and selecting the document type (e.g. Sales Invoice)</p>||||||<h4>Templating</h4>||||||<p>Templates are compiled using the Jinja Templating Language. To learn more about Jinja, <a class=""strong"" href=""http://jinja.pocoo.org/docs/dev/templates/"">read this documentation.</a></p>","<h4>Exemplo de termos e condições padrão</h4>||||||<pre>Condições de entrega para o número do pedido {{ name }}||||||-Data do pedido: {{ transaction_date }} |||-Data de entrega esperada: {{ delivery_date }}|||</pre>||||||<h4>Como obter nomes de campo</h4>||||||<p>Os nomes de campo que você que você pode usar em seu modelo de Email são os campos do documento do qual você está enviando o Email. Você pode descobrir os campos de qualquer documento em Configuração &gt; Personalize a visualização do formulário e selecione o tipo de documento (por exemplo, fatura de vendas)</p>||||||<h4>Modelos</h4>||||||<p>Os modelos são compilados usando a linguagem de modelos Jinja. Para saber mais sobre o Jinja, <a class=""strong"" href=""http://jinja.pocoo.org/docs/dev/templates/"">leia esta documentação.</a></p>"
 "<h5 class=""text-muted uppercase"">Or</h5>","<h5 class=""text-muted uppercase"">Ou</h5>"
 "<label class=""control-label"" style=""margin-bottom: 0px;"">Account Number Settings</label>","<label class=""control-label"" style=""margin-bottom: 0px;"">Configurações do número da conta</label>"
 "<label class=""control-label"" style=""margin-bottom: 0px;"">Amount In Words</label>","<label class=""control-label"" style=""margin-bottom: 0px;"">Quantidade em palavras</label>"
@@ -110,7 +110,7 @@
 <li>{}</li>,<li>{}</li>
 <p>Cannot overbill for the following Items:</p>,<p>Não é possível cobrar a mais pelos seguintes itens:</p>
 <p>Following {0}s doesn't belong to Company {1} :</p>,<p>Os seguintes {0}s não pertencem à Empresa {1}:</p>
-"<p>In your <b>Email Template</b>, you can use the following special variables:|||</p>|||<ul>|||        <li>|||            <code>{{ update_password_link }}</code>: A link where your supplier can set a new password to log into your portal.|||        </li>|||        <li>|||            <code>{{ portal_link }}</code>: A link to this RFQ in your supplier portal.|||        </li>|||        <li>|||            <code>{{ supplier_name }}</code>: The company name of your supplier.|||        </li>|||        <li>|||            <code>{{ contact.salutation }} {{ contact.last_name }}</code>: The contact person of your supplier.|||        </li><li>|||            <code>{{ user_fullname }}</code>: Your full name.|||        </li>|||    </ul>|||<p></p>|||<p>Apart from these, you can access all values in this RFQ, like <code>{{ message_for_supplier }}</code> or <code>{{ terms }}</code>.</p>","<p>No seu <b>Modelo de e-mail</b>, você pode usar as seguintes variáveis ​​especiais:|||</p>|||<ul>|||        <li>|||            <code>{{ update_password_link }}</code>: Um link onde seu fornecedor pode definir uma nova senha para fazer login em seu portal.|||        </li>|||        <li>|||            <code>{{ portal_link }}</code>: Um link para esta RFQ no portal do seu fornecedor.|||        </li>|||        <li>|||            <code>{{ fornecedor_name }}</code>: O nome da empresa do seu fornecedor.|||        </li>|||        <li>|||            <code>{{ contact.salutation }} {{ contact.last_name }}</code>: A pessoa de contato do seu fornecedor.|||        </li><li>|||            <code>{{ user_fullname }}</code>: Seu nome completo.|||        </li>|||    </ul>|||<p></p>|||<p>Além desses, você pode acessar todos os valores nesta RFQ, como <code>{{ message_for_supplier }}</code> ou <code>{{ termos }}</code>.</p>"
+"<p>In your <b>Email Template</b>, you can use the following special variables:|||</p>|||<ul>|||        <li>|||            <code>{{ update_password_link }}</code>: A link where your supplier can set a new password to log into your portal.|||        </li>|||        <li>|||            <code>{{ portal_link }}</code>: A link to this RFQ in your supplier portal.|||        </li>|||        <li>|||            <code>{{ supplier_name }}</code>: The company name of your supplier.|||        </li>|||        <li>|||            <code>{{ contact.salutation }} {{ contact.last_name }}</code>: The contact person of your supplier.|||        </li><li>|||            <code>{{ user_fullname }}</code>: Your full name.|||        </li>|||    </ul>|||<p></p>|||<p>Apart from these, you can access all values in this RFQ, like <code>{{ message_for_supplier }}</code> or <code>{{ terms }}</code>.</p>","<p>No seu <b>Modelo de Email</b>, você pode usar as seguintes variáveis ​​especiais:|||</p>|||<ul>|||        <li>|||            <code>{{ update_password_link }}</code>: Um link onde seu fornecedor pode definir uma nova senha para fazer login em seu portal.|||        </li>|||        <li>|||            <code>{{ portal_link }}</code>: Um link para esta RFQ no portal do seu fornecedor.|||        </li>|||        <li>|||            <code>{{ fornecedor_name }}</code>: O nome da empresa do seu fornecedor.|||        </li>|||        <li>|||            <code>{{ contact.salutation }} {{ contact.last_name }}</code>: A pessoa de contato do seu fornecedor.|||        </li><li>|||            <code>{{ user_fullname }}</code>: Seu nome completo.|||        </li>|||    </ul>|||<p></p>|||<p>Além desses, você pode acessar todos os valores nesta RFQ, como <code>{{ message_for_supplier }}</code> ou <code>{{ termos }}</code>.</p>"
 <p>Please correct the following row(s):</p><ul>,<p>Corrija as seguintes linhas:</p><ul>
 <p>Posting Date {0} cannot be before Purchase Order date for the following:</p><ul>,<p>A data de lançamento {0} não pode ser anterior à data do pedido de compra para o seguinte:</p><ul>
 "<p>Price List Rate has not been set as editable in Selling Settings. In this scenario, setting <strong>Update Price List Based On</strong> to <strong>Price List Rate</strong> will prevent auto-updation of Item Price.</p>Are you sure you want to continue?","<p>A Taxa da Lista de Preços não foi definida como editável nas Configurações de Venda. Neste cenário, definir <strong>Atualizar lista de preços com base em</strong> como <strong>Taxa da lista de preços</strong> impedirá a atualização automática do preço do item.</p>Tem certeza de que deseja continuar?"
@@ -129,7 +129,7 @@ A Packing Slip can only be created for Draft Delivery Note.,Uma guia de remessa 
 A Reconciliation Job {0} is running for the same filters. Cannot reconcile now,Uma tarefa de reconciliação {0} está em execução para os mesmos filtros. Não é possível reconciliar agora
 A Reverse Journal Entry {0} already exists for this Journal Entry.,Já existe um lançamento contábil reverso {0} para este lançamento contábil.
 A condition for a Shipping Rule,Uma condição para uma regra de envio
-A customer must have primary contact email.,Um cliente deve ter e-mail de contato principal.
+A customer must have primary contact email.,Um cliente deve ter Email de contato principal.
 A driver must be set to submit.,Um driver deve ser configurado para enviar.
 A logical Warehouse against which stock entries are made.,Um armazém lógico no qual são feitas entradas de estoque.
 A naming series conflict occurred while creating serial numbers. Please change the naming series for the item {0}.,Ocorreu um conflito de nomenclatura de série durante a criação de números de série. Altere a série de nomes do item {0}.
@@ -442,7 +442,7 @@ All items have already been received,Todos os itens já foram recebidos
 All items in this document already have a linked Quality Inspection.,Todos os itens deste documento já possuem uma Inspeção de Qualidade vinculada.
 All items must be linked to a Sales Order or Subcontracting Inward Order for this Sales Invoice.,Todos os itens devem estar vinculados a uma Ordem de vendas ou Pedido de Entrada de Subcontratação para esta Fatura de Venda.
 All linked Sales Orders must be subcontracted.,Todas as ordens de vendas vinculadas devem ser subcontratadas.
-All the Comments and Emails will be copied from one document to another newly created document(Lead -> Opportunity -> Quotation) throughout the CRM documents.,Todos os comentários e e-mails serão copiados de um documento para outro documento recém-criado (Lead -> Oportunidade -> Cotação) em todos os documentos do CRM.
+All the Comments and Emails will be copied from one document to another newly created document(Lead -> Opportunity -> Quotation) throughout the CRM documents.,Todos os comentários e Emails serão copiados de um documento para outro documento recém-criado (Lead -> Oportunidade -> Cotação) em todos os documentos do CRM.
 All the items have been already returned.,Todos os itens já foram devolvidos.
 "All the required items (raw materials) will be fetched from BOM and populated in this table. Here you can also change the Source Warehouse for any item. And during the production, you can track transferred raw materials from this table.","Todos os itens necessários (matérias-primas) serão obtidos da BOM e preenchidos nesta tabela. Aqui você também pode alterar o Armazém de Origem para qualquer item. E durante a produção, você pode acompanhar as matérias-primas transferidas desta tabela."
 Allocate Advances Automatically (FIFO),Alocar adiantamentos automaticamente (FIFO)
@@ -467,7 +467,7 @@ Allow Internal Transfers at Arm's Length Price,Permitir transferências internas
 Allow Item To Be Added Multiple Times in a Transaction,Permitir que o item seja adicionado várias vezes em uma transação
 Allow Item to Be Added Multiple Times in a Transaction,Permitir que o item seja adicionado várias vezes em uma transação
 Allow Item to be Added Multiple Times in a Transaction,Permitir que o item seja adicionado várias vezes em uma transação
-Allow Lead Duplication based on Emails,Permitir duplicação de leads com base em e-mails
+Allow Lead Duplication based on Emails,Permitir duplicação de leads com base em Emails
 Allow Multiple Sales Orders Against a Customer's Purchase Order,Permitir várias ordens de vendas em relação à ordem de compra de um cliente
 Allow Negative Stock,Permitir estoque negativo
 Allow Negative Stock for Batch,Permitir estoque negativo para lote
@@ -600,7 +600,7 @@ Appointment Duration (In Minutes),Duração do compromisso (em minutos)
 Appointment Scheduling Disabled,Agendamento de compromissos desativado
 Appointment Scheduling has been disabled for this site,O agendamento de consultas foi desativado para este site
 Appointment With,Compromisso com
-Appointment was created. But no lead was found. Please check the email to confirm,O compromisso foi criado. Mas nenhuma pista foi encontrada. Verifique o e-mail para confirmar
+Appointment was created. But no lead was found. Please check the email to confirm,O compromisso foi criado. Mas nenhuma pista foi encontrada. Verifique o Email para confirmar
 Appraisal Template,Modelo de avaliação
 Approvers,Aprovadores
 Approving Role (above authorized value),Função de aprovação (acima do valor autorizado)
@@ -943,7 +943,7 @@ Billing Country,País de cobrança
 Billing County,Condado de cobrança
 Billing Currency,Moeda de cobrança
 Billing Details,Detalhes de cobrança
-Billing Email,E-mail de cobrança
+Billing Email,Email de cobrança
 Billing Interval,Intervalo de cobrança
 Billing Interval Count,Contagem de intervalo de cobrança
 Billing Interval in Subscription Plan must be Month to follow calendar months,O intervalo de cobrança no plano de assinatura deve ser o mês seguinte aos meses corridos
@@ -1061,7 +1061,7 @@ Call Summary Saved,Resumo de chamada salvo
 Call Type,Tipo de chamada
 Callback,Ligar de volta
 Campaign,Campanha
-Campaign Email Schedule,Cronograma de e-mail da campanha
+Campaign Email Schedule,Cronograma de Email da campanha
 Campaign Item,Item de campanha
 Campaign Name,Nome da campanha
 Campaign Naming By,Nomeação de campanha por
@@ -1242,9 +1242,9 @@ Click on 'Get Finished Goods for Manufacture' to fetch the items from the above 
 Click on Add to Holidays. This will populate the holidays table with all the dates that fall on the selected weekly off. Repeat the process for populating the dates for all your weekly holidays,Clique em Adicionar aos feriados. Isso preencherá a tabela de feriados com todas as datas que caem na folga semanal selecionada. Repita o processo para preencher as datas de todos os seus feriados semanais
 Click on Get Sales Orders to fetch sales orders based on the above filters.,Clique em Obter ordens de vendas para buscar ordens de vendas com base nos filtros acima.
 Click on Import Invoices button once the zip file has been attached to the document. Any errors related to processing will be shown in the Error Log.,Clique no botão Importar faturas assim que o arquivo zip for anexado ao documento. Quaisquer erros relacionados ao processamento serão mostrados no Log de Erros.
-Click on the link below to verify your email and confirm the appointment,Clique no link abaixo para verificar seu e-mail e confirmar o agendamento
+Click on the link below to verify your email and confirm the appointment,Clique no link abaixo para verificar seu Email e confirmar o agendamento
 Click this button if you encounter a negative stock error for a serial or batch item. The system will fetch the available serials or batches automatically.,Clique neste botão se encontrar um erro de estoque negativo para um item de série ou lote. O sistema irá buscar os números de série ou lotes disponíveis automaticamente.
-Click to add email / phone,Clique para adicionar e-mail/telefone
+Click to add email / phone,Clique para adicionar Email/telefone
 Cliente,Cliente
 Close,Fechar
 Close Issue After Days,Fechar problema após dias
@@ -1301,7 +1301,7 @@ Company Billing Address,Endereço de cobrança da empresa
 Company Contact Person,Pessoa de contato da empresa
 Company Description,Descrição da Empresa
 Company Details,Detalhes da empresa
-Company Email,E-mail da empresa
+Company Email,Email da empresa
 Company Field,Campo da empresa
 Company Logo,Logotipo da empresa
 Company Name,nome da empresa
@@ -1312,7 +1312,7 @@ Company is mandatory,A empresa é obrigatória
 Company is mandatory for company account,Empresa é obrigatória para conta corporativa
 Company is mandatory for generating an invoice. Please set a default company in Global Defaults.,A empresa é obrigatória para geração de fatura. Defina uma empresa padrão em Padrões globais.
 Company link field name used for filtering (optional - leave empty to delete all records),Nome do campo do link da empresa usado para filtragem (opcional – deixe em branco para excluir todos os registros)
-Company or Personal Email is mandatory when 'Create User Automatically' is enabled,O e-mail corporativo ou pessoal é obrigatório quando 'Criar usuário automaticamente' está ativado
+Company or Personal Email is mandatory when 'Create User Automatically' is enabled,O Email corporativo ou pessoal é obrigatório quando 'Criar usuário automaticamente' está ativado
 Company registration numbers for your reference. Tax numbers etc.,Números de registro da empresa para sua referência. Números fiscais etc.
 Company which internal customer represents,Empresa que o cliente interno representa
 Company which internal customer represents.,Empresa que o cliente interno representa.
@@ -1392,7 +1392,7 @@ Consumed Stock Total Value,Valor total do estoque consumido
 Consumed quantity of item {0} exceeds transferred quantity.,A quantidade consumida do item {0} excede a quantidade transferida.
 Consumption Rate,Taxa de consumo
 Contact Desc,Descrição do contato
-Contact Email,E-mail de contato
+Contact Email,Email de contato
 Contact HTML,Entre em contato com HTML
 Contact Info,Informações de contato
 Contact Information,Informações de contato
@@ -1599,7 +1599,7 @@ Customer > Customer Group > Territory,Cliente > Grupo de Clientes > Território
 Customer Address,Endereço do cliente
 Customer Advances,Avanços do cliente
 Customer Code,Código do cliente
-Customer Contact Email,E-mail de contato do cliente
+Customer Contact Email,Email de contato do cliente
 Customer Currency,Moeda do cliente
 Customer Defaults,Padrões do cliente
 Customer Details,Detalhes do cliente
@@ -1973,7 +1973,7 @@ Do not update variants on save,Não atualizar variantes ao salvar
 Do you still want to enable immutable ledger?,Você ainda deseja ativar o razão imutável?
 Do you still want to enable negative inventory?,Você ainda deseja ativar o inventário negativo?
 Do you want to change valuation method?,Deseja alterar o método de avaliação?
-Do you want to notify all the customers by email?,Quer notificar todos os clientes por e-mail?
+Do you want to notify all the customers by email?,Quer notificar todos os clientes por Email?
 Do you want to submit the stock entry?,Deseja enviar o lançamento de estoque?
 DocField,CampoDoc
 DocType,TipoDoc
@@ -2001,7 +2001,7 @@ Don't Create Loyalty Points,Não crie pontos de fidelidade
 Don't Enforce Free Item Qty,Não imponha quantidade de item grátis
 Don't Recompute Tax,Não recalcule imposto
 Don't Reserve Sales Order Qty on Sales Return,Não reserve a quantidade da ordem de vendas na devolução de vendas
-Don't Send Emails,Não envie e-mails
+Don't Send Emails,Não envie Emails
 Doors,Portas
 Double Declining Balance,Saldo decrescente duplo
 Download,Download
@@ -2016,7 +2016,7 @@ Dr,Dr.
 Dr/Cr,Dr/Cr
 Draft,Rascunho
 Driver Address,Endereço do motorista
-Driver Email,E-mail do motorista
+Driver Email,Email do motorista
 Driver Name,Nome do motorista
 Driver licence class,Classe de carteira de motorista
 Driving License Categories,Categorias de carta de condução
@@ -2061,7 +2061,7 @@ ERPNext Integrations,Integrações ERPNext
 ERPNext User ID,ID de usuário do ERPNext
 Each Transaction,Cada transação
 Edit,Editar
-Edit BOM,Edit BOM
+Edit BOM,Editar BOM
 Edit Capacity,Editar capacidade
 Edit Cart,Editar carrinho
 Edit Full Form,Editar formulário completo
@@ -2078,37 +2078,37 @@ Electric,Elétrico
 Electricity,Eletricidade
 Electricity down,Eletricidade caiu
 Electronic Equipment,Equipamentos Eletrônicos
-Email,E-mail
-Email Account,Conta de e-mail
+Email,Email
+Email Account,Conta de Email
 Email Address,Endereço de email
-Email Address (required),Endereço de e-mail (obrigatório)
-"Email Address must be unique, it is already used in {0}",O endereço de e-mail deve ser exclusivo e já é usado em {0}
-Email Campaign,Campanha por e-mail
-Email Campaign Error,Erro de campanha por e-mail
-Email Campaign For ,Campanha de e-mail para
-Email Campaign Send Error,Erro de envio de campanha por e-mail
-Email Details,Detalhes do e-mail
-Email Digest,Resumo por e-mail
-Email Digest Recipient,Destinatário do resumo por e-mail
-Email Digest Settings,Configurações de resumo por e-mail
-Email Digest: {0},Resumo por e-mail: {0}
-Email Group,Grupo de e-mail
-Email ID,ID de e-mail
-Email Id,ID de e-mail
-Email Receipt,Recibo de e-mail
-Email Sent,E-mail enviado
-Email Sent to Supplier {0},E-mail enviado ao fornecedor {0}
-Email Settings,Configurações de e-mail
-Email Template,Modelo de e-mail
-Email is required to create a user,O e-mail é necessário para criar um usuário
-Email is required to create a user.,O e-mail é necessário para criar um usuário.
-Email not sent to {0} (unsubscribed / disabled),E-mail não enviado para {0} (inscrição cancelada/desativada)
-Email or Phone/Mobile of the Contact are mandatory to continue.,O e-mail ou telefone/telemóvel do contacto são obrigatórios para continuar.
-Email sent successfully.,E-mail enviado com sucesso.
-Email sent to,E-mail enviado para
-Email sent to {0},E-mail enviado para {0}
-Email verification failed.,A verificação de e-mail falhou.
-Emails Queued,E-mails na fila
+Email Address (required),Endereço de Email (obrigatório)
+"Email Address must be unique, it is already used in {0}",O endereço de Email deve ser exclusivo e já é usado em {0}
+Email Campaign,Campanha por Email
+Email Campaign Error,Erro de campanha por Email
+Email Campaign For ,Campanha de Email para
+Email Campaign Send Error,Erro de envio de campanha por Email
+Email Details,Detalhes do Email
+Email Digest,Resumo por Email
+Email Digest Recipient,Destinatário do resumo por Email
+Email Digest Settings,Configurações de resumo por Email
+Email Digest: {0},Resumo por Email: {0}
+Email Group,Grupo de Email
+Email ID,ID de Email
+Email Id,ID de Email
+Email Receipt,Recibo de Email
+Email Sent,Email enviado
+Email Sent to Supplier {0},Email enviado ao fornecedor {0}
+Email Settings,Configurações de Email
+Email Template,Modelo de Email
+Email is required to create a user,O Email é necessário para criar um usuário
+Email is required to create a user.,O Email é necessário para criar um usuário.
+Email not sent to {0} (unsubscribed / disabled),Email não enviado para {0} (inscrição cancelada/desativada)
+Email or Phone/Mobile of the Contact are mandatory to continue.,O Email ou telefone/telemóvel do contacto são obrigatórios para continuar.
+Email sent successfully.,Email enviado com sucesso.
+Email sent to,Email enviado para
+Email sent to {0},Email enviado para {0}
+Email verification failed.,A verificação de Email falhou.
+Emails Queued,Emails na fila
 Emergency Contact,Contato de emergência
 Emergency Contact Name,Nome do contato de emergência
 Emergency Phone,Telefone de emergência
@@ -2137,7 +2137,7 @@ Empty To Delete List,Lista vazia para excluir
 Enable Accounting Dimensions,Ativar dimensões contábeis
 Enable Allow Partial Reservation in the Stock Settings to reserve partial stock.,Ative Permitir reserva parcial nas configurações de estoque para reservar estoque parcial.
 Enable Appointment Scheduling,Habilitar agendamento de compromissos
-Enable Auto Email,Ativar e-mail automático
+Enable Auto Email,Ativar Email automático
 Enable Automatic Party Matching,Ativar correspondência automática de grupos
 Enable Capital Work in Progress Accounting,Habilitar contabilidade de trabalho de capital em andamento
 Enable Common Party Accounting,Habilitar contabilidade de parte comum
@@ -2194,7 +2194,7 @@ Enter a name for Routing.,Insira um nome para Roteamento.
 "Enter a name for the Operation, for example, Cutting.","Insira um nome para a Operação, por exemplo, Corte."
 Enter a name for this Holiday List.,Insira um nome para esta lista de feriados.
 "Enter an Item Code, the name will be auto-filled the same as Item Code on clicking inside the Item Name field.","Insira um código de item, o nome será preenchido automaticamente da mesma forma que o código do item ao clicar dentro do campo Nome do item."
-Enter customer's email,Digite o e-mail do cliente
+Enter customer's email,Digite o Email do cliente
 Enter date to scrap asset,Insira a data para descartar o ativo
 Enter each serial no in a new line,Insira cada número de série em uma nova linha
 Enter the Bank Guarantee Number before submitting.,Insira o número da garantia bancária antes de enviar.
@@ -2304,7 +2304,7 @@ Failed to create demo data,Falha ao criar dados de demonstração
 "Failed to erase demo data, please delete the demo company manually.",Falha ao apagar os dados de demonstração. Exclua a empresa de demonstração manualmente.
 Failed to parse MT940 format. Error: {0},Falha ao analisar o formato MT940. Erro: {0}
 Failed to post depreciation entries,Falha ao lançar entradas de depreciação
-Failed to send email for campaign {0} to {1},Falha ao enviar e-mail da campanha {0} para {1}
+Failed to send email for campaign {0} to {1},Falha ao enviar Email da campanha {0} para {1}
 Failed to set defaults,Falha ao definir padrões
 Failed to setup defaults for country {0}. Please contact support.,Falha ao configurar padrões para o país {0}. Entre em contato com o suporte.
 Failure,Falha
@@ -2389,7 +2389,7 @@ Finished Goods Value,Valor dos produtos acabados
 Finished Goods based Operating Cost,Custo operacional baseado em produtos acabados
 Finished Item {0} does not match with Work Order {1},O item finalizado {0} não corresponde à ordem de serviço {1}
 First Delivery Date,Primeira data de entrega
-First Email,Primeiro e-mail
+First Email,Primeiro Email
 First Name,Primeiro nome
 First Responded On,Primeira resposta em
 First Response Due,Primeira resposta vencida
@@ -2404,7 +2404,7 @@ Fixed Asset Item must be a non-stock item.,O item de ativo fixo deve ser um item
 Fixed Asset Turnover Ratio,Índice de rotatividade de ativos fixos
 Fixed Asset item {0} cannot be used in BOMs.,O item de ativo fixo {0} não pode ser usado em BOMs.
 Fixed Deposit Number,Número de depósito fixo
-Fixed Outgoing Email Account,Conta de e-mail de saída fixa
+Fixed Outgoing Email Account,Conta de Email de saída fixa
 Fixed Rate,Taxa Fixa
 Fixed Time,Tempo Fixo
 Float,Flutuador
@@ -2516,7 +2516,7 @@ Fulfilment Status,Status de cumprimento
 Fulfilment Terms,Termos de Cumprimento
 Fulfilment Terms and Conditions,Termos e Condições de Cumprimento
 Full Name,Nome completo
-"Full Name, Email or Phone/Mobile of the user are mandatory to continue.","Nome Completo, E-mail ou Telefone/Celular do usuário são obrigatórios para continuar."
+"Full Name, Email or Phone/Mobile of the user are mandatory to continue.","Nome Completo, Email ou Telefone/Celular do usuário são obrigatórios para continuar."
 Full and Final Statement,Declaração completa e final
 Fully Billed,Totalmente faturado
 Fully Completed,Totalmente concluído
@@ -2720,9 +2720,9 @@ If different than customer address,Se for diferente do endereço do cliente
 "If disable, 'Rounded Total' field will not be visible in any transaction","Se desabilitado, o campo 'Total Arredondado' não ficará visível em nenhuma transação"
 If enabled then system won't apply the pricing rule on the delivery note which will be create from the pick list,"Se ativado, o sistema não aplicará a regra de preço na nota de entrega que será criada a partir da lista de seleção"
 If enabled then system won't override the picked qty / batches / serial numbers / warehouse.,"Se ativado, o sistema não substituirá a quantidade/lotes/números de série/armazém separados."
-"If enabled, a print of this document will be attached to each email","Se ativado, uma impressão deste documento será anexada a cada e-mail"
+"If enabled, a print of this document will be attached to each email","Se ativado, uma impressão deste documento será anexada a cada Email"
 "If enabled, additional ledger entries will be made for discounts in a separate Discount Account","Se ativado, serão feitas entradas adicionais no razão para descontos em uma conta de desconto separada"
-"If enabled, all files attached to this document will be attached to each email","Se ativado, todos os arquivos anexados a este documento serão anexados a cada e-mail"
+"If enabled, all files attached to this document will be attached to each email","Se ativado, todos os arquivos anexados a este documento serão anexados a cada Email"
 "If enabled, do not update serial / batch values in the stock transactions on creation of auto Serial ||| / Batch Bundle. ","Se habilitado, não atualiza valores de série/lote nas transações de estoque na criação do Serial automático ||| / Pacote de lote."
 "If enabled, formula for <b>Qty to Order</b>: <br>|||Required Qty (BOM) - <a href=""https://docs.frappe.io/erpnext/user/manual/en/projected-quantity"" rel=""noopener noreferrer"">Projected Qty</a>. <br> This helps avoid over-ordering.","Se ativado, fórmula para <b>Quantidade a ser solicitada</b>: <br>|||Quantidade necessária (BOM) - <a href=""https://docs.frappe.io/erpnext/user/manual/en/projected-quantity"" rel=""noopener noreferrer"">Quantidade projetada</a>. <br> Isso ajuda a evitar pedidos excessivos."
 "If enabled, formula for <b>Required Qty</b>: <br>|||Required Qty (BOM) - <a href=""https://docs.frappe.io/erpnext/user/manual/en/projected-quantity"" rel=""noopener noreferrer"">Projected Qty</a>. <br> This helps avoid over-ordering.","Se ativado, fórmula para <b>Quantidade necessária</b>: <br>|||Quantidade necessária (BOM) - <a href=""https://docs.frappe.io/erpnext/user/manual/en/projected-quantity"" rel=""noopener noreferrer"">Quantidade projetada</a>. <br> Isso ajuda a evitar pedidos excessivos."
@@ -2753,7 +2753,7 @@ If more than one package of the same type (for print),Se houver mais de um pacot
 "If party does not exist, create it using the Supplier Name field.","Caso a parte não exista, crie-a utilizando o campo Nome do Fornecedor."
 "If rate is zero then item will be treated as ""Free Item""","Se a taxa for zero, o item será tratado como ""Item Grátis"""
 "If selected Pricing Rule is made for 'Rate', it will overwrite Price List. Pricing Rule rate is the final rate, so no further discount should be applied. Hence, in transactions like Sales Order, Purchase Order etc, it will be fetched in 'Rate' field, rather than 'Price List Rate' field.","Se a Regra de Preços selecionada for definida como 'Taxa', ela substituirá a Lista de Preços. A taxa da Regra de Preços é a taxa final, portanto nenhum desconto adicional deve ser aplicado. Portanto, em transações como Ordem de vendas, Pedido de Compra, etc., ele será buscado no campo 'Taxa', ao invés do campo 'Taxa da Lista de Preços'."
-"If set, the system does not use the user's Email or the standard outgoing Email account for sending request for quotations.","Se definido, o sistema não utiliza o e-mail do usuário ou a conta de e-mail de saída padrão para enviar solicitação de cotação."
+"If set, the system does not use the user's Email or the standard outgoing Email account for sending request for quotations.","Se definido, o sistema não utiliza o Email do usuário ou a conta de Email de saída padrão para enviar solicitação de cotação."
 "If the BOM results in Scrap material, the Scrap Warehouse needs to be selected.","Se a BOM resultar em material de sucata, o armazém de sucata deverá ser selecionado."
 "If the account is frozen, entries are allowed to restricted users.","Se a conta estiver congelada, as entradas serão permitidas para usuários restritos."
 "If the item is transacting as a Zero Valuation Rate item in this entry, please enable 'Allow Zero Valuation Rate' in the {0} Item table.","Se o item estiver sendo negociado como um item com taxa de avaliação zero nesta entrada, ative 'Permitir taxa de avaliação zero' na tabela de itens {0}."
@@ -2895,7 +2895,7 @@ Individual GL Entry cannot be cancelled.,A entrada contábil individual não pod
 Individual Stock Ledger Entry cannot be cancelled.,A entrada individual no razão de estoque não pode ser cancelada.
 Industry,Indústria
 Industry Type,Tipo de indústria
-Initial Email Notification Sent,Notificação inicial por e-mail enviada
+Initial Email Notification Sent,Notificação inicial por Email enviada
 Initialize Summary Table,Inicializar tabela de resumo
 Inspection Rejected,Inspeção rejeitada
 Inspection Required before Delivery,Inspeção necessária antes da entrega
@@ -3267,7 +3267,7 @@ Lead Details,Detalhes do lead
 Lead Name,Nome do lead
 Lead Owner,Proprietário principal
 Lead Owner Efficiency,Eficiência do proprietário principal
-Lead Owner cannot be same as the Lead Email Address,O proprietário do lead não pode ser igual ao endereço de e-mail do lead
+Lead Owner cannot be same as the Lead Email Address,O proprietário do lead não pode ser igual ao endereço de Email do lead
 Lead Time,Tempo de espera
 Lead Time Date,Data do prazo de entrega
 Lead Time Days,Dias de Prazo de Entrega
@@ -3300,8 +3300,8 @@ Legend,Lenda
 Length,Comprimento
 Length (cm),Comprimento (cm)
 Letter Head,Cabeçalho
-Letter or Email Body Text,Texto do corpo da carta ou e-mail
-Letter or Email Closing Text,Texto de encerramento de carta ou e-mail
+Letter or Email Body Text,Texto do corpo da carta ou Email
+Letter or Email Closing Text,Texto de encerramento de carta ou Email
 Level,Nível
 Level (BOM),Level (BOM)
 Lft,Esquerda
@@ -3569,7 +3569,7 @@ Missing Payments App,Aplicativo de pagamentos ausente
 Missing Serial No Bundle,Pacote sem série ausente
 Missing Values Required,Valores ausentes obrigatórios
 Missing Warehouse,Armazém ausente
-Missing email template for dispatch. Please set one in Delivery Settings.,Modelo de e-mail ausente para envio. Defina um em Configurações de entrega.
+Missing email template for dispatch. Please set one in Delivery Settings.,Modelo de Email ausente para envio. Defina um em Configurações de entrega.
 Missing required filter: {0},Filtro obrigatório ausente: {0}
 Missing value,Valor ausente
 Mixed Conditions,Condições Mistas
@@ -3606,7 +3606,7 @@ Multiple company fields available: {0}. Please select manually.,Vários campos d
 Multiple fiscal years exist for the date {0}. Please set company in Fiscal Year,"Existem vários anos fiscais para a data {0}. Por favor, defina a empresa no ano fiscal"
 Multiple items cannot be marked as finished item,Vários itens não podem ser marcados como item finalizado
 Must be a publicly accessible Google Sheets URL and adding Bank Account column is necessary for importing via Google Sheets,Deve ser um URL do Planilhas Google acessível publicamente e é necessário adicionar a coluna Conta bancária para importação por meio do Planilhas Google
-Mute Email,Silenciar e-mail
+Mute Email,Silenciar Email
 My Filter,Meu filtro
 N/A,N / D
 Name,Nome
@@ -3663,7 +3663,7 @@ New revised budget created successfully,Novo orçamento revisado criado com suce
 Next,Próximo
 Next Depreciation Date,Próxima data de depreciação
 Next Due Date,Próxima data de vencimento
-Next email will be sent on:,O próximo e-mail será enviado em:
+Next email will be sent on:,O próximo Email será enviado em:
 No,Não
 No <strong>Account Data</strong> row found,Nenhuma linha de <strong>Dados da conta</strong> encontrada
 No Answer,Sem resposta
@@ -3694,12 +3694,12 @@ No Unreconciled Payments found for this party,Nenhum pagamento não reconciliado
 No Work Orders were created,Nenhuma ordem de serviço foi criada
 No additional fields available,Nenhum campo adicional disponível
 No available quantity to reserve for item {0} in warehouse {1},Nenhuma quantidade disponível para reserva do item {0} no armazém {1}
-No billing email found for customer: {0},Nenhum e-mail de faturamento encontrado para o cliente: {0}
-No contacts with email IDs found.,Nenhum contato com ID de e-mail encontrado.
+No billing email found for customer: {0},Nenhum Email de faturamento encontrado para o cliente: {0}
+No contacts with email IDs found.,Nenhum contato com ID de Email encontrado.
 No data found. Seems like you uploaded a blank file,Nenhum dado encontrado. Parece que você enviou um arquivo em branco
 No data to export,Não há dados para exportar
 No difference found for stock account {0},Nenhuma diferença encontrada para a conta de ações {0}
-No email found for {0} {1},Nenhum e-mail encontrado para {0} {1}
+No email found for {0} {1},Nenhum Email encontrado para {0} {1}
 No employee was scheduled for call popup,Nenhum funcionário foi agendado para pop-up de chamada
 No failed logs,Nenhum registro com falha
 No item available for transfer.,Nenhum item disponível para transferência.
@@ -3729,7 +3729,7 @@ No open event,Nenhum evento aberto
 No open task,Nenhuma tarefa aberta
 No outstanding {0} found for the {1} {2} which qualify the filters you have specified.,Nenhum {0} pendente encontrado para o {1} {2} que qualifica os filtros especificados.
 No pending payment schedules available.,Não há cronogramas de pagamento pendentes disponíveis.
-No primary email found for customer: {0},Nenhum e-mail principal encontrado para o cliente: {0}
+No primary email found for customer: {0},Nenhum Email principal encontrado para o cliente: {0}
 No recent transactions found,Nenhuma transação recente encontrada
 No recipients found for campaign {0},Nenhum destinatário encontrado para a campanha {0}
 No records found in Allocation table,Nenhum registro encontrado na tabela de alocação
@@ -3767,7 +3767,7 @@ Not permitted to make Purchase Orders,Não é permitido fazer pedidos de compra
 Note,Observação
 Note: Automatic log deletion only applies to logs of type <i>Update Cost</i>,Observação: a exclusão automática de logs se aplica apenas a logs do tipo <i>Custo de atualização</i>
 Note: Due Date exceeds allowed {0} credit days by {1} day(s),Observação: a data de vencimento excede {0} dias de crédito permitidos em {1} dia(s)
-Note: Email will not be sent to disabled users,Nota: O e-mail não será enviado para usuários deficientes
+Note: Email will not be sent to disabled users,Nota: O Email não será enviado para usuários deficientes
 "Note: If you want to use the finished good {0} as a raw material, then enable the 'Do Not Explode' checkbox in the Items table against the same raw material.","Nota: Se você quiser usar o produto acabado {0} como matéria-prima, ative a caixa de seleção 'Não explodir' na tabela Itens para a mesma matéria-prima."
 Note: On checking Is Mandatory the accounting dimension will become mandatory against that specific account for all accounting transactions,"Nota: Ao verificar É Obrigatório, a dimensão contábil se tornará obrigatória em relação a essa conta específica para todas as transações contábeis"
 Note: Payment Entry will not be created since 'Cash or Bank Account' was not specified,Nota: O lançamento de pagamento não será criado porque 'Dinheiro ou conta bancária' não foi especificado
@@ -3776,14 +3776,14 @@ Note: This Cost Center is a Group. Cannot make accounting entries against groups
 Notes HTML,Notas HTML
 Notes: ,Notas:
 Notice (days),Aviso (dias)
-Notify Customers via Email,Notificar clientes por e-mail
+Notify Customers via Email,Notificar clientes por Email
 Notify Employee,Notificar funcionário
 Notify Other,Notificar outro
 Notify Reposting Error to Role,Notificar erro de repostagem para função
 Notify Supplier,Notificar Fornecedor
-Notify Via Email,Notificar por e-mail
+Notify Via Email,Notificar por Email
 Notify by Email on Creation of Automatic Material Request,Notificar por Email sobre Criação de Solicitação Automática de Material
-Notify customer and agent via email on the day of the appointment.,Notifique o cliente e o agente por e-mail no dia do agendamento.
+Notify customer and agent via email on the day of the appointment.,Notifique o cliente e o agente por Email no dia do agendamento.
 Nova Proposta,Nova Proposta
 Number of Concurrent Appointments,Número de compromissos simultâneos
 Number of Days,Número de dias
@@ -4233,7 +4233,7 @@ Periodic Entry Difference Account,Conta de diferença de lançamento periódico
 Permanent Address,Endereço Permanente
 Permanent Address Is,Endereço permanente é
 Personal Details,Detalhes pessoais
-Personal Email,E-mail pessoal
+Personal Email,Email pessoal
 Pesquisar cliente,Pesquisar cliente
 Petrol,Gasolina
 Phantom BOM cannot be created for stock item {0}.,A BOM fantasma não pode ser criada para o item de estoque {0}.
@@ -4309,7 +4309,7 @@ Please check either with operations or FG Based Operating Cost.,Verifique com op
 Please check the 'Activate Serial and Batch No for Item' checkbox in the {0} to make Serial and Batch Bundle for the item.,Marque a caixa de seleção 'Ativar número de série e lote para item' em {0} para criar pacote de série e lote para o item.
 Please check the error message and take necessary actions to fix the error and then restart the reposting again.,Verifique a mensagem de erro e tome as medidas necessárias para corrigir o erro e reinicie a repostagem novamente.
 Please check your Plaid client ID and secret values,Verifique seu ID de cliente Plaid e valores secretos
-Please check your email to confirm the appointment,Verifique seu e-mail para confirmar o agendamento
+Please check your email to confirm the appointment,Verifique seu Email para confirmar o agendamento
 Please click on 'Generate Schedule' to fetch Serial No added for Item {0},Clique em 'Gerar Programação' para obter o número de série adicionado para o item {0}
 Please contact any of the following users to extend the credit limits for {0}: {1},Entre em contato com qualquer um dos seguintes usuários para estender os limites de crédito de {0}: {1}
 Please contact any of the following users to {} this transaction.,Entre em contato com qualquer um dos usuários a seguir para {} esta transação.
@@ -4369,7 +4369,7 @@ Please enter the {schedule_date}.,Insira {schedule_date}.
 Please enter valid Financial Year Start and End Dates,Insira datas válidas de início e término do exercício financeiro
 Please enter {0} first,Por favor insira {0} primeiro
 Please fill the Sales Orders table,Por favor preencha a tabela de ordens de vendas
-"Please first set Full Name, Email and Phone for the user","Primeiro defina o nome completo, e-mail e telefone do usuário"
+"Please first set Full Name, Email and Phone for the user","Primeiro defina o nome completo, Email e telefone do usuário"
 Please fix overlapping time slots for {0},Corrija intervalos de tempo sobrepostos para {0}
 Please fix overlapping time slots for {0}.,Corrija intervalos de tempo sobrepostos para {0}.
 Please generate To Delete list before submitting,"Por favor, gere uma lista para excluir antes de enviar"
@@ -4465,7 +4465,7 @@ Please set Accounting Dimension {} in {},Defina a dimensão contábil {} em {}
 Please set Company,Por favor defina a empresa
 Please set Customer Address to determine if the transaction is an export.,Defina o Endereço do Cliente para determinar se a transação é uma exportação.
 Please set Depreciation related Accounts in Asset Category {0} or Company {1},Defina contas relacionadas à depreciação na categoria de ativo {0} ou empresa {1}
-Please set Email/Phone for the contact,Defina e-mail/telefone para o contato
+Please set Email/Phone for the contact,Defina Email/telefone para o contato
 Please set Fiscal Code for the customer '%s',Por favor defina o Código Fiscal para o cliente '%s'
 Please set Fiscal Code for the public administration '%s',Por favor defina o Código Fiscal da administração pública '%s'
 Please set Fixed Asset Account in Asset Category {0},Defina a conta de ativo fixo na categoria de ativo {0}
@@ -4484,7 +4484,7 @@ Please set account in Warehouse {0},Defina a conta no Armazém {0}
 Please set actual demand or sales forecast to generate Material Requirements Planning Report.,Defina a demanda real ou a previsão de vendas para gerar o Relatório de planejamento de necessidades de materiais.
 Please set an Address on the Company '%s',Por favor defina um endereço na empresa '%s'
 Please set an Expense Account in the Items table,Defina uma conta de despesas na tabela Itens
-Please set an email id for the Lead {0},Defina um ID de e-mail para o lead {0}
+Please set an email id for the Lead {0},Defina um ID de Email para o lead {0}
 Please set at least one row in the Taxes and Charges Table,"Por favor, defina pelo menos uma linha na Tabela de Impostos e Taxas"
 Please set both the Tax ID and Fiscal Code on Company {0},Defina o NIF e o código fiscal na empresa {0}
 Please set default Exchange Gain/Loss Account in Company {},Defina a conta padrão de ganhos/perdas cambiais na empresa {}
@@ -4510,7 +4510,7 @@ Please set {0} in BOM Creator {1},Defina {0} no BOM Creator {1}
 Please set {0} in Company {1} to account for Exchange Gain / Loss,Defina {0} na Empresa {1} para contabilizar ganhos/perdas cambiais
 "Please set {0} to {1}, the same account that was used in the original invoice {2}.","Defina {0} como {1}, a mesma conta usada na fatura original {2}."
 Please setup and enable a group account with the Account Type - {0} for the company {1},Configure e ative uma conta de grupo com o tipo de conta - {0} para a empresa {1}
-Please share this email with your support team so that they can find and fix the issue.,Compartilhe este e-mail com sua equipe de suporte para que eles possam encontrar e corrigir o problema.
+Please share this email with your support team so that they can find and fix the issue.,Compartilhe este Email com sua equipe de suporte para que eles possam encontrar e corrigir o problema.
 Please specify,Por favor especifique
 Please specify Company,Por favor especifique a empresa
 Please specify Company to proceed,Especifique a empresa para prosseguir
@@ -4543,8 +4543,8 @@ Posting timestamp must be after {0},O carimbo de data/hora da postagem deve ser 
 Potential Sales Deal,Potencial acordo de vendas
 Powered by {0},Desenvolvido por {0}
 "Preencha artigo, quantidade (> 0) e preço em todas as linhas.","Preencha item, quantidade (> 0) e preço em todas as linhas."
-Preferred Contact Email,E-mail de contato preferencial
-Preferred Email,E-mail preferido
+Preferred Contact Email,Email de contato preferencial
+Preferred Email,Email preferido
 Prepaid Expenses,Despesas pré-pagas
 Prevdoc DocType,Tipo de documento anterior
 Prevent POs,Evitar pedidos de compra
@@ -4554,7 +4554,7 @@ Preventive,Preventivo
 Preventive Action,Ação Preventiva
 Preventive Maintenance,Manutenção preventiva
 Preview,Visualização
-Preview Email,Visualizar e-mail
+Preview Email,Visualizar Email
 Preview Required Materials,Visualizar materiais necessários
 Previous Qty,Quantidade anterior
 Previous Work Experience,Experiência Profissional Anterior
@@ -4586,7 +4586,7 @@ Pricing Rules are further filtered based on quantity.,As regras de preços são 
 Primary Address,Endereço principal
 Primary Address and Contact,Endereço principal e contato
 Primary Contact,Contato principal
-Primary Contact Email,E-mail de contato principal
+Primary Contact Email,Email de contato principal
 Primary Party,Partido Primário
 Primary Role,Função principal
 Primary Settings,Configurações primárias
@@ -4688,7 +4688,7 @@ Prospect Owner,Proprietário em potencial
 Prospect {0} already exists,O cliente potencial {0} já existe
 Prospects Engaged But Not Converted,"Clientes em potencial engajados, mas não convertidos"
 Protected DocType,DocType protegido
-Provide Email Address registered in company,Forneça o endereço de e-mail cadastrado na empresa
+Provide Email Address registered in company,Forneça o endereço de Email cadastrado na empresa
 Providing,Fornecendo
 Provisional Account,Conta Provisória
 Provisional Expense Account,Conta de Despesas Provisórias
@@ -4825,7 +4825,7 @@ RFQ and Purchase Order Settings,Configurações de RFQ e ordem de compra
 RFQs are not allowed for {0} due to a scorecard standing of {1},RFQs não são permitidas para {0} devido a uma classificação de scorecard de {1}
 Raise Material Request When Stock Reaches Re-order Level,Aumentar a solicitação de material quando o estoque atingir o nível de novo pedido
 Raised By,Criado por
-Raised By (Email),Levantado por (e-mail)
+Raised By (Email),Levantado por (Email)
 Random,aleatório
 Range,Faixa
 Rate & Amount,Taxa e valor
@@ -5074,7 +5074,7 @@ Requirement,Exigência
 Requires Fulfilment,Requer Cumprimento
 "Reselect, if the chosen address is edited after save","Selecione novamente, se o endereço escolhido for editado após salvar"
 "Reselect, if the chosen contact is edited after save","Selecione novamente, se o contato escolhido for editado após salvar"
-Resend Payment Email,Reenviar e-mail de pagamento
+Resend Payment Email,Reenviar Email de pagamento
 Reservation,Reserva
 Reservation Based On,Reserva baseada em
 Reserve,Reserva
@@ -5420,7 +5420,7 @@ Row {0}: Expense Account {1} is linked to company {2}. Please select an account 
 Row {0}: Expense Head changed to {1} as no Purchase Receipt is created against Item {2}.,"Linha {0}: Cabeçalho de Despesa alterado para {1}, pois nenhum Recibo de Compra é criado em relação ao Item {2}."
 Row {0}: Expense Head changed to {1} because account {2} is not linked to warehouse {3} or it is not the default inventory account,Linha {0}: Custo de despesas alterado para {1} porque a conta {2} não está vinculada ao armazém {3} ou não é a conta de estoque padrão
 Row {0}: Expense Head changed to {1} because expense is booked against this account in Purchase Receipt {2},Linha {0}: Cabeçalho de Despesa alterado para {1} porque a despesa é contabilizada nesta conta no Recibo de Compra {2}
-"Row {0}: For Supplier {1}, Email Address is Required to send an email","Linha {0}: Para o fornecedor {1}, o endereço de e-mail é obrigatório para enviar um e-mail"
+"Row {0}: For Supplier {1}, Email Address is Required to send an email","Linha {0}: Para o fornecedor {1}, o endereço de Email é obrigatório para enviar um Email"
 Row {0}: From Time and To Time of {1} is overlapping with {2},Linha {0}: A hora inicial e final de {1} está sobreposta a {2}
 Row {0}: From Warehouse is mandatory for internal transfers,Linha {0}: Do Armazém é obrigatória para transferências internas
 Row {0}: Hours value must be greater than zero.,Linha {0}: O valor das horas deve ser maior que zero.
@@ -5597,7 +5597,7 @@ Search APIs,Pesquisar APIs
 Search Term Param Name,Nome do parâmetro do termo de pesquisa
 "Search by customer name, phone, email.","Pesquise por nome do cliente, telefone, email."
 "Search by item code, serial number or barcode","Pesquise por código do item, número de série ou código de barras"
-Second Email,Segundo e-mail
+Second Email,Segundo Email
 Secondary Item Code,Código do item secundário
 Secondary Item Name,Nome do item secundário
 Secondary Items,Itens Secundários
@@ -5679,13 +5679,13 @@ Send,Enviar
 Send After (days),Enviar depois (dias)
 Send Attached Files,Enviar arquivos anexados
 Send Document Print,Enviar documento para impressão
-Send Email,Enviar e-mail
-Send Emails,Enviar e-mails
-Send Emails to Suppliers,Envie e-mails para fornecedores
+Send Email,Enviar Email
+Send Emails,Enviar Emails
+Send Emails to Suppliers,Envie Emails para fornecedores
 Send Now,Enviar agora
 Send To,Enviar para
 Send To Primary Contact,Enviar para contato principal
-Send regular summary reports via Email.,Envie relatórios resumidos regulares por e-mail.
+Send regular summary reports via Email.,Envie relatórios resumidos regulares por Email.
 Send to Subcontractor,Enviar para o subcontratado
 Send with Attachment,Enviar com anexo
 Sender,Remetente
@@ -6252,7 +6252,7 @@ Target warehouse is mandatory for row {0},O armazém de destino é obrigatório 
 Targets,Alvos
 Tariff Number,Número Tarifário
 Task,Tarefa
-Task Assignee Email,E-mail do responsável pela tarefa
+Task Assignee Email,Email do responsável pela tarefa
 Task Completion,Conclusão da tarefa
 Task Description,Descrição da tarefa
 Task Name,Nome da tarefa
@@ -6426,7 +6426,7 @@ There was an error creating Bank Account while linking with Plaid.,Ocorreu um er
 There was an error syncing transactions.,Ocorreu um erro ao sincronizar as transações.
 There was an error updating Bank Account {} while linking with Plaid.,Ocorreu um erro ao atualizar a conta bancária {} durante a vinculação ao Plaid.
 There was an issue connecting to Plaid's authentication server. Check browser console for more information,Ocorreu um problema ao conectar-se ao servidor de autenticação do Plaid. Verifique o console do navegador para obter mais informações
-There were errors while sending email. Please try again.,"Ocorreram erros ao enviar e-mail. Por favor, tente novamente."
+There were errors while sending email. Please try again.,"Ocorreram erros ao enviar Email. Por favor, tente novamente."
 There were issues unlinking payment entry {0}.,Ocorreram problemas ao desvincular a entrada de pagamento {0}.
 This Account has '0' balance in either Base Currency or Account Currency,Esta conta tem saldo '0' na moeda base ou na moeda da conta
 This Item is a Template and cannot be used in transactions.<br>All fields present in the 'Copy Fields to Variant' table in Item Variant Settings will be copied to its variant items.,Este item é um modelo e não pode ser usado em transações.<br>Todos os campos presentes na tabela 'Copiar campos para variante' em Configurações de variante de item serão copiados para seus itens variantes.
@@ -6444,7 +6444,7 @@ This is a location where final product stored.,Este é um local onde o produto f
 This is a location where operations are executed.,Este é um local onde as operações são executadas.
 This is a location where raw materials are available.,Este é um local onde as matérias-primas estão disponíveis.
 This is a location where scraped materials are stored.,Este é um local onde os materiais raspados são armazenados.
-This is a preview of the email to be sent. A PDF of the document will automatically be attached with the email.,Esta é uma prévia do e-mail a ser enviado. Um PDF do documento será anexado automaticamente ao e-mail.
+This is a preview of the email to be sent. A PDF of the document will automatically be attached with the email.,Esta é uma prévia do Email a ser enviado. Um PDF do documento será anexado automaticamente ao Email.
 This is a root account and cannot be edited.,Esta é uma conta root e não pode ser editada.
 This is considered dangerous from accounting point of view.,Isto é considerado perigoso do ponto de vista contábil.
 "This is enabled by default. If you want to plan materials for sub-assemblies of the Item you're manufacturing leave this enabled. If you plan and manufacture the sub-assemblies separately, you can disable this checkbox.","Isso está habilitado por padrão. Se você deseja planejar materiais para submontagens do item que você está fabricando, deixe esta opção habilitada. Se você planejar e fabricar as submontagens separadamente, poderá desativar esta caixa de seleção."
@@ -6761,7 +6761,7 @@ Unreserving Stock...,Cancelando reserva de estoque...
 Unscheduled,Não programado
 Unset Matched Payment Request,Solicitação de pagamento correspondente não definida
 Unsigned,Não assinado
-Unsubscribe from this Email Digest,Cancelar inscrição deste resumo por e-mail
+Unsubscribe from this Email Digest,Cancelar inscrição deste resumo por Email
 Unsubscribed,Inscrição cancelada
 Unverified,Não verificado
 Unverified Webhook Data,Dados de webhook não verificados
@@ -6910,7 +6910,7 @@ Vendor Invoice,Fatura do fornecedor
 Vendor Invoices,Faturas de fornecedores
 Verification failed please check the link,"Falha na verificação, verifique o link"
 Verified By,Verificado por
-Verify Email,Verificar e-mail
+Verify Email,Verificar Email
 Version,Versão
 Via Customer Portal,Através do Portal do Cliente
 Via Landed Cost Voucher,Via comprovante de custo final
@@ -7013,7 +7013,7 @@ Weight (kg),Peso (kg)
 Weight Per Unit,Peso por unidade
 Weight UOM,Peso UM
 Weighting Function,Função de ponderação
-Welcome email sent,E-mail de boas-vindas enviado
+Welcome email sent,Email de boas-vindas enviado
 Welcome to {0},Bem-vindo a {0}
 What will be deleted:,O que será excluído:
 WhatsApp,WhatsApp
@@ -7116,7 +7116,7 @@ You selected the account group {1} as {2} Account in row {0}. Please select a si
 YouTube,YouTube
 YouTube Interactions,Interações no YouTube
 Your Name (required),Seu nome (obrigatório)
-Your email has been verified and your appointment has been scheduled,Seu e-mail foi verificado e seu agendamento foi agendado
+Your email has been verified and your appointment has been scheduled,Seu Email foi verificado e seu agendamento foi agendado
 Youtube ID,ID do YouTube
 Youtube Statistics,Estatísticas do YouTube
 Zero Balance,Saldo Zero

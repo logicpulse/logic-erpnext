@@ -1,4 +1,4 @@
-frappe.pages['proposta'].on_page_load = function(wrapper) {
+frappe.pages['proposta'].on_page_load = function (wrapper) {
 	var page = frappe.ui.make_app_page({
 		parent: wrapper,
 		title: 'Nova Proposta',
@@ -78,7 +78,7 @@ class PropostaForm {
 			df: {
 				label: __("Artigo"),
 				fieldtype: "Select",
-				options: ["q.track", "q.track.survey","time.track", "access.track", "fatory.track", "library.track", "fleet.track", "logicPOS", "others"].join("\n"),
+				options: ["q.track", "q.track.survey", "time.track", "access.track", "fatory.track", "library.track", "fleet.track", "logicPOS", "others"].join("\n"),
 				reqd: 1,
 			},
 			parent: this.$container.find(".artigo-field"),
@@ -120,43 +120,54 @@ class PropostaForm {
 	}
 
 	/** Preço conforme moeda + grupo, nome e unidade de stock do Item */
-	fetch_item_details(item_code) {
+	async fetch_item_details(item_code) {
 		const currency = this.get_currency();
 		const fields = [
-			"standard_rate",
-			"pvp_ao",
-			"pvp_mz",
 			"item_group",
 			"item_name",
 			"stock_uom",
+			"image"
 		];
-		return frappe.db.get_value("Item", item_code, fields).then((r) => {
-			const v = r.message || {};
-			let rate = flt(v.pvp_ao);
-			if (currency === "EUR") rate = flt(v.standard_rate);
-			else if (currency === "AOA") rate = flt(v.pvp_ao);
-			else if (currency === "MZN") rate = flt(v.pvp_mz);
-			return {
-				rate,
-				item_group: v.item_group || "",
-				item_name: v.item_name || "",
-				stock_uom: v.stock_uom || "",
-			};
-		});
+		const item = (await frappe.db.get_value("Item", item_code, fields)).message;
+		let rate = 0;
+		if (currency === "EUR")
+			rate = await this.fetch_item_price(item_code, "PVP-PT");
+		else if (currency === "AOA")
+			rate = await this.fetch_item_price(item_code, "PVP-AO");
+		else if (currency === "MZN")
+			rate = await this.fetch_item_price(item_code, "PVP-MZ");
+
+		return {
+			rate,
+			item_group: item.item_group || "",
+			item_name: item.item_name || "",
+			stock_uom: item.stock_uom || "",
+			image: item.image || ""
+		};
+	}
+
+	async fetch_item_price(item_code, price_list) {
+		const item_price = (await frappe.db.get_value(
+			"Item Price",
+			{ "item_code": item_code, "selling": 1, "price_list": price_list },
+			"price_list_rate"
+		)).message;
+		return item_price.price_list_rate;
 	}
 
 	refresh_all_item_rates() {
-		this.item_rows.forEach((row) => {
+		this.item_rows.forEach(async (row) => {
 			const code = row.item_field.get_value();
 			if (!code) {
 				this.update_row_total(row);
 				return;
 			}
-			this.fetch_item_details(code).then((d) => {
+			await this.fetch_item_details(code).then((d) => {
 				row.item_meta = {
 					item_group: d.item_group,
 					item_name: d.item_name,
 					stock_uom: d.stock_uom,
+					image: d.image
 				};
 				row.rate_field.set_value(d.rate);
 				this.update_row_total(row);
@@ -178,6 +189,7 @@ class PropostaForm {
 				item_group: d.item_group,
 				item_name: d.item_name,
 				stock_uom: d.stock_uom,
+				image: d.image
 			};
 			row.rate_field.set_value(d.rate);
 			this.update_row_total(row);
@@ -234,6 +246,7 @@ class PropostaForm {
 				fieldtype: "Float",
 				label: __("Quantidade"),
 				default: 1,
+				precision: 1,
 			},
 			parent: $tr.find(".qty-cell"),
 			render_input: true,
@@ -244,7 +257,7 @@ class PropostaForm {
 			df: {
 				fieldtype: "Float",
 				label: __("Preço"),
-				precision: 4,
+				precision: 2,
 			},
 			parent: $tr.find(".rate-cell"),
 			render_input: true,
@@ -290,12 +303,14 @@ class PropostaForm {
 			items: this.item_rows.map((r) => {
 				const qty = flt(r.qty_field.get_value());
 				const rate = flt(r.rate_field.get_value());
+				// console.log('r:', r);
 				const m = r.item_meta || {};
 				return {
 					item_code: r.item_field.get_value(),
 					item_name: m.item_name || "",
 					item_group: m.item_group || "",
 					stock_uom: m.stock_uom || "",
+					image: m.image || "",
 					qty,
 					rate,
 					amount: qty * rate,
@@ -306,6 +321,7 @@ class PropostaForm {
 
 	submit() {
 		const d = this.get_data();
+		console.log('d:', d);
 
 		if (!d.customer) {
 			frappe.msgprint(__("Selecione um cliente."));
