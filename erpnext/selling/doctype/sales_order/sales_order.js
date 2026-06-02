@@ -1898,8 +1898,10 @@ async function export_to_pos(frm) {
 		console.log("Payload to be sent to POS:", payload);
 
 		const response = await send_to_pos(frm, payload);
-		if (response.success)
+		if (response.success){
 			handle_success();
+			
+		} 
 		else
 			handle_error(response.error || __("Erro desconhecido ao enviar para o POS."));
 	} catch (error) {

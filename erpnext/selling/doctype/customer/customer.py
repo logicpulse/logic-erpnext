@@ -55,7 +55,7 @@ class Customer(TransactionBase):
 		customer_type: DF.Literal["Company", "Individual", "Partnership"]
 		default_bank_account: DF.Link | None
 		default_commission_rate: DF.Float
-		default_currency: DF.Link | None
+		default_currency: DF.Link
 		default_price_list: DF.Link | None
 		default_sales_partner: DF.Link | None
 		disabled: DF.Check
@@ -85,7 +85,7 @@ class Customer(TransactionBase):
 		so_required: DF.Check
 		supplier_numbers: DF.Table[SupplierNumberAtCustomer]
 		tax_category: DF.Link | None
-		tax_id: DF.Data | None
+		tax_id: DF.Data
 		tax_withholding_category: DF.Link | None
 		tax_withholding_group: DF.Link | None
 		territory: DF.Link | None
