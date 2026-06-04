@@ -112,7 +112,7 @@
 <p>Following {0}s doesn't belong to Company {1} :</p>,<p>Os seguintes {0}s não pertencem à Empresa {1}:</p>
 "<p>In your <b>Email Template</b>, you can use the following special variables:|||</p>|||<ul>|||        <li>|||            <code>{{ update_password_link }}</code>: A link where your supplier can set a new password to log into your portal.|||        </li>|||        <li>|||            <code>{{ portal_link }}</code>: A link to this RFQ in your supplier portal.|||        </li>|||        <li>|||            <code>{{ supplier_name }}</code>: The company name of your supplier.|||        </li>|||        <li>|||            <code>{{ contact.salutation }} {{ contact.last_name }}</code>: The contact person of your supplier.|||        </li><li>|||            <code>{{ user_fullname }}</code>: Your full name.|||        </li>|||    </ul>|||<p></p>|||<p>Apart from these, you can access all values in this RFQ, like <code>{{ message_for_supplier }}</code> or <code>{{ terms }}</code>.</p>","<p>No seu <b>Modelo de Email</b>, você pode usar as seguintes variáveis ​​especiais:|||</p>|||<ul>|||        <li>|||            <code>{{ update_password_link }}</code>: Um link onde seu fornecedor pode definir uma nova senha para fazer login em seu portal.|||        </li>|||        <li>|||            <code>{{ portal_link }}</code>: Um link para esta RFQ no portal do seu fornecedor.|||        </li>|||        <li>|||            <code>{{ fornecedor_name }}</code>: O nome da empresa do seu fornecedor.|||        </li>|||        <li>|||            <code>{{ contact.salutation }} {{ contact.last_name }}</code>: A pessoa de contato do seu fornecedor.|||        </li><li>|||            <code>{{ user_fullname }}</code>: Seu nome completo.|||        </li>|||    </ul>|||<p></p>|||<p>Além desses, você pode acessar todos os valores nesta RFQ, como <code>{{ message_for_supplier }}</code> ou <code>{{ termos }}</code>.</p>"
 <p>Please correct the following row(s):</p><ul>,<p>Corrija as seguintes linhas:</p><ul>
-<p>Posting Date {0} cannot be before Purchase Order date for the following:</p><ul>,<p>A data de lançamento {0} não pode ser anterior à data do pedido de compra para o seguinte:</p><ul>
+<p>Posting Date {0} cannot be before Purchase Order date for the following:</p><ul>,<p>A data de lançamento {0} não pode ser anterior à data do ordem de compra para o seguinte:</p><ul>
 "<p>Price List Rate has not been set as editable in Selling Settings. In this scenario, setting <strong>Update Price List Based On</strong> to <strong>Price List Rate</strong> will prevent auto-updation of Item Price.</p>Are you sure you want to continue?","<p>A Taxa da Lista de Preços não foi definida como editável nas Configurações de Venda. Neste cenário, definir <strong>Atualizar lista de preços com base em</strong> como <strong>Taxa da lista de preços</strong> impedirá a atualização automática do preço do item.</p>Tem certeza de que deseja continuar?"
 "<p>To allow over-billing, please set allowance in Accounts Settings.</p>","<p>Para permitir faturamento excessivo, defina o limite nas configurações da conta.</p>"
 "<pre><h5>Message Example</h5>||||||&lt;p&gt; Thank You for being a part of {{ doc.company }}! We hope you are enjoying the service.&lt;/p&gt;||||||&lt;p&gt; Please find enclosed the E Bill statement. The outstanding amount is {{ doc.grand_total }}.&lt;/p&gt;||||||&lt;p&gt; We don't want you to be spending time running around in order to pay for your Bill.<br>After all, life is beautiful and the time you have in hand should be spent to enjoy it!<br>So here are our little ways to help you get more time for life! &lt;/p&gt;||||||&lt;a href=""{{ payment_url }}""&gt; click here to pay &lt;/a&gt;||||||</pre>|||","<pre><h5>Exemplo de mensagem</h5>||||||&lt;p&gt; Obrigado por fazer parte da {{ doc.company }}! Esperamos que você esteja gostando do serviço.&lt;/p&gt;||||||&lt;p&gt; Por favor, encontre em anexo a declaração do E Bill. O valor pendente é {{ doc.grand_total }}.&lt;/p&gt;||||||&lt;p&gt; Não queremos que você perca tempo correndo para pagar suas contas.<br>Afinal, a vida é linda e o tempo que você tem em mãos deve ser gasto para aproveitá-la!<br>Então aqui estão nossas pequenas maneiras de ajudá-lo a conseguir mais tempo para a vida! &lt;/p&gt;||||||&lt;a href=""{{ payment_url }}""&gt; clique aqui para pagar &lt;/a&gt;||||||</pre>|||"
@@ -246,11 +246,11 @@ Action If Quality Inspection Is Rejected,Ação se a inspeção de qualidade for
 Action If Same Rate is Not Maintained,Ação se a mesma taxa não for mantida
 Action if Accumulated Monthly Budget Exceeded on Actual,Ação se o orçamento mensal acumulado for excedido em relação ao real
 Action if Accumulated Monthly Budget Exceeded on MR,Ação se o orçamento mensal acumulado for excedido em MR
-Action if Accumulated Monthly Budget Exceeded on PO,Ação se o orçamento mensal acumulado for excedido no pedido de compra
+Action if Accumulated Monthly Budget Exceeded on PO,Ação se o orçamento mensal acumulado for excedido no ordem de compra
 Action if Accumulative Monthly Budget Exceeded on Cumulative Expense,Ação se o orçamento mensal acumulativo for excedido nas despesas cumulativas
 Action if Annual Budget Exceeded on Actual,Ação se o orçamento anual for excedido em relação ao real
 Action if Annual Budget Exceeded on MR,Ação se o orçamento anual for excedido em MR
-Action if Annual Budget Exceeded on PO,Ação se o orçamento anual for excedido no pedido de compra
+Action if Annual Budget Exceeded on PO,Ação se o orçamento anual for excedido no ordem de compra
 Action if Anual Budget Exceeded on Cumulative Expense,Ação se o orçamento anual for excedido nas despesas cumulativas
 Action if Same Rate is Not Maintained Throughout  Internal Transaction,Ação se a mesma taxa não for mantida durante a transação interna
 Action if Same Rate is Not Maintained Throughout Sales Cycle,Ação se a mesma taxa não for mantida durante todo o ciclo de vendas
@@ -478,9 +478,9 @@ Allow Partial Payment,Permitir pagamento parcial
 Allow Partial Reservation,Permitir reserva parcial
 Allow Production on Holidays,Permitir produção em feriados
 Allow Purchase,Permitir compra
-Allow Purchase Invoice Creation Without Purchase Order,Permitir criação de fatura de compra sem pedido de compra
+Allow Purchase Invoice Creation Without Purchase Order,Permitir criação de fatura de compra sem ordem de compra
 Allow Purchase Invoice Creation Without Purchase Receipt,Permitir criação de fatura de compra sem recibo de compra
-Allow Purchase Order with Zero Quantity,Permitir pedido de compra com quantidade zero
+Allow Purchase Order with Zero Quantity,Permitir ordem de compra com quantidade zero
 Allow Quotation with Zero Quantity,Permitir cotação com quantidade zero
 Allow Rename Attribute Value,Permitir renomear valor do atributo
 Allow Request for Quotation with Zero Quantity,Permitir solicitação de cotação com quantidade zero
@@ -572,7 +572,7 @@ Applicable for external driver,Aplicável para driver externo
 "Applicable if the company is SpA, SApA or SRL","Aplicável se a empresa for SpA, SAPA ou SRL"
 Applicable on Cumulative Expense,Aplicável em Despesas Acumuladas
 Applicable on Material Request,Aplicável mediante solicitação de material
-Applicable on Purchase Order,Aplicável no pedido de compra
+Applicable on Purchase Order,Aplicável no ordem de compra
 Applicable on booking actual expenses,Aplicável na reserva de despesas reais
 Applied on each reading.,Aplicado em cada leitura.
 Applied putaway rules.,Regras de armazenamento aplicadas.
@@ -950,7 +950,7 @@ Billing Interval in Subscription Plan must be Month to follow calendar months,O 
 Billing Rate,Taxa de faturamento
 Billing State,Estado de cobrança
 Billing Status,Status de faturamento
-Billing Zipcode,CEP de cobrança
+Billing Zipcode,Código postal de faturação
 Billing currency must be equal to either default company's currency or party account currency,A moeda de cobrança deve ser igual à moeda padrão da empresa ou à moeda da conta do terceiro
 Bin Qty Recalculated,Quantidade do compartimento recalculada
 Bio / Cover Letter,Biografia / Carta de Apresentação
@@ -1175,7 +1175,7 @@ Categorize by Voucher (Consolidated),Categorizar por Voucher (Consolidado)
 Category,Categoria
 Category Details,Detalhes da categoria
 Caution: This might alter frozen accounts.,Cuidado: isso pode alterar contas congeladas.
-Cellphone Number,Número de celular
+Cellphone Number,Número de telefone
 Certificate,Certificado
 Certificate Details,Detalhes do certificado
 Certificate Limit,Limite de certificado
@@ -1393,14 +1393,14 @@ Consumed quantity of item {0} exceeds transferred quantity.,A quantidade consumi
 Consumption Rate,Taxa de consumo
 Contact Desc,Descrição do contato
 Contact Email,Email de contato
-Contact HTML,Entre em contato com HTML
+Contact HTML,HTML de contato
 Contact Info,Informações de contato
 Contact Information,Informações de contato
 Contact List,Lista de Contatos
-Contact Mobile,Contate o celular
-Contact Mobile No,Contato Celular Não
+Contact Mobile,Nº de telefone
+Contact Mobile No,Nº de telefone
 Contact Name,Nome do contato
-Contact No.,Número de contato
+Contact No.,Nº de contato
 Contact Person,Pessoa de contato
 Contact Person does not belong to the {0},A pessoa de contato não pertence a {0}
 Continuar,Continuar
@@ -1611,7 +1611,7 @@ Customer Item,Item do cliente
 Customer Items,Itens do cliente
 Customer LPO No.,Cliente LPO nº.
 Customer Ledger Summary,Resumo do razão de clientes
-Customer Mobile No,Cliente Celular Não
+Customer Mobile No,Nº de telefone do cliente
 Customer Name: ,Nome do cliente:
 Customer Naming By,Nomeação do cliente por
 Customer Number,Número do cliente
@@ -1633,7 +1633,7 @@ Customer or Item,Cliente ou Item
 Customer required for 'Customerwise Discount',Cliente necessário para 'Desconto do Cliente'
 Customer's Item Code,Código do item do cliente
 Customer's Purchase Order,Ordem de compra do cliente
-Customer's Purchase Order Date,Data do pedido de compra do cliente
+Customer's Purchase Order Date,Data do ordem de compra do cliente
 Customer's Purchase Order No,Ordem de compra do cliente nº
 Customer: ,Cliente:
 Customers,Clientes
@@ -2516,7 +2516,7 @@ Fulfilment Status,Status de cumprimento
 Fulfilment Terms,Termos de Cumprimento
 Fulfilment Terms and Conditions,Termos e Condições de Cumprimento
 Full Name,Nome completo
-"Full Name, Email or Phone/Mobile of the user are mandatory to continue.","Nome Completo, Email ou Telefone/Celular do usuário são obrigatórios para continuar."
+"Full Name, Email or Phone/Mobile of the user are mandatory to continue.","Nome Completo, Email ou Telefone do usuário são obrigatórios para continuar."
 Full and Final Statement,Declaração completa e final
 Fully Billed,Totalmente faturado
 Fully Completed,Totalmente concluído
@@ -2752,7 +2752,7 @@ If more than one package of the same type (for print),Se houver mais de um pacot
 "If party does not exist, create it using the Customer Name field.","Se a parte não existir, crie-a usando o campo Nome do Cliente."
 "If party does not exist, create it using the Supplier Name field.","Caso a parte não exista, crie-a utilizando o campo Nome do Fornecedor."
 "If rate is zero then item will be treated as ""Free Item""","Se a taxa for zero, o item será tratado como ""Item Grátis"""
-"If selected Pricing Rule is made for 'Rate', it will overwrite Price List. Pricing Rule rate is the final rate, so no further discount should be applied. Hence, in transactions like Sales Order, Purchase Order etc, it will be fetched in 'Rate' field, rather than 'Price List Rate' field.","Se a Regra de Preços selecionada for definida como 'Taxa', ela substituirá a Lista de Preços. A taxa da Regra de Preços é a taxa final, portanto nenhum desconto adicional deve ser aplicado. Portanto, em transações como Ordem de vendas, Pedido de Compra, etc., ele será buscado no campo 'Taxa', ao invés do campo 'Taxa da Lista de Preços'."
+"If selected Pricing Rule is made for 'Rate', it will overwrite Price List. Pricing Rule rate is the final rate, so no further discount should be applied. Hence, in transactions like Sales Order, Purchase Order etc, it will be fetched in 'Rate' field, rather than 'Price List Rate' field.","Se a Regra de Preços selecionada for definida como 'Taxa', ela substituirá a Lista de Preços. A taxa da Regra de Preços é a taxa final, portanto nenhum desconto adicional deve ser aplicado. Portanto, em transações como Ordem de vendas, Ordem de Compra, etc., ele será buscado no campo 'Taxa', ao invés do campo 'Taxa da Lista de Preços'."
 "If set, the system does not use the user's Email or the standard outgoing Email account for sending request for quotations.","Se definido, o sistema não utiliza o Email do usuário ou a conta de Email de saída padrão para enviar solicitação de cotação."
 "If the BOM results in Scrap material, the Scrap Warehouse needs to be selected.","Se a BOM resultar em material de sucata, o armazém de sucata deverá ser selecionado."
 "If the account is frozen, entries are allowed to restricted users.","Se a conta estiver congelada, as entradas serão permitidas para usuários restritos."
@@ -2767,7 +2767,7 @@ If this is unchecked Journal Entries will be saved in a Draft state and will hav
 "If this is unchecked, direct GL entries will be created to book deferred revenue or expense","Se esta opção estiver desmarcada, lançamentos contábeis diretos serão criados para contabilizar receitas ou despesas diferidas"
 If this is undesirable please cancel the corresponding Payment Entry.,"Se isso for indesejável, cancele o lançamento de pagamento correspondente."
 "If this item has variants, then it cannot be selected in sales orders etc.","Se este item tiver variantes, ele não poderá ser selecionado em ordens de vendas, etc."
-"If this option is configured 'Yes', ERPNext will prevent you from creating a Purchase Invoice or Receipt without creating a Purchase Order first. This configuration can be overridden for a particular supplier by enabling the 'Allow Purchase Invoice Creation Without Purchase Order' checkbox in the Supplier master.","Se esta opção estiver configurada como 'Sim', o ERPNext impedirá que você crie uma Fatura ou Recibo de Compra sem antes criar um Pedido de Compra. Esta configuração pode ser substituída para um determinado fornecedor ativando a caixa de seleção 'Permitir criação de fatura de compra sem pedido de compra' no cadastro de fornecedores."
+"If this option is configured 'Yes', ERPNext will prevent you from creating a Purchase Invoice or Receipt without creating a Purchase Order first. This configuration can be overridden for a particular supplier by enabling the 'Allow Purchase Invoice Creation Without Purchase Order' checkbox in the Supplier master.","Se esta opção estiver configurada como 'Sim', o ERPNext impedirá que você crie uma Fatura ou Recibo de Compra sem antes criar um Ordem de Compra. Esta configuração pode ser substituída para um determinado fornecedor ativando a caixa de seleção 'Permitir criação de fatura de compra sem ordem de compra' no cadastro de fornecedores."
 "If this option is configured 'Yes', ERPNext will prevent you from creating a Purchase Invoice without creating a Purchase Receipt first. This configuration can be overridden for a particular supplier by enabling the 'Allow Purchase Invoice Creation Without Purchase Receipt' checkbox in the Supplier master.","Se esta opção estiver configurada como 'Sim', o ERPNext impedirá que você crie uma Fatura de Compra sem antes criar um Recibo de Compra. Esta configuração pode ser substituída para um determinado fornecedor ativando a caixa de seleção 'Permitir criação de fatura de compra sem recibo de compra' no cadastro de fornecedores."
 "If ticked, the BOM cost will be automatically updated based on Valuation Rate / Price List Rate / last purchase rate of raw materials.","Se marcado, o custo da lista técnica será atualizado automaticamente com base na Taxa de avaliação/Taxa da lista de preços/Taxa da última compra de matéria-prima."
 "If two or more Pricing Rules are found based on the above conditions, Priority is applied. Priority is a number between 0 to 20 while default value is zero (blank). Higher number means it will take precedence if there are multiple Pricing Rules with same conditions.","Se duas ou mais Regras de Preços forem encontradas com base nas condições acima, a Prioridade será aplicada. A prioridade é um número entre 0 e 20, enquanto o valor padrão é zero (em branco). Um número mais alto significa que terá precedência se houver várias Regras de Preços com as mesmas condições."
@@ -2927,7 +2927,7 @@ Inter Company Invoice Reference,Referência de fatura entre empresas
 Inter Company Journal Entry,Lançamento contábil entre empresas
 Inter Company Journal Entry Reference,Referência de lançamento contábil entre empresas
 Inter Company Order Reference,Referência de pedido entre empresas
-Inter Company Purchase Order,Pedido de compra entre empresas
+Inter Company Purchase Order,Ordem de compra entre empresas
 Inter Company Reference,Referência Interempresa
 Inter Company Sales Order,Ordem de vendas entre empresas
 Inter Transfer Reference,Referência entre transferências
@@ -3069,7 +3069,7 @@ Is Paused,Está pausado
 Is Period Closing Voucher Entry,É a entrada do voucher de encerramento do período
 Is Phantom BOM,É Fantasma BOM
 Is Phantom Item,É item fantasma
-Is Purchase Order Required for Purchase Invoice & Receipt Creation?,O pedido de compra é necessário para a criação de fatura e recibo de compra?
+Is Purchase Order Required for Purchase Invoice & Receipt Creation?,O ordem de compra é necessário para a criação de fatura e recibo de compra?
 Is Purchase Receipt Required for Purchase Invoice Creation?,O recibo de compra é necessário para a criação da fatura de compra?
 Is Rate Adjustment Entry (Debit Note),É lançamento de ajuste de taxa (nota de débito)
 Is Recursive,É recursivo
@@ -3680,7 +3680,7 @@ No Matching Vouchers Found,Nenhum voucher correspondente encontrado
 No Notes,Sem notas
 No Outstanding Invoices found for this party,Nenhuma fatura pendente encontrada para esta parte
 No POS Profile found. Please create a New POS Profile first,Nenhum perfil de POS encontrado. Crie primeiro um novo perfil de POS
-No Purchase Orders were created,Nenhum pedido de compra foi criado
+No Purchase Orders were created,Nenhum ordem de compra foi criado
 No Records for these settings.,Não há registros para essas configurações.
 No Selection,Sem seleção
 No Serial / Batches are available for return,Nenhuma série/lote está disponível para devolução
@@ -4323,7 +4323,7 @@ Please disable workflow temporarily for Journal Entry {0},Desative o fluxo de tr
 Please do not book expense of multiple assets against one single Asset.,Não registre despesas de vários ativos em relação a um único ativo.
 Please do not create more than 500 items at a time,"Por favor, não crie mais de 500 itens por vez"
 Please enable Applicable on Booking Actual Expenses,Ative Aplicável às despesas reais da reserva
-Please enable Applicable on Purchase Order and Applicable on Booking Actual Expenses,Ative Aplicável no pedido de compra e Aplicável nas despesas reais da reserva
+Please enable Applicable on Purchase Order and Applicable on Booking Actual Expenses,Ative Aplicável no ordem de compra e Aplicável nas despesas reais da reserva
 Please enable Use Old Serial / Batch Fields to make_bundle,Ative Usar campos seriais/lotes antigos para make_bundle
 Please enable only if the understand the effects of enabling this.,Ative apenas se entender os efeitos de ativar isso.
 Please enable pop-ups,Ative os pop-ups
@@ -4358,7 +4358,7 @@ Please enter at least one delivery date and quantity,Insira pelo menos uma data 
 Please enter company name first,Insira primeiro o nome da empresa
 Please enter default currency in Company Master,Insira a moeda padrão no Cadastro da Empresa
 Please enter message before sending,Por favor insira a mensagem antes de enviar
-Please enter mobile number first.,"Por favor, insira o número do celular primeiro."
+Please enter mobile number first.,"Por favor, insira o número do telefone primeiro."
 Please enter parent cost center,Insira o centro de custo pai
 Please enter quantity for item {0},Insira a quantidade do item {0}
 Please enter relieving date.,"Por favor, insira a data de alívio."
@@ -4415,7 +4415,7 @@ Please select Stock Asset Account,Selecione Conta de Ativos de Estoque
 Please select Subcontracting Order instead of Purchase Order {0},Selecione Ordem de subcontratação em vez de Ordem de compra {0}
 Please select Unrealized Profit / Loss account or add default Unrealized Profit / Loss account account for company {0},Selecione a conta de lucros/perdas não realizados ou adicione a conta padrão de lucros/perdas não realizados para a empresa {0}
 Please select a Company,Selecione uma empresa
-Please select a Subcontracting Purchase Order.,Selecione um pedido de compra de subcontratação.
+Please select a Subcontracting Purchase Order.,Selecione um ordem de compra de subcontratação.
 Please select a Warehouse,Selecione um Armazém
 Please select a Work Order first.,Selecione uma ordem de serviço primeiro.
 Please select a company.,Selecione uma empresa.
@@ -4427,7 +4427,7 @@ Please select a field to edit from numpad,Selecione um campo para editar no tecl
 Please select a frequency for delivery schedule,Selecione uma frequência para o cronograma de entrega
 Please select a row to create a Reposting Entry,Selecione uma linha para criar uma entrada de repostagem
 Please select a supplier for fetching payments.,Selecione um fornecedor para obter pagamentos.
-Please select a valid Purchase Order that has Service Items.,Selecione um pedido de compra válido que contenha itens de serviço.
+Please select a valid Purchase Order that has Service Items.,Selecione um ordem de compra válido que contenha itens de serviço.
 Please select a valid Purchase Order that is configured for Subcontracting.,Selecione uma Ordem de Compra válida que esteja configurada para Subcontratação.
 Please select a value for {0} quotation_to {1},Selecione um valor para {0} quote_to {1}
 Please select an item code before setting the warehouse.,Selecione um código de item antes de configurar o armazém.
@@ -4704,12 +4704,12 @@ Purchase Expense for Item {0},Despesa de compra do item {0}
 Purchase Invoice Item,Item da fatura de compra
 Purchase Manager,Gerente de compras
 Purchase Master Manager,Gerente mestre de compras
-Purchase Order Item,Item do pedido de compra
-Purchase Order Item Supplied,Item do pedido de compra fornecido
-Purchase Order Item reference is missing in Subcontracting Receipt {0},A referência do item do pedido de compra está faltando no recibo de subcontratação {0}
-Purchase Order Pricing Rule,Regra de preço do pedido de compra
+Purchase Order Item,Item do ordem de compra
+Purchase Order Item Supplied,Item do ordem de compra fornecido
+Purchase Order Item reference is missing in Subcontracting Receipt {0},A referência do item do ordem de compra está faltando no recibo de subcontratação {0}
+Purchase Order Pricing Rule,Regra de preço do ordem de compra
 Purchase Order Required for item {},Ordem de compra necessária para o item {}
-Purchase Order number required for Item {0},Número do pedido de compra necessário para o item {0}
+Purchase Order number required for Item {0},Número do ordem de compra necessário para o item {0}
 Purchase Order {0} created,Ordem de compra {0} criada
 Purchase Orders Items Overdue,Itens de pedidos de compra vencidos
 Purchase Orders to Bill,Ordens de compra para faturar
@@ -5262,7 +5262,7 @@ Row #{0}: Customer Provided Item {1} is not a part of Work Order {2},Linha #{0}:
 Row #{0}: Dates overlapping with other row in group {1},Linha #{0}: datas sobrepostas a outra linha no grupo {1}
 Row #{0}: Default BOM not found for FG Item {1},Linha #{0}: BOM padrão não encontrada para item FG {1}
 Row #{0}: Duplicate entry in References {1} {2},Linha #{0}: entrada duplicada nas referências {1} {2}
-Row #{0}: Expected Delivery Date cannot be before Purchase Order Date,Linha #{0}: A data de entrega prevista não pode ser anterior à data do pedido de compra
+Row #{0}: Expected Delivery Date cannot be before Purchase Order Date,Linha #{0}: A data de entrega prevista não pode ser anterior à data do ordem de compra
 Row #{0}: Expense Account not set for the Item {1}. {2},Linha #{0}: Conta de despesas não definida para o item {1}. {2}
 Row #{0}: Expense account {1} is not valid for Purchase Invoice {2}. Only expense accounts from non-stock items are allowed.,Linha #{0}: a conta de despesas {1} não é válida para a fatura de compra {2}. Somente contas de despesas de itens não estocáveis ​​são permitidas.
 Row #{0}: Finished Good Item Qty can not be zero,Linha #{0}: Quantidade de item de produto acabado não pode ser zero
@@ -5293,7 +5293,7 @@ Row #{0}: Item {1} mismatch. Changing of item code is not permitted.,Linha #{0}:
 Row #{0}: Journal Entry {1} does not have account {2} or already matched against another voucher,Linha #{0}: Lançamento contábil {1} ​​não tem conta {2} ou já corresponde a outro voucher
 Row #{0}: Next Depreciation Date cannot be before Available-for-use Date,Linha #{0}: A próxima data de depreciação não pode ser anterior à data de disponibilidade para uso
 Row #{0}: Next Depreciation Date cannot be before Purchase Date,Linha #{0}: A próxima data de depreciação não pode ser anterior à data de compra
-Row #{0}: Not allowed to change Supplier as Purchase Order already exists,Linha #{0}: Não é permitido alterar fornecedor porque o pedido de compra já existe
+Row #{0}: Not allowed to change Supplier as Purchase Order already exists,Linha #{0}: Não é permitido alterar fornecedor porque o ordem de compra já existe
 Row #{0}: Only {1} available to reserve for the Item {2},Linha #{0}: Somente {1} disponível para reserva para o Item {2}
 Row #{0}: Opening Accumulated Depreciation must be less than or equal to {1},Linha #{0}: A depreciação acumulada inicial deve ser menor ou igual a {1}
 Row #{0}: Operation {1} is not completed for {2} qty of finished goods in Work Order {3}. Please update operation status via Job Card {4}.,Linha #{0}: A operação {1} não foi concluída para {2} quantidade de produtos acabados na Ordem de Serviço {3}. Atualize o status da operação por meio do Cartão de Trabalho {4}.
@@ -5861,7 +5861,7 @@ Shipping Rule Conditions,Condições das regras de envio
 Shipping Rule Label,Etiqueta de regra de envio
 Shipping Rule Type,Tipo de regra de envio
 Shipping State,Estado de envio
-Shipping Zipcode,CEP de envio
+Shipping Zipcode,Código postal de envio
 Shopping Cart,Carrinho de compras
 Short Term Loan Account,Conta de empréstimo de curto prazo
 Short biography for website and other publications.,Breve biografia para site e outras publicações.
@@ -6430,7 +6430,7 @@ There were errors while sending email. Please try again.,"Ocorreram erros ao env
 There were issues unlinking payment entry {0}.,Ocorreram problemas ao desvincular a entrada de pagamento {0}.
 This Account has '0' balance in either Base Currency or Account Currency,Esta conta tem saldo '0' na moeda base ou na moeda da conta
 This Item is a Template and cannot be used in transactions.<br>All fields present in the 'Copy Fields to Variant' table in Item Variant Settings will be copied to its variant items.,Este item é um modelo e não pode ser usado em transações.<br>Todos os campos presentes na tabela 'Copiar campos para variante' em Configurações de variante de item serão copiados para seus itens variantes.
-This Purchase Order has been fully subcontracted.,Este Pedido de Compra foi totalmente subcontratado.
+This Purchase Order has been fully subcontracted.,Este Ordem de Compra foi totalmente subcontratado.
 This Sales Order has been fully subcontracted.,Esta Ordem de vendas foi totalmente subcontratada.
 This action will unlink this account from any external service integrating ERPNext with your bank accounts. It cannot be undone. Are you certain ?,Esta ação irá desvincular esta conta de qualquer serviço externo que integre o ERPNext com suas contas bancárias. Não pode ser desfeito. Você tem certeza?
 This asset category is marked as non-depreciable. Please disable depreciation calculation or choose a different category.,Esta categoria de ativo está marcada como não depreciável. Desative o cálculo de depreciação ou escolha uma categoria diferente.
@@ -6535,7 +6535,7 @@ To include non-stock items in the material request planning. i.e. Items for whic
 "To merge, following properties must be same for both items","Para mesclar, as seguintes propriedades devem ser iguais para ambos os itens"
 "To not apply Pricing Rule in a particular transaction, all applicable Pricing Rules should be disabled.","Para não aplicar a Regra de Preços em uma transação específica, todas as Regras de Preços aplicáveis ​​devem ser desativadas."
 "To still proceed with editing this Attribute Value, enable {0} in Item Variant Settings.","Para continuar com a edição deste valor de atributo, ative {0} nas configurações de variante de item."
-To submit the invoice without purchase order please set {0} as {1} in {2},"Para enviar a fatura sem pedido de compra, defina {0} como {1} em {2}"
+To submit the invoice without purchase order please set {0} as {1} in {2},"Para enviar a fatura sem ordem de compra, defina {0} como {1} em {2}"
 To submit the invoice without purchase receipt please set {0} as {1} in {2},"Para enviar a fatura sem recibo de compra, defina {0} como {1} em {2}"
 "To use a different finance book, please uncheck 'Include Default FB Assets'","Para usar um livro financeiro diferente, desmarque 'Incluir ativos FB padrão'"
 "To use a different finance book, please uncheck 'Include Default FB Entries'","Para usar um livro financeiro diferente, desmarque 'Incluir entradas padrão do FB'"
@@ -6774,7 +6774,7 @@ Update Auto Repeat Reference,Atualizar referência de repetição automática
 "Update BOM cost automatically via scheduler, based on the latest Valuation Rate/Price List Rate/Last Purchase Rate of raw materials","Atualizar o custo da BOM automaticamente via agendador, com base na última taxa de avaliação/taxa da lista de preços/taxa da última compra de matérias-primas"
 Update Batch Qty,Atualizar quantidade do lote
 Update Billed Amount in Delivery Note,Atualizar valor faturado na nota de entrega
-Update Billed Amount in Purchase Order,Atualizar valor faturado no pedido de compra
+Update Billed Amount in Purchase Order,Atualizar valor faturado no ordem de compra
 Update Billed Amount in Purchase Receipt,Atualizar valor faturado no recibo de compra
 Update Billed Amount in Sales Order,Atualizar valor faturado na ordem de vendas
 Update Consumed Material Cost In Project,Atualizar custo de material consumido no projeto
@@ -7025,7 +7025,7 @@ Wheels,Rodas
 "When creating an Item, entering a value for this field will automatically create an Item Price at the backend.","Ao criar um item, inserir um valor neste campo criará automaticamente um preço do item no backend."
 "When there are multiple finished goods ({0}) in a Repack stock entry, the basic rate for all finished goods must be set manually. To set rate manually, enable the checkbox 'Set Basic Rate Manually' in the respective finished good row.","Quando houver vários produtos acabados ({0}) em uma entrada de estoque de Reembalagem, a taxa básica para todos os produtos acabados deverá ser definida manualmente. Para definir a taxa manualmente, marque a caixa de seleção 'Definir taxa básica manualmente' na respectiva linha de produto acabado."
 "While creating account for Child Company {0}, parent account {1} found as a ledger account.","Ao criar a conta para a empresa filha {0}, a conta pai {1} foi encontrada como uma conta contábil."
-"While making Purchase Invoice from Purchase Order, use Exchange Rate on Invoice's transaction date rather than inheriting it from Purchase Order. Only applies for Purchase Invoice.","Ao fazer a fatura de compra a partir do pedido de compra, use a taxa de câmbio na data da transação da fatura em vez de herdá-la do pedido de compra. Aplica-se apenas à fatura de compra."
+"While making Purchase Invoice from Purchase Order, use Exchange Rate on Invoice's transaction date rather than inheriting it from Purchase Order. Only applies for Purchase Invoice.","Ao fazer a fatura de compra a partir do ordem de compra, use a taxa de câmbio na data da transação da fatura em vez de herdá-la do ordem de compra. Aplica-se apenas à fatura de compra."
 Widowed,Viúva
 Width (cm),Largura (cm)
 Width of amount in word,Largura do valor em word
