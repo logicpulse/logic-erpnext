@@ -3,6 +3,12 @@ frappe.listview_settings["Item"] = {
 		listview.page.set_secondary_action('Sincronizar', async function () {
 			await show_form();
 		}, "octicon octicon-sync");
+
+		apply_catalog_price_list_filter(listview);
+	},
+
+	refresh: function (listview) {
+		apply_catalog_price_list_filter(listview);
 	},
 
 	add_fields: [
@@ -51,6 +57,19 @@ frappe.listview_settings["Item"] = {
 
 frappe.help.youtube_id["Item"] = "qXaEwld4_Ps";
 
+async function apply_catalog_price_list_filter(listview) {
+	try {
+		const { message: item_codes } = await frappe.call({
+			method: "erpnext.selling.doctype.catalogo.catalogo.get_catalog_mapped_item_codes_for_list",
+		});
+		if (!item_codes?.length) {
+			return;
+		}
+		await listview.filter_area.add([["Item", "name", "in", item_codes]]);
+	} catch (error) {
+		console.error(error);
+	}
+}
 
 async function show_form() {
 	let d = new frappe.ui.Dialog({

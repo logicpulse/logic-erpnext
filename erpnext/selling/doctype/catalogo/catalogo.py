@@ -58,6 +58,49 @@ class ProdutModelToExcel(ProdutModel):
 
 DEFAULT_CATALOG_SPREADSHEET_ID = "1Nm6YatjJrugBxM38yaXlIJgLHfVAMCnnMLw83lga5YQ"
 SHORT_SHEETS = ["Gestão de Bibliotecas", "Gestão industrial"]
+CATALOG_PRICE_LISTS = ("PVR-PT", "PVP-PT", "PVP-AO", "PVP-MZ")
+CATALOG_ITEM_LIST_FILTER_COMPANY = "Logicpulse PT"
+
+
+def user_has_catalog_item_list_filter_permission(user=None):
+	user = user or frappe.session.user
+	if user == "Guest":
+		return False
+	return bool(
+		frappe.db.exists(
+			"User Permission",
+			{
+				"user": user,
+				"allow": "Company",
+				"for_value": CATALOG_ITEM_LIST_FILTER_COMPANY,
+			},
+		)
+	)
+
+
+def get_catalog_mapped_item_codes():
+	"""Itens com preço de venda nas quatro listas de preço do catálogo."""
+	_in = ", ".join(["%s"] * len(CATALOG_PRICE_LISTS))
+	rows = frappe.db.sql(
+		f"""
+		SELECT item_code
+		FROM `tabItem Price`
+		WHERE selling = 1
+		  AND price_list IN ({_in})
+		GROUP BY item_code
+		HAVING COUNT(DISTINCT price_list) = %s
+		""",
+		(*CATALOG_PRICE_LISTS, len(CATALOG_PRICE_LISTS)),
+		as_dict=True,
+	)
+	return [r["item_code"] for r in rows]
+
+
+@frappe.whitelist()
+def get_catalog_mapped_item_codes_for_list():
+	if not user_has_catalog_item_list_filter_permission():
+		return []
+	return get_catalog_mapped_item_codes()
 
 def get_catalog_spreadsheet():
 	"""Abre a planilha do catálogo com a conta de serviço (gspread).
@@ -786,24 +829,10 @@ def synchronize_item_prices_with_spreadsheet_by_sheet_name(sheet_name: str):
     spreadsheet = get_catalog_spreadsheet()
     sheet, col_g = get_catalog_worksheet_and_ref_column(spreadsheet, sheet_name)
 
-    PRICE_LISTS = ("PVR-PT", "PVP-PT", "PVP-AO", "PVP-MZ")
-    _in = ", ".join(["%s"] * len(PRICE_LISTS))
     try:
-        rows = frappe.db.sql(
-            f"""
-            SELECT item_code
-            FROM `tabItem Price`
-            WHERE selling = 1
-              AND price_list IN ({_in})
-            GROUP BY item_code
-            HAVING COUNT(DISTINCT price_list) = 4
-            """,
-            PRICE_LISTS,
-            as_dict=True,
-        )
-        mapped_items_codes = [r["item_code"] for r in rows]
+        mapped_items_codes = get_catalog_mapped_item_codes()
 
-        print(f'Items ➡️ {mapped_items_codes}')
+        # print(f'Items ➡️ {mapped_items_codes}')
         updated_count = 0
         for item_code in mapped_items_codes:
             row_number = find_row_number_for_ref(col_g, item_code)
