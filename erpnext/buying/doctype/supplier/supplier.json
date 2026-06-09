@@ -116,7 +116,8 @@
   {
    "fieldname": "tax_id",
    "fieldtype": "Data",
-   "label": "Tax ID"
+   "label": "NIF",
+   "reqd": 1
   },
   {
    "fieldname": "tax_category",
@@ -517,7 +518,7 @@
    "link_fieldname": "party"
   }
  ],
- "modified": "2026-03-09 17:15:25.465759",
+ "modified": "2026-06-09 15:42:00.644295",
  "modified_by": "Administrator",
  "module": "Buying",
  "name": "Supplier",

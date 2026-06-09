@@ -27,16 +27,11 @@ class Supplier(TransactionBase):
 	from typing import TYPE_CHECKING
 
 	if TYPE_CHECKING:
-		from frappe.types import DF
-
-		from erpnext.accounts.doctype.allowed_to_transact_with.allowed_to_transact_with import (
-			AllowedToTransactWith,
-		)
+		from erpnext.accounts.doctype.allowed_to_transact_with.allowed_to_transact_with import AllowedToTransactWith
 		from erpnext.accounts.doctype.party_account.party_account import PartyAccount
-		from erpnext.buying.doctype.customer_number_at_supplier.customer_number_at_supplier import (
-			CustomerNumberAtSupplier,
-		)
+		from erpnext.buying.doctype.customer_number_at_supplier.customer_number_at_supplier import CustomerNumberAtSupplier
 		from erpnext.utilities.doctype.portal_user.portal_user import PortalUser
+		from frappe.types import DF
 
 		accounts: DF.Table[PartyAccount]
 		allow_purchase_invoice_creation_without_purchase_order: DF.Check
@@ -73,7 +68,7 @@ class Supplier(TransactionBase):
 		supplier_primary_contact: DF.Link | None
 		supplier_type: DF.Literal["Company", "Individual", "Partnership"]
 		tax_category: DF.Link | None
-		tax_id: DF.Data | None
+		tax_id: DF.Data
 		tax_withholding_category: DF.Link | None
 		tax_withholding_group: DF.Link | None
 		warn_pos: DF.Check
