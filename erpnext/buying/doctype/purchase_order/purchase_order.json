@@ -159,6 +159,7 @@
   "ref_sq",
   "amended_from",
   "column_break_74",
+  "supplier_id_at_pos",
   "mps",
   "is_internal_supplier",
   "inter_company_order_reference",
@@ -1309,6 +1310,12 @@
    "fieldtype": "Time",
    "label": "Time",
    "mandatory_depends_on": "is_internal_supplier"
+  },
+  {
+   "fieldname": "supplier_id_at_pos",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Id do Fornecedor no POS"
   }
  ],
  "grid_page_length": 50,
@@ -1316,7 +1323,7 @@
  "idx": 105,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-03-25 11:46:18.748951",
+ "modified": "2026-06-16 17:36:07.879490",
  "modified_by": "Administrator",
  "module": "Buying",
  "name": "Purchase Order",

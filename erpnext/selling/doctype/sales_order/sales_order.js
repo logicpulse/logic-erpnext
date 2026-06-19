@@ -1895,7 +1895,7 @@ async function export_to_pos(frm) {
 		if (!items.length) return;
 
 		const payload = await build_payload(frm, items, context);
-		console.log("Payload to be sent to POS:", payload);
+		// console.log("Payload to be sent to POS:", payload);
 
 		const response = await send_to_pos(frm, payload);
 		if (response.success){
@@ -1992,9 +1992,9 @@ async function fetch_article(code, company) {
 async function load_customer_context(frm) {
 	let erp_address = null;
 	const erp_sales_order = await frappe.db.get_doc('Sales Order', frm.doc.name);
-	console.log("ERP Sales Order:", erp_sales_order);
+	// console.log("ERP Sales Order:", erp_sales_order);
 	const erp_customer = await frappe.db.get_doc('Customer', frm.doc.customer);
-	console.log("ERP Customer ➡️", erp_customer);
+	// console.log("ERP Customer ➡️", erp_customer);
 	if (erp_customer.customer_primary_address) {
 		erp_address = await frappe.db.get_doc('Address', erp_customer.customer_primary_address);
 		// console.log("ERP Address:", erp_address);

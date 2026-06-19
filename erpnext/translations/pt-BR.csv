@@ -848,7 +848,7 @@ Balance Stock Value,Valor do estoque de equilíbrio
 Balance Type,Tipo de saldo
 Balance must be,O equilíbrio deve ser
 Bank / Cash Account,Conta bancária/dinheiro
-Bank A/C No.,Banco A/C Não.
+Bank A/C No.,Conta Bancária Nº.
 Bank Account Details,Detalhes da conta bancária
 Bank Account Info,Informações da conta bancária
 Bank Account No,Conta Bancária Não
@@ -1208,7 +1208,7 @@ Check if it is a hydroponic unit,Verifique se é uma unidade hidropônica
 Check if material transfer entry is not required,Verifique se a entrada de transferência de material não é necessária
 Check if this tax is not applicable to items (distinct from 0% rate),Verifique se este imposto não é aplicável aos itens (diferente da alíquota de 0%)
 Check row {0} for account {1}: Party Type is only allowed for Receivable or Payable accounts,Verifique a linha {0} da conta {1}: o tipo de parte só é permitido para contas a receber ou a pagar
-Check row {0} for account {1}: Party is only allowed if Party Type is set,Verifique a linha {0} da conta {1}: A festa só é permitida se o Tipo de festa estiver definido
+Check row {0} for account {1}: Party is only allowed if Party Type is set,Verifique a linha {0} da conta {1}: A entidade só é permitida se o Tipo de Entidade estiver definido
 Check this to disallow fractions. (for Nos),Marque isto para proibir frações. (para números)
 Checked On,Verificado
 Checking this will round off the tax amount to the nearest integer,Marcar isto arredondará o valor do imposto para o número inteiro mais próximo
@@ -3741,7 +3741,7 @@ No rows with zero document count found,Nenhuma linha com contagem zero de docume
 No stock available for this batch.,Não há estoque disponível para este lote.
 No stock ledger entries were created. Please set the quantity or valuation rate for the items properly and try again.,Nenhuma entrada no razão de estoque foi criada. Defina a quantidade ou taxa de avaliação dos itens corretamente e tente novamente.
 No stock transactions can be created or modified before this date.,Nenhuma transação de estoque poderá ser criada ou modificada antes desta data.
-No.,Não.
+No.,Nº
 No. of Employees,Nº de funcionários
 No. of parallel job cards which can be allowed on this workstation. Example: 2 would mean this workstation can process production for two Work Orders at a time.,Nº de cartões de trabalho paralelos que podem ser permitidos nesta estação de trabalho. Exemplo: 2 significaria que esta estação de trabalho pode processar a produção de duas Ordens de Serviço por vez.
 Non Depreciable Category,Categoria Não Depreciável
@@ -4097,28 +4097,28 @@ Partly Paid and Discounted,Parcialmente pago e com desconto
 Partner Type,Tipo de parceiro
 Partner website,Site parceiro
 Partnership,Parceria
-Party Account Currency,Moeda da conta do partido
-Party Account No. (Bank Statement),Nº da conta da parte (extrato bancário)
-Party Account {0} currency ({1}) and document currency ({2}) should be same,A moeda da conta do partido {0} ({1}) e a moeda do documento ({2}) devem ser iguais
-Party Bank Account,Conta bancária do partido
-Party Details,Detalhes da festa
-Party Full Name,Nome completo da festa
-Party IBAN (Bank Statement),IBAN da parte (extrato bancário)
-Party ID,ID da festa
-Party Information,Informações sobre a festa
-Party Item Code,Código do item da festa
-Party Link,Link da festa
-Party Mismatch,Incompatibilidade de partido
-Party Name/Account Holder (Bank Statement),Nome da parte/titular da conta (extrato bancário)
-Party Not Required,Festa não obrigatória
-Party Specific Item,Item específico da festa
-Party Type,Tipo de festa
-Party Type and Party can only be set for Receivable / Payable account<br><br>{0},O tipo de festa e a festa só podem ser definidos para contas a receber/a pagar<br><br>{0}
-Party Type and Party is mandatory for {0} account,O tipo de festa e a festa são obrigatórios para a conta {0}
-Party Type and Party is required for Receivable / Payable account {0},O tipo de parte e a parte são obrigatórios para conta a receber/a pagar {0}
-Party Type is mandatory,O tipo de festa é obrigatório
-Party User,Usuário do grupo
-Party can only be one of {0},O grupo só pode ser um de {0}
+Party Account Currency,Moeda da Conta da Entidade
+Party Account No. (Bank Statement),Nº da Conta da Entidade (Extrato Bancário)
+Party Account {0} currency ({1}) and document currency ({2}) should be same,A moeda da conta da Entidade {0} ({1}) e a moeda do documento ({2}) devem ser iguais
+Party Bank Account,Conta Bancária da Entidade
+Party Details,Detalhes da Entidade
+Party Full Name,Nome Completo da Entidade
+Party IBAN (Bank Statement),IBAN da Entidade (Extrato Bancário)
+Party ID,ID da Entidade
+Party Information,Informações da Entidade
+Party Item Code,Código do Item da Entidade
+Party Link,Link da Entidade
+Party Mismatch,Incompatibilidade de Entidade
+Party Name/Account Holder (Bank Statement),Nome da Entidade/Titular da Conta (Extrato Bancário)
+Party Not Required,Entidade não obrigatória
+Party Specific Item,Item específico da Entidade
+Party Type,Tipo de Entidade
+Party Type and Party can only be set for Receivable / Payable account<br><br>{0},O Tipo de Entidade e a Entidade só podem ser definidos para contas a receber/a pagar<br><br>{0}
+Party Type and Party is mandatory for {0} account,O Tipo de Entidade e a Entidade são obrigatórios para a conta {0}
+Party Type and Party is required for Receivable / Payable account {0},O Tipo de Entidade e a Entidade são obrigatórios para a conta a receber/a pagar {0}
+Party Type is mandatory,O Tipo de Entidade é obrigatório
+Party User,Utilizador da Entidade
+Party can only be one of {0},A Entidade só pode ser uma das seguintes: {0}
 Passed,Aprovado
 Passport Details,Detalhes do passaporte
 Passport Number,Número do passaporte
@@ -4402,7 +4402,7 @@ Please select Existing Company for creating Chart of Accounts,Selecione a empres
 Please select Finished Good Item for Service Item {0},Selecione Item de produto acabado para item de serviço {0}
 Please select Item Code first,Selecione o código do item primeiro
 Please select Maintenance Status as Completed or remove Completion Date,Selecione o status de manutenção como concluído ou remova a data de conclusão
-Please select Party Type first,Selecione primeiro o tipo de festa
+Please select Party Type first,Selecione primeiro o tipo de entidade
 Please select Periodic Accounting Entry Difference Account,Selecione Conta de diferença de lançamento contábil periódico
 Please select Posting Date before selecting Party,Selecione a data de postagem antes de selecionar a parte
 Please select Posting Date first,Selecione a data de postagem primeiro
@@ -5470,7 +5470,7 @@ Rule Applied,Regra aplicada
 Rule Description,Descrição da regra
 Run parallel job cards in a workstation,Execute cartões de trabalho paralelos em uma estação de trabalho
 Running,Correndo
-S.O. No.,ENTÃO. Não.
+S.O. No.,SOS Nº.
 SABB-.########,SABB-.#########
 SAL-CAM-.YYYY.-,SAL-CAM-.AAAA.-
 SAL-ORD-.YYYY.-,SAL-ORD-.AAAA.-
@@ -6508,7 +6508,7 @@ To Employee,Para funcionário
 To Folio No,Para o Fólio Não
 To Invoice Date,Até a data da fatura
 To No,Para não
-To Package No.,Para o pacote não.
+To Package No.,Para o pacote nº.
 To Pay,Pagar
 To Payment Date,Até a data de pagamento
 To Produce,Para produzir

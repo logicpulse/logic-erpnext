@@ -617,12 +617,12 @@ erpnext.buying.PurchaseOrderController = class PurchaseOrderController extends (
 
 									frappe.msgprint(
 										"Assigning " +
-											d.mr_name +
-											" to " +
-											d.item_code +
-											" (row " +
-											me.frm.doc.items[i].idx +
-											")"
+										d.mr_name +
+										" to " +
+										d.item_code +
+										" (row " +
+										me.frm.doc.items[i].idx +
+										")"
 									);
 									if (qty > 0) {
 										frappe.msgprint("Splitting " + qty + " units of " + d.item_code);
