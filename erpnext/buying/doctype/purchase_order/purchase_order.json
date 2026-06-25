@@ -1314,7 +1314,6 @@
   {
    "fieldname": "supplier_id_at_pos",
    "fieldtype": "Data",
-   "hidden": 1,
    "label": "Id do Fornecedor no POS"
   }
  ],
@@ -1323,7 +1322,7 @@
  "idx": 105,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-06-16 17:36:07.879490",
+ "modified": "2026-06-24 14:58:48.106515",
  "modified_by": "Administrator",
  "module": "Buying",
  "name": "Purchase Order",
