@@ -3,6 +3,7 @@
 
 import frappe
 import math
+import random
 import time
 # from frappe.website.website_generator import WebsiteGenerator
 import frappe 
@@ -60,7 +61,70 @@ DEFAULT_CATALOG_SPREADSHEET_ID = "1Nm6YatjJrugBxM38yaXlIJgLHfVAMCnnMLw83lga5YQ"
 SHORT_SHEETS = ["Gestão de Bibliotecas", "Gestão industrial"]
 CATALOG_PRICE_LISTS = ("PVR-PT", "PVP-PT", "PVP-AO", "PVP-MZ")
 CATALOG_ITEM_LIST_FILTER_COMPANY = "Logicpulse PT"
+SHEETS_MAX_RETRIES = 6
+SHEETS_MAX_BACKOFF_SEC = 64
 
+
+def _is_sheets_rate_limit_error(exc: Exception) -> bool:
+	from gspread.exceptions import APIError
+
+	if isinstance(exc, APIError):
+		return exc.code == 429 or getattr(exc.response, "status_code", None) == 429
+	return False
+
+
+def sheets_api_call_with_backoff(
+	func,
+	*,
+	max_retries: int = SHEETS_MAX_RETRIES,
+	maximum_backoff: float = SHEETS_MAX_BACKOFF_SEC,
+):
+	"""Executa chamada à API Google Sheets com backoff exponencial truncado (erro 429)."""
+	for attempt in range(max_retries + 1):
+		try:
+			return func()
+		except Exception as exc:
+			if not _is_sheets_rate_limit_error(exc) or attempt >= max_retries:
+				raise
+			delay = min((2**attempt) + random.uniform(0, 1), maximum_backoff)
+			time.sleep(delay)
+
+
+@dataclass
+class CatalogSheetSnapshot:
+	"""Leitura em memória da folha, válida só durante uma sincronização.
+
+	Não é cache persistente: cada chamada de sync faz nova leitura à API do Google Sheets.
+	"""
+	rows: list[list]
+	formula_rows: list[list] | None
+	ref_col_index: int
+
+def get_catalog_ref_column_index(sheet_name: str) -> int:
+	"""Índice 0-based da coluna Ref. na linha devolvida por get_all_values."""
+	return 6 if sheet_name not in SHORT_SHEETS else 4
+
+def fetch_catalog_sheet_snapshot(sheet, sheet_name: str) -> CatalogSheetSnapshot:
+	"""Lê a folha inteira da API (dados atuais) em 1–2 pedidos, para processar em memória."""
+	ref_col_index = get_catalog_ref_column_index(sheet_name)
+	rows = sheets_api_call_with_backoff(
+		lambda: sheet.get_all_values(value_render_option="UNFORMATTED_VALUE")
+	)
+	formula_rows = None
+	if sheet_name not in SHORT_SHEETS:
+		formula_rows = sheets_api_call_with_backoff(
+			lambda: sheet.get_all_values(value_render_option="FORMULA")
+		)
+	return CatalogSheetSnapshot(rows=rows, formula_rows=formula_rows, ref_col_index=ref_col_index)
+
+def find_row_index_in_snapshot(snapshot: CatalogSheetSnapshot, ref_key: str) -> int | None:
+	key = (ref_key or "").strip()
+	for i, row in enumerate(snapshot.rows):
+		if len(row) <= snapshot.ref_col_index:
+			continue
+		if str(row[snapshot.ref_col_index]).strip() == key:
+			return i
+	return None
 
 def user_has_catalog_item_list_filter_permission(user=None):
 	user = user or frappe.session.user
@@ -76,7 +140,6 @@ def user_has_catalog_item_list_filter_permission(user=None):
 			},
 		)
 	)
-
 
 def get_catalog_mapped_item_codes():
 	"""Itens com preço de venda nas quatro listas de preço do catálogo."""
@@ -94,7 +157,6 @@ def get_catalog_mapped_item_codes():
 		as_dict=True,
 	)
 	return [r["item_code"] for r in rows]
-
 
 @frappe.whitelist()
 def get_catalog_mapped_item_codes_for_list():
@@ -119,7 +181,7 @@ def get_catalog_spreadsheet():
 	]
 	creds = ServiceAccountCredentials.from_json_keyfile_name(creds_path, scope)
 	client = gspread.authorize(creds)
-	return client.open_by_key(key)
+	return sheets_api_call_with_backoff(lambda: client.open_by_key(key))
 
 @frappe.whitelist()
 def get_catalog(ref: str, spreadsheet_id: str, sheet_name: str, cell_range: str, country: str, price_type: str, compress: bool):
@@ -360,9 +422,9 @@ def get_values(spreadsheet_id, sheet_name, cell_range):
     creds = ServiceAccountCredentials.from_json_keyfile_name(creds_path, scope)
     client = gspread.authorize(creds)
 
-    sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
-    values = sheet.get(cell_range)
-    valuesForm = sheet.get(cell_range, value_render_option='FORMULA')
+    sheet = sheets_api_call_with_backoff(lambda: client.open_by_key(spreadsheet_id).worksheet(sheet_name))
+    values = sheets_api_call_with_backoff(lambda: sheet.get(cell_range))
+    valuesForm = sheets_api_call_with_backoff(lambda: sheet.get(cell_range, value_render_option='FORMULA'))
  
     for i, row in enumerate(valuesForm):
         for j, cell in enumerate(row): 
@@ -434,25 +496,22 @@ def synchronize_item_prices_with_spreadsheet(ref: str):
     
     try:
         for data in datas:
-            sheet_name = data.get("sheet_name")  
-            sheet, col_g = get_catalog_worksheet_and_ref_column(spreadsheet, sheet_name)
-            row_number = find_row_number_for_ref(col_g, ref_key)
-    
-            if row_number is not None:
-                print(f'sheet_name: {sheet_name} | row_number: {row_number}') 
-                item_price_pt_pvr, item_price_pt, item_price_ao, item_price_mz = get_catalog_item_prices_for_item(ref_key, doc_name)
-            
-                line = sheet.row_values(row_number, value_render_option="UNFORMATTED_VALUE")
-                line_formula = sheet.row_values(row_number, value_render_option="FORMULA")
-                # print(f'line: {line}')
-                # print(f'line_formula: {line_formula}')
-                
-                price_pt_pvr, price_pt, price_ao, price_mz = get_sheet_prices_from_line(line, sheet_name)
-                image = clean_image_formula(line_formula[8]) if sheet_name not in SHORT_SHEETS else None
+            sheet_name = data.get("sheet_name")
+            sheet = sheets_api_call_with_backoff(lambda sn=sheet_name: spreadsheet.worksheet(sn))
+            snapshot = fetch_catalog_sheet_snapshot(sheet, sheet_name)
+            row_index = find_row_index_in_snapshot(snapshot, ref_key)
 
-                ok, err = validate_sheet_prices(price_pt_pvr, price_pt, price_ao, price_mz)
-                if not ok:
-                    return {"success": False, "message": err}
+            if row_index is not None:
+                print(f'sheet_name: {sheet_name} | row_number: {row_index + 1}')
+                item_price_pt_pvr, item_price_pt, item_price_ao, item_price_mz = get_catalog_item_prices_for_item(ref_key, doc_name)
+
+                line = snapshot.rows[row_index]
+                line_formula = snapshot.formula_rows[row_index] if snapshot.formula_rows else None
+
+                price_pt_pvr, price_pt, price_ao, price_mz = normalize_sheet_prices(
+                    *get_sheet_prices_from_line(line, sheet_name)
+                )
+                image = clean_image_formula(line_formula[8]) if line_formula and sheet_name not in SHORT_SHEETS else None
 
                 apply_catalog_prices_to_item_prices(
                     doc_name, 
@@ -477,9 +536,9 @@ def synchronize_item_prices_with_spreadsheet(ref: str):
     }
 
 def get_catalog_worksheet_and_ref_column(spreadsheet, sheet_name: str):
-    sheet = spreadsheet.worksheet(sheet_name)
+    sheet = sheets_api_call_with_backoff(lambda: spreadsheet.worksheet(sheet_name))
     ref_col = 7 if sheet_name not in SHORT_SHEETS else 5
-    col_values = sheet.col_values(ref_col)
+    col_values = sheets_api_call_with_backoff(lambda: sheet.col_values(ref_col))
     return sheet, col_values
 
 def find_row_number_for_ref(col_values: list[int | float | str | None], ref_key: str) -> int | None: 
@@ -533,29 +592,20 @@ def apply_catalog_prices_to_item_prices(doc_name: str, pairs: list[tuple[object,
         frappe.db.set_value(doc_name, row.name, "price_list_rate", rate)
     return True
 
-def validate_sheet_prices(price_pt_pvr, price_pt, price_ao, price_mz, *, allow_negative=False):
-    """Valida os preços lidos da folha antes de gravar em Item Price.
-    Devolve (ok: bool, error_message: str | None). Se ok é False, error_message
-    descreve o primeiro campo inválido.
-    """
-    labels = (
-        (price_pt_pvr, "PVR PT (planilha)"),
-        (price_pt, "PVP PT (planilha)"),
-        (price_ao, "PVP AO (planilha)"),
-        (price_mz, "PVP MZ (planilha)"),
-    )
-    for raw, label in labels:
-        if raw is None or (isinstance(raw, str) and not str(raw).strip()):
-            return False, f"{label}: valor vazio."
-        try:
-            n = float(raw)
-        except (TypeError, ValueError):
-            return False, f"{label}: valor não numérico ({raw!r})."
-        if not math.isfinite(n):
-            return False, f"{label}: valor inválido (não finito)."
-        if not allow_negative and n < 0:
-            return False, f"{label}: não pode ser negativo ({n})."
-    return True, None
+def normalize_sheet_prices(price_pt_pvr, price_pt, price_ao, price_mz) -> tuple[float, float, float, float]:
+	"""Normaliza preços da planilha; valores vazios passam a 0."""
+	def to_price(raw) -> float:
+		if raw is None or (isinstance(raw, str) and not str(raw).strip()):
+			return 0.0
+		try:
+			n = float(raw)
+		except (TypeError, ValueError):
+			return 0.0
+		if not math.isfinite(n) or n < 0:
+			return 0.0
+		return n
+
+	return to_price(price_pt_pvr), to_price(price_pt), to_price(price_ao), to_price(price_mz)
 
 def convert_list_to_model(values: list[list[str]]) -> list[ProdutModel]:
     if not values or len(values) < 3:
@@ -827,28 +877,26 @@ def synchronize_item_prices_with_spreadsheet_by_sheet_name(sheet_name: str):
     """
     doc_name = "Item Price"
     spreadsheet = get_catalog_spreadsheet()
-    sheet, col_g = get_catalog_worksheet_and_ref_column(spreadsheet, sheet_name)
+    sheet = sheets_api_call_with_backoff(lambda: spreadsheet.worksheet(sheet_name))
 
     try:
         mapped_items_codes = get_catalog_mapped_item_codes()
+        snapshot = fetch_catalog_sheet_snapshot(sheet, sheet_name)
 
-        # print(f'Items ➡️ {mapped_items_codes}')
         updated_count = 0
         for item_code in mapped_items_codes:
-            row_number = find_row_number_for_ref(col_g, item_code)
+            row_index = find_row_index_in_snapshot(snapshot, item_code)
 
-            if row_number is None:
+            if row_index is None:
                 continue
 
             item_price_pt_pvr, item_price_pt, item_price_ao, item_price_mz = get_catalog_item_prices_for_item(item_code)
-            line = sheet.row_values(row_number, value_render_option="UNFORMATTED_VALUE")
-            line_formula = sheet.row_values(row_number, value_render_option="FORMULA")
-            price_pt_pvr, price_pt, price_ao, price_mz = get_sheet_prices_from_line(line, sheet_name)
-            image = clean_image_formula(line_formula[8]) if sheet_name not in SHORT_SHEETS else None
-
-            ok, err = validate_sheet_prices(price_pt_pvr, price_pt, price_ao, price_mz)
-            if not ok:
-                return {"success": False, "message": f"{item_code}: {err}"}
+            line = snapshot.rows[row_index]
+            line_formula = snapshot.formula_rows[row_index] if snapshot.formula_rows else None
+            price_pt_pvr, price_pt, price_ao, price_mz = normalize_sheet_prices(
+                *get_sheet_prices_from_line(line, sheet_name)
+            )
+            image = clean_image_formula(line_formula[8]) if line_formula and sheet_name not in SHORT_SHEETS else None
 
             apply_catalog_prices_to_item_prices(
                 doc_name,
@@ -860,10 +908,8 @@ def synchronize_item_prices_with_spreadsheet_by_sheet_name(sheet_name: str):
                 ],
             )
             if image:
-                frappe.db.set_value("Item", item_code, "image", image) 
+                frappe.db.set_value("Item", item_code, "image", image)
             updated_count += 1
-            # Espaça leituras à API do Google Sheets (evita 429 read requests / minuto)
-            time.sleep(0.35)
 
         return {
             "success": True,
@@ -886,7 +932,7 @@ def synchronize_all_item_prices_with_spreadsheet():
     ]
     updated_count = 0
     try:
-        for i, sheet_name in enumerate(SHEET_NAMES):
+        for sheet_name in SHEET_NAMES:
             result = synchronize_item_prices_with_spreadsheet_by_sheet_name(sheet_name)
             if result["success"]:
                 updated_count += result["updated_count"]
@@ -897,8 +943,6 @@ def synchronize_all_item_prices_with_spreadsheet():
                     "message": f'Folha «{sheet_name}»: {result.get("message") or "Erro desconhecido."}',
                     "updated_count": updated_count,
                 }
-            if i < len(SHEET_NAMES) - 1:
-                time.sleep(2.5)
     except Exception as e:
         print(f'Ocorreu um erro ao sincronizar preços de todos os artigos: {str(e)}')
         return {
