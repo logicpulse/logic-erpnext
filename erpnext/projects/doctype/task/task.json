@@ -34,6 +34,10 @@
   "progress",
   "is_milestone",
   "sb_details",
+  "customer_id",
+  "column_break_lp_contact",
+  "customer_contact",
+  "section_break_lp_description",
   "description",
   "dependencies_tab",
   "sb_depends_on",
@@ -162,7 +166,8 @@
    "fieldtype": "Datetime",
    "label": "Expected Start Date",
    "oldfieldname": "exp_start_date",
-   "oldfieldtype": "Date"
+   "oldfieldtype": "Date",
+   "reqd": 1
   },
   {
    "default": "0",
@@ -189,6 +194,7 @@
    "label": "Expected End Date",
    "oldfieldname": "exp_end_date",
    "oldfieldtype": "Date",
+   "reqd": 1,
    "search_index": 1
   },
   {
@@ -417,6 +423,29 @@
   {
    "fieldname": "column_break_vvfp",
    "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: !doc.project",
+   "fieldname": "customer_id",
+   "fieldtype": "Link",
+   "label": "Cliente",
+   "options": "Customer"
+  },
+  {
+   "depends_on": "eval: !doc.project",
+   "fieldname": "column_break_lp_contact",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: !doc.project",
+   "fieldname": "customer_contact",
+   "fieldtype": "HTML",
+   "label": "Contacto",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_lp_description",
+   "fieldtype": "Section Break"
   }
  ],
  "icon": "fa fa-check",
@@ -424,7 +453,7 @@
  "is_tree": 1,
  "links": [],
  "max_attachments": 5,
- "modified": "2026-04-23 19:09:34.208759",
+ "modified": "2026-08-18 17:02:00.000000",
  "modified_by": "Administrator",
  "module": "Projects",
  "name": "Task",
